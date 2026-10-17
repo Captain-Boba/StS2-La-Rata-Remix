@@ -6,7 +6,31 @@ The optional endgame path and the first La Rata boss are included in this protot
 
 ## Installation
 
-Close the game. Copy the `LaRata` folder containing `LaRata.dll`, `LaRata.json` and `LaRata.pck` into `Slay the Spire 2/mods`, install BaseLib 3.4.7, then enable both mods in-game. Remove `--nomods` from the launch options when you want to play with mods. Every player needs the same game version and identical mod files. Start a **new run** to receive the two additional potion slots. Do not change mod versions during a run.
+You need the **compiled package**, such as `LaRata-0.6.0.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
+
+**Download:** [LaRata-0.6.0.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.6.0/LaRata-0.6.0.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.6.0) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.6.0.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
+
+1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
+2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
+3. Inside that game directory, create a folder named **`mods`** if it does not exist. The name is plural: `mods`, not `mod`.
+4. Extract the compiled ZIP and copy its **`LaRata`** folder into `mods`. The three runtime files must be directly inside `mods/LaRata`, without an extra nested `LaRata` folder.
+5. Install [BaseLib **3.4.7**](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.7) separately, using the author's `BaseLib.3.4.7.zip` package and instructions. It is required and is not bundled with La Rata.
+6. Remove `--nomods` from Steam's launch options, start the game and enable La Rata and BaseLib in the mod menu. Follow any restart prompt.
+7. Start a **new run**. Every co-op player needs the same game version and identical mod files. Do not change mod versions during an active run.
+
+Required La Rata layout on Windows:
+
+```text
+Slay the Spire 2/
+├── SlayTheSpire2.exe
+└── mods/                     ← create this folder if missing
+    └── LaRata/               ← copy this folder from the compiled ZIP
+        ├── LaRata.dll
+        ├── LaRata.json
+        └── LaRata.pck
+```
+
+To update, close the game and replace those three La Rata files with the matching files from the new package. Keep BaseLib installed. If the mod does not appear, check the folder nesting, the three filenames, BaseLib and the `--nomods` launch option first.
 
 The game uses separate modded profiles. This mod does not erase, reset, migrate or unlock progress. Original game files are never modified. Removing the LaRata folder disables it for subsequent runs. Keep La Rata and BaseLib installed while a run contains custom relics, events or the bonus act.
 
