@@ -26,8 +26,18 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Nodes.Screens.GameOverScreen;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
+using MegaCrit.Sts2.Core.Unlocks;
 
 namespace LaRata;
+
+// Unknown rooms may resolve to treasure in the bonus act; the native constructor
+// validates only the three regular chest tiers. RatDomain uses Glory's chest art.
+[HarmonyPatch(typeof(TreasureRoom), MethodType.Constructor, [typeof(int)])]
+internal static class BonusTreasureTierPatch
+{
+    [HarmonyPrefix] private static void Prefix(ref int actIndex)
+    { if (actIndex >= 3 && RunManager.Instance.DebugOnlyGetState()?.Act is RatDomain) actIndex = 2; }
+}
 
 // The native table only defines acts 0..2. Keep its HP/block rules for the
 // bonus act, including the stronger boss factor, without replacing the table.
@@ -103,7 +113,7 @@ internal static class Endgame
         else
         {
             var act = (RatDomain)ModelDb.Act<RatDomain>().ToMutable();
-            act.GenerateRooms(new Rng(run.Rng.Seed, "LaRata/BonusRooms/v1"), run.UnlockState, run.Players.Count > 1);
+            act.GenerateRooms(new Rng(run.Rng.Seed, "LaRata/BonusRooms/v2"), run.UnlockState, run.Players.Count > 1);
             index = run.Acts.Count;
             AccessTools.PropertySetter(typeof(RunState), nameof(RunState.Acts)).Invoke(run, new object[] { run.Acts.Append(act).ToArray() });
         }
@@ -169,7 +179,7 @@ public sealed class RatInvitation : CustomEventModel
     public override List<(string, string)> Localization =>
     [
         ("title", "You Are Not Prepared"),
-        ("pages.INITIAL.description", "Your victory is secure. Beyond the Spire, the Rat King waits.\n\nAn optional path lies ahead: three unknown rooms, a shop, and La Rata. Even defeat here will preserve your regular victory.\n\nEvery player must agree to enter."),
+        ("pages.INITIAL.description", "Your victory is secure. Beyond the Spire, the Rat King waits.\n\nRecover with an unseen Ancient, then visit a shop, an unknown room, an elite and a campfire before facing La Rata and his royal deck. Even defeat here will preserve your regular victory.\n\nEvery player must agree to enter."),
         ("pages.INITIAL.options.ENTER.title", "Enter the Rat King's domain"),
         ("pages.INITIAL.options.ENTER.description", "Face the optional final challenge. Requires unanimous agreement."),
         ("pages.INITIAL.options.LEAVE.title", "End the run"),
@@ -200,8 +210,16 @@ public sealed class RatDomain : CustomActModel, ILocalizationProvider
 {
     public RatDomain() : base(4, false) { }
     public List<(string, string)> Localization => [("title", "The Rat King's Domain")];
-    protected override int BaseNumberOfRooms => 4;
-    public override IEnumerable<AncientEventModel> AllAncients => ModelDb.Act<Glory>().AllAncients;
+    protected override int BaseNumberOfRooms => 5;
+    public override IEnumerable<AncientEventModel> AllAncients => ModelDb.AllAncients
+        .Where(a => a.GetType().Assembly == typeof(AncientEventModel).Assembly && a is not Neow);
+    public override IEnumerable<AncientEventModel> GetUnlockedAncients(UnlockState state)
+    {
+        var run = RunManager.Instance.DebugOnlyGetState();
+        var seen = run?.MapPointHistory.SelectMany(x => x).SelectMany(x => x.Rooms)
+            .Where(x => x.ModelId != null).Select(x => x.ModelId!).ToHashSet() ?? [];
+        return AllAncients.Where(a => !seen.Contains(a.Id)).OrderBy(a => a.Id.Entry, StringComparer.Ordinal).ToArray();
+    }
     public override IEnumerable<EventModel> AllEvents => ModelDb.Act<Glory>().AllEvents;
     public override IEnumerable<EncounterModel> GenerateAllEncounters() => ModelDb.Act<Glory>().AllEncounters.Where(e => e.RoomType != RoomType.Boss).Append(ModelDb.Encounter<RatKingEncounter>());
     protected override string CustomMapTopBgPath => ModelDb.Act<Glory>().MapTopBgPath;
@@ -213,15 +231,16 @@ public sealed class RatDomain : CustomActModel, ILocalizationProvider
 
 internal sealed class RatPathMap : ActMap
 {
-    protected override MapPoint?[,] Grid { get; } = new MapPoint?[7, 4];
-    public override MapPoint StartingMapPoint { get; } = new(3, 0) { PointType = MapPointType.Unknown };
-    public override MapPoint BossMapPoint { get; } = new(3, 4) { PointType = MapPointType.Boss };
+    protected override MapPoint?[,] Grid { get; } = new MapPoint?[7, 5];
+    public override MapPoint StartingMapPoint { get; } = new(3, 0) { PointType = MapPointType.Ancient };
+    public override MapPoint BossMapPoint { get; } = new(3, 5) { PointType = MapPointType.Boss };
     internal RatPathMap()
     {
         MapPoint previous = StartingMapPoint;
-        for (int row = 1; row <= 3; row++)
+        MapPointType[] types = [MapPointType.Shop, MapPointType.Unknown, MapPointType.Elite, MapPointType.RestSite];
+        for (int row = 1; row <= 4; row++)
         {
-            var next = new MapPoint(3, row) { PointType = row == 3 ? MapPointType.Shop : MapPointType.Unknown };
+            var next = new MapPoint(3, row) { PointType = types[row - 1] };
             Grid[3, row] = next;
             previous.AddChildPoint(next);
             previous = next;
@@ -341,7 +360,7 @@ internal static class BonusMapWordsPatch
         string[] words = ["YOU", "ARE", "NOT", "PREPARED"];
         for (int row = 0; row < words.Length; row++)
         {
-            if (!____mapPointDictionary.TryGetValue(new MapCoord(3, row), out var point) || point.HasNode("LaRataWord")) continue;
+            if (!____mapPointDictionary.TryGetValue(new MapCoord(3, row + 1), out var point) || point.HasNode("LaRataWord")) continue;
             var source = __instance.GetNode<MegaLabel>("MapLegend/Header");
             var label = (MegaLabel)source.Duplicate((int)Node.DuplicateFlags.Scripts);
             label.Name = "LaRataWord";

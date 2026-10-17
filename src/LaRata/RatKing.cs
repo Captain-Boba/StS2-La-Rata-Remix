@@ -1,5 +1,6 @@
 using BaseLib.Abstracts;
 using Godot;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -10,69 +11,110 @@ using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Rooms;
-using MegaCrit.Sts2.Core.ValueProps;
 using MegaCrit.Sts2.Core.Localization;
-using MegaCrit.Sts2.Core.Hooks;
+using MegaCrit.Sts2.Core.Combat;
 
 namespace LaRata;
 
 public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
 {
-    public override int MinInitialHp => 430;
-    public override int MaxInitialHp => 430;
+    private RoyalDeck? deck;
+    internal RoyalDeck? Deck => deck;
+    internal int PendingStrength { get; set; }
+    private int preparedTurns;
+    private int? regaliaMask;
+    internal int RegaliaMask => regaliaMask ??= RoyalRegaliaPower.Choose(EncounterDirector.Random(CombatState.RunState, CombatState.Encounter!, "royal-relics"));
+    public override int MinInitialHp => 1080;
+    public override int MaxInitialHp => 1080;
     public override string? CustomVisualPath => "res://LaRata/scenes/rat_king.tscn";
     public List<(string, string)> Localization =>
     [
         ("name", "La Rata"),
-        ("moves.ROYAL_DECREE.title", "Royal Decree"),
-        ("moves.TAX_COLLECTION.title", "Tax Collection"),
-        ("moves.SCEPTER_STRIKES.title", "Scepter Strikes"),
-        ("moves.EXPOSED_CROWN.title", "Exposed Crown"),
-        ("decree.description", "Applies 2 Weak and 2 Frail to every living player."),
-        ("crown.description", "Gains {Block} Block and applies 2 Vulnerable to itself. The crown is exposed: attack next turn!")
+        ("moves.ROYAL_HAND.title", "The Royal Hand"),
+        ("deck.description", "{Plan}"),
     ];
+
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
-        var decree = new MoveState("ROYAL_DECREE", Decree, new RoyalDecreeIntent());
-        var levy = new MoveState("TAX_COLLECTION", Levy, new SingleAttackIntent(20));
-        var scepter = new MoveState("SCEPTER_STRIKES", Scepter, new MultiAttackIntent(7, 3));
-        var crown = new MoveState("EXPOSED_CROWN", Crown, new ExposedCrownIntent());
-        decree.FollowUpState = levy; levy.FollowUpState = scepter; scepter.FollowUpState = crown; crown.FollowUpState = decree;
-        return new MonsterMoveStateMachine([decree, levy, scepter, crown], decree);
+        var turn = new MoveState("ROYAL_HAND", PlayHand, new RoyalHandIntent());
+        var draw = new RoyalDrawState(() => PrepareHand(turn));
+        turn.FollowUpState = draw;
+        // Include the complete intent asset set even during canonical preload.
+        var assets = new MoveState("ROYAL_ASSETS", _ => Task.CompletedTask,
+            new SingleAttackIntent(12), new MultiAttackIntent(7, 3), new DefendIntent(), new DebuffIntent(), new BuffIntent(), new StatusIntent(3));
+        return new MonsterMoveStateMachine([turn, draw, assets], draw);
     }
-    private async Task Decree(IReadOnlyList<Creature> targets)
+
+    private string PrepareHand(MoveState turn)
     {
-        await CreatureCmd.TriggerAnim(Creature, "Cast", .4f);
+        if (deck == null)
+        {
+            var rng = EncounterDirector.Random(CombatState.RunState, CombatState.Encounter ?? throw new InvalidOperationException("Royal deck needs an encounter."), "royal-deck");
+            deck = new RoyalDeck(n => rng.NextInt(n));
+        }
+        deck.Prepare((Creature.CurrentHp * 2 <= Creature.MaxHp ? 4 : 3) + (preparedTurns++ == 0 && (RegaliaMask & (1 << 8)) != 0 ? 1 : 0));
+        PendingStrength = deck.Planned.Contains(7) ? 2 : 0;
+        var cards = RoyalCard.All;
+        var intents = deck.Planned.SelectMany(i => cards[i].GetIntents(this)).ToList();
+        if (!deck.Planned.Any(RoyalDeck.IsAttack)) intents.Add(new SingleAttackIntent(() => 12 + PendingStrength));
+        intents.Add(new RoyalHandIntent());
+        AccessTools.PropertySetter(typeof(MoveState), nameof(MoveState.Intents)).Invoke(turn, [intents]);
+        ModEntry.Log.Info($"ROYAL PLAN {deck.Snapshot}");
+        return turn.Id;
+    }
+
+    private async Task PlayHand(IReadOnlyList<Creature> targets)
+    {
+        var activeDeck = deck ?? throw new InvalidOperationException("Royal hand was not prepared.");
+        int[] plan = activeDeck.Planned.ToArray();
+        var cards = RoyalCard.All;
+        bool execution = false;
+        foreach (int index in plan)
+        {
+            if (!Creature.IsAlive || CombatManager.Instance.IsEnding) break;
+            activeDeck.Spend(index);
+            ModEntry.Log.Info($"ROYAL PLAY card={cards[index].Id.Entry} {activeDeck.Snapshot}");
+            var preview = await RoyalDeckView.Show(this, cards[index]);
+            await cards[index].Resolve(this, targets);
+            RoyalDeckView.Dismiss(preview);
+            execution |= index == 2;
+        }
+        if (!plan.Any(RoyalDeck.IsAttack) && Creature.IsAlive && !CombatManager.Instance.IsEnding)
+            await DamageCmd.Attack(12).FromMonster(this).WithAttackerAnim("Attack", .3f).Execute(new ThrowingPlayerChoiceContext());
+        if (execution && Creature.IsAlive && !CombatManager.Instance.IsEnding)
+            await PowerCmd.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), targets.Where(c => c.IsAlive), 2, Creature, null);
+        activeDeck.Finish();
+        if (Creature.IsAlive) await CreatureCmd.TriggerAnim(Creature, "Idle", 0);
+    }
+
+    public override async Task BeforeCombatStart()
+    {
         var context = new ThrowingPlayerChoiceContext();
-        await PowerCmd.Apply<WeakPower>(context, targets.Where(t => t.IsAlive), 2, Creature, null);
-        await PowerCmd.Apply<FrailPower>(context, targets.Where(t => t.IsAlive), 2, Creature, null);
-        ModEntry.Log.Info("RAT KING Royal Decree: 2 Weak, 2 Frail.");
-    }
-    private async Task Levy(IReadOnlyList<Creature> _) => await DamageCmd.Attack(20).FromMonster(this).WithAttackerAnim("Attack", .25f).WithHitFx("vfx/vfx_attack_blunt").Execute(null);
-    private async Task Scepter(IReadOnlyList<Creature> _) => await DamageCmd.Attack(7).WithHitCount(3).FromMonster(this).WithAttackerAnim("Attack", .25f).WithHitFx("vfx/vfx_attack_slash").Execute(null);
-    private async Task Crown(IReadOnlyList<Creature> _)
-    {
-        await CreatureCmd.TriggerAnim(Creature, "Cast", .4f);
-        await CreatureCmd.GainBlock(Creature, 25, ValueProp.Move, null);
-        await PowerCmd.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), Creature, 2, Creature, null);
-        ModEntry.Log.Info("RAT KING Exposed Crown: 25 Block, self 2 Vulnerable; attack window.");
+        await PowerCmd.Apply<RoyalRegaliaPower>(context, Creature, RegaliaMask, Creature, null);
+        if ((RegaliaMask & 1) != 0) await PowerCmd.Apply<StrengthPower>(context, Creature, 1, Creature, null);
+        if ((RegaliaMask & 2) != 0) await PowerCmd.Apply<DexterityPower>(context, Creature, 1, Creature, null);
+        if ((RegaliaMask & 4) != 0) await CreatureCmd.GainBlock(Creature, 10, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move, null);
+        if ((RegaliaMask & 8) != 0) await PowerCmd.Apply<ThornsPower>(context, Creature, 3, Creature, null);
+        ModEntry.Log.Info($"ROYAL RELICS mask={RegaliaMask} {RoyalRegaliaPower.Describe(RegaliaMask)}");
     }
 }
 
-internal sealed class RoyalDecreeIntent : DebuffIntent
+internal sealed class RoyalDrawState(Func<string> prepare) : MonsterState
 {
-    protected override LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner) => new("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".decree.description");
+    public override string Id => "DRAW_ROYAL_HAND";
+    public override bool ShouldAppearInLogs => false;
+    public override string GetNextState(Creature owner, Rng rng) => prepare();
+    public override void RegisterStates(Dictionary<string, MonsterState> states) => states.Add(Id, this);
 }
 
-internal sealed class ExposedCrownIntent : DefendIntent
+internal sealed class RoyalHandIntent : BuffIntent
 {
     protected override LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner)
     {
-        var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".crown.description");
-        var block = owner.CombatState is { } combat
-            ? Hook.ModifyBlock(combat, owner, 25, ValueProp.Move, null, null, out _)
-            : 25;
-        description.Add("Block", (int)Math.Max(0, block));
+        var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".deck.description");
+        var deck = (owner.Monster as RatKing)?.Deck;
+        description.Add("Plan", "Draws a hidden hand from a 10-card deck. Plays spells and powers before attacking.\n" +
+            (deck == null ? "3 Energy, increasing to 4 below half HP." : $"Energy: {deck.Energy}/{deck.Capacity}. Draw: {deck.DrawCount}. Discard: {deck.DiscardCount}."));
         return description;
     }
 }

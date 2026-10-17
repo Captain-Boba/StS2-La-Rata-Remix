@@ -1,5 +1,7 @@
 # Endgame and treasure integration, 0.3.0
 
+Historical implementation notes. The current topology, enemy deck and validation status supersede the presentation details below; see [the current update report](UPDATE-0.5.0.md) and [design](DESIGN.md).
+
 Implementation notes, 2026-10-16. The original research-only 0.2.1 study is retained in artifacts/night-20261016/docs. Runtime evidence is tracked separately in TEST-REPORT.md.
 
 ## Established interfaces

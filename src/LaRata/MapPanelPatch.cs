@@ -35,7 +35,7 @@ internal static class MapPanelPatch
         panel.AddChild(body);
         CopyLabel(labelSource, body, Vector2.Zero, new Vector2(280, 36), 23).SetTextAutoSize("Gold gained: +25%");
         CopyLabel(labelSource, body, new Vector2(0, 36), new Vector2(280, 36), 23).SetTextAutoSize("Starting potion slots: +2");
-        CopyLabel(labelSource, body, new Vector2(0, 72), new Vector2(280, 36), 23).SetTextAutoSize("Encounters: 1–3 twists");
+        CopyLabel(labelSource, body, new Vector2(0, 72), new Vector2(280, 36), 23).SetTextAutoSize($"Twists: {Math.Clamp(runState.Players.Count, 1, 4)}x solo budget");
         CopyLabel(labelSource, body, new Vector2(0, 108), new Vector2(280, 36), 23).SetTextAutoSize("Final boss: unseen ally");
         var detail = CopyLabel(labelSource, body, new Vector2(0, 153), new Vector2(280, 50), 21);
         void Refresh()

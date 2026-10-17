@@ -1,4 +1,6 @@
-Current UI update: [0.3.1 visual and RPS test report](docs/UI-TEST-REPORT-0.3.1.md). The report below preserves the 0.3.0 gameplay and compatibility evidence, including its original hashes.
+Current update: [0.6.0 party-sized chaos](docs/UPDATE-0.6.0.md). 240,000 encounter policy cases passed; native-power gameplay, new formations and four-peer synchronization remain untested while UI tests are paused.
+
+Current update: [0.5.2 goblin animation and 0.5.1 Cleanse](docs/UPDATE-0.5.1.md), following [0.5.0 technical checks](docs/UPDATE-0.5.0.md). Assistant-driven interactive tests remain paused. Owner observations identify a third-party compatibility failure and a too-brief goblin appearance; neither is full gameplay or multiplayer acceptance. Previous evidence: [0.4.0 partial solo test report](docs/UPDATE-0.4.0.md) and [0.3.1 visual and RPS report](docs/UI-TEST-REPORT-0.3.1.md). The report below preserves the 0.3.0 evidence and original hashes; it does not validate later releases.
 
 # La Rata Remix 0.3.0 — technical test report
 

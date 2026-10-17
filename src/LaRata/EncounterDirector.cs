@@ -9,10 +9,17 @@ using MegaCrit.Sts2.Core.Runs;
 
 namespace LaRata;
 
-internal sealed class EncounterRules(EncounterPlan plan, MonsterModel leader)
+internal sealed class EncounterRules(EncounterPlan plan)
 {
     internal EncounterPlan Plan { get; } = plan;
-    internal MonsterModel Leader { get; } = leader;
+    internal MonsterModel[] Roster { get; set; } = [];
+    internal List<MonsterModel> Reinforcements { get; } = [];
+    internal IEnumerable<EnemyTwist> For(MonsterModel? monster)
+    {
+        int index = Array.FindIndex(Roster, m => ReferenceEquals(m, monster));
+        return index < 0 ? [] : Plan.Twists.Where(t => t.Target == index);
+    }
+    internal bool IsExtra(MonsterModel? monster) => monster != null && (ReferenceEquals(monster, Extra) || Reinforcements.Contains(monster));
     internal MonsterModel? Extra { get; set; }
     internal bool BossDuo { get; set; }
     internal EncounterModel? BossSource { get; set; }
@@ -25,7 +32,7 @@ internal static class EncounterDirector
     internal static readonly ConditionalWeakTable<EncounterModel, EncounterRules> Rules = new();
     internal static Rng Random(IRunState run, EncounterModel encounter, string purpose) =>
         new(unchecked(run.Rng.Seed + (uint)(run.TotalFloor * 7919 + run.CurrentActIndex * 104729)),
-            $"LaRata/v2/{encounter.Id.Entry}/{run.Players.Count}/{purpose}");
+            $"LaRata/v4/{encounter.Id.Entry}/{run.Players.Count}/{purpose}");
 
     internal static EncounterRules? Get(EncounterModel? encounter) =>
         encounter != null && Rules.TryGetValue(encounter, out var rules) ? rules : null;
@@ -45,7 +52,7 @@ internal static class EncounterDirector
         return run.Acts.Take(run.CurrentActIndex).SelectMany(x => x.AllBossEncounters)
             .Where(x => !seenEncounters.Contains(x.Id))
             .SelectMany(x => x.AllPossibleMonsters)
-            // Ceremonial Beast's absolute phase HP threshold is incompatible with reduced starting HP.
+            // Retain the verified autonomous helper allowlist; phase/scene-heavy bosses need a separate audit.
             .Where(x => x is Vantom or LagavulinMatriarch or WaterfallGiant or KnowledgeDemon)
             .Where(x => !seenMonsters.Contains(x.Id)).DistinctBy(x => x.Id)
             .OrderBy(x => x.Id.Entry, StringComparer.Ordinal).ToArray();
@@ -55,9 +62,8 @@ internal static class EncounterDirector
     {
         if (encounter is TwoTailedRatsNormal) return monsters.Count == 3;
         // Only autonomous, small creatures with no encounter/slot-specific setup.
-        return encounter.RoomType == RoomType.Monster && !encounter.IsWeak && !encounter.HasScene &&
-            !encounter.Slots.Any() && monsters.Count is >= 2 and <= 3 &&
-            monsters.Any(x => x.Item1 is Inklet or LeafSlimeS or Nibbit or Flyconid or CorpseSlug or FuzzyWurmCrawler);
+        return encounter.RoomType == RoomType.Monster && !encounter.HasScene &&
+            !encounter.Slots.Any() && monsters.Count is >= 1 and <= 3;
     }
 }
 
@@ -72,16 +78,15 @@ internal static class GenerateEncounterPatch
         if (__instance is RatKingEncounter || __instance.IsDebugEncounter || !__instance.ShouldGiveRewards || monsters.Count == 0 ||
             runState.Players.Count == 0 || EncounterDirector.Get(__instance) != null) return;
         var rng = EncounterDirector.Random(runState, __instance, "encounter");
-        var leader = monsters[rng.NextInt(monsters.Count)].Item1;
         if (EncounterDirector.IsFinalBoss(runState, __instance))
         {
             var candidates = EncounterDirector.BossCandidates(runState);
             if (candidates.Count > 0 && __instance is QueenBoss or TestSubjectBoss or AeonglassBoss)
             {
                 var extra = candidates[rng.NextInt(candidates.Count)].ToMutable();
-                var rules = new EncounterRules(EncounterPlan.BossDuo, leader)
+                var rules = new EncounterRules(EncounterPlan.BossDuo)
                 {
-                    Extra = extra, BossDuo = true, ExtraHpFactor = .45m + .05m * Math.Clamp(runState.Players.Count - 1, 0, 3),
+                    Extra = extra, BossDuo = true, ExtraHpFactor = 1m,
                     BossSource = runState.Acts.Take(runState.CurrentActIndex).SelectMany(x => x.AllBossEncounters)
                         .First(x => x.AllPossibleMonsters.Any(m => m.Id == extra.Id))
                 };
@@ -95,9 +100,11 @@ internal static class GenerateEncounterPatch
         }
         int tier = __instance.RoomType == RoomType.Boss ? 2 : __instance.RoomType == RoomType.Elite ? 1 : 0;
         var plan = EncounterPlan.Roll(n => rng.NextInt(n), runState.Players.Count, tier,
-            EncounterDirector.CanAddNormal(__instance, monsters), __instance is TwoTailedRatsNormal);
-        var state = new EncounterRules(plan, leader);
-        if (plan.Reinforcement)
+            EncounterDirector.CanAddNormal(__instance, monsters) ? (__instance is TwoTailedRatsNormal ? 1 : 2) : 0,
+            monsters.Count, __instance is TwoTailedRatsNormal);
+        var state = new EncounterRules(plan);
+        var expanded = monsters.ToList();
+        for (int i = 0; i < plan.ReinforcementCount; i++)
         {
             MonsterModel extra;
             string? slot = null;
@@ -111,14 +118,18 @@ internal static class GenerateEncounterPatch
             }
             else
             {
-                var pool = monsters.Where(x => x.Item1 is Inklet or LeafSlimeS or Nibbit or Flyconid or CorpseSlug or FuzzyWurmCrawler).ToArray();
-                extra = pool[rng.NextInt(pool.Length)].Item1.CanonicalInstance.ToMutable();
+                var pool = runState.Act.AllEncounters.SelectMany(x => x.AllPossibleMonsters)
+                    .Where(x => x is Inklet or LeafSlimeS or Nibbit or Flyconid or CorpseSlug or FuzzyWurmCrawler)
+                    .DistinctBy(x => x.Id).OrderBy(x => x.Id.Entry, StringComparer.Ordinal).ToArray();
+                extra = (pool.Length > 0 ? pool[rng.NextInt(pool.Length)] : ModelDb.Monster<Inklet>()).ToMutable();
             }
-            state.Extra = extra;
-            ____monstersWithSlots = [.. monsters, (extra, slot)];
+            state.Reinforcements.Add(extra);
+            expanded.Add((extra, slot));
         }
+        ____monstersWithSlots = expanded;
+        state.Roster = expanded.Select(x => x.Item1).ToArray();
         EncounterDirector.Rules.Add(__instance, state);
-        ModEntry.Log.Info($"DIRECTOR floor={runState.TotalFloor} encounter={__instance.Id.Entry} players={runState.Players.Count} budget={plan.Spent}/{plan.Budget} leader={leader.Id.Entry} rules={string.Join("; ", plan.Affixes)}");
+        ModEntry.Log.Info($"DIRECTOR floor={runState.TotalFloor} encounter={__instance.Id.Entry} players={runState.Players.Count} quarterBudget={plan.Spent}/{plan.Budget} roster={string.Join(",", state.Roster.Select(m => m.Id.Entry))} rules={string.Join("; ", plan.Affixes)}");
     }
 }
 

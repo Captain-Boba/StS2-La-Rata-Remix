@@ -18,7 +18,7 @@ public static class ModEntry
     {
         // Early Access changes private hooks frequently. Never silently run an unvalidated ruleset.
         if (ReleaseInfoManager.Instance.ReleaseInfo?.Version != "v0.107.1")
-            throw new NotSupportedException("La Rata Remix 0.3.1 requires Slay the Spire 2 v0.107.1.");
+            throw new NotSupportedException("La Rata Remix 0.6.0 requires Slay the Spire 2 v0.107.1.");
 
         var harmony = new Harmony(Id);
         AuditChecksums = CommandLineHelper.HasArg("larata-audit");
@@ -32,6 +32,6 @@ public static class ModEntry
             harmony.UnpatchAll(Id);
             throw;
         }
-        Log.Info("Loaded 0.3.1: controlled chaos; interactive RPS; Well; optional Rat King's domain. Same rules on every peer.");
+        Log.Info("Loaded 0.6.0: party-sized chaos; 31 twist families; distributed effects and up to two reinforcements; animated goblin and Cleanse.");
     }
 }

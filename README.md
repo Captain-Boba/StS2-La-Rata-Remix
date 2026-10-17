@@ -1,6 +1,6 @@
 # StS2 - La Rata Remix
 
-Standalone difficulty mod for **Slay the Spire 2 v0.107.1 (59260271)**. Version **0.3.1** adds native-styled menus and per-round hand animations to the treasure contests, Well and optional endgame prototype for 1–4 players. All mod-added text is English. The base game's language remains your choice.
+Standalone difficulty mod for **Slay the Spire 2 v0.107.1 (59260271)**. Version **0.6.0** adds party-sized chaos: 31 twist families, linear party budgets, distributed enemy effects and up to two small reinforcements. The animated potion goblin, Cleanse and royal encounter remain included. Supports 1–4 players. All mod-added text is English. The base game's language remains your choice. See [current implementation and validation limits](docs/UPDATE-0.6.0.md) and [the previous update](docs/UPDATE-0.5.0.md).
 
 The optional endgame path and the first La Rata boss are included in this prototype. See the [accepted design brief](docs/DESIGN.md) and [endgame integration study](docs/ENDGAME-INTEGRATION.md). The supplied [title artwork](La%20Rata%20Remix%20-%20Titelbild%20-%20V1.png) is the visual reference for the new mod-owned combat sprite.
 
@@ -16,9 +16,18 @@ The game uses separate modded profiles. This mod does not erase, reset, migrate 
 - **+2 potion slots at run creation**, normally five total. Other native effects may still alter capacity. Loading a save does not add another two slots.
 - **Collapsible map panel** below the map legend. Click `La Rata Remix` to expand or collapse it. The panel uses the native map-legend parchment and fonts. It stays fixed while scrolling and shows permanent effects and current potion capacity for each player.
 - **Controlled chaos:** seeded encounter changes within a shared difficulty budget, with at least one tactical effect instead of only raising health and damage.
-- **Final boss reinforcement:** the regular final boss gains a compatible boss from an earlier act that has not appeared in this run. The helper retains native mechanics and starts with 45/50/55/60% of its normal, already multiplayer-scaled HP for 1/2/3/4 players. The duo receives no additional generator affixes.
+- **Final boss reinforcement:** the regular final boss gains a compatible boss from an earlier act that has not appeared in this run. The helper retains native mechanics and now starts at **100% of its normal multiplayer-scaled HP** in every party size. The duo receives no additional generator affixes.
+- **Potion goblin:** one encounter per seeded block of three is selected for a visit between rounds, after the second or third enemy turn. Each living player receives a different randomly selected native potion splash. Short fights that end before the arrival skip the visit. Eight helpful and four harmful potions form the supported pool; no inventory slot is consumed. The splash resolves before the next player action phase, after block clearing, so Block Potion remains useful. His four poses show arrival, wind-up, throwing and laughter, with the selected native potion visible in his hand. Presentation takes about 5.6 seconds solo plus native effect delays; co-op repeats each throw. Instant mode no longer skips the appearance.
+
+## Neutral cards
+
+**Cleanse** is a rare neutral Skill in the native colorless pool: **2 Energy, Exhaust; upgraded cost 1**. It removes active Debuffs from yourself and every other living player, including negative Strength/Dexterity and temporary stat reductions. Beneficial powers remain; this does not remove Curse/Status cards from decks or heal HP. It uses La Rata's black frame and dark emerald banner, with a spectral fountain portrait. Native colorless shops/rewards/events can offer it. The existing base-game card with the same English name is unchanged; the new card has its own BaseLib-prefixed model ID.
 
 ## Treasure contests and Well
+
+In solo play, ordinary nonempty chests offer **three relics; choose one** through the game's existing chest interface. Effects that suppress the chest reward remain effective.
+
+**A Thousand Cuts** is a rare shared-pool relic for solo and co-op. Its owner may purchase card removal repeatedly in the same shop. Every removal uses the native payment and permanent price counter: normally 75, 100, 125 gold, and so on. Native discounts and restrictions still apply. Cancelling the card selection does not charge gold.
 
 When several players choose the same chest relic, each contender privately chooses Rock, Paper or Scissors. After everyone locks in, the game's original character hands shake and reveal the chosen signs. Losing hands play the native loss animation; the winner grabs the relic without a second fight announcement. One or three distinct hands tie; with two distinct hands the losing hand is eliminated. Survivors choose again until one remains. Uncontested relics and the game's consolation rewards keep their native behavior.
 
@@ -28,14 +37,26 @@ When several players choose the same chest relic, each contender privately choos
 
 After the regular finale, a shared invitation offers the bonus path. Entry requires every player to vote yes. A no vote takes the party to the Architect. Pending invitations restart voting after loading; a completed decision persists.
 
-The path contains **YOU (?) → ARE (?) → NOT (?) → PREPARED (shop)**, followed by La Rata. Unknown rooms use the game's normal resolver and the Glory content pools. No extra Ancient reward is added. The regular victory is retained in progression and run history if the party dies during the bonus. Defeating La Rata leads to the Architect and the ordinary ending.
+The path contains **an unseen Ancient → YOU (shop) → ARE (?) → NOT (elite) → PREPARED (rest site) → La Rata**. The Ancient is drawn from native Ancients across all acts, excluding Neow and anyone already visited this run. Its normal entry healing and reward logic apply, including native Ascension healing restrictions. The unknown room uses the game's normal resolver and Glory content pools. The regular victory is retained in progression and run history if the party dies during the bonus. Defeating La Rata leads to the Architect and the ordinary ending.
 
-La Rata starts with 430 base HP before native multiplayer scaling, accompanied by two Two-Tailed Rats. Its fixed, announced cycle is:
+La Rata starts with **1,080 base HP**, accompanied by two Two-Tailed Rats at **double their native HP**, including multiplayer scaling. The rats retain native skeletal animation with a dark emerald tint and green spirit particles. His standing sprite uses native Godot animation, with an 18-second smooth breathing, sway and glow cycle instead of frequent idle frame switches. Each turn he draws three cards from a seeded ten-card draw/discard deck, prioritizes expensive affordable cards, and spends **3 Energy, increasing to 4 at half HP or below**. Unplayed cards are discarded; the discard pile reshuffles when needed. His hand is hidden. Black cards with dark emerald banners appear only as they are played, using the native play-pile animation. Native attack intents still announce damage.
 
-1. **Royal Decree:** apply 2 Weak and 2 Frail to every living player.
-2. **Tax Collection:** attack for 20.
-3. **Scepter Strikes:** attack for 7 three times.
-4. **Exposed Crown:** gain 25 base Block (native co-op scaling applies; 130 in the tested four-player finale) and apply 2 Vulnerable to itself, opening a counterattack window.
+Every encounter gives him **five distinct combat relics**, selected from Vajra, Oddly Smooth Stone, Anchor, Bronze Scales, Horn Cleat, Captain's Wheel, Orichalcum, Mercury Hourglass and Lantern. Five native icons and the Royal Regalia tooltip explain the selected enemy adaptations. Lantern adds one Energy to his first hand. The selection replays on loading the same encounter; it does not reroll through save-scumming.
+
+| Card | Energy | Base effect |
+| --- | --- | --- |
+| Royal Tax | 1 | 12 damage to every player |
+| Scepter Storm | 1 | 7 damage three times to every player |
+| Off With Their Heads | 3 | 34 damage to every player, then 2 Vulnerable after all attacks |
+| Sewer Alchemy | 2 | Double player Poison, add 4; cap the resulting Poison at 14 |
+| Borrowed Tomorrow | 2 | 10 Doom and 1 Weak to every player |
+| Royal Flush | 2 | 2 Dazed into each draw pile and 1 Burn into each discard pile |
+| Stolen Aegis | 2 | 24 base Block and 1 Buffer if none remains; native co-op scaling |
+| Blood Contract | 0 | Up to 12 nonlethal self-damage; 2 Strength for the living royal court |
+| Exposed Crown | 0 | 16 base Block and 2 self-Vulnerable |
+| Emerald Tempest | 2 | 5 damage four times to every player and 1 Burn each |
+
+These are native card models for presentation, with enemy execution through the native monster action system. They do not enter player reward pools. **Spells and powers resolve first, then attacks.** Pending Blood Contract Strength is included in attack previews and removed from the preview adjustment when the actual Strength is applied. Off With Their Heads applies Vulnerable only after all announced attacks. A hand without an attack still finishes with an announced 12-base-damage monster attack.
 
 The rats retain their native mechanics. Generic encounter affixes and the earlier-boss reinforcement do not stack onto this custom finale. This is an initial gameplay design, not a finished balance claim.
 
@@ -43,26 +64,52 @@ The rats retain their native mechanics. Generic encounter affixes and the earlie
 
 | Affix | Effect | Cost |
 | --- | --- | --- |
-| Sturdy | +8–12% starting HP | 1 |
-| Keen | +8–12% base attack damage, reflected in intents | 2 |
-| Armored | 2–4 native Plating on one selected enemy | 2 |
+| Sturdy | +10–18% starting HP | 1 |
+| Keen | +8–16% base attack damage, reflected in intents | 2 |
+| Armored | 2–4 native Plating on the selected enemy | 2 |
 | Warded | 1 Artifact on that enemy | 2 |
 | Empowered | 2 starting Plating and +1 to its small Strength/Plating applications | 2 |
 | Echoing | An extra announced hex and +1 to its short Weak/Frail/Vulnerable applications, capped at 3 | 2 |
-| Hexed | One native action gains an announced 1–2 Weak, Frail or Vulnerable | 3 |
-| Reinforcement | One additional existing small enemy at 60% HP and 65% base damage | Entire budget |
+| Hexed | One native action gains an announced 2 Weak, Frail or Vulnerable | 3 |
+| Bristling | 2 Thorns on the selected enemy | 2 |
+| Regenerating | 3 Regeneration | 2 |
+| Cultist / Demonic | 1 Ritual / Demon Form | 3 |
+| Entrenched | Barricade and 8 base Block | 3 |
+| Buffered | 1 native Buffer | 2 |
+| Furious | 1 Strength | 2 |
+| Venomous | An announced action adds 2 Poison | 2 |
+| Ominous | An announced action adds 4 Doom, capped at 25% of target max HP | 2 |
+| Cinders / Disorienting / Lacerating | Add a Burn / Dazed / Wound through an announced action | 2 |
+| Reinforcement | One additional existing small enemy at 60% HP and 65% base damage | 5 per extra |
 
-Normal encounters have budget 4 with 1–2 players, or 5 with 3–4. Elites have 3 and bosses have 2. Each eligible encounter receives 1–3 changes as the budget permits. Damage amplification and minor-buff amplification cannot occur together. Plating retains the game's own multiplayer scaling and decay. The selected enemy is called the leader only for describing affix ownership; it is not a new monster type.
+Budgets scale linearly with **1/2/3/4 players**. Normal: **5/10/15/20** points; elite: **3.75/7.5/11.25/15**; ordinary boss: **2.5/5/7.5/10**. Select up to three changes per player within budget and compatibility limits. Twists are distributed across the least-loaded eligible enemies, including reinforcements. HP and damage bonuses affect their assigned enemy only. Direct damage is not multiplied by party size. At most one added offensive amplifier, and one extra hex source (two with 3–4 players). Each enemy can receive at most one added damage-prevention family and one block-engine family. Native power scaling remains active.
 
-Additional normal enemies are restricted to compatible formations and a small list of autonomous creatures. **Two-Tailed Rats Normal** always adds a fourth rat in the existing `second` slot, leaving `first` available for native summons. Other eligible reinforcements are drawn from Inklet, Small Leaf Slime, Nibbit, Flyconid, Corpse Slug and Fuzzy Wurm Crawler already present in the formation. Reinforcement consumes the entire budget.
+Eligible normal formations have a **50/65/80/95% reinforcement chance**. Each extra costs 5 points; 3–4 players can receive a second on a 50% roll if space permits. Reinforced formations start with at most four enemies. Fixed scenes/slots remain excluded except **Two-Tailed Rats Normal**, which always adds its fourth rat in `second` and preserves `first` for native summons. The existing autonomous pool remains Inklet, Small Leaf Slime, Nibbit, Flyconid, Corpse Slug and Fuzzy Wurm Crawler from the current act, with Inklet as fallback. Co-op reinforcement can coexist with other twists.
 
+Eleven new families bring the total to **31 including reinforcement**:
+
+| Affix | Effect | Cost |
+| --- | --- | --- |
+| Phased | 1 Intangible | 3 |
+| Slippery | 1 Slippery, with native co-op charges | 2 |
+| Wound Up | 2 Vigor for the next attack | 2 |
+| Agile | 2 Dexterity and 6 base Block | 2 |
+| Fortified | 12 base opening Block | 2 |
+| Second Wind | 8 Block after the next block clear | 2 |
+| Reservist | 6 Block after each of the next two block clears | 3 |
+| Shackling | Announced temporary -1 Strength, at most one stack | 2 |
+| Sapping | Announced -1 Dexterity, stopping at -1 total | 2 |
+| Constricting | Announced 2 Constrict, capped at 4 | 3 |
+| Eroding | Announced 1 Disintegration, capped at 2 | 3 |
+
+Added Weak/Frail/Vulnerable actions cap at three stacks, Poison at six and Doom at 25% max HP. Existing higher values are not reduced. See [0.6.0 rules and validation boundaries](docs/UPDATE-0.6.0.md). The finale duo and La Rata keep their separate rules.
 **Mecha Knight** retains the original prototype action: after the flamethrower and before winding up, it announces a strong debuff action that applies 3 Weak and 3 Frail to living targets. The extra action also gives players a response window; its net difficulty remains a playtesting question.
 
 ## Boss compatibility
 
 Supported regular finales are Queen, Test Subject and Aeonglass. On a double-final-boss run, only the second receives a helper. Candidates come from the actual earlier acts' boss pools, filtered against saved room and monster history and sorted before the seeded choice.
 
-Allowed helpers: Vantom, Lagavulin Matriarch, Waterfall Giant and Knowledge Demon. The Kin and Kaiser Crab require special formations/scenes; Soul Fysh and The Insatiable have special combat/card transitions. Ceremonial Beast is excluded because its absolute HP phase threshold conflicts with reduced starting HP. If no compatible unseen helper remains, the original finale is kept and the reason is logged.
+Allowed helpers: Vantom, Lagavulin Matriarch, Waterfall Giant and Knowledge Demon. The Kin and Kaiser Crab require special formations/scenes; Soul Fysh and The Insatiable have special combat/card transitions. Ceremonial Beast remains outside the existing compatibility allowlist pending a separate phase/formation audit, despite the removal of the HP reduction. If no compatible unseen helper remains, the original finale is kept and the reason is logged.
 
 The Queen's native markers are preserved and a helper marker is added in memory. Duo camera scaling is adjusted to fit the larger formation. The main boss owns the soundtrack; helper-specific music parameters are suppressed only in these duos, while native helper sound effects and combat actions remain intact. The compatibility list is not a claim that every combination has passed an entire playthrough.
 
@@ -104,7 +151,7 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires four complete logs from one scenario and compares native checksum IDs, values and contexts. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (currently `0.3.1`) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps.
+`Compare-CoopChecksums.ps1` requires four complete logs from one scenario and compares native checksum IDs, values and contexts. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (currently `0.6.0`) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps.
 
 ## References and dependencies
 

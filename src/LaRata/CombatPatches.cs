@@ -7,6 +7,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Models.Cards;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -19,10 +21,16 @@ internal static class CreatureHpPatch
     [HarmonyPostfix]
     private static void Postfix(CombatState __instance, Creature __result)
     {
+        if (__instance.Encounter is RatKingEncounter && __result.Monster is MegaCrit.Sts2.Core.Models.Monsters.TwoTailedRat)
+        {
+            __result.SetMaxHpInternal(__result.MaxHp * 2);
+            __result.SetCurrentHpInternal(__result.MaxHp);
+            return;
+        }
         var rules = EncounterDirector.Get(__instance.Encounter);
         if (rules == null || __result.Side != CombatSide.Enemy || __result.MaxHp <= 1) return;
-        decimal factor = ReferenceEquals(__result.Monster, rules.Extra) ? rules.ExtraHpFactor :
-            1m + rules.Plan.HpPercent / 100m;
+        int hp = rules.For(__result.Monster).FirstOrDefault(t => t.Kind == TwistKind.Sturdy)?.Amount ?? 0;
+        decimal factor = (rules.IsExtra(__result.Monster) ? rules.ExtraHpFactor : 1m) * (1m + hp / 100m);
         __result.SetMaxHpInternal(Math.Max(1, decimal.Ceiling(__result.MaxHp * factor)));
         __result.SetCurrentHpInternal(__result.MaxHp);
     }
@@ -31,8 +39,7 @@ internal static class CreatureHpPatch
 [HarmonyPatch(typeof(Hook), nameof(Hook.ModifyDamage))]
 internal static class DamagePatch
 {
-    // Modify base damage BEFORE native Weak, Vulnerable, Intangible and damage caps.
-    // Both intent previews and actual attacks traverse exactly this hook.
+    // The same native hook serves intent previews and actual attacks, before Weak and caps.
     [HarmonyPrefix]
     private static void Prefix(ICombatState? combatState, Creature? dealer, ValueProp props,
         ModifyDamageHookType modifyDamageHookType, ref decimal damage)
@@ -41,9 +48,8 @@ internal static class DamagePatch
             !modifyDamageHookType.HasFlag(ModifyDamageHookType.Multiplicative)) return;
         var rules = EncounterDirector.Get(combatState?.Encounter);
         if (rules == null) return;
-        decimal factor = ReferenceEquals(dealer.Monster, rules.Extra) ? (rules.BossDuo ? 1m : .65m) :
-            1m + rules.Plan.DamagePercent / 100m;
-        damage *= factor;
+        int bonus = rules.For(dealer.Monster).FirstOrDefault(t => t.Kind == TwistKind.Keen)?.Amount ?? 0;
+        damage *= (rules.IsExtra(dealer.Monster) && !rules.BossDuo ? .65m : 1m) * (1m + bonus / 100m);
     }
 }
 
@@ -55,14 +61,12 @@ internal static class PowerPotencyPatch
         Creature? target, ref decimal amount)
     {
         var rules = EncounterDirector.Get(combatState.Encounter);
-        if (rules == null || giver.Side != CombatSide.Enemy || !ReferenceEquals(giver.Monster, rules.Leader) ||
-            amount <= 0 || amount > 3) return;
-        // Never scale structural powers (phases, countdowns, immunities, scripted instant kills).
-        // Leave 99-turn effects and negative adjustments alone; Artifact still runs afterwards.
-        if (target?.Side == CombatSide.Enemy && power is StrengthPower or PlatingPower)
-            amount += rules.Plan.BuffBonus;
-        if (target?.Side == CombatSide.Player && power is WeakPower or FrailPower or VulnerablePower)
-            amount = Math.Min(3, amount + rules.Plan.DebuffBonus);
+        if (rules == null || giver.Side != CombatSide.Enemy || amount <= 0 || amount > 3) return;
+        var twists = rules.For(giver.Monster).ToArray();
+        if (target?.Side == CombatSide.Enemy && power is StrengthPower or PlatingPower && twists.Any(t => t.Kind == TwistKind.Empowered))
+            amount += 1;
+        if (target?.Side == CombatSide.Player && power is WeakPower or FrailPower or VulnerablePower && twists.Any(t => t.Kind == TwistKind.Echoing))
+            amount = Math.Min(3, amount + 1);
     }
 }
 
@@ -76,20 +80,46 @@ internal static class StartingBuffsPatch
     {
         await original;
         var rules = EncounterDirector.Get(combat?.Encounter);
-        if (rules == null || rules.Started || !rules.Leader.Creature.IsAlive) return;
+        if (rules == null || rules.Started) return;
         rules.Started = true;
-        var target = rules.Leader.Creature;
         var context = new ThrowingPlayerChoiceContext();
-        // Native Plating handles its own multiplayer scaling and decay.
-        // No applier: these are encounter grants, not another amplified monster ability.
-        if (rules.Plan.Plating > 0)
-            await PowerCmd.Apply<PlatingPower>(context, target, rules.Plan.Plating, null, null);
-        if (rules.Plan.Artifact > 0)
-            await PowerCmd.Apply<ArtifactPower>(context, target, rules.Plan.Artifact, null, null);
+        foreach (var twist in rules.Plan.Twists)
+        {
+            var target = rules.Roster[twist.Target].Creature;
+            if (!target.IsAlive) continue;
+            // No applier: encounter grants must not amplify one another. Native co-op power scaling remains intact.
+            Task Grant<T>(int amount) where T : PowerModel => PowerCmd.Apply<T>(context, target, amount, null, null);
+            Task Block(int amount) => CreatureCmd.GainBlock(target, amount, ValueProp.Move, null);
+            switch (twist.Kind)
+            {
+                case TwistKind.Armored: await Grant<PlatingPower>(twist.Amount); break;
+                case TwistKind.Warded: await Grant<ArtifactPower>(1); break;
+                case TwistKind.Empowered: await Grant<PlatingPower>(2); break;
+                case TwistKind.Bristling: await Grant<ThornsPower>(2); break;
+                case TwistKind.Regenerating: await Grant<RegenPower>(3); break;
+                case TwistKind.Cultist: await Grant<RitualPower>(1); break;
+                case TwistKind.Demonic: await Grant<DemonFormPower>(1); break;
+                case TwistKind.Entrenched:
+                    await PowerCmd.Apply<BarricadePower>(context, target, 1, target, null);
+                    await Block(8);
+                    break;
+                case TwistKind.Buffered: await Grant<BufferPower>(1); break;
+                case TwistKind.Furious: await Grant<StrengthPower>(1); break;
+                case TwistKind.Phased: await Grant<IntangiblePower>(1); break;
+                case TwistKind.Slippery: await Grant<SlipperyPower>(1); break;
+                case TwistKind.WoundUp: await Grant<VigorPower>(2); break;
+                case TwistKind.Agile: await Grant<DexterityPower>(2); await Block(6); break;
+                case TwistKind.Fortified: await Block(12); break;
+                case TwistKind.SecondWind: await Grant<SelfFormingClayPower>(8); break;
+                case TwistKind.Reservist:
+                    (await PowerCmd.Apply<ToricToughnessPower>(context, target, 2, null, null))?.SetBlock(6);
+                    break;
+            }
+        }
     }
 }
 
-internal sealed record ExtraHex(MonsterModel Monster, int Kind, int Amount);
+internal sealed record ExtraHex(MonsterModel Monster, EnemyTwist Twist);
 
 [HarmonyPatch(typeof(MonsterModel), nameof(MonsterModel.SetUpForCombat))]
 internal static class HexTelegraphPatch
@@ -100,19 +130,20 @@ internal static class HexTelegraphPatch
     private static void Postfix(MonsterModel __instance)
     {
         var rules = EncounterDirector.Get(__instance.CombatState.Encounter);
-        if (rules == null || !ReferenceEquals(rules.Leader, __instance) || rules.Plan.Hex == 0) return;
+        var twist = rules?.For(__instance).FirstOrDefault(t => t.IsHex);
+        if (twist == null) return;
         var moves = __instance.MoveStateMachine!.States.Values.OfType<MoveState>()
             .Where(x => x.Intents.Any(i => i is AttackIntent or BuffIntent or DefendIntent or DebuffIntent))
             .OrderBy(x => x.Intents.Any(i => i is AttackIntent))
             .ThenBy(x => x.Id, StringComparer.Ordinal).ToArray();
         if (moves.Length == 0) return;
         var move = moves[0];
-        // Keep the original move object and all references/branch conditions intact.
         var intents = move.Intents.ToList();
-        if (!intents.Any(x => x is DebuffIntent)) intents.Add(new DebuffIntent());
+        if (twist.Kind is TwistKind.Cinders or TwistKind.Disorienting or TwistKind.Lacerating) intents.Add(new StatusIntent(1));
+        else if (!intents.Any(x => x is DebuffIntent)) intents.Add(new DebuffIntent());
         AccessTools.PropertySetter(typeof(MoveState), nameof(MoveState.Intents)).Invoke(move, [intents]);
-        Hexes.Add(move, new(__instance, rules.Plan.Hex, rules.Plan.HexAmount));
-        ModEntry.Log.Info($"TELEGRAPH monster={__instance.Id.Entry} move={move.Id} hex={EncounterPlan.HexName(rules.Plan.Hex)} amount={rules.Plan.HexAmount}");
+        Hexes.Add(move, new(__instance, twist));
+        ModEntry.Log.Info($"TELEGRAPH monster={__instance.Id.Entry} move={move.Id} twist={twist.Description}");
     }
 }
 
@@ -132,12 +163,50 @@ internal static class HexExecutionPatch
         if (!hex.Monster.Creature.IsAlive || CombatManager.Instance.IsEnding) return;
         var living = targets.Where(x => x.Side == CombatSide.Player && x.IsAlive).ToArray();
         var context = new ThrowingPlayerChoiceContext();
-        switch (hex.Kind)
+        var source = hex.Monster.Creature;
+        async Task Capped<T>(int amount, int cap) where T : PowerModel
         {
-            case 1: await PowerCmd.Apply<WeakPower>(context, living, hex.Amount, hex.Monster.Creature, null); break;
-            case 2: await PowerCmd.Apply<FrailPower>(context, living, hex.Amount, hex.Monster.Creature, null); break;
-            case 3: await PowerCmd.Apply<VulnerablePower>(context, living, hex.Amount, hex.Monster.Creature, null); break;
+            foreach (var target in living)
+            {
+                int grant = Math.Min(amount, Math.Max(0, cap - target.GetPowerAmount<T>()));
+                // Echoing's native-power hook also amplifies these three powers by one.
+                if (grant > 0) await PowerCmd.Apply<T>(context, target, grant, source, null);
+            }
         }
-        ModEntry.Log.Info($"HEX resolved monster={hex.Monster.Id.Entry} targets={living.Length}");
+        switch (hex.Twist.Kind)
+        {
+            case TwistKind.Echoing:
+            case TwistKind.Hexed:
+                int amount = hex.Twist.Kind == TwistKind.Echoing ? 1 : 2;
+                // Reserve the hook's +1 so repeated Echoing cannot exceed three stacks.
+                int cap = hex.Twist.Kind == TwistKind.Echoing ? 2 : 3;
+                switch (hex.Twist.Amount)
+                {
+                    case 1: await Capped<WeakPower>(amount, cap); break;
+                    case 2: await Capped<FrailPower>(amount, cap); break;
+                    case 3: await Capped<VulnerablePower>(amount, cap); break;
+                }
+                break;
+            case TwistKind.Venomous: await Capped<PoisonPower>(2, 6); break;
+            case TwistKind.Ominous:
+                foreach (var target in living)
+                {
+                    int grant = Math.Min(4, Math.Max(0, target.MaxHp / 4 - target.GetPowerAmount<DoomPower>()));
+                    if (grant > 0) await PowerCmd.Apply<DoomPower>(context, target, grant, source, null);
+                }
+                break;
+            case TwistKind.Cinders: await CardPileCmd.AddToCombatAndPreview<Burn>(living, PileType.Draw, 1, null, CardPilePosition.Random); break;
+            case TwistKind.Disorienting: await CardPileCmd.AddToCombatAndPreview<Dazed>(living, PileType.Draw, 1, null, CardPilePosition.Random); break;
+            case TwistKind.Lacerating: await CardPileCmd.AddToCombatAndPreview<Wound>(living, PileType.Discard, 1, null); break;
+            case TwistKind.Shackling: await Capped<ShacklingPotionPower>(1, 1); break;
+            case TwistKind.Sapping:
+                foreach (var target in living)
+                    if (target.GetPowerAmount<DexterityPower>() > -1)
+                        await PowerCmd.Apply<DexterityPower>(context, target, -1, source, null);
+                break;
+            case TwistKind.Constricting: await Capped<ConstrictPower>(2, 4); break;
+            case TwistKind.Eroding: await Capped<DisintegrationPower>(1, 2); break;
+        }
+        ModEntry.Log.Info($"HEX resolved monster={hex.Monster.Id.Entry} twist={hex.Twist.Kind} targets={living.Length}");
     }
 }
