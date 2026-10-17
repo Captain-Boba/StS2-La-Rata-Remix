@@ -1,0 +1,25 @@
+.research/
+.tools/
+**/bin/
+**/obj/
+artifacts/
+local.props
+
+# Generated Godot state and local editor settings
+**/.godot/
+**/.vs/
+*.user
+
+# Local secrets, profiles and runtime output
+.env
+.env.*
+*.log
+saves/
+profiles/
+
+# Referenced game assemblies and generated releases are never source files
+*.dll
+*.exe
+*.pdb
+*.pck
+*.zip

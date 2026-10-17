@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../local.props" Condition="Exists('../../local.props')" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <Sts2Path Condition="'$(Sts2Path)' == ''">E:/SteamLibrary/steamapps/common/Slay the Spire 2</Sts2Path>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/LaRata/EncounterPlan.cs" Link="EncounterPlan.cs" />
+    <Reference Include="sts2" HintPath="$(Sts2Path)/data_sts2_windows_x86_64/sts2.dll" />
+    <Reference Include="GodotSharp" HintPath="$(Sts2Path)/data_sts2_windows_x86_64/GodotSharp.dll" />
+  </ItemGroup>
+</Project>

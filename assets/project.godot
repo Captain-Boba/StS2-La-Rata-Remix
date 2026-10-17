@@ -1,0 +1,7 @@
+; La Rata resource pack, imported/exported by official Godot 4.5.1.
+config_version=5
+[application]
+config/name="La Rata Remix Resources"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+[rendering]
+renderer/rendering_method="gl_compatibility"

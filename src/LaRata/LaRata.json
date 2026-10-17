@@ -1,0 +1,17 @@
+{
+  "id": "LaRata",
+  "name": "La Rata Remix",
+  "author": "La Rata",
+  "description": "Seeded tactical encounters for 1-4 players, +25% gold, +2 potion slots, interactive treasure RPS, Well and an optional Rat King endgame. Requires game v0.107.1 and BaseLib 3.4.7. Start a new run.",
+  "version": "0.3.1",
+  "has_pck": true,
+  "has_dll": true,
+  "min_game_version": "0.107.1",
+  "dependencies": [
+    {
+      "id": "BaseLib",
+      "min_version": "3.4.7"
+    }
+  ],
+  "affects_gameplay": true
+}
