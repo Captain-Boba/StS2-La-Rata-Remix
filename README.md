@@ -6,6 +6,16 @@ The optional endgame path and the first La Rata boss are included in this protot
 
 ## Installation
 
+### Steam Workshop (recommended)
+
+Subscribe to [StS2 - La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/?id=3822192203) and its required dependency [BaseLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3737335127). Let Steam finish downloading, enable both in the game's mod menu and restart when prompted. Remove `--nomods` from Steam launch options if present. No manual `mods` folder is needed for Workshop installation.
+
+**Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
+
+Version 0.8.2 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+
+### Manual installation
+
 **Release 0.8.2.** Includes the Kingsguard, royal interventions, boosters, expanded cards/relics and all three starting relics. See the current update notes for scoped solo/four-local-client results and remaining test coverage.
 
 You need the **compiled package**, such as `LaRata-0.8.2.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
@@ -34,7 +44,7 @@ Slay the Spire 2/
 
 To update, close the game and replace those three La Rata files with the matching files from the new package. Keep BaseLib installed. If the mod does not appear, check the folder nesting, the three filenames, BaseLib and the `--nomods` launch option first.
 
-The game uses separate modded profiles. This mod does not erase, reset, migrate or unlock progress. Original game files are never modified. Removing the LaRata folder disables it for subsequent runs. Keep La Rata and BaseLib installed while a run contains custom relics, events or the bonus act.
+The game uses separate modded profiles. This mod does not erase, reset, migrate or unlock progress. Original game files are never modified. Disable La Rata in the game's mod menu to turn it off; removing a manual folder alone does not disable an installed Workshop copy. Keep La Rata and BaseLib installed while a run contains custom relics, events or the bonus act.
 
 ## Run effects
 

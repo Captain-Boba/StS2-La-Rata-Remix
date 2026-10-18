@@ -1,0 +1,38 @@
+[h1]The king has been watching.[/h1]
+La Rata Remix brings controlled chaos, new cards, shared treasure drama and an optional royal endgame to Slay the Spire 2. Built for 1-4 players, with seeded encounter changes that scale with party size and act progression.
+
+[h2]A different climb[/h2]
+[list]
+[*]40 encounter twist types plus additional enemies: armor, retaliation, debuffs, on-hit effects and unusual combinations within a shared difficulty budget.
+[*]A potion-throwing goblin visits selected fights between rounds. In co-op, every living player receives a different eligible potion, one after another.
+[*]La Rata occasionally plays a hidden card from offscreen. A bright emerald marker warns you: defeat the marked enemy before its turn to prevent the intervention.
+[*]Every player starts with Bowler Hat, Potion Belt and White Beast Statue: more gold, two extra potion slots and guaranteed potion rewards after combat.
+[/list]
+
+[h2]The Royal Collection[/h2]
+[list]
+[*]Ten new illustrated neutral cards, Cleanse and five playable royal prize cards, all with upgrades.
+[*]Six booster relics, available to every class. Open five facedown cards with rarity glows and individual reveals, then keep any number. La Rata packs have a 20% chance to contain a playable boss-card variant.
+[*]Five combo relics supporting exhaust, Powers, mixed card types, potions and discard.
+[*]Well wins contested chest relics against players without it; multiple Well holders have equal chances. A Thousand Cuts allows repeated shop removals at the normal increasing price.
+[*]Choose Rock, Paper or Scissors privately when competing for chest relics. Solo chests offer three relic choices.
+[/list]
+
+[h2]YOU ARE NOT PREPARED[/h2]
+After the regular finale, choose whether to enter the bonus path. Everyone must agree in co-op. Face the Kingsguard, four dark knights who shield, reinforce and heal one another, then challenge La Rata and his court. The king uses a 20-card illustrated deck and five randomized combat relic effects. Your regular victory remains secured if the bonus challenge defeats you; defeating La Rata leads to the normal ending.
+
+[h2]Installation and updating[/h2]
+[b]Requires Slay the Spire 2 v0.107.1 and BaseLib 3.4.7. Current mod version: 0.8.2.[/b]
+Subscribe to this item and the required BaseLib item. Enable both in the game's mod menu and restart when prompted. Remove --nomods from Steam launch options if present.
+
+[b]Switching from a manual install?[/b] Close the game and move the old mods/LaRata folder outside the game's mods directory. The native loader prioritizes a local copy over the Workshop version, so leaving it there can prevent updates from taking effect.
+
+[b]Start a new run after updating. All co-op players need identical game and mod versions.[/b] Do not switch versions during an active run. New starting relics are not added retroactively to old saves. La Rata does not migrate or reset your profiles. All mod-added text is English.
+
+[h2]Development status[/h2]
+Targeted solo and four-local-client checks cover the current package; they are not a guarantee of full-run balance, Internet co-op or compatibility with every other mod. Please include your game/mod versions and relevant logs when reporting a problem.
+
+[url=https://github.com/Captain-Boba/StS2-La-Rata-Remix]Source, documentation and issue tracker[/url]
+[url=https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.8.2]Version 0.8.2 patch notes and manual download[/url]
+
+Original mod code is MIT-licensed. Raster artwork and branding are excluded from that license. Mod-owned illustrations were generated with OpenAI image generation; the original royal laugh was generated with ElevenLabs. Native game models and animations are referenced from your installed game, not redistributed.
