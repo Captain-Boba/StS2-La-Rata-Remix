@@ -4,7 +4,7 @@ namespace LaRata;
 // Native saves restart combat, so this is reconstructed from the encounter seed on load.
 internal sealed class RoyalDeck(Func<int, int> next)
 {
-    internal static readonly int[] Costs = [1, 1, 3, 2, 2, 2, 2, 0, 0, 2];
+    internal static readonly int[] Costs = [1, 1, 3, 2, 2, 2, 2, 0, 0, 2, 2, 2, 1, 3, 2, 1, 2, 3, 2, 1];
     private readonly List<int> draw = Enumerable.Range(0, Costs.Length).ToList();
     private readonly List<int> discard = [];
     private readonly List<int> hand = [];
@@ -51,7 +51,7 @@ internal sealed class RoyalDeck(Func<int, int> next)
 
     internal void Finish() { discard.AddRange(hand); hand.Clear(); Planned = []; }
     internal string Snapshot => $"energy={Energy}/{Capacity};draw={string.Join(',', draw)};hand={string.Join(',', hand)};discard={string.Join(',', discard)};planned={string.Join(',', Planned)}";
-    internal static bool IsAttack(int card) => card is 0 or 1 or 2 or 9;
+    internal static bool IsAttack(int card) => card is 0 or 1 or 2 or 9 or 10 or 11 or 17 or 18;
     private void Shuffle()
     {
         for (int i = draw.Count - 1; i > 0; i--)

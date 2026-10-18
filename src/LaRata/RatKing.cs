@@ -113,7 +113,7 @@ internal sealed class RoyalHandIntent : BuffIntent
     {
         var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".deck.description");
         var deck = (owner.Monster as RatKing)?.Deck;
-        description.Add("Plan", "Draws a hidden hand from a 10-card deck. Plays spells and powers before attacking.\n" +
+        description.Add("Plan", "Draws a hidden hand from a 20-card deck. Plays spells and powers before attacking.\n" +
             (deck == null ? "3 Energy, increasing to 4 below half HP." : $"Energy: {deck.Energy}/{deck.Capacity}. Draw: {deck.DrawCount}. Discard: {deck.DiscardCount}."));
         return description;
     }

@@ -23,7 +23,7 @@ public sealed class Cleanse() : CustomCardModel(2, CardType.Skill, CardRarity.Ra
     public override List<(string, string)> Localization =>
     [
         ("title", "Cleanse"),
-        ("description", "Remove all Debuffs from yourself and all other players.")
+        ("description", "Remove all Debuffs from ALL living players. Remove their Curse cards for this combat. Does not remove Status cards.")
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -50,6 +50,10 @@ public sealed class Cleanse() : CustomCardModel(2, CardType.Skill, CardRarity.Ra
             foreach (var power in target.Powers.Where(p => p.TypeForCurrentAmount == PowerType.Debuff).ToArray())
                 if (target.Powers.Contains(power) && power.TypeForCurrentAmount == PowerType.Debuff)
                     await PowerCmd.Remove(power);
+            // Remove combat copies from every pile through the native command.
+            // Deck originals and Status cards are never selected.
+            var curses = player.PlayerCombatState!.AllCards.Where(c => c.Type == CardType.Curse).ToArray();
+            if (curses.Length > 0) await CardPileCmd.RemoveFromCombat(curses);
             ModEntry.Log.Info($"CLEANSE player={player.NetId}");
         }
     }

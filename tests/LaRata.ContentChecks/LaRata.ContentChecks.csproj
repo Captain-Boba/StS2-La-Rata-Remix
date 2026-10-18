@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../../local.props" Condition="Exists('../../local.props')" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <Sts2Path Condition="'$(Sts2Path)' == ''">E:/SteamLibrary/steamapps/common/Slay the Spire 2</Sts2Path>
+    <GameData>$(Sts2Path)/data_sts2_windows_x86_64</GameData>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/LaRata/LaRata.csproj" />
+    <Reference Include="sts2" HintPath="$(GameData)/sts2.dll" />
+    <Reference Include="GodotSharp" HintPath="$(GameData)/GodotSharp.dll" />
+    <Reference Include="BaseLib" HintPath="../../.research/dependencies/BaseLib.dll" />
+    <Reference Include="0Harmony" HintPath="$(GameData)/0Harmony.dll" />
+    <Reference Include="SmartFormat" HintPath="$(GameData)/SmartFormat.dll" />
+  </ItemGroup>
+</Project>

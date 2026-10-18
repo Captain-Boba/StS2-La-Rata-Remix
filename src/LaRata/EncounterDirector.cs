@@ -32,7 +32,7 @@ internal static class EncounterDirector
     internal static readonly ConditionalWeakTable<EncounterModel, EncounterRules> Rules = new();
     internal static Rng Random(IRunState run, EncounterModel encounter, string purpose) =>
         new(unchecked(run.Rng.Seed + (uint)(run.TotalFloor * 7919 + run.CurrentActIndex * 104729)),
-            $"LaRata/v4/{encounter.Id.Entry}/{run.Players.Count}/{purpose}");
+            $"LaRata/v5/{encounter.Id.Entry}/{run.Players.Count}/{purpose}");
 
     internal static EncounterRules? Get(EncounterModel? encounter) =>
         encounter != null && Rules.TryGetValue(encounter, out var rules) ? rules : null;
@@ -75,7 +75,7 @@ internal static class GenerateEncounterPatch
         ref IReadOnlyList<(MonsterModel, string?)>? ____monstersWithSlots)
     {
         var monsters = ____monstersWithSlots!;
-        if (__instance is RatKingEncounter || __instance.IsDebugEncounter || !__instance.ShouldGiveRewards || monsters.Count == 0 ||
+        if (__instance is RatKingEncounter or KingsguardEncounter || __instance.IsDebugEncounter || !__instance.ShouldGiveRewards || monsters.Count == 0 ||
             runState.Players.Count == 0 || EncounterDirector.Get(__instance) != null) return;
         var rng = EncounterDirector.Random(runState, __instance, "encounter");
         if (EncounterDirector.IsFinalBoss(runState, __instance))
@@ -100,8 +100,8 @@ internal static class GenerateEncounterPatch
         }
         int tier = __instance.RoomType == RoomType.Boss ? 2 : __instance.RoomType == RoomType.Elite ? 1 : 0;
         var plan = EncounterPlan.Roll(n => rng.NextInt(n), runState.Players.Count, tier,
-            EncounterDirector.CanAddNormal(__instance, monsters) ? (__instance is TwoTailedRatsNormal ? 1 : 2) : 0,
-            monsters.Count, __instance is TwoTailedRatsNormal);
+            EncounterDirector.CanAddNormal(__instance, monsters) ? (__instance is TwoTailedRatsNormal ? 1 : 3) : 0,
+            monsters.Count, __instance is TwoTailedRatsNormal, runState.CurrentActIndex);
         var state = new EncounterRules(plan);
         var expanded = monsters.ToList();
         for (int i = 0; i < plan.ReinforcementCount; i++)

@@ -158,15 +158,21 @@ internal static class RestoreInvitationPatch
 internal static class InvitationPortraitPatch
 {
     [HarmonyPostfix]
-    static void Postfix(EventModel ____event, TextureRect? ____portrait)
+    static void Postfix(NEventLayout __instance, EventModel ____event, TextureRect? ____portrait)
     {
         if (____event is not RatInvitation || ____portrait == null) return;
         ____portrait.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-        ____portrait.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
+        ____portrait.StretchMode = TextureRect.StretchModeEnum.KeepAspectCovered;
         ____portrait.CustomMinimumSize = Vector2.Zero;
-        ____portrait.Size = new Vector2(690, 750);
-        ____portrait.Position = new Vector2(105, 190);
+        ____portrait.Scale = Vector2.One;
+        ____portrait.PivotOffset = Vector2.Zero;
+        ____portrait.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+        // Native event layout is shifted up 39 px. Compensate only its portrait,
+        // leaving native text, buttons, votes and focus behavior in their places.
+        ____portrait.OffsetTop = 39;
+        ____portrait.OffsetBottom = 39;
         ____portrait.MouseFilter = Control.MouseFilterEnum.Ignore;
+        __instance.MoveChild(____portrait, 0);
     }
 }
 
@@ -175,11 +181,11 @@ public sealed class RatInvitation : CustomEventModel
     public RatInvitation() : base(false) { }
     public override bool IsAllowed(IRunState runState) => false;
     public override bool IsShared => true;
-    public override string? CustomInitialPortraitPath => "res://LaRata/images/rat_king.png";
+    public override string? CustomInitialPortraitPath => "res://LaRata/images/throne_room.png";
     public override List<(string, string)> Localization =>
     [
         ("title", "You Are Not Prepared"),
-        ("pages.INITIAL.description", "Your victory is secure. Beyond the Spire, the Rat King waits.\n\nRecover with an unseen Ancient, then visit a shop, an unknown room, an elite and a campfire before facing La Rata and his royal deck. Even defeat here will preserve your regular victory.\n\nEvery player must agree to enter."),
+        ("pages.INITIAL.description", "Your victory is secure. Beyond the Spire, the Rat King waits.\n\nRecover with an unseen Ancient, then visit a shop, an unknown room, the Kingsguard and a campfire before facing La Rata and his royal deck. Even defeat here will preserve your regular victory.\n\nEvery player must agree to enter."),
         ("pages.INITIAL.options.ENTER.title", "Enter the Rat King's domain"),
         ("pages.INITIAL.options.ENTER.description", "Face the optional final challenge. Requires unanimous agreement."),
         ("pages.INITIAL.options.LEAVE.title", "End the run"),
@@ -221,7 +227,9 @@ public sealed class RatDomain : CustomActModel, ILocalizationProvider
         return AllAncients.Where(a => !seen.Contains(a.Id)).OrderBy(a => a.Id.Entry, StringComparer.Ordinal).ToArray();
     }
     public override IEnumerable<EventModel> AllEvents => ModelDb.Act<Glory>().AllEvents;
-    public override IEnumerable<EncounterModel> GenerateAllEncounters() => ModelDb.Act<Glory>().AllEncounters.Where(e => e.RoomType != RoomType.Boss).Append(ModelDb.Encounter<RatKingEncounter>());
+    public override IEnumerable<EncounterModel> GenerateAllEncounters() => ModelDb.Act<Glory>().AllEncounters
+        .Where(e => e.RoomType is not (RoomType.Boss or RoomType.Elite))
+        .Append(ModelDb.Encounter<KingsguardEncounter>()).Append(ModelDb.Encounter<RatKingEncounter>());
     protected override string CustomMapTopBgPath => ModelDb.Act<Glory>().MapTopBgPath;
     protected override string CustomMapMidBgPath => ModelDb.Act<Glory>().MapMidBgPath;
     protected override string CustomMapBotBgPath => ModelDb.Act<Glory>().MapBotBgPath;

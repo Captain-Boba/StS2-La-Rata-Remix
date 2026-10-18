@@ -8,12 +8,15 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 
 namespace LaRata;
 
 internal static class RoyalDeckView
 {
-    internal static async Task<NCard?> Show(RatKing king, RoyalCard model)
+    internal static Task<NCard?> Show(RatKing king, RoyalCard model) => Show(king.Creature, model);
+    internal static async Task<NCard?> Show(Creature source, RoyalCard model, bool offscreen = false)
     {
         var room = NCombatRoom.Instance;
         if (room == null) return null;
@@ -21,10 +24,17 @@ internal static class RoyalDeckView
         if (card == null) return null;
         room.Ui.PlayContainer.AddChild(card);
         card.UpdateVisuals(PileType.None, CardPreviewMode.None);
-        card.GlobalPosition = room.GetCreatureNode(king.Creature)?.GlobalPosition ?? new Vector2(1200, 400);
+        card.GlobalPosition = offscreen ? new Vector2(1960, 180) : room.GetCreatureNode(source)?.GlobalPosition ?? new Vector2(1200, 400);
         card.Scale = Vector2.One * .25f;
         card.AnimCardToPlayPile();
-        await Cmd.Wait(.75f);
+        if (offscreen)
+        {
+            // Even Instant mode must leave enough time to recognize the revealed card.
+            var reveal = card.CreateTween();
+            reveal.TweenInterval(1.35);
+            if (!await reveal.AwaitFinished(card)) return null;
+        }
+        else await Cmd.Wait(.75f);
         return card;
     }
     internal static void Dismiss(NCard? card)

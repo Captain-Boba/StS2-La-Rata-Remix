@@ -19,7 +19,8 @@ namespace LaRata;
 // Their enemy effects execute through MonsterModel/commands, not player-only OnPlayWrapper.
 public abstract class RoyalCard : CustomCardModel
 {
-    internal static readonly string[] Names = ["Royal Tax", "Scepter Storm", "Off With Their Heads", "Sewer Alchemy", "Borrowed Tomorrow", "Royal Flush", "Stolen Aegis", "Blood Contract", "Exposed Crown", "Emerald Tempest"];
+    internal static readonly string[] Names = ["Royal Tax", "Scepter Storm", "Off With Their Heads", "Sewer Alchemy", "Borrowed Tomorrow", "Royal Flush", "Stolen Aegis", "Blood Contract", "Exposed Crown", "Emerald Tempest", "Grave Levy", "Funeral Procession", "Bone Treasury", "Crown of Night", "Rotting Tribute", "Stolen Hour", "Drowned Court", "Green Guillotine", "Rattling Arsenal", "Royal Pardon"];
+    internal static readonly string[] Art = ["royal_tax", "scepter_storm", "off_with_their_heads", "sewer_alchemy", "borrowed_tomorrow", "royal_flush", "stolen_aegis", "blood_contract", "exposed_crown", "emerald_tempest", "grave_levy", "funeral_procession", "bone_treasury", "crown_of_night", "rotting_tribute", "stolen_hour", "drowned_court", "green_guillotine", "rattling_arsenal", "royal_pardon"];
     internal static readonly string[] Descriptions =
     [
         "Deal 12 damage to every player.",
@@ -29,9 +30,19 @@ public abstract class RoyalCard : CustomCardModel
         "Apply 10 Doom and 1 Weak to every player. Doom kills at the end of a turn if it reaches current HP.",
         "Shuffle 2 Dazed into each player's draw pile. Add 1 Burn to each player's discard pile.",
         "Gain 24 base Block and 1 Buffer. Block and Buffer use native co-op scaling. Does not stack existing Buffer.",
-        "Lose up to 12 HP, without killing La Rata. Give every living member of the royal court 2 Strength before attacking.",
-        "Gain 16 base Block. Apply 2 Vulnerable to La Rata. An opening for your next turn!",
-        "Deal 5 damage to every player 4 times. Add 1 Burn to each player's discard pile."
+        "The caster loses up to 12 HP, without dying. Give every living ally 2 Strength before attacking.",
+        "The caster gains 16 base Block and 2 Vulnerable. An opening for your next turn!",
+        "Deal 5 damage to every player 4 times. Add 1 Burn to each player's discard pile.",
+        "Deal 18 damage to every player. Restore 24 HP to the caster.",
+        "Deal 6 damage to every player 3 times. Apply 1 Weak to every player.",
+        "Give every living court member 3 base Plating, up to 14 base Plating.",
+        "Gain 30 base Block and 2 base Buffer. Does not add Buffer if already protected.",
+        "Apply 5 Poison and 2 Frail to every player.",
+        "Shuffle 2 Dazed into each player's draw pile. The caster gains 12 base Block.",
+        "Heal every living court member for 5% of their maximum HP. Give them 2 base Plating, up to 14 base Plating.",
+        "Deal 40 damage to every player. The caster gains 2 Vulnerable.",
+        "Deal 4 damage to every player 5 times. Shuffle 1 Dazed into each player's draw pile.",
+        "Remove Weak and Frail from every living court member. The caster gains 10 base Block."
     ];
     internal int Index { get; }
     protected RoyalCard(int index) : base(RoyalDeck.Costs[index], RoyalDeck.IsAttack(index) ? CardType.Attack : index is 6 or 7 ? CardType.Power : CardType.Skill, CardRarity.Token, TargetType.None, false, false)
@@ -42,9 +53,10 @@ public abstract class RoyalCard : CustomCardModel
     public override int MaxUpgradeLevel => 0;
     public override CardPoolModel Pool => ModelDb.CardPool<RoyalCardPool>();
     public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner();
-    public override string? CustomPortraitPath => "res://LaRata/images/rat_king.png";
+    public override Material? CreateCustomFrameMaterial => RoyalCardStyle.Frame();
+    public override string? CustomPortraitPath => $"res://LaRata/images/cards/{Art[Index]}.png";
     public override List<(string, string)> Localization => [("title", Names[Index]), ("description", Descriptions[Index])];
-    internal static RoyalCard[] All => [ModelDb.Card<RoyalTax>(), ModelDb.Card<ScepterStorm>(), ModelDb.Card<OffWithTheirHeads>(), ModelDb.Card<SewerAlchemy>(), ModelDb.Card<BorrowedTomorrow>(), ModelDb.Card<RoyalFlush>(), ModelDb.Card<StolenAegis>(), ModelDb.Card<BloodContract>(), ModelDb.Card<ExposedCrown>(), ModelDb.Card<EmeraldTempest>()];
+    internal static RoyalCard[] All => [ModelDb.Card<RoyalTax>(), ModelDb.Card<ScepterStorm>(), ModelDb.Card<OffWithTheirHeads>(), ModelDb.Card<SewerAlchemy>(), ModelDb.Card<BorrowedTomorrow>(), ModelDb.Card<RoyalFlush>(), ModelDb.Card<StolenAegis>(), ModelDb.Card<BloodContract>(), ModelDb.Card<ExposedCrown>(), ModelDb.Card<EmeraldTempest>(), ModelDb.Card<GraveLevy>(), ModelDb.Card<FuneralProcession>(), ModelDb.Card<BoneTreasury>(), ModelDb.Card<CrownOfNight>(), ModelDb.Card<RottingTribute>(), ModelDb.Card<StolenHour>(), ModelDb.Card<DrownedCourt>(), ModelDb.Card<GreenGuillotine>(), ModelDb.Card<RattlingArsenal>(), ModelDb.Card<RoyalPardon>()];
 
     internal IEnumerable<AbstractIntent> GetIntents(RatKing king) => Index switch
     {
@@ -55,15 +67,21 @@ public abstract class RoyalCard : CustomCardModel
         6 or 8 => [new DefendIntent(), new BuffIntent()],
         7 => [new BuffIntent()],
         9 => [new RoyalMultiAttackIntent(() => 5 + king.PendingStrength, 4), new StatusIntent(1)],
+        10 => [new SingleAttackIntent(() => 18 + king.PendingStrength), new BuffIntent()],
+        11 => [new RoyalMultiAttackIntent(() => 6 + king.PendingStrength, 3), new DebuffIntent()],
+        12 or 13 or 16 or 19 => [new DefendIntent(), new BuffIntent()],
+        15 => [new StatusIntent(2), new DefendIntent()],
+        17 => [new SingleAttackIntent(() => 40 + king.PendingStrength)],
+        18 => [new RoyalMultiAttackIntent(() => 4 + king.PendingStrength, 5), new StatusIntent(1)],
         _ => [new DebuffIntent()]
     };
 
-    internal async Task Resolve(RatKing king, IReadOnlyList<Creature> targets)
+    internal async Task Resolve(MonsterModel king, IReadOnlyList<Creature> targets)
     {
         var context = new ThrowingPlayerChoiceContext();
         var living = targets.Where(c => c.IsAlive).ToArray();
         var owner = king.Creature;
-        if (!RoyalDeck.IsAttack(Index)) await CreatureCmd.TriggerAnim(owner, "Cast", .4f);
+        if (king is RatKing && !RoyalDeck.IsAttack(Index)) await CreatureCmd.TriggerAnim(owner, "Cast", .4f);
         switch (Index)
         {
             case 0: await Attack(12, 1); break;
@@ -91,7 +109,7 @@ public abstract class RoyalCard : CustomCardModel
                 break;
             case 7:
                 await CreatureCmd.Damage(context, owner, Math.Min(12, Math.Max(0, owner.CurrentHp - 1)), ValueProp.Unblockable | ValueProp.Unpowered, owner, null);
-                king.PendingStrength = 0;
+                if (king is RatKing ratKing) ratKing.PendingStrength = 0;
                 await PowerCmd.Apply<StrengthPower>(context, king.CombatState.Enemies.Where(c => c.IsAlive), 2, owner, null);
                 break;
             case 8:
@@ -102,8 +120,57 @@ public abstract class RoyalCard : CustomCardModel
                 await Attack(5, 4);
                 await CardPileCmd.AddToCombatAndPreview<Burn>(living.Where(c => c.IsAlive), PileType.Discard, 1, null);
                 break;
+            case 10:
+                await Attack(18, 1);
+                if (owner.IsAlive) await CreatureCmd.Heal(owner, 24);
+                break;
+            case 11:
+                await Attack(6, 3);
+                await PowerCmd.Apply<WeakPower>(context, living.Where(c => c.IsAlive), 1, owner, null);
+                break;
+            case 12: await PlateCourt(3); break;
+            case 13:
+                await CreatureCmd.GainBlock(owner, 30, ValueProp.Move, null);
+                if (owner.GetPowerAmount<BufferPower>() == 0) await PowerCmd.Apply<BufferPower>(context, owner, 2, owner, null);
+                break;
+            case 14:
+                await PowerCmd.Apply<PoisonPower>(context, living, 5, owner, null);
+                await PowerCmd.Apply<FrailPower>(context, living, 2, owner, null);
+                break;
+            case 15:
+                await CardPileCmd.AddToCombatAndPreview<Dazed>(living, PileType.Draw, 2, null, CardPilePosition.Random);
+                await CreatureCmd.GainBlock(owner, 12, ValueProp.Move, null);
+                break;
+            case 16:
+                foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).ToArray())
+                    await CreatureCmd.Heal(ally, Math.Max(1, (int)(ally.MaxHp * .05m)));
+                await PlateCourt(2);
+                break;
+            case 17:
+                await Attack(40, 1);
+                if (owner.IsAlive) await PowerCmd.Apply<VulnerablePower>(context, owner, 2, owner, null);
+                break;
+            case 18:
+                await Attack(4, 5);
+                await CardPileCmd.AddToCombatAndPreview<Dazed>(living.Where(c => c.IsAlive), PileType.Draw, 1, null, CardPilePosition.Random);
+                break;
+            case 19:
+                foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).ToArray())
+                    foreach (var power in ally.Powers.Where(p => p is WeakPower or FrailPower).ToArray())
+                        await PowerCmd.Remove(power);
+                await CreatureCmd.GainBlock(owner, 10, ValueProp.Move, null);
+                break;
         }
         async Task Attack(int damage, int hits) => await DamageCmd.Attack(damage).FromMonster(king).WithHitCount(hits).WithAttackerAnim("Attack", .3f).Execute(context);
+        async Task PlateCourt(int amount)
+        {
+            int scale = Math.Max(1, king.CombatState.Players.Count * 2 - 1);
+            foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).ToArray())
+            {
+                int room = Math.Max(0, 14 - (int)Math.Ceiling(ally.GetPowerAmount<PlatingPower>() / (decimal)scale));
+                if (room > 0) await PowerCmd.Apply<PlatingPower>(context, ally, Math.Min(amount, room), owner, null);
+            }
+        }
     }
 }
 
@@ -122,3 +189,13 @@ public sealed class StolenAegis() : RoyalCard(6);
 public sealed class BloodContract() : RoyalCard(7);
 public sealed class ExposedCrown() : RoyalCard(8);
 public sealed class EmeraldTempest() : RoyalCard(9);
+public sealed class GraveLevy() : RoyalCard(10);
+public sealed class FuneralProcession() : RoyalCard(11);
+public sealed class BoneTreasury() : RoyalCard(12);
+public sealed class CrownOfNight() : RoyalCard(13);
+public sealed class RottingTribute() : RoyalCard(14);
+public sealed class StolenHour() : RoyalCard(15);
+public sealed class DrownedCourt() : RoyalCard(16);
+public sealed class GreenGuillotine() : RoyalCard(17);
+public sealed class RattlingArsenal() : RoyalCard(18);
+public sealed class RoyalPardon() : RoyalCard(19);

@@ -1,0 +1,344 @@
+{
+  "version": "0.8.0",
+  "created": "2026-10-17",
+  "generator": "OpenAI built-in image_gen",
+  "note": "Original generated assets, copied unchanged. No game or Riot artwork is redistributed. Runtime frames and shader tint are separate.",
+  "assets": [
+    {
+      "name": "royal_tax",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/royal_tax.png",
+      "prompt": "docs/art-prompts/royal_tax.txt",
+      "generatedSourceFile": "exec-eccb274a-4296-4f95-ad28-339faa28e8c1.png",
+      "sha256": "B392EEAE61AC5841EB77BF7B8476660B73BDD30F33CDD402656FA54B84E2EA63"
+    },
+    {
+      "name": "scepter_storm",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/scepter_storm.png",
+      "prompt": "docs/art-prompts/scepter_storm.txt",
+      "generatedSourceFile": "exec-781a1c22-9b10-4803-b8cf-b88d6c588bd0.png",
+      "sha256": "CB504430594D9135DE7DFC56784AD67C7BD37EB0DB559880C9C9FC098E05350C"
+    },
+    {
+      "name": "off_with_their_heads",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/off_with_their_heads.png",
+      "prompt": "docs/art-prompts/off_with_their_heads.txt",
+      "generatedSourceFile": "exec-b508d425-a44d-4c2c-97fc-79bbc90404fe.png",
+      "sha256": "C6007BDE1EA2EFF02261A6BF113EBD918FCDD35D9D646D3914F7493F5C33F6C2"
+    },
+    {
+      "name": "sewer_alchemy",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/sewer_alchemy.png",
+      "prompt": "docs/art-prompts/sewer_alchemy.txt",
+      "generatedSourceFile": "exec-375997c3-ce6a-4102-ba54-5ca53e5a9228.png",
+      "sha256": "364484F18861CDDF09AD1E3791C30187468E79BFE7C4DF761FF5680957346E57"
+    },
+    {
+      "name": "borrowed_tomorrow",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/borrowed_tomorrow.png",
+      "prompt": "docs/art-prompts/borrowed_tomorrow.txt",
+      "generatedSourceFile": "exec-dd8f6717-a594-45ae-b15e-6d9478215b6b.png",
+      "sha256": "99046A6A5D9787ADE2507380824DC5A8A0FCE3915963EF68675CBF005516BC47"
+    },
+    {
+      "name": "royal_flush",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/royal_flush.png",
+      "prompt": "docs/art-prompts/royal_flush.txt",
+      "generatedSourceFile": "exec-adf5538c-0479-4b64-a949-7433667f87d3.png",
+      "sha256": "24975A436E21CC4E5A0D4F8BBA40D676155F20ABF39BA0777360D9ED46FE17B7"
+    },
+    {
+      "name": "stolen_aegis",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/stolen_aegis.png",
+      "prompt": "docs/art-prompts/stolen_aegis.txt",
+      "generatedSourceFile": "exec-cb59198a-6498-498a-92d2-ecc43b19880b.png",
+      "sha256": "50FBFACD2D50225B772FB88A5472842B6D9AD678FE5FBB718AE502EDDCED1968"
+    },
+    {
+      "name": "blood_contract",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/blood_contract.png",
+      "prompt": "docs/art-prompts/blood_contract.txt",
+      "generatedSourceFile": "exec-7428ecc0-c1aa-46f0-a848-f3be6bfe7d52.png",
+      "sha256": "8E4AAC77CA06D3CE59C4C4438166CC0F9EC3235E1DB8EC76FC40597DEE1E155E"
+    },
+    {
+      "name": "exposed_crown",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/exposed_crown.png",
+      "prompt": "docs/art-prompts/exposed_crown.txt",
+      "generatedSourceFile": "exec-5566c54b-1fbd-4087-948e-27108a541335.png",
+      "sha256": "687BDCD976852F344681329436CAC372E2BDAE9F4D1994070B76FCD676FAA579"
+    },
+    {
+      "name": "emerald_tempest",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/emerald_tempest.png",
+      "prompt": "docs/art-prompts/emerald_tempest.txt",
+      "generatedSourceFile": "exec-f2f8de23-88c0-4448-a738-f3d7b7a6d301.png",
+      "sha256": "B989535E814D18A3A8C3B372D508AE78555C7FA1CCBA9C7166E8E95AEE637676"
+    },
+    {
+      "name": "grave_levy",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/grave_levy.png",
+      "prompt": "docs/art-prompts/grave_levy.txt",
+      "generatedSourceFile": "exec-76688fcf-b39c-4133-96c6-d898ac5c4c2a.png",
+      "sha256": "BC37FE5C4D49AF1FAA5E5686619DB722C74341822DA71DC5F9259BBBC22A97F2"
+    },
+    {
+      "name": "funeral_procession",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/funeral_procession.png",
+      "prompt": "docs/art-prompts/funeral_procession.txt",
+      "generatedSourceFile": "exec-c3001f37-ea36-4bc3-85ed-6e48ac390234.png",
+      "sha256": "17C47DDBC5E27FC13A85D4C4FABB391F76B2893158B32B5ACC4A6FCDCE63480A"
+    },
+    {
+      "name": "bone_treasury",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/bone_treasury.png",
+      "prompt": "docs/art-prompts/bone_treasury.txt",
+      "generatedSourceFile": "exec-c4c9bf8d-20a4-4091-9a3e-76a897cf1e8e.png",
+      "sha256": "CA3F56AA42ACF11D810223707653A379986A5743B6BD809129C293EA96414689"
+    },
+    {
+      "name": "crown_of_night",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/crown_of_night.png",
+      "prompt": "docs/art-prompts/crown_of_night.txt",
+      "generatedSourceFile": "exec-8a513f6d-18c8-42cc-9c01-6ff7e97fa88f.png",
+      "sha256": "DFB4989657BB5DCFE164A058EEDEF1CE4AF89FE6598FD6CEC38CD23E4F5E92DF"
+    },
+    {
+      "name": "rotting_tribute",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/rotting_tribute.png",
+      "prompt": "docs/art-prompts/rotting_tribute.txt",
+      "generatedSourceFile": "exec-4e680f17-a405-4cda-9c4f-2d29fc9b7602.png",
+      "sha256": "771512259CD051439457168B8ECFAECF7CCD171F5B65E7D05A49CD185D1D4F3A"
+    },
+    {
+      "name": "stolen_hour",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/stolen_hour.png",
+      "prompt": "docs/art-prompts/stolen_hour.txt",
+      "generatedSourceFile": "exec-d4eeba4f-3493-433b-98d2-35467025b762.png",
+      "sha256": "95302396B62F62059B06B9E9564BC5F625A481BA78851F3D1CB14A9209C14718"
+    },
+    {
+      "name": "drowned_court",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/drowned_court.png",
+      "prompt": "docs/art-prompts/drowned_court.txt",
+      "generatedSourceFile": "exec-4cd8b3ac-6ebb-48bd-8439-75f24d70072e.png",
+      "sha256": "EDCE6E6703A09651A1C6540E859D8405F65B0EF343003943D83A7FD7401C1462"
+    },
+    {
+      "name": "green_guillotine",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/green_guillotine.png",
+      "prompt": "docs/art-prompts/green_guillotine.txt",
+      "generatedSourceFile": "exec-19618e06-68d4-4c3d-9f5b-cbc2c4a28eee.png",
+      "sha256": "D4AA9CEED7871284457F0E144DE670DBE4FEE7311808A8A1BBAB91DDAD544E83"
+    },
+    {
+      "name": "rattling_arsenal",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/rattling_arsenal.png",
+      "prompt": "docs/art-prompts/rattling_arsenal.txt",
+      "generatedSourceFile": "exec-43c782b7-be9c-4d56-987c-3b4dcca09a9c.png",
+      "sha256": "9D9280B09C801255BA43E977528A3731C232F046F972474933AE8F60AE1EA640"
+    },
+    {
+      "name": "royal_pardon",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/royal_pardon.png",
+      "prompt": "docs/art-prompts/royal_pardon.txt",
+      "generatedSourceFile": "exec-a1627d4d-2cad-47be-8f51-3fe487b19ee0.png",
+      "sha256": "AA32E1565A27E4AE04EC8A573892ABA4C2969C94F4F831CBA30C6DE5996CE4B4"
+    },
+    {
+      "name": "grave_spark",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/grave_spark.png",
+      "prompt": "docs/art-prompts/grave_spark.txt",
+      "generatedSourceFile": "exec-26a61e9f-29f4-4a52-8c91-963406b07540.png",
+      "sha256": "B18A76ECD59D1728B1B89F63B3EF013041FE9156DD3F4E646134358B54FA2B41"
+    },
+    {
+      "name": "umbral_stitch",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/umbral_stitch.png",
+      "prompt": "docs/art-prompts/umbral_stitch.txt",
+      "generatedSourceFile": "exec-2dad4b7c-b7bd-4d40-88e1-b856131a1142.png",
+      "sha256": "AD682F1A9DA9F997864649F75DED4BB38117C3DD7AAC60FB73E3FD7A2DEE7820"
+    },
+    {
+      "name": "sewer_pact",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/sewer_pact.png",
+      "prompt": "docs/art-prompts/sewer_pact.txt",
+      "generatedSourceFile": "exec-a7246581-8605-4f14-b686-aeaafb190461.png",
+      "sha256": "A1431E80C6494AD438738945745D09918B5FA2E732A0347CA0E3B4ADDAE0BB16"
+    },
+    {
+      "name": "phantom_parade",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/phantom_parade.png",
+      "prompt": "docs/art-prompts/phantom_parade.txt",
+      "generatedSourceFile": "exec-64ea614a-5e9c-4c17-83a4-98799eae5a12.png",
+      "sha256": "89F0295716078F6C4D70B17785FA0795991F80B2156D5EA990ADA9EB65C80882"
+    },
+    {
+      "name": "borrowed_breath",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/borrowed_breath.png",
+      "prompt": "docs/art-prompts/borrowed_breath.txt",
+      "generatedSourceFile": "exec-dbbbdb55-491c-4d6b-8875-b7cd30726715.png",
+      "sha256": "29EE5F8B7FAD8B85D8FBFE1259E0D66D108D295D4DADB1C0CDB53B5BB0886816"
+    },
+    {
+      "name": "crown_exchange",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/crown_exchange.png",
+      "prompt": "docs/art-prompts/crown_exchange.txt",
+      "generatedSourceFile": "exec-1a22188c-1f8b-442e-8262-184be0dd4225.png",
+      "sha256": "66764BE25BD1758619AC1638E1D823E979E6B0E158A240B857E9979C7471E449"
+    },
+    {
+      "name": "midnight_rehearsal",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/midnight_rehearsal.png",
+      "prompt": "docs/art-prompts/midnight_rehearsal.txt",
+      "generatedSourceFile": "exec-814a5884-4b64-4438-929a-736f40687600.png",
+      "sha256": "57759B4D92A85FBD182CF17811472E9C7856B23E0FD684DB2C9FD40F68053F37"
+    },
+    {
+      "name": "emerald_ward",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/emerald_ward.png",
+      "prompt": "docs/art-prompts/emerald_ward.txt",
+      "generatedSourceFile": "exec-7b257086-13e7-4c79-8e6f-9bfd1ecb8709.png",
+      "sha256": "14F32DC9AEF21911A2649FDC081138990EDDC37876F0E5FE92FC4C433DC881EF"
+    },
+    {
+      "name": "second_shadow",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/second_shadow.png",
+      "prompt": "docs/art-prompts/second_shadow.txt",
+      "generatedSourceFile": "exec-26dcaee9-5f3b-4280-8691-567f337e6628.png",
+      "sha256": "EB72B1FE10103455236F1D8FFACAE03DA1181CBBF932915BCBB0EEEBB870D136"
+    },
+    {
+      "name": "open_the_gates",
+      "kind": "card",
+      "path": "assets/LaRata/images/cards/open_the_gates.png",
+      "prompt": "docs/art-prompts/open_the_gates.txt",
+      "generatedSourceFile": "exec-0be37b58-6793-4155-a481-6626011972ae.png",
+      "sha256": "9BDF5BBF179795038BC056DF64594AE454A1B432FA79331B1C777C99DACA3A2E"
+    },
+    {
+      "name": "ironclad_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/ironclad_pack.png",
+      "prompt": "docs/art-prompts/ironclad_pack.txt",
+      "generatedSourceFile": "exec-1e8d4189-fe3c-4ef4-80fc-db7eda0722a4.png",
+      "sha256": "53D503F3497918D6455309912F72C30C8924C2EA9A5AAC897405EFD511C4DA33"
+    },
+    {
+      "name": "silent_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/silent_pack.png",
+      "prompt": "docs/art-prompts/silent_pack.txt",
+      "generatedSourceFile": "exec-1790a2d9-1df3-4e68-ade8-dccd32dede0c.png",
+      "sha256": "CAB6AD60B3E585C188E5268FD4E023BDC79B3E7A639E2D7377BF9B715D293018"
+    },
+    {
+      "name": "defect_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/defect_pack.png",
+      "prompt": "docs/art-prompts/defect_pack.txt",
+      "generatedSourceFile": "exec-57cf1539-f292-449d-b010-11818ba2f881.png",
+      "sha256": "1FCC1ACA586010257C803A538D7C85C9CCC717B1F60781741EADE8CB070E6C6A"
+    },
+    {
+      "name": "regent_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/regent_pack.png",
+      "prompt": "docs/art-prompts/regent_pack.txt",
+      "generatedSourceFile": "exec-e82a3c08-adc1-4ddb-9dcc-ba4cd28e62df.png",
+      "sha256": "19B3BE43826C28A8B8AFA433A48F5A584C182D9154D54D33D32D7EA8936DDF59"
+    },
+    {
+      "name": "necrobinder_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/necrobinder_pack.png",
+      "prompt": "docs/art-prompts/necrobinder_pack.txt",
+      "generatedSourceFile": "exec-13f02ec9-a13a-4c95-a739-ce67403af3a2.png",
+      "sha256": "3693B6E692932DDF9EB116BE28FB7A4F7359729FE3A2B62F96DDFA5176B86D87"
+    },
+    {
+      "name": "royal_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/royal_pack.png",
+      "prompt": "docs/art-prompts/royal_pack.txt",
+      "generatedSourceFile": "exec-7c193687-7130-4f55-a7ce-49e38dc4ffe8.png",
+      "sha256": "74096849400F4C08F1342C8899AFDFF01FF5DF71148C153EC20129ABCEABEFCF"
+    },
+    {
+      "name": "ashen_spool",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/ashen_spool.png",
+      "prompt": "docs/art-prompts/ashen_spool.txt",
+      "generatedSourceFile": "exec-ba748dad-4bb8-4659-9ce5-1761ac5b69cd.png",
+      "sha256": "5647C61F8B986B6307DF09343E98997AB62AC3B5078AD3242237B425C2FF8CD4"
+    },
+    {
+      "name": "crown_capacitor",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/crown_capacitor.png",
+      "prompt": "docs/art-prompts/crown_capacitor.txt",
+      "generatedSourceFile": "exec-d0dea307-0d91-4a9b-94c4-7eb2510cfd20.png",
+      "sha256": "C6711D1F9681DF09BC631EFDF89D597EAEE63AE77A6199EFA16C273CD2235A6C"
+    },
+    {
+      "name": "crossroads_compass",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/crossroads_compass.png",
+      "prompt": "docs/art-prompts/crossroads_compass.txt",
+      "generatedSourceFile": "exec-0e23ec2e-2e06-4f86-904a-acb4849d8147.png",
+      "sha256": "A1BC54750D8DE330BC76656ABB82A2E074E90669BAFAD37AEEAF78BF24C9DC75"
+    },
+    {
+      "name": "bottled_echo",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/bottled_echo.png",
+      "prompt": "docs/art-prompts/bottled_echo.txt",
+      "generatedSourceFile": "exec-f05979df-867b-4ec4-8bb6-8036fe13e131.png",
+      "sha256": "66A3601E39F79850006F2F0518DB5986082FDF49212CB68E129C5BC6462EDD34"
+    },
+    {
+      "name": "smugglers_thread",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/smugglers_thread.png",
+      "prompt": "docs/art-prompts/smugglers_thread.txt",
+      "generatedSourceFile": "exec-70969a77-76e8-4483-a268-469511e5714e.png",
+      "sha256": "CDF3B33943C52DC3528412B5249C557DFC5A25192A83C2961AFABA1BC67F0DD1"
+    },
+    {
+      "name": "booster_back",
+      "kind": "card-back",
+      "path": "assets/LaRata/images/booster_back.png",
+      "prompt": "docs/art-prompts/booster_back.txt",
+      "generatedSourceFile": "exec-e42fd30e-fd69-4652-be70-0b3eca75ff7c.png",
+      "sha256": "11B4F5DB790B91F0498F71F31370A98E6CC9AD3F6EDE3212A7E3BE80EA946EC1"
+    }
+  ]
+}

@@ -52,3 +52,30 @@ The repository's MIT license covers original code, scripts, scene definitions an
 Native rats, encounter backgrounds, intent symbols and sound effects are referenced from the installed game. They are not copied into the distributed PCK. The archive does not contain game assemblies or decompiled source.
 
 BaseLib 3.4.7 and the official Godot editor are MIT-licensed external tools/libraries. BaseLib is required separately at runtime and is not bundled in this mod archive. Godot is a build-time tool. See README for source links and dependency risk/effort notes.
+
+## 0.7.0 native knight reskins and royal laugh
+
+At the owner's direction, no new knight raster artwork was generated. The Kingsguard references the installed Flail Knight (twice), Magi Knight and Spectral Knight scenes, skeletons, animations and native action sounds. Mod-owned `kingsguard.gdshader` recolors neutral armor to charcoal steel and colored cloth/magic to emerald. `royal_marker.gdshader` recolors the installed native card-debuff icon. Original game assets are neither extracted into the repository nor redistributed. These material changes are scoped to the new custom monsters/marker.
+
+`assets/LaRata/audio/royal_chuckle.mp3` was generated on 2026-10-17 through the official ElevenLabs CLI, using its existing OAuth connection, `eleven_text_to_sound_v2`, duration 2.3 seconds, prompt influence 0.65 and MP3 44.1 kHz/128 kbps. SHA256: `1E4ED29BE976C8B2F1FCA8C77B2DEB795D5B43EAC7ACFDA3C6CE55BFE7E43583`. The user requested the mischievous ratlike character of Twitch from LoL as a style reference; no Riot audio, voice sample or voice clone was supplied or used.
+
+Exact generation prompt: "A short wicked rat king chuckle for a dark fantasy card game: high nasal raspy sneaky male creature voice, sharp breathy heh-heh-heh rising into a mischievous squeaky cackle, furtive and gleefully malicious sewer rat personality, dry close microphone, one isolated laugh, no spoken words, no music, no background ambience. Original character performance."
+
+The MP3 is bundled; BaseLib's existing ModAudio plays it on the SFX channel. There is no ElevenLabs call, credential or added dependency in the released game runtime. ElevenLabs is an established hosted generation service used only at asset creation time; its service/output terms apply to the generated audio, not the code's MIT license. The CLI used existing secure authentication; no keys were written to the project. Audio timing/decoding can be checked mechanically, but listening and in-game mixing approval are still pending.
+
+## 0.8.0 card illustrations and relic icons
+
+Thirty individual card portraits (twenty boss and ten neutral), eleven relic icons (six boosters and five combo relics), and one card back were generated with the built-in OpenAI image generation tool on 2026-10-17. Each asset is an individual generation copied unchanged into the mod. The five playable boss prizes reuse the corresponding boss illustrations. Exact prompts, source output filenames and SHA256 hashes are in `art-prompts/manifest-0.8.0.json`. The art direction requests bold painted fantasy-card shapes, charcoal/emerald spectral effects and the established rat-king identity. No game/Riot card illustration was copied into the package.
+
+Standalone Godot contact sheets inspected all portraits, the card back and 130/48-pixel relic icons; the first proof exposed a TextureRect minimum-size ordering issue, corrected before final review and in the opening code. This does not establish in-game frame cropping or UI animation acceptance. Existing artwork licensing exclusions remain applicable.
+
+The Kingsguard shader now adds slowly pulsing energy branches to the native Flail Knight breastplate atlas region. GPU previews use the installed native Spine models and the actual shader. This is a runtime material effect, not replacement raster artwork; no native atlas/skeleton is redistributed.
+
+## 0.8.2 Regent foil and throne-room invitation
+
+Generated with built-in OpenAI image generation on 2026-10-18, using mod-owned reference artwork. Original generated pixels were copied unchanged. Exact prompts, generated filenames, dimensions and SHA256 hashes are recorded in `art-prompts/manifest-0.8.2.json`.
+
+- `assets/LaRata/images/relics/regent_pack.png`: 1254 × 1254 RGBA, orange/amber foil and gold crown, replacing the purple pack. Native Regent orange (#E36600) informed the palette. SHA256 `AE305F46635A1A9B2A24D4BD2261F7CBDCFE32B92047F459AA180DEEF20E56BB`.
+- `assets/LaRata/images/throne_room.png`: 1672 × 941 RGB, wide dark throne room with La Rata's face in shadow and glowing emerald eyes, composed with quieter space for native event controls. SHA256 `546580CDBE9446A83C38E1680228D1552A4731021E8A02EFD5A87EB1B6D97C9A`.
+
+The invitation's full-viewport coverage and native text/button readability were observed on four local clients at 1282 × 752 on 2026-10-18. Other aspect ratios and owner visual acceptance remain separate. The updated Regent icon was not exercised in a live pack opening in this test. Existing raster-art/branding license exclusions apply; no new runtime dependency was introduced.

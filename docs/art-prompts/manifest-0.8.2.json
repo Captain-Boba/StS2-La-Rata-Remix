@@ -1,0 +1,34 @@
+{
+  "version": "0.8.2",
+  "created": "2026-10-18",
+  "generator": "OpenAI built-in image_gen",
+  "note": "Regent replaces the purple 0.8.0 icon. Throne room is new, based on the project title artwork. Generated pixels copied unchanged; native UI and runtime shaders are separate.",
+  "assets": [
+    {
+      "name": "regent_pack",
+      "kind": "relic",
+      "path": "assets/LaRata/images/relics/regent_pack.png",
+      "prompt": "docs/art-prompts/regent_pack-0.8.2.txt",
+      "generatedSourceFile": "exec-2bee603c-3349-460c-8e2f-a1c56e5f4929.png",
+      "sha256": "AE305F46635A1A9B2A24D4BD2261F7CBDCFE32B92047F459AA180DEEF20E56BB",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "name": "throne_room",
+      "kind": "event-background",
+      "path": "assets/LaRata/images/throne_room.png",
+      "prompt": "docs/art-prompts/throne_room-0.8.2.txt",
+      "generatedSourceFile": "exec-e1f904fb-acce-4825-9952-a20ffa72713c.png",
+      "sha256": "546580CDBE9446A83C38E1680228D1552A4731021E8A02EFD5A87EB1B6D97C9A",
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB"
+    }
+  ]
+}

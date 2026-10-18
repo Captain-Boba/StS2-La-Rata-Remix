@@ -92,28 +92,51 @@ internal static class StartingBuffsPatch
             Task Block(int amount) => CreatureCmd.GainBlock(target, amount, ValueProp.Move, null);
             switch (twist.Kind)
             {
-                case TwistKind.Armored: await Grant<PlatingPower>(twist.Amount); break;
+                case TwistKind.Armored: await Grant<PlatingPower>(twist.Defense(twist.Amount)); break;
                 case TwistKind.Warded: await Grant<ArtifactPower>(1); break;
-                case TwistKind.Empowered: await Grant<PlatingPower>(2); break;
+                case TwistKind.Empowered: await Grant<PlatingPower>(twist.Defense(2)); break;
                 case TwistKind.Bristling: await Grant<ThornsPower>(2); break;
-                case TwistKind.Regenerating: await Grant<RegenPower>(3); break;
+                case TwistKind.Regenerating: await Grant<RegenPower>(twist.Defense(3)); break;
                 case TwistKind.Cultist: await Grant<RitualPower>(1); break;
                 case TwistKind.Demonic: await Grant<DemonFormPower>(1); break;
                 case TwistKind.Entrenched:
                     await PowerCmd.Apply<BarricadePower>(context, target, 1, target, null);
-                    await Block(8);
+                    await Block(twist.Defense(8));
                     break;
                 case TwistKind.Buffered: await Grant<BufferPower>(1); break;
                 case TwistKind.Furious: await Grant<StrengthPower>(1); break;
                 case TwistKind.Phased: await Grant<IntangiblePower>(1); break;
                 case TwistKind.Slippery: await Grant<SlipperyPower>(1); break;
                 case TwistKind.WoundUp: await Grant<VigorPower>(2); break;
-                case TwistKind.Agile: await Grant<DexterityPower>(2); await Block(6); break;
-                case TwistKind.Fortified: await Block(12); break;
-                case TwistKind.SecondWind: await Grant<SelfFormingClayPower>(8); break;
+                case TwistKind.Agile: await Grant<DexterityPower>(2); await Block(twist.Defense(6)); break;
+                case TwistKind.Fortified: await Block(twist.Defense(12)); break;
+                case TwistKind.SecondWind: await Grant<SelfFormingClayPower>(twist.Defense(8)); break;
                 case TwistKind.Reservist:
-                    (await PowerCmd.Apply<ToricToughnessPower>(context, target, 2, null, null))?.SetBlock(6);
+                    (await PowerCmd.Apply<ToricToughnessPower>(context, target, 2, null, null))?.SetBlock(twist.Defense(6));
                     break;
+                case TwistKind.Spiteful: await Grant<RupturePower>(1); break;
+                case TwistKind.VenomCoated: await Grant<EnvenomPower>(1); break;
+                case TwistKind.EmberGuard: await Grant<FlameBarrierPower>(3); break;
+                case TwistKind.GlassCrown: await Grant<DiamondDiademPower>(1); break;
+                case TwistKind.MirrorGuard:
+                    await Block(twist.Defense(6));
+                    await Grant<ReflectPower>(1);
+                    break;
+                case TwistKind.BloodFeud:
+                    var feud = await PowerCmd.Apply<CrabRagePower>(context, target, 1, null, null);
+                    if (feud != null)
+                    {
+                        feud.DynamicVars.Strength.BaseValue = 2;
+                        feud.DynamicVars.Block.BaseValue = twist.Defense(12);
+                    }
+                    break;
+                case TwistKind.Doomweaver: await Grant<ShroudPower>(twist.Defense(4)); break;
+                case TwistKind.Hotheaded: await Grant<FlexPotionPower>(3); break;
+                case TwistKind.Afterglow:
+                    await Block(twist.Defense(10));
+                    await Grant<BlurPower>(1);
+                    break;
+                case TwistKind.SkillHunter: await Grant<EnragePower>(1); break;
             }
         }
     }
@@ -188,10 +211,11 @@ internal static class HexExecutionPatch
                 }
                 break;
             case TwistKind.Venomous: await Capped<PoisonPower>(2, 6); break;
+            case TwistKind.Doomweaver:
             case TwistKind.Ominous:
                 foreach (var target in living)
                 {
-                    int grant = Math.Min(4, Math.Max(0, target.MaxHp / 4 - target.GetPowerAmount<DoomPower>()));
+                    int grant = Math.Min(hex.Twist.Kind == TwistKind.Doomweaver ? 2 : 4, Math.Max(0, target.MaxHp / 4 - target.GetPowerAmount<DoomPower>()));
                     if (grant > 0) await PowerCmd.Apply<DoomPower>(context, target, grant, source, null);
                 }
                 break;

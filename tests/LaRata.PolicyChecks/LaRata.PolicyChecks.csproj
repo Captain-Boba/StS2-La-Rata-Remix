@@ -9,6 +9,7 @@
     <Compile Include="../../src/LaRata/EncounterPlan.cs" Link="EncounterPlan.cs" />
     <Compile Include="../../src/LaRata/RoyalDeck.cs" Link="RoyalDeck.cs" />
     <Compile Include="../../src/LaRata/ChaosSelections.cs" Link="ChaosSelections.cs" />
+    <Compile Include="../../src/LaRata/CameoSchedule.cs" Link="CameoSchedule.cs" />
     <Reference Include="sts2" HintPath="$(Sts2Path)/data_sts2_windows_x86_64/sts2.dll" />
     <Reference Include="GodotSharp" HintPath="$(Sts2Path)/data_sts2_windows_x86_64/GodotSharp.dll" />
   </ItemGroup>

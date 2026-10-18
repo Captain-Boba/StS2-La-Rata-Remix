@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Potions;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
@@ -22,13 +21,6 @@ internal static class PotionGoblin
 {
     private static readonly ConditionalWeakTable<ICombatState, object> Visited = new();
     private static readonly Dictionary<Type, MethodInfo> Effects = new();
-    private static PotionModel[] Pool =>
-    [
-        ModelDb.Potion<StrengthPotion>(), ModelDb.Potion<DexterityPotion>(), ModelDb.Potion<BlockPotion>(),
-        ModelDb.Potion<RegenPotion>(), ModelDb.Potion<LiquidBronze>(), ModelDb.Potion<FlexPotion>(),
-        ModelDb.Potion<SpeedPotion>(), ModelDb.Potion<GhostInAJar>(), ModelDb.Potion<WeakPotion>(),
-        ModelDb.Potion<VulnerablePotion>(), ModelDb.Potion<PoisonPotion>(), ModelDb.Potion<FirePotion>()
-    ];
 
     [HarmonyPostfix]
     private static void Postfix(ICombatState combatState, CombatSide side, ref Task __result) => __result = Visit(__result, combatState, side);
@@ -44,16 +36,12 @@ internal static class PotionGoblin
         // combat's room entry is already present before its first turn starts.
         int ordinal = Math.Max(1, run.MapPointHistory.SelectMany(a => a).SelectMany(p => p.Rooms)
             .Count(r => r.RoomType is RoomType.Monster or RoomType.Elite or RoomType.Boss));
-        var timing = new Rng(run.Rng.Seed, $"LaRata/goblin/v1/block/{(ordinal - 1) / 3}");
-        if (!ChaosSelections.GoblinVisits(ordinal, timing.NextInt(3))) return;
-        int arrivalRound = 3 + new Rng(run.Rng.Seed, $"LaRata/goblin/v1/arrival/{ordinal}").NextInt(2);
-        if (combat.RoundNumber != arrivalRound) return;
+        if (combat.RoundNumber != CameoSchedule.GoblinRound(run.Rng.Seed, ordinal)) return;
         Visited.Add(combat, new object());
         var players = combat.Players.Where(p => p.Creature.IsAlive).OrderBy(p => p.NetId).ToArray();
         if (players.Length == 0) return;
-        var pool = Pool;
-        var rng = new Rng(run.Rng.Seed, $"LaRata/goblin/v1/potions/{ordinal}");
-        var selections = ChaosSelections.Distinct(players.Length, pool.Length, n => rng.NextInt(n));
+        var rng = new Rng(run.Rng.Seed, $"LaRata/goblin/v2/potions/{ordinal}");
+        var selections = GoblinPotionCatalog.Select(players, rng);
         var room = NCombatRoom.Instance;
         Sprite2D? goblin = null;
         Texture2D[] poses = [];
@@ -78,7 +66,7 @@ internal static class PotionGoblin
                 room.CombatVfxContainer.AddChild(goblin);
                 var entrance = goblin.CreateTween();
                 entrance.TweenProperty(goblin, "position:x", 1660f, 1.0).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
-                entrance.TweenInterval(1.2);
+                entrance.TweenInterval(.2);
                 // Native tween completion preserves the cameo even in Instant mode,
                 // where Cmd.Wait is skipped. It also cancels safely on room exit.
                 if (!await entrance.AwaitFinished(goblin)) return;
@@ -88,7 +76,7 @@ internal static class PotionGoblin
                 if (CombatManager.Instance.IsEnding) break;
                 var player = players[i];
                 if (!player.Creature.IsAlive) continue;
-                var potion = (PotionModel)pool[selections[i]].ToMutable();
+                var potion = selections[i].ToMutable();
                 potion.Owner = player;
                 ModEntry.Log.Info($"GOBLIN combat={ordinal} round={combat.RoundNumber} player={player.NetId} potion={potion.Id.Entry}");
                 if (room != null && goblin != null)
@@ -128,7 +116,9 @@ internal static class PotionGoblin
                 if (!Effects.TryGetValue(potion.GetType(), out var method))
                     Effects[potion.GetType()] = method = AccessTools.Method(potion.GetType(), "OnUse", [typeof(PlayerChoiceContext), typeof(Creature)])
                         ?? throw new MissingMethodException(potion.GetType().Name, "OnUse");
-                var context = new ThrowingPlayerChoiceContext();
+                // The transition must wait for this recipient before the next
+                // throw. Native selectors synchronize choices across peers.
+                var context = new BlockingPlayerChoiceContext();
                 context.PushModel(potion);
                 CombatManager.Instance.BeginCardOrPotionEffect(player);
                 try { await (Task)method.Invoke(potion, [context, player.Creature])!; }

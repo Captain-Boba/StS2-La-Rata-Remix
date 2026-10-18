@@ -1,3 +1,15 @@
+Current update: [0.8.2 Gifts from the throne](docs/UPDATE-0.8.2.md), tested 2026-10-18 on v0.107.1 with BaseLib 3.4.7. Fresh-run solo checks covered all three starting relics, five potion slots, Cleanse, Emerald Ward and same-turn Bottled Echo. Four local ENet peers exercised unanimous bonus entry, full-screen throne artwork, Ancient healing/rewards, Kingsguard stats/heals, both Emerald Ward versions, a sequential four-recipient goblin visit and Cleanse after the splash. All 31 native checksum values and normalized contexts matched in the recorded gameplay window. The saved completed bonus Ancient reloaded on all four peers with rewards retained; this is not a mid-combat reload test.
+
+The full first co-op host log contains native ENet disconnect errors after clients were manually closed, followed by engine resource-cleanup diagnostics. Original logs are retained; the strict full-log error gate is not claimed to pass. Gameplay prefix snapshots ending at checksum 30 pass separately. Tests used isolated Steam-off profiles, with no real Steam saves changed. Other Workshop mods, all 58 live potion effects/choice screens, full boss balance and four-machine Internet play remain outside this test. The corrected Energy-icon DLL is installed. Detailed logs, observations and limitations are linked above.
+
+## Historical update summaries
+
+Previous update: [0.8.1 Deeper chaos](docs/UPDATE-0.8.1.md). 384,000 encounter policies across four acts and all 16 player-card upgrades passed. No in-game testing or installation at that stage; the active co-op session was left alone. Historical evidence follows.
+
+Current update: [0.8.0 Royal cards and boosters](docs/UPDATE-0.8.0.md). The policy suite now covers the 20-card boss deck. The new content suite uses native models, upgrades and JSON saved-property roundtrips. Original evidence below remains historical. Game/UI/audio acceptance and four-peer combat checks remain pending while interactive tests are paused.
+
+Previous update: [0.6.1 starting Bowler Hat](docs/UPDATE-0.6.1.md). Native new-run/save paths reviewed and installation hashes matched; gameplay verification remains pending while UI tests are paused.
+
 Current update: [0.6.0 party-sized chaos](docs/UPDATE-0.6.0.md). 240,000 encounter policy cases passed; native-power gameplay, new formations and four-peer synchronization remain untested while UI tests are paused.
 
 Current update: [0.5.2 goblin animation and 0.5.1 Cleanse](docs/UPDATE-0.5.1.md), following [0.5.0 technical checks](docs/UPDATE-0.5.0.md). Assistant-driven interactive tests remain paused. Owner observations identify a third-party compatibility failure and a too-brief goblin appearance; neither is full gameplay or multiplayer acceptance. Previous evidence: [0.4.0 partial solo test report](docs/UPDATE-0.4.0.md) and [0.3.1 visual and RPS report](docs/UI-TEST-REPORT-0.3.1.md). The report below preserves the 0.3.0 evidence and original hashes; it does not validate later releases.

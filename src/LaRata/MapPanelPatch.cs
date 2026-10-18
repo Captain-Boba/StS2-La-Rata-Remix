@@ -33,11 +33,12 @@ internal static class MapPanelPatch
         var title = CopyLabel(headerSource, panel, new Vector2(30, 12), new Vector2(280, 55), 26);
         var body = new Control { Position = new Vector2(30, 75), Size = new Vector2(280, 215), MouseFilter = Control.MouseFilterEnum.Ignore };
         panel.AddChild(body);
-        CopyLabel(labelSource, body, Vector2.Zero, new Vector2(280, 36), 23).SetTextAutoSize("Gold gained: +25%");
-        CopyLabel(labelSource, body, new Vector2(0, 36), new Vector2(280, 36), 23).SetTextAutoSize("Starting potion slots: +2");
-        CopyLabel(labelSource, body, new Vector2(0, 72), new Vector2(280, 36), 23).SetTextAutoSize($"Twists: {Math.Clamp(runState.Players.Count, 1, 4)}x solo budget");
-        CopyLabel(labelSource, body, new Vector2(0, 108), new Vector2(280, 36), 23).SetTextAutoSize("Final boss: unseen ally");
-        var detail = CopyLabel(labelSource, body, new Vector2(0, 153), new Vector2(280, 50), 21);
+        CopyLabel(labelSource, body, Vector2.Zero, new Vector2(280, 32), 22).SetTextAutoSize("Start: Bowler Hat");
+        CopyLabel(labelSource, body, new Vector2(0, 32), new Vector2(280, 32), 22).SetTextAutoSize("Start: Potion Belt (+2 slots)");
+        CopyLabel(labelSource, body, new Vector2(0, 64), new Vector2(280, 32), 22).SetTextAutoSize("Start: White Beast Statue");
+        CopyLabel(labelSource, body, new Vector2(0, 96), new Vector2(280, 32), 22).SetTextAutoSize($"Twists: {Math.Clamp(runState.Players.Count, 1, 4)} players / Act {runState.CurrentActIndex + 1}");
+        CopyLabel(labelSource, body, new Vector2(0, 128), new Vector2(280, 32), 22).SetTextAutoSize("Final boss: unseen ally");
+        var detail = CopyLabel(labelSource, body, new Vector2(0, 163), new Vector2(280, 40), 21);
         void Refresh()
         {
             detail.SetTextAutoSize($"Potion slots: {string.Join(" / ", runState.Players.Select(x => x.MaxPotionCount))}");

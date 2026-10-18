@@ -1,30 +1,29 @@
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Entities.Players;
-using MegaCrit.Sts2.Core.Hooks;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Unlocks;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Models.Relics;
+using MegaCrit.Sts2.Core.Runs;
 
 namespace LaRata;
 
-[HarmonyPatch(typeof(Player), nameof(Player.CreateForNewRun), [typeof(CharacterModel), typeof(UnlockState), typeof(ulong)])]
-internal static class PotionCapacityPatch
+[HarmonyPatch(typeof(RunManager), nameof(RunManager.FinalizeStartingRelics))]
+internal static class StartingRelicsPatch
 {
     [HarmonyPostfix]
-    private static void Postfix(Player __result)
-    {
-        // This path is never used by FromSerializable. Native save/network fields retain the capacity.
-        __result.AddToMaxPotionCount(2);
-        ModEntry.Log.Info($"BENEFIT new-player={__result.NetId} potion-slots={__result.MaxPotionCount}");
-    }
-}
+    private static void Postfix(RunManager __instance, ref Task __result) => __result = Grant(__result, __instance);
 
-[HarmonyPatch(typeof(Hook), nameof(Hook.ModifyGoldGained))]
-internal static class GoldBonusPatch
-{
-    [HarmonyPostfix]
-    private static void Postfix(ref decimal __result)
+    private static async Task Grant(Task original, RunManager manager)
     {
-        // Honor native prevention (e.g. Ectoplasm). Native GainGold truncates to whole coins.
-        if (__result > 0) __result *= 1.25m;
+        await original;
+        // Native new-run finalization is not called when loading or reconnecting.
+        // Obtain owns inventory, history, grab-bag removal and native relic callbacks.
+        var run = manager.DebugOnlyGetState();
+        if (run == null) return;
+        foreach (var player in run.Players.OrderBy(p => p.NetId).ToArray())
+        {
+            if (player.GetRelic<BowlerHat>() == null) await RelicCmd.Obtain<BowlerHat>(player);
+            if (player.GetRelic<PotionBelt>() == null) await RelicCmd.Obtain<PotionBelt>(player);
+            if (player.GetRelic<WhiteBeastStatue>() == null) await RelicCmd.Obtain<WhiteBeastStatue>(player);
+            ModEntry.Log.Info($"BENEFIT starting-relics player={player.NetId} potion-slots={player.MaxPotionCount}");
+        }
     }
 }
