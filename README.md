@@ -6,11 +6,11 @@ The optional endgame path and the first La Rata boss are included in this protot
 
 ## Installation
 
-**Local development build: 0.8.2.** The boosters, expanded deck, new cards/relics, Kingsguard, royal interventions and starting Bowler Hat are not yet included in the published 0.6.0 release linked below. Use the locally built `LaRata-0.8.2.zip` for these changes. This is a development build; see the current update notes for test coverage.
+**Release 0.8.2.** Includes the Kingsguard, royal interventions, boosters, expanded cards/relics and all three starting relics. See the current update notes for scoped solo/four-local-client results and remaining test coverage.
 
-You need the **compiled package**, such as `LaRata-0.6.0.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
+You need the **compiled package**, such as `LaRata-0.8.2.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
 
-**Published release (0.6.0):** [LaRata-0.6.0.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.6.0/LaRata-0.6.0.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.6.0) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.6.0.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
+**Published release (0.8.2):** [LaRata-0.8.2.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.8.2/LaRata-0.8.2.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.8.2) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.8.2.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
 
 1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
 2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
