@@ -143,3 +143,48 @@ foreach (var (type, expected) in new (Type, (string Move, decimal Damage, int Hi
 }
 Console.WriteLine("PASS: six Kingsguard attack intents announce doubled damage with unchanged hit counts; native three-turn state machines construct.");
 
+var director = types.Single(t => t.Name == "EncounterDirector");
+var candidatesMethod = director.GetMethod("ReinforcementCandidates", BindingFlags.NonPublic | BindingFlags.Static)!;
+MonsterModel[] Helpers(int act, ModelId[] present, ModelId[] previous) =>
+    (MonsterModel[])candidatesMethod.Invoke(null, [act, present, previous])!;
+var early = Helpers(0, [], []);
+var late = Helpers(1, [], []);
+Require(early.Length == 4 && late.Length == 7, "Cross-act reinforcement pool size changed.");
+Require(early.All(m => m is not (MegaCrit.Sts2.Core.Models.Monsters.Nibbit or MegaCrit.Sts2.Core.Models.Monsters.Flyconid or MegaCrit.Sts2.Core.Models.Monsters.FuzzyWurmCrawler)), "Strong helpers entered act one.");
+var slug = ModelDb.Monster<MegaCrit.Sts2.Core.Models.Monsters.CorpseSlug>().Id;
+Require(Helpers(0, [], [slug]).All(m => m.Id != slug), "A previous slug must not force another slug.");
+foreach (var canonical in late)
+{
+    var clone = canonical.ToMutable();
+    clone.SetUpForCombat();
+    Require(clone.MoveStateMachine!.States.Count > 0, "Native reinforcement has no move states: " + canonical.Id);
+}
+// Replay selection from identical saved IDs on four simulated peers; include
+// exhaustion of recent choices and three extra enemies in one formation.
+var seenHelpers = new HashSet<ModelId>();
+foreach (uint seed in Enumerable.Range(0, 128).Select(i => (uint)i))
+{
+    string[] peers = Enumerable.Range(0, 4).Select(_ =>
+    {
+        var rng = new MegaCrit.Sts2.Core.Random.Rng(seed, "reinforcement-replay");
+        var occupied = new List<ModelId> { slug };
+        var selected = new List<ModelId>();
+        for (int i = 0; i < 3; i++)
+        {
+            var options = Helpers(1, occupied.ToArray(), [early[1].Id]);
+            var chosen = options[rng.NextInt(options.Length)].Id;
+            Require(!occupied.Contains(chosen), "Duplicate reinforcement when alternatives exist.");
+            Require(chosen != early[1].Id, "Recent enemy repeated when alternatives exist.");
+            occupied.Add(chosen);
+            selected.Add(chosen);
+            seenHelpers.Add(chosen);
+        }
+        return string.Join(",", selected);
+    }).ToArray();
+    Require(peers.Distinct().Count() == 1, "Reinforcement replay differs across identical inputs.");
+}
+Require(seenHelpers.Count == 5, "Eligible reinforcement types are not all reachable.");
+Require(Helpers(0, early.Select(m => m.Id).ToArray(), early.Select(m => m.Id).ToArray()).Length == 4,
+    "Exhausted diversity preferences must still provide a valid pool.");
+Console.WriteLine("PASS: four early/seven later reinforcement types construct native move states; occupied/recent types are avoided; 128 seeded selections replay identically on four simulated peers. Not a network test.");
+

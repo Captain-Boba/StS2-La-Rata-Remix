@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>0.8.2</Version>
+    <Version>0.8.3</Version>
     <Deterministic>true</Deterministic>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <Sts2Path Condition="'$(Sts2Path)' == ''">E:/SteamLibrary/steamapps/common/Slay the Spire 2</Sts2Path>

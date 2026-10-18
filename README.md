@@ -1,20 +1,24 @@
-# StS2 - La Rata Remix
+# La Rata Remix
 
-Standalone difficulty mod for **Slay the Spire 2 v0.107.1 (59260271)**. Version **0.8.2** expands La Rata's deck to **20 illustrated cards**, adds **10 neutral cards**, **six interactive card boosters** and **five combo relics**, and gives the large Kingsguard knights glowing emerald breastplates. Includes the Kingsguard, hidden royal interventions, starting Bowler Hat, act-scaled chaos with 41 families including reinforcements, potion goblin, Cleanse and the royal finale. Supports 1–4 players. All mod-added text is English. The base game's language remains your choice. See [current implementation and validation limits](docs/UPDATE-0.8.2.md).
+Standalone difficulty mod for **Slay the Spire 2 v0.107.1 (59260271)**. Version **0.8.2** expanded La Rata's deck to **20 illustrated cards**, adds **10 neutral cards**, **six interactive card boosters** and **five combo relics**, and gives the large Kingsguard knights glowing emerald breastplates. Includes the Kingsguard, hidden royal interventions, starting Bowler Hat, act-scaled chaos with 41 families including reinforcements, potion goblin, Cleanse and the royal finale. Supports 1–4 players. All mod-added text is English. The base game's language remains your choice. See [current implementation and validation limits](docs/UPDATE-0.8.2.md).
 
 The optional endgame path and the first La Rata boss are included in this prototype. See the [accepted design brief](docs/DESIGN.md) and [endgame integration study](docs/ENDGAME-INTEGRATION.md). The supplied [title artwork](La%20Rata%20Remix%20-%20Titelbild%20-%20V1.png) is the visual reference for the new mod-owned combat sprite.
+
+Current version: **0.8.3**. See [the 0.8.3 changes and validation scope](docs/UPDATE-0.8.3.md) for reinforcement variety, longer intervention reveals and the compact map title.
 
 ## Installation
 
 ### Steam Workshop (recommended)
 
-Subscribe to [StS2 - La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/?id=3822192203) and its required dependency [BaseLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3737335127). Let Steam finish downloading, enable both in the game's mod menu and restart when prompted. Remove `--nomods` from Steam launch options if present. No manual `mods` folder is needed for Workshop installation.
+Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/?id=3822192203) and its required dependency [BaseLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3737335127). Let Steam finish downloading, enable both in the game's mod menu and restart when prompted. Remove `--nomods` from Steam launch options if present. No manual `mods` folder is needed for Workshop installation.
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.8.2 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Workshop version 0.8.3 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
+
+**Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
 **Release 0.8.2.** Includes the Kingsguard, royal interventions, boosters, expanded cards/relics and all three starting relics. See the current update notes for scoped solo/four-local-client results and remaining test coverage.
 
@@ -50,12 +54,15 @@ The game uses separate modded profiles. This mod does not erase, reset, migrate 
 
 - **Starting Bowler Hat for every player**, awarded once during native new-run relic finalization. The original relic supplies its native +25% gold effect, icon, tooltip and interactions. There is no additional La Rata gold multiplier. Existing Bowler Hat owners receive no duplicate; loading a save does not grant another hat.
 - **Starting Potion Belt and White Beast Statue for every player**, through native relic acquisition. Potion Belt supplies +2 slots (normally five total); White Beast Statue guarantees potion rewards after combat. The independent +2-slot patch is removed. Existing owners get no duplicate, and loading a save grants nothing extra. Older runs retain their saved capacity; start a new run for the new relic setup.
-- **Collapsible map panel** below the map legend. Click `La Rata Remix` to expand or collapse it. The panel uses the native map-legend parchment and fonts. It stays fixed while scrolling and shows permanent effects and current potion capacity for each player.
+- **Compact map title:** only `La Rata Remix` remains at the bottom right, using the native map-legend font. The development effects panel and expansion control are removed.
 - **Controlled chaos:** seeded encounter changes within a shared difficulty budget, with at least one tactical effect instead of only raising health and damage.
+- **Varied reinforcements:** eligible ordinary fights draw from four small native helper types in act one (Inklet, Leaf Slime, Twig Slime and Corpse Slug), with Nibbit, Flyconid and Fuzzy Wurm Crawler joining from act two. The pool is no longer restricted to enemies from the current act. Existing enemy types and types from the previous combat are avoided when alternatives exist; the special rat formation retains its additional rat. Budget and formation caps are unchanged.
 - **Final boss reinforcement:** the regular final boss gains a compatible boss from an earlier act that has not appeared in this run. The helper retains native mechanics and now starts at **100% of its normal multiplayer-scaled HP** in every party size. The duo receives no additional generator affixes.
 - **Potion goblin:** one encounter per seeded block of three is selected for a visit between rounds, after the second or third enemy turn. Each living player receives a different randomly selected native potion splash. Short fights that end before the arrival skip the visit. 58 audited native potions form the supported pool, including native choice effects and class mechanics; no inventory slot is consumed. Revival, a deprecated placeholder and four incompatible area effects are excluded. Situationally ineffective potions are skipped. See the [full eligibility rules](docs/UPDATE-0.8.2.md#goblin-potions). The splash resolves before the next player action phase, after block clearing, so Block Potion remains useful. His four poses show arrival, wind-up, throwing and laughter, with the selected native potion visible in his hand. The initial standing pause is 0.2 seconds; co-op awaits each throw, effect and any native player choice before the next recipient. Instant mode no longer skips the appearance.
 
 ## The King's Gambit
+
+Version 0.8.3 holds intervention cards for **3.35 seconds**, two seconds longer than release 0.8.2, including Instant mode. La Rata's own boss-turn card timing is unchanged. The compact map title and reinforcement changes above are included in 0.8.3.
 
 One fight per seeded block of three ordinary/elite fights schedules a royal intervention on player turn 2 or 3. Bosses and the Kingsguard are excluded. A black-and-emerald version of the native card-debuff symbol appears above one living enemy. **Only the coming intervention is announced, never the card's identity.** Defeat that enemy before the enemy turn to cancel it; the mark never transfers. Short fights can finish before an intervention happens.
 

@@ -6,6 +6,9 @@ if (Get-Process SlayTheSpire2 -ErrorAction SilentlyContinue) { throw 'Close Slay
 $projectRoot = Split-Path $PSScriptRoot -Parent
 $package = Join-Path $projectRoot 'artifacts/package/LaRata'
 $destination = Join-Path $GamePath 'mods/LaRata'
+if (Test-Path -LiteralPath (Join-Path $GamePath '.larata-dev/LaRata')) {
+    throw 'A local test copy is parked. Run scripts/Switch-ModVersion.ps1 -Mode Local first, then install the new build.'
+}
 foreach ($name in 'LaRata.dll','LaRata.json','LaRata.pck') {
     if (!(Test-Path -LiteralPath (Join-Path $package $name))) { throw 'Run scripts/Build.ps1 first.' }
 }

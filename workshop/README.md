@@ -11,8 +11,26 @@ The downloaded `ModUploader-win-x64.zip` SHA-256 was `2B55C19CC5932235CA9DBD663C
 - `LaRata/workshop.json`: official upload configuration, English description, visibility, change notes, tags and BaseLib dependency (3737335127).
 - `LaRata/description.txt`: editable source of the description; copy changes into `workshop.json` before publishing. The uploader reads the JSON description.
 - `LaRata/mod_id.txt`: stable item identity.
-- `LaRata/image.png`: 512 x 611 thumbnail resized from the repository's existing title artwork, below Steam's 1 MiB thumbnail limit. The existing artwork license applies.
+- `LaRata/image.png`: 600 x 600 square Workshop thumbnail, below Steam's 1 MiB limit, recomposed to fill square tiles without letterboxing. The existing artwork license applies.
+- `LaRata/artwork-square-source.png`: full-resolution square cover generated from the widescreen cover, keeping the rat king left and the large logo right. This is the current thumbnail source.
+- `LaRata/artwork-source.png`: full-resolution approved cover generated with the built-in OpenAI image tool from the invitation throne room and original title logo. The king remains on the left; the enlarged gold/emerald title fills the right. See [the generation brief](artwork-prompt.txt). This is publishing artwork, not a replacement for the in-game invitation.
 - `LaRata/content/LaRata/`: ignored staging folder containing only the matching release's `LaRata.dll`, `LaRata.pck` and `LaRata.json`. Do not stage game files, saves, development tools or BaseLib.
+
+## Switching the local development installation
+
+Double-click **`Switch La Rata.cmd`** in the repository root. Choose **1** for the local test build or **2** for the subscribed Workshop build. Close the game first. This only changes the installation source; it does not publish, build, change mod-menu settings or touch saves, BaseLib or other mods.
+
+The local folder is parked at `<game>/.larata-dev/LaRata`, outside `mods`. Switching back restores that exact copy. On first use, if no parked copy exists, Local copies the last compiled package from `artifacts/package/LaRata`. Run `scripts/Build.ps1` first if that package is missing. Choosing Local again does not update an already active copy: use `scripts/Install.ps1` after building to install new changes. If both a parked and an active copy exist, Workshop refuses to overwrite either; restore Local before installing a newer build.
+
+For command-line use:
+
+```powershell
+./scripts/Switch-ModVersion.ps1 -Mode Status
+./scripts/Switch-ModVersion.ps1 -Mode Local
+./scripts/Switch-ModVersion.ps1 -Mode Workshop
+```
+
+`-WhatIf` previews changes. `-GamePath`, `-WorkshopPath` and `-PackagePath` support other locations. A Workshop switch requires its complete downloaded package. Keep the game mod-menu switches enabled and use matching versions for co-op. The old first-publication backup under `artifacts/workshop-0.8.2/` is left untouched.
 
 ## Updating the existing item
 

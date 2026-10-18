@@ -18,7 +18,7 @@ public static class ModEntry
     {
         // Early Access changes private hooks frequently. Never silently run an unvalidated ruleset.
         if (ReleaseInfoManager.Instance.ReleaseInfo?.Version != "v0.107.1")
-            throw new NotSupportedException("La Rata Remix 0.8.2 requires Slay the Spire 2 v0.107.1.");
+            throw new NotSupportedException("La Rata Remix 0.8.3 requires Slay the Spire 2 v0.107.1.");
 
         var harmony = new Harmony(Id);
         AuditChecksums = CommandLineHelper.HasArg("larata-audit");
@@ -32,6 +32,6 @@ public static class ModEntry
             harmony.UnpatchAll(Id);
             throw;
         }
-        Log.Info("Loaded 0.8.2: native starting relics, 58 goblin potions, strengthened Kingsguard, revised player cards, brighter royal marker and throne-room invitation.");
+        Log.Info("Loaded 0.8.3: varied cross-act reinforcements, longer royal intervention reveals and compact map title.");
     }
 }

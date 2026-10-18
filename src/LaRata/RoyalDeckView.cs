@@ -31,7 +31,7 @@ internal static class RoyalDeckView
         {
             // Even Instant mode must leave enough time to recognize the revealed card.
             var reveal = card.CreateTween();
-            reveal.TweenInterval(1.35);
+            reveal.TweenInterval(3.35);
             if (!await reveal.AwaitFinished(card)) return null;
         }
         else await Cmd.Wait(.75f);

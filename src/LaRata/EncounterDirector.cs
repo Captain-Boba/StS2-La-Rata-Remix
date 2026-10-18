@@ -65,6 +65,24 @@ internal static class EncounterDirector
         return encounter.RoomType == RoomType.Monster && !encounter.HasScene &&
             !encounter.Slots.Any() && monsters.Count is >= 1 and <= 3;
     }
+    internal static MonsterModel[] ReinforcementCandidates(int actIndex,
+        IEnumerable<ModelId> present, IEnumerable<ModelId> previous)
+    {
+        // Intersecting with Act.AllEncounters left only CorpseSlug in Underdocks.
+        // These native helpers need no encounter-specific scene. Larger helpers
+        // join from act two; early fights retain small bodies.
+        MonsterModel[] pool = actIndex <= 0
+            ? [ModelDb.Monster<Inklet>(), ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>()]
+            : [ModelDb.Monster<Inklet>(), ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>(),
+                ModelDb.Monster<Nibbit>(), ModelDb.Monster<Flyconid>(), ModelDb.Monster<FuzzyWurmCrawler>()];
+        pool = pool.OrderBy(x => x.Id.Entry, StringComparer.Ordinal).ToArray();
+        var occupied = present.ToHashSet();
+        var distinct = pool.Where(x => !occupied.Contains(x.Id)).ToArray();
+        if (distinct.Length == 0) distinct = pool;
+        var recent = previous.ToHashSet();
+        var fresh = distinct.Where(x => !recent.Contains(x.Id)).ToArray();
+        return fresh.Length > 0 ? fresh : distinct;
+    }
 }
 
 [HarmonyPatch(typeof(EncounterModel), nameof(EncounterModel.GenerateMonstersWithSlots))]
@@ -104,6 +122,14 @@ internal static class GenerateEncounterPatch
             monsters.Count, __instance is TwoTailedRatsNormal, runState.CurrentActIndex);
         var state = new EncounterRules(plan);
         var expanded = monsters.ToList();
+        // Saved history excludes the current room: identical inputs on reload
+        // and every peer, without a process-local shuffle bag or new save state.
+        var previous = runState.MapPointHistory.SelectMany(x => x)
+            .Where(x => !ReferenceEquals(x, runState.CurrentMapPointHistoryEntry))
+            .SelectMany(x => x.Rooms)
+            .LastOrDefault(x => x.RoomType is RoomType.Monster or RoomType.Elite or RoomType.Boss)
+            ?.MonsterIds.ToArray() ?? [];
+        var reinforcementRng = EncounterDirector.Random(runState, __instance, "reinforcements/v2");
         for (int i = 0; i < plan.ReinforcementCount; i++)
         {
             MonsterModel extra;
@@ -118,10 +144,9 @@ internal static class GenerateEncounterPatch
             }
             else
             {
-                var pool = runState.Act.AllEncounters.SelectMany(x => x.AllPossibleMonsters)
-                    .Where(x => x is Inklet or LeafSlimeS or Nibbit or Flyconid or CorpseSlug or FuzzyWurmCrawler)
-                    .DistinctBy(x => x.Id).OrderBy(x => x.Id.Entry, StringComparer.Ordinal).ToArray();
-                extra = (pool.Length > 0 ? pool[rng.NextInt(pool.Length)] : ModelDb.Monster<Inklet>()).ToMutable();
+                var pool = EncounterDirector.ReinforcementCandidates(runState.CurrentActIndex,
+                    expanded.Select(x => x.Item1.Id), previous);
+                extra = pool[reinforcementRng.NextInt(pool.Length)].ToMutable();
             }
             state.Reinforcements.Add(extra);
             expanded.Add((extra, slot));
