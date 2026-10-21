@@ -1,3 +1,5 @@
+[b]Current version: 0.9.0[/b]
+
 La Rata Remix brings controlled chaos and tougher, more varied encounters to Slay the Spire 2, scaling from solo to four-player co-op.
 
 [h2]New content[/h2]
@@ -8,3 +10,6 @@ La Rata Remix brings controlled chaos and tougher, more varied encounters to Sla
 [*]Six animated, seven-card booster packs, five combo relics, Well and A Thousand Cuts. Every player starts with a class booster.
 [*]Choose Rock, Paper or Scissors for contested treasure, three relic choices in solo chests, and combat histories for royal cards and goblin potions.
 [/list]
+
+[h2]Work in progress[/h2]
+Balancing is the main focus: encounter twists, solo and co-op scaling, The Kingsguard and La Rata, and card/relic combinations. Visual polish and multiplayer compatibility testing are ongoing.

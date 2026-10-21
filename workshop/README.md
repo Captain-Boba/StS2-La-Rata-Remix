@@ -6,7 +6,7 @@ Publishing uses Mega Crit's official [sts2-mod-uploader](https://github.com/mega
 
 The downloaded `ModUploader-win-x64.zip` SHA-256 was `2B55C19CC5932235CA9DBD663CA07D04E5D5A0018402303199F9B4EC8CA06578`.
 
-Release target: **0.9.0**, using the same runtime files as the GitHub ZIP. The short Workshop description contains only the mod summary and content list; detailed patch notes and validation limits live in [UPDATE-0.9.0.md](../docs/UPDATE-0.9.0.md).
+Release target: **0.9.0**, using the same runtime files as the GitHub ZIP. The short Workshop description contains the current version, mod summary, content list and a brief work-in-progress notice; detailed patch notes and validation limits live in [UPDATE-0.9.0.md](../docs/UPDATE-0.9.0.md).
 
 ## Files
 
