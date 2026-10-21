@@ -23,7 +23,8 @@ internal sealed class EncounterRules(EncounterPlan plan)
     internal MonsterModel? Extra { get; set; }
     internal bool BossDuo { get; set; }
     internal EncounterModel? BossSource { get; set; }
-    internal decimal ExtraHpFactor { get; set; } = .60m;
+    internal decimal ExtraHpFactor { get; set; } = plan.ScoutReinforcement ? .35m : .60m;
+    internal decimal ExtraDamageFactor => Plan.ScoutReinforcement ? .50m : .65m;
     internal bool Started { get; set; }
 }
 
@@ -154,7 +155,7 @@ internal static class GenerateEncounterPatch
         ____monstersWithSlots = expanded;
         state.Roster = expanded.Select(x => x.Item1).ToArray();
         EncounterDirector.Rules.Add(__instance, state);
-        ModEntry.Log.Info($"DIRECTOR floor={runState.TotalFloor} encounter={__instance.Id.Entry} players={runState.Players.Count} quarterBudget={plan.Spent}/{plan.Budget} roster={string.Join(",", state.Roster.Select(m => m.Id.Entry))} rules={string.Join("; ", plan.Affixes)}");
+        ModEntry.Log.Info($"DIRECTOR floor={runState.TotalFloor} encounter={__instance.Id.Entry} players={runState.Players.Count} sixteenthBudget={plan.Spent}/{plan.Budget} roster={string.Join(",", state.Roster.Select(m => m.Id.Entry))} rules={string.Join("; ", plan.Affixes)}");
     }
 }
 

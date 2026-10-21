@@ -19,8 +19,8 @@ namespace LaRata;
 // Their enemy effects execute through MonsterModel/commands, not player-only OnPlayWrapper.
 public abstract class RoyalCard : CustomCardModel
 {
-    internal static readonly string[] Names = ["Royal Tax", "Scepter Storm", "Off With Their Heads", "Sewer Alchemy", "Borrowed Tomorrow", "Royal Flush", "Stolen Aegis", "Blood Contract", "Exposed Crown", "Emerald Tempest", "Grave Levy", "Funeral Procession", "Bone Treasury", "Crown of Night", "Rotting Tribute", "Stolen Hour", "Drowned Court", "Green Guillotine", "Rattling Arsenal", "Royal Pardon"];
-    internal static readonly string[] Art = ["royal_tax", "scepter_storm", "off_with_their_heads", "sewer_alchemy", "borrowed_tomorrow", "royal_flush", "stolen_aegis", "blood_contract", "exposed_crown", "emerald_tempest", "grave_levy", "funeral_procession", "bone_treasury", "crown_of_night", "rotting_tribute", "stolen_hour", "drowned_court", "green_guillotine", "rattling_arsenal", "royal_pardon"];
+    internal static readonly string[] Names = ["Royal Tax", "Scepter Storm", "Off With Their Heads", "Sewer Alchemy", "Borrowed Tomorrow", "Royal Flush", "Stolen Aegis", "Blood Contract", "Exposed Crown", "Emerald Tempest", "Grave Levy", "Funeral Procession", "Bone Treasury", "Crown of Night", "Rotting Tribute", "Stolen Hour", "Drowned Court", "Green Guillotine", "Rattling Arsenal", "Royal Pardon", "Black Tithe", "Plague of Crowns", "Kneel Before the Crown", "Soul Foreclosure", "Nightfall Decree"];
+    internal static readonly string[] Art = ["royal_tax", "scepter_storm", "off_with_their_heads", "sewer_alchemy", "borrowed_tomorrow", "royal_flush", "stolen_aegis", "blood_contract", "exposed_crown", "emerald_tempest", "grave_levy", "funeral_procession", "bone_treasury", "crown_of_night", "rotting_tribute", "stolen_hour", "drowned_court", "green_guillotine", "rattling_arsenal", "royal_pardon", "black_tithe", "plague_of_crowns", "kneel_before_the_crown", "soul_foreclosure", "nightfall_decree"];
     internal static readonly string[] Descriptions =
     [
         "Deal 12 damage to every player.",
@@ -42,10 +42,15 @@ public abstract class RoyalCard : CustomCardModel
         "Heal every living court member for 5% of their maximum HP. Give them 2 base Plating, up to 14 base Plating.",
         "Deal 40 damage to every player. The caster gains 2 Vulnerable.",
         "Deal 4 damage to every player 5 times. Shuffle 1 Dazed into each player's draw pile.",
-        "Remove Weak and Frail from every living court member. The caster gains 10 base Block."
+        "Remove Weak and Frail from every living court member. The caster gains 10 base Block.",
+        "Remove ALL Block from every player. Apply 2 Weak and 2 Frail to every player.",
+        "Apply 8 Poison and 12 Doom to every player. Add 2 Burns to each player's discard pile.",
+        "Give every living court member 30 base Block and 3 Strength before attacking.",
+        "Deal 26 damage to every player. Heal every living court member for 8% of their maximum HP.",
+        "Give every living court member 2 Ritual, up to 6 total. Ritual grants Strength at the end of their turns, starting next turn."
     ];
     internal int Index { get; }
-    protected RoyalCard(int index) : base(RoyalDeck.Costs[index], RoyalDeck.IsAttack(index) ? CardType.Attack : index is 6 or 7 ? CardType.Power : CardType.Skill, CardRarity.Token, TargetType.None, false, false)
+    protected RoyalCard(int index) : base(RoyalDeck.Costs[index], RoyalDeck.IsAttack(index) ? CardType.Attack : index is 6 or 7 or 24 ? CardType.Power : CardType.Skill, CardRarity.Token, TargetType.None, false, false)
     {
         Index = index;
         CustomContentDictionary.RegisterType(GetType());
@@ -56,7 +61,7 @@ public abstract class RoyalCard : CustomCardModel
     public override Material? CreateCustomFrameMaterial => RoyalCardStyle.Frame();
     public override string? CustomPortraitPath => $"res://LaRata/images/cards/{Art[Index]}.png";
     public override List<(string, string)> Localization => [("title", Names[Index]), ("description", Descriptions[Index])];
-    internal static RoyalCard[] All => [ModelDb.Card<RoyalTax>(), ModelDb.Card<ScepterStorm>(), ModelDb.Card<OffWithTheirHeads>(), ModelDb.Card<SewerAlchemy>(), ModelDb.Card<BorrowedTomorrow>(), ModelDb.Card<RoyalFlush>(), ModelDb.Card<StolenAegis>(), ModelDb.Card<BloodContract>(), ModelDb.Card<ExposedCrown>(), ModelDb.Card<EmeraldTempest>(), ModelDb.Card<GraveLevy>(), ModelDb.Card<FuneralProcession>(), ModelDb.Card<BoneTreasury>(), ModelDb.Card<CrownOfNight>(), ModelDb.Card<RottingTribute>(), ModelDb.Card<StolenHour>(), ModelDb.Card<DrownedCourt>(), ModelDb.Card<GreenGuillotine>(), ModelDb.Card<RattlingArsenal>(), ModelDb.Card<RoyalPardon>()];
+    internal static RoyalCard[] All => [ModelDb.Card<RoyalTax>(), ModelDb.Card<ScepterStorm>(), ModelDb.Card<OffWithTheirHeads>(), ModelDb.Card<SewerAlchemy>(), ModelDb.Card<BorrowedTomorrow>(), ModelDb.Card<RoyalFlush>(), ModelDb.Card<StolenAegis>(), ModelDb.Card<BloodContract>(), ModelDb.Card<ExposedCrown>(), ModelDb.Card<EmeraldTempest>(), ModelDb.Card<GraveLevy>(), ModelDb.Card<FuneralProcession>(), ModelDb.Card<BoneTreasury>(), ModelDb.Card<CrownOfNight>(), ModelDb.Card<RottingTribute>(), ModelDb.Card<StolenHour>(), ModelDb.Card<DrownedCourt>(), ModelDb.Card<GreenGuillotine>(), ModelDb.Card<RattlingArsenal>(), ModelDb.Card<RoyalPardon>(), ModelDb.Card<BlackTithe>(), ModelDb.Card<PlagueOfCrowns>(), ModelDb.Card<KneelBeforeTheCrown>(), ModelDb.Card<SoulForeclosure>(), ModelDb.Card<NightfallDecree>()];
 
     internal IEnumerable<AbstractIntent> GetIntents(RatKing king) => Index switch
     {
@@ -73,6 +78,11 @@ public abstract class RoyalCard : CustomCardModel
         15 => [new StatusIntent(2), new DefendIntent()],
         17 => [new SingleAttackIntent(() => 40 + king.PendingStrength)],
         18 => [new RoyalMultiAttackIntent(() => 4 + king.PendingStrength, 5), new StatusIntent(1)],
+        20 => [new RoyalEdictIntent("black_tithe")],
+        21 => [new RoyalEdictIntent("plague_of_crowns"), new StatusIntent(2)],
+        22 => [new DefendIntent(), new BuffIntent()],
+        23 => [new SingleAttackIntent(() => 26 + king.PendingStrength), new HealIntent()],
+        24 => [new BuffIntent()],
         _ => [new DebuffIntent()]
     };
 
@@ -109,7 +119,7 @@ public abstract class RoyalCard : CustomCardModel
                 break;
             case 7:
                 await CreatureCmd.Damage(context, owner, Math.Min(12, Math.Max(0, owner.CurrentHp - 1)), ValueProp.Unblockable | ValueProp.Unpowered, owner, null);
-                if (king is RatKing ratKing) ratKing.PendingStrength = 0;
+                if (king is RatKing ratKing) ratKing.PendingStrength -= 2;
                 await PowerCmd.Apply<StrengthPower>(context, king.CombatState.Enemies.Where(c => c.IsAlive), 2, owner, null);
                 break;
             case 8:
@@ -160,6 +170,36 @@ public abstract class RoyalCard : CustomCardModel
                         await PowerCmd.Remove(power);
                 await CreatureCmd.GainBlock(owner, 10, ValueProp.Move, null);
                 break;
+            case 20:
+                foreach (var target in living) await CreatureCmd.LoseBlock(target, target.Block);
+                await PowerCmd.Apply<WeakPower>(context, living, 2, owner, null);
+                await PowerCmd.Apply<FrailPower>(context, living, 2, owner, null);
+                break;
+            case 21:
+                await PowerCmd.Apply<PoisonPower>(context, living, 8, owner, null);
+                await PowerCmd.Apply<DoomPower>(context, living, 12, owner, null);
+                await CardPileCmd.AddToCombatAndPreview<Burn>(living, PileType.Discard, 2, null);
+                break;
+            case 22:
+                if (king is RatKing sovereign) sovereign.PendingStrength -= 3;
+                foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).OrderBy(c => c.CombatId).ToArray())
+                {
+                    await CreatureCmd.GainBlock(ally, 30, ValueProp.Move, null);
+                    await PowerCmd.Apply<StrengthPower>(context, ally, 3, owner, null);
+                }
+                break;
+            case 23:
+                await Attack(26, 1);
+                foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).OrderBy(c => c.CombatId).ToArray())
+                    await CreatureCmd.Heal(ally, Math.Ceiling(ally.MaxHp * .08m));
+                break;
+            case 24:
+                foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).OrderBy(c => c.CombatId).ToArray())
+                {
+                    int amount = Math.Min(2, Math.Max(0, 6 - ally.GetPowerAmount<RitualPower>()));
+                    if (amount > 0) await PowerCmd.Apply<RitualPower>(context, ally, amount, owner, null);
+                }
+                break;
         }
         async Task Attack(int damage, int hits) => await DamageCmd.Attack(damage).FromMonster(king).WithHitCount(hits).WithAttackerAnim("Attack", .3f).Execute(context);
         async Task PlateCourt(int amount)
@@ -199,3 +239,14 @@ public sealed class DrownedCourt() : RoyalCard(16);
 public sealed class GreenGuillotine() : RoyalCard(17);
 public sealed class RattlingArsenal() : RoyalCard(18);
 public sealed class RoyalPardon() : RoyalCard(19);
+public sealed class BlackTithe() : RoyalCard(20);
+public sealed class PlagueOfCrowns() : RoyalCard(21);
+public sealed class KneelBeforeTheCrown() : RoyalCard(22);
+public sealed class SoulForeclosure() : RoyalCard(23);
+public sealed class NightfallDecree() : RoyalCard(24);
+
+internal sealed class RoyalEdictIntent(string key) : DebuffIntent
+{
+    protected override MegaCrit.Sts2.Core.Localization.LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner) =>
+        new("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".edict." + key);
+}

@@ -8,8 +8,8 @@ grow_horizontal=2
 grow_vertical=2
 mouse_filter=2
 [node name="king" type="Marker2D" parent="."]
-position=Vector2(1390, 650)
+position=Vector2(1420, 580)
 [node name="court_left" type="Marker2D" parent="."]
-position=Vector2(1100, 740)
+position=Vector2(1060, 750)
 [node name="court_right" type="Marker2D" parent="."]
-position=Vector2(1680, 740)
+position=Vector2(1780, 750)

@@ -76,7 +76,10 @@ internal static class RoyalIntervention
             try
             {
                 if (ReferenceEquals(CombatManager.Instance.DebugOnlyGetState(), combat) && owner.IsAlive && !CombatManager.Instance.IsEnding)
+                {
+                    CombatJournal.Record(combat, "card", card);
                     await card.Resolve(owner.Monster!, combat.Players.OrderBy(p => p.NetId).Select(p => p.Creature).ToArray());
+                }
             }
             finally { RoyalDeckView.Dismiss(preview); }
             return;
@@ -133,7 +136,7 @@ internal static class RoyalInterventionMarker
             };
             __instance.Visuals.IntentPosition.AddChild(marker);
             var shown = marker;
-            shown.MouseEntered += () => NHoverTipSet.CreateAndShow(shown, new HoverTip(ModelDb.Power<RoyalInterventionPower>().Title, RoyalInterventionPower.Notice, icon));
+            shown.MouseEntered += () => NHoverTipSet.CreateAndShow(shown, new HoverTip(ModelDb.Power<RoyalInterventionPower>().Title, RoyalInterventionPower.Notice, icon), HoverTipAlignment.Left)?.SetFollowOwner();
             shown.MouseExited += () => NHoverTipSet.Remove(shown);
             // Gentle breathing, no twitching or gameplay RNG.
             var pulse = shown.CreateTween().SetLoops();

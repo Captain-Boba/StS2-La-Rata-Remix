@@ -3,6 +3,8 @@ using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
@@ -30,7 +32,7 @@ internal static class BoosterOpening
         [HarmonyPostfix] private static void Postfix(NSimpleCardSelectScreen __instance)
         {
             var cards = ScreenCards(__instance);
-            if (cards.Count != 5 || !Packs.TryGetValue(cards[0], out var pack)) return;
+            if (cards.Count is not (5 or 7) || !Packs.TryGetValue(cards[0], out var pack)) return;
             Build(__instance, cards, pack);
         }
     }
@@ -88,13 +90,15 @@ internal static class BoosterOpening
         choose.GetNodeOrNull<Control>("ControllerIcon")?.Free();
         stage.AddChild(choose);
         choose.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.TopLeft);
-        choose.Position = new Vector2(790, 910);
-        choose.Size = new Vector2(340, 72);
+        // The native artwork is 180px wide and does not stretch when the hitbox
+        // is widened. Center its original bounds instead of an invisible 340px box.
+        choose.Size = new Vector2(180, 72);
+        choose.Position = new Vector2((stage.Size.X - choose.Size.X) / 2, 910);
         choose.DisconnectHotkeys();
         choose.SetText("Choose cards");
         choose.Hide();
         var reveals = new List<NButton>();
-        Focuses.AddOrUpdate(screen, new Focus(() => open.Visible ? open : choose.Visible ? choose : reveals.FirstOrDefault(b => b.IsEnabled)));
+        Focuses.AddOrUpdate(screen, new Focus(() => open.Visible ? open : choose.Visible ? choose : reveals.FirstOrDefault(b => b.IsEnabled && !b.HasMeta("revealed"))));
         veil.TreeExiting += () => Focuses.Remove(screen);
         choose.Connect(NClickableControl.SignalName.Released, Callable.From<NButton>(_ =>
         {
@@ -105,8 +109,10 @@ internal static class BoosterOpening
             screen.DefaultFocusedControl?.GrabFocus();
         }));
         int revealed = 0;
-        // Five-card fan: one at the top, two at the sides, two below the center.
-        Vector2[] positions = [new(810, 120), new(330, 265), new(1290, 265), new(570, 495), new(1050, 495)];
+        // Seven equal-size slots; keep pending five-card saves revealable too.
+        Vector2[] positions = cards.Count == 7
+            ? [new(330, 140), new(650, 140), new(970, 140), new(1290, 140), new(490, 510), new(810, 510), new(1130, 510)]
+            : [new(810, 120), new(330, 265), new(1290, 265), new(570, 495), new(1050, 495)];
         open.Connect(NClickableControl.SignalName.Released, Callable.From<NButton>(_ =>
         {
             open.Disable();
@@ -134,19 +140,32 @@ internal static class BoosterOpening
             rim.SetCornerRadiusAll(18);
             aura.AddThemeStyleboxOverride("panel", rim);
             pivot.AddChild(aura);
+            var face = new Control { Size = NCard.defaultSize, PivotOffset = NCard.defaultSize / 2, MouseFilter = Control.MouseFilterEnum.Ignore };
+            pivot.AddChild(face);
             var card = NCard.Create(model)!;
-            pivot.AddChild(card);
+            face.AddChild(card);
             card.Position = new Vector2(150, 211);
             card.UpdateVisuals(PileType.None, CardPreviewMode.Normal);
+            card.Scale = Vector2.One;
+            card.Body.Scale = Vector2.One;
             card.Hide();
             var back = new TextureRect { ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, Texture = GD.Load<Texture2D>("res://LaRata/images/booster_back.png"), Size = new Vector2(300, 422), StretchMode = TextureRect.StretchModeEnum.Scale, MouseFilter = Control.MouseFilterEnum.Ignore };
-            pivot.AddChild(back);
+            face.AddChild(back);
             var hit = new NButton { Size = new Vector2(300, 422), FocusMode = Control.FocusModeEnum.All, TooltipText = "Reveal card" };
             pivot.AddChild(hit);
             hit.Disable(); // A reveal must not race the dealing tween on scale:x.
             reveals.Add(hit);
             Tween? hover = null;
             bool faceUp = false;
+            void Tips(bool on)
+            {
+                Glow(on);
+                NHoverTipSet.Remove(hit);
+                if (on && faceUp)
+                    NHoverTipSet.CreateAndShow(hit, new IHoverTip[] { new CardHoverTip(model) }.Concat(model.HoverTips),
+                        positions[index].X > 1000 ? HoverTipAlignment.Left : HoverTipAlignment.Right);
+            }
+            hit.TreeExiting += () => NHoverTipSet.Remove(hit);
             void Glow(bool on)
             {
                 hover?.Kill();
@@ -159,10 +178,10 @@ internal static class BoosterOpening
                     hover.SetLoops();
                 }
             }
-            hit.MouseEntered += () => Glow(true);
-            hit.MouseExited += () => Glow(false);
-            hit.FocusEntered += () => Glow(true);
-            hit.FocusExited += () => Glow(false);
+            hit.MouseEntered += () => Tips(true);
+            hit.MouseExited += () => Tips(false);
+            hit.FocusEntered += () => Tips(true);
+            hit.FocusExited += () => Tips(false);
             hit.Connect(NClickableControl.SignalName.Released, Callable.From<NButton>(_ => TaskHelper.RunSafely(Reveal())));
             var deal = pivot.CreateTween();
             deal.TweenInterval(index * .09);
@@ -180,34 +199,42 @@ internal static class BoosterOpening
                 faceUp = true;
                 hit.Disable();
                 hover?.Kill();
-                var flip = pivot.CreateTween();
-                flip.TweenProperty(pivot, "scale:x", 0f, .22).SetTrans(Tween.TransitionType.Sine);
+                var flip = face.CreateTween();
+                flip.TweenProperty(face, "scale:x", .01f, .22).SetTrans(Tween.TransitionType.Sine);
                 if (!await flip.AwaitFinished(pivot)) return;
                 back.Hide();
                 card.Show();
-                card.ActivateRewardScreenGlow();
                 aura.Modulate = Colors.White;
                 // Rarity changes both the halo and the duration/size of the reveal burst.
+                var sparkGradient = new Gradient();
+                sparkGradient.SetColor(0, Colors.White);
+                sparkGradient.SetColor(1, new Color(1, 1, 1, 0));
+                var spark = new GradientTexture2D { Width = 16, Height = 16, Gradient = sparkGradient,
+                    Fill = GradientTexture2D.FillEnum.Radial, FillFrom = new Vector2(.5f, .5f), FillTo = new Vector2(1, .5f) };
                 var particles = new CpuParticles2D
                 {
+                    Texture = spark,
                     Position = new Vector2(150, 211), Amount = boss ? 64 : rare ? 42 : model.Rarity == CardRarity.Uncommon ? 24 : 10,
                     Lifetime = boss ? 1.6 : rare ? 1.2 : .7, OneShot = true, Explosiveness = 1,
                     EmissionShape = CpuParticles2D.EmissionShapeEnum.Rectangle, EmissionRectExtents = new Vector2(145, 205),
                     Direction = Vector2.Up, Spread = 180, InitialVelocityMin = 50, InitialVelocityMax = boss ? 220 : rare ? 150 : 95,
-                    Gravity = Vector2.Zero, ScaleAmountMin = 2, ScaleAmountMax = boss ? 6 : 4, Color = color
+                    Gravity = Vector2.Zero, ScaleAmountMin = .18f, ScaleAmountMax = boss ? .5f : .35f, Color = color
                 };
                 pivot.AddChild(particles);
-                var unfold = pivot.CreateTween();
-                unfold.TweenProperty(pivot, "scale:x", boss ? .93f : .87f, rare || boss ? .38 : .25).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
-                unfold.TweenProperty(pivot, "scale:x", .82f, .18);
+                var unfold = face.CreateTween();
+                unfold.TweenProperty(face, "scale:x", 1f, rare || boss ? .38 : .25).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
                 if (!await unfold.AwaitFinished(pivot)) return;
+                hit.Enable();
+                hit.TooltipText = "";
+                hit.SetMeta("revealed", true);
+                if (hit.HasFocus() || hit.GetGlobalRect().HasPoint(hit.GetGlobalMousePosition())) Tips(true);
                 if (++revealed == cards.Count)
                 {
                     hint.Text = "Your pack is revealed. Keep all, some, or none.";
                     choose.Show();
                     choose.GrabFocus();
                 }
-                else reveals.FirstOrDefault(b => b.IsEnabled)?.GrabFocus();
+                else reveals.FirstOrDefault(b => b.IsEnabled && !b.HasMeta("revealed"))?.GrabFocus();
             }
         }
     }

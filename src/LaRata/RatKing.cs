@@ -24,14 +24,20 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
     private int preparedTurns;
     private int? regaliaMask;
     internal int RegaliaMask => regaliaMask ??= RoyalRegaliaPower.Choose(EncounterDirector.Random(CombatState.RunState, CombatState.Encounter!, "royal-relics"));
-    public override int MinInitialHp => 1080;
-    public override int MaxInitialHp => 1080;
+    public override int MinInitialHp => 3000;
+    public override int MaxInitialHp => 3000;
     public override string? CustomVisualPath => "res://LaRata/scenes/rat_king.tscn";
     public List<(string, string)> Localization =>
     [
         ("name", "La Rata"),
         ("moves.ROYAL_HAND.title", "The Royal Hand"),
         ("deck.description", "{Plan}"),
+        ("edict.black_tithe", "Removes ALL of your Block before the attacks. Applies 2 Weak and 2 Frail to every player."),
+        ("edict.plague_of_crowns", "Applies 8 Poison and 12 Doom to every player. Adds 2 Burns to each player's discard pile."),
+        ("history.round", "Round {Round}"),
+        ("history.title", "La Rata's played cards"),
+        ("history.goblin", "Potion Goblin history"),
+        ("history.description", "Royal discard - played cards from this combat. Hover a card to see its round."),
     ];
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
@@ -41,7 +47,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
         turn.FollowUpState = draw;
         // Include the complete intent asset set even during canonical preload.
         var assets = new MoveState("ROYAL_ASSETS", _ => Task.CompletedTask,
-            new SingleAttackIntent(12), new MultiAttackIntent(7, 3), new DefendIntent(), new DebuffIntent(), new BuffIntent(), new StatusIntent(3));
+            new SingleAttackIntent(12), new MultiAttackIntent(7, 3), new DefendIntent(), new DebuffIntent(), new BuffIntent(), new HealIntent(), new StatusIntent(3));
         return new MonsterMoveStateMachine([turn, draw, assets], draw);
     }
 
@@ -52,8 +58,12 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
             var rng = EncounterDirector.Random(CombatState.RunState, CombatState.Encounter ?? throw new InvalidOperationException("Royal deck needs an encounter."), "royal-deck");
             deck = new RoyalDeck(n => rng.NextInt(n));
         }
-        deck.Prepare((Creature.CurrentHp * 2 <= Creature.MaxHp ? 4 : 3) + (preparedTurns++ == 0 && (RegaliaMask & (1 << 8)) != 0 ? 1 : 0));
-        PendingStrength = deck.Planned.Contains(7) ? 2 : 0;
+        int turnNumber = ++preparedTurns;
+        int energy = (Creature.CurrentHp * 2 <= Creature.MaxHp ? 8 : 6)
+            + (turnNumber == 1 && (RegaliaMask & (1 << 8)) != 0 ? 1 : 0)
+            + (turnNumber % 3 == 0 && (RegaliaMask & (1 << 10)) != 0 ? 1 : 0);
+        deck.Prepare(energy, 5 + (turnNumber == 1 && (RegaliaMask & (1 << 9)) != 0 ? 2 : 0));
+        PendingStrength = (deck.Planned.Contains(7) ? 2 : 0) + (deck.Planned.Contains(22) ? 3 : 0);
         var cards = RoyalCard.All;
         var intents = deck.Planned.SelectMany(i => cards[i].GetIntents(this)).ToList();
         if (!deck.Planned.Any(RoyalDeck.IsAttack)) intents.Add(new SingleAttackIntent(() => 12 + PendingStrength));
@@ -75,6 +85,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
             activeDeck.Spend(index);
             ModEntry.Log.Info($"ROYAL PLAY card={cards[index].Id.Entry} {activeDeck.Snapshot}");
             var preview = await RoyalDeckView.Show(this, cards[index]);
+            CombatJournal.Record(CombatState, "card", cards[index]);
             await cards[index].Resolve(this, targets);
             RoyalDeckView.Dismiss(preview);
             execution |= index == 2;
@@ -95,6 +106,8 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
         if ((RegaliaMask & 2) != 0) await PowerCmd.Apply<DexterityPower>(context, Creature, 1, Creature, null);
         if ((RegaliaMask & 4) != 0) await CreatureCmd.GainBlock(Creature, 10, MegaCrit.Sts2.Core.ValueProps.ValueProp.Move, null);
         if ((RegaliaMask & 8) != 0) await PowerCmd.Apply<ThornsPower>(context, Creature, 3, Creature, null);
+        if ((RegaliaMask & (1 << 11)) != 0)
+            await PowerCmd.Apply<VulnerablePower>(context, CombatState.Players.OrderBy(p => p.NetId).Select(p => p.Creature).Where(c => c.IsAlive), 1, Creature, null);
         ModEntry.Log.Info($"ROYAL RELICS mask={RegaliaMask} {RoyalRegaliaPower.Describe(RegaliaMask)}");
     }
 }
@@ -113,8 +126,8 @@ internal sealed class RoyalHandIntent : BuffIntent
     {
         var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".deck.description");
         var deck = (owner.Monster as RatKing)?.Deck;
-        description.Add("Plan", "Draws a hidden hand from a 20-card deck. Plays spells and powers before attacking.\n" +
-            (deck == null ? "3 Energy, increasing to 4 below half HP." : $"Energy: {deck.Energy}/{deck.Capacity}. Draw: {deck.DrawCount}. Discard: {deck.DiscardCount}."));
+        description.Add("Plan", "Draws 5 hidden cards from a 25-card deck. Plays spells and powers before attacking.\n" +
+            (deck == null ? "6 Energy, increasing to 8 at half HP." : $"Energy: {deck.Energy}/{deck.Capacity}. Draw: {deck.DrawCount}. Discard: {deck.DiscardCount}."));
         return description;
     }
 }
@@ -124,7 +137,8 @@ public sealed class RatKingEncounter : CustomEncounterModel, ILocalizationProvid
     public RatKingEncounter() : base(RoomType.Boss) { }
     public List<(string, string)> Localization => [("title", "La Rata")];
     public override bool IsValidForAct(ActModel act) => false; // Explicitly included only by RatDomain.
-    public override IEnumerable<MonsterModel> AllPossibleMonsters => [ModelDb.Monster<RatKing>(), ModelDb.Monster<TwoTailedRat>()];
+    internal static MonsterModel[] Guards => [ModelDb.Monster<CrownBulwark>(), ModelDb.Monster<CrownHeadsman>(), ModelDb.Monster<CrownArmorer>(), ModelDb.Monster<CrownHerald>()];
+    public override IEnumerable<MonsterModel> AllPossibleMonsters => new[] { ModelDb.Monster<RatKing>() }.Cast<MonsterModel>().Concat(Guards);
     public override string? CustomScenePath => "res://LaRata/scenes/rat_king_encounter.tscn";
     public override string BossNodePath => "res://LaRata/images/map_rat_king";
     public override string? CustomRunHistoryIconPath => "res://LaRata/images/rat_king.png";
@@ -134,9 +148,9 @@ public sealed class RatKingEncounter : CustomEncounterModel, ILocalizationProvid
     public override Vector2 GetCameraOffset() => Vector2.Down * 30;
     protected override IReadOnlyList<(MonsterModel, string?)> GenerateMonsters()
     {
-        var left = (TwoTailedRat)ModelDb.Monster<TwoTailedRat>().ToMutable();
-        var right = (TwoTailedRat)ModelDb.Monster<TwoTailedRat>().ToMutable();
-        left.StarterMoveIndex = 0; right.StarterMoveIndex = 1;
-        return [(ModelDb.Monster<RatKing>().ToMutable(), "king"), (left, "court_left"), (right, "court_right")];
+        // Native encounter RNG is recreated from the saved run seed and floor.
+        var indices = ChaosSelections.Distinct(2, Guards.Length, n => Rng.NextInt(n));
+        return [(ModelDb.Monster<RatKing>().ToMutable(), "king"),
+            (Guards[indices[0]].ToMutable(), "court_left"), (Guards[indices[1]].ToMutable(), "court_right")];
     }
 }

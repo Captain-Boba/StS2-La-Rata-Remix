@@ -38,7 +38,16 @@ public abstract class KingsguardKnight : CustomMonsterModel, ILocalizationProvid
         ("name", GuardName), ("moves.OATH.title", "Keep the Crown"),
         ("moves.STRIKE.title", "Royal Steel"), ("moves.RENEW.title", "Unbroken Oath")
     ];
-    protected Creature[] Court => CombatState.Enemies.Where(c => c.IsAlive && c.Monster is KingsguardKnight)
+    private RatKing? sovereign;
+    // Bestiary builds and evaluates moves before a Creature exists. Bind the
+    // commander only through the native live-room lifecycle.
+    protected int PendingRoyalStrength => sovereign?.Creature.IsAlive == true ? sovereign.PendingStrength : 0;
+    public override async Task AfterAddedToRoom()
+    {
+        await base.AfterAddedToRoom();
+        sovereign = CombatState.Enemies.Select(c => c.Monster).OfType<RatKing>().FirstOrDefault();
+    }
+    protected Creature[] Court => CombatState.Enemies.Where(c => c.IsAlive && c.Monster is KingsguardKnight or RatKing)
         .OrderBy(c => c.CombatId).ToArray();
     public override Task BeforeCombatStart() => Plate([Creature], StartingPlating);
 
@@ -85,8 +94,8 @@ public sealed class CrownBulwark : KingsguardKnight
     protected override int StartingPlating => 10;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
         new MoveState("OATH", async _ => { await Cast(); await Shield(Court.Where(c => c != Creature), 14); await Plate(Court, 2); }, new DefendIntent(), new BuffIntent()),
-        new MoveState("STRIKE", _ => Strike(18, 2, "FlailAttack", "flail_knight_flail"), new MultiAttackIntent(18, 2)),
-        new MoveState("RENEW", async _ => { await Strike(36, 1, "RamAttack", "flail_knight_ram"); await Shield([Creature], 10); }, new SingleAttackIntent(36), new DefendIntent()));
+        new MoveState("STRIKE", _ => Strike(18, 2, "FlailAttack", "flail_knight_flail"), new RoyalMultiAttackIntent(() => 18 + PendingRoyalStrength, 2)),
+        new MoveState("RENEW", async _ => { await Strike(36, 1, "RamAttack", "flail_knight_ram"); await Shield([Creature], 10); }, new SingleAttackIntent(() => 36 + PendingRoyalStrength), new DefendIntent()));
 }
 
 public sealed class CrownHeadsman : KingsguardKnight
@@ -97,9 +106,9 @@ public sealed class CrownHeadsman : KingsguardKnight
     public override int MinInitialHp => 210;
     protected override int StartingPlating => 8;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
-        new MoveState("STRIKE", _ => Strike(20, 2, "FlailAttack", "flail_knight_flail"), new MultiAttackIntent(20, 2)),
+        new MoveState("STRIKE", _ => Strike(20, 2, "FlailAttack", "flail_knight_flail"), new RoyalMultiAttackIntent(() => 20 + PendingRoyalStrength, 2)),
         new MoveState("OATH", async _ => { await Cast(); await Plate(Court.Where(c => c != Creature), 3); await Shield([Creature], 16); }, new BuffIntent(), new DefendIntent()),
-        new MoveState("RENEW", _ => Strike(36, 1, "RamAttack", "flail_knight_ram"), new SingleAttackIntent(36)));
+        new MoveState("RENEW", _ => Strike(36, 1, "RamAttack", "flail_knight_ram"), new SingleAttackIntent(() => 36 + PendingRoyalStrength)));
 }
 
 public sealed class CrownArmorer : KingsguardKnight
@@ -111,7 +120,7 @@ public sealed class CrownArmorer : KingsguardKnight
     protected override int StartingPlating => 6;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
         new MoveState("OATH", async _ => { await Cast("ShieldAttack"); await Plate(Court, 3); }, new BuffIntent()),
-        new MoveState("STRIKE", async _ => { await Strike(16, 1, "ShieldAttack", "magi_knight_cast_shield"); await Shield(Court.Where(c => c != Creature), 8); }, new SingleAttackIntent(16), new DefendIntent()),
+        new MoveState("STRIKE", async _ => { await Strike(16, 1, "ShieldAttack", "magi_knight_cast_shield"); await Shield(Court.Where(c => c != Creature), 8); }, new SingleAttackIntent(() => 16 + PendingRoyalStrength), new DefendIntent()),
         new MoveState("RENEW", async _ => {
             await Cast("ShieldAttack");
             var ally = Court.Where(c => c != Creature).OrderBy(c => (decimal)c.CurrentHp / c.MaxHp).ThenBy(c => c.CombatId).FirstOrDefault();
@@ -128,7 +137,7 @@ public sealed class CrownHerald : KingsguardKnight
     public override int MinInitialHp => 155;
     protected override int StartingPlating => 6;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
-        new MoveState("STRIKE", _ => Strike(10, 2, "AttackFlame", "spectral_knight_soul_flame"), new MultiAttackIntent(10, 2)),
+        new MoveState("STRIKE", _ => Strike(10, 2, "AttackFlame", "spectral_knight_soul_flame"), new RoyalMultiAttackIntent(() => 10 + PendingRoyalStrength, 2)),
         new MoveState("RENEW", async _ => {
             await Cast();
             foreach (var ally in Court) await CreatureCmd.Heal(ally, Math.Ceiling(ally.MaxHp * .10m));

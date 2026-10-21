@@ -22,10 +22,18 @@ for (int enemies = 1; enemies <= 4; enemies++)
     }
     var first = Roll();
     Require(JsonSerializer.Serialize(first) == JsonSerializer.Serialize(Roll()), "seed replay differs");
-    Require(first.Spent > 0 && first.Spent <= first.Budget, "budget exceeded or empty");
+    Require(first.Spent >= 0 && first.Spent <= first.Budget, "budget exceeded or empty");
+    Require(first.Budget == 3 * EncounterPlan.BaseBudget(players, tier) * (5 + 2 * act), "budget is not exactly 75% of the old quarter-unit budget");
+    Require(first.Twists.All(t => EncounterPlan.ActiveKinds.Contains(t.Kind)), "retired twist rolled");
+    Require(first.Spent > 0, "unexpected empty encounter plan");
     Require(first.Budget == EncounterPlan.StageBudget(1, tier, act) * players, "party budget is not linear");
     Require(act == 0 || first.Budget > EncounterPlan.StageBudget(players, tier, act - 1), "act budget did not grow");
-    Require(first.Spent == first.ReinforcementCount * EncounterPlan.ReinforcementCost + first.Twists.Sum(t => EncounterPlan.Cost(t.Kind)), "cost accounting differs");
+    Require(first.Spent == first.ReinforcementCount * first.HelperCost + first.Twists.Sum(EncounterPlan.Cost), "cost accounting differs");
+    Require(first.Twists.All(t => !t.Lesser || (first.Budget < 96 && EncounterPlan.HasLesser(t.Kind))), "lesser variant outside its budget/family");
+    Require(!first.ScoutReinforcement || (first.Budget < 64 && tier == 0 && first.ReinforcementCount == 1), "scout outside small ordinary encounter");
+    if (players == 4) Require(!first.ScoutReinforcement && first.Twists.All(t => !t.Lesser), "four-player pricing changed");
+    if (players == 1 && tier == 0 && act == 0)
+        Require(first.ReinforcementCount + first.Twists.Count(t => t.Kind is not (TwistKind.Sturdy or TwistKind.Keen)) >= 2, "solo opener lacks two tactical changes");
     Require(first.Affixes.Length <= 3 * players + act, "affix cap exceeded");
     Require(first.ReinforcementCount <= EncounterPlan.ReinforcementLimit(players, act), "too many reinforcements");
     Require(enemies + first.ReinforcementCount <= 4, "formation exceeds four starting enemies");
@@ -65,7 +73,7 @@ for (int enemies = 1; enemies <= 4; enemies++)
     }
     cases++;
 }
-Require(observedKinds.Count == Enum.GetValues<TwistKind>().Length, "unreachable twist family");
+Require(observedKinds.SetEquals(EncounterPlan.ActiveKinds), "unreachable twist family");
 Require(largestCoopPlan >= 7 && mixedReinforcement && spread, "co-op diversity/spreading missing");
 for (int players = 1; players <= 4; players++)
 {
@@ -81,7 +89,7 @@ for (int players = 1; players <= 4; players++)
         Require(fixedFormation.ReinforcementCount == 0, "forced reinforcement bypasses formation eligibility");
     }
 }
-Require(new EnemyTwist(TwistKind.Armored, 0, 4, 0).Defense(4) == 4 && new EnemyTwist(TwistKind.Armored, 0, 4, 1).Defense(4) == 6 && new EnemyTwist(TwistKind.Armored, 0, 4, 2).Defense(4) == 8, "Plating progression differs");
+Require(new EnemyTwist(TwistKind.Fortified, 0, 4, 0).Defense(4) == 4 && new EnemyTwist(TwistKind.Fortified, 0, 4, 1).Defense(4) == 6 && new EnemyTwist(TwistKind.Fortified, 0, 4, 2).Defense(4) == 8, "Block progression differs");
 Console.WriteLine($"PASS: {cases} native-Rng policies across four acts; replay, party-linear/stage-growing budgets, costs, target indices, formations, exclusions, {observedKinds.Count}-family reachability and co-op diversity.");
 Console.WriteLine(JsonSerializer.Serialize(new { distribution, reinforcementCounts, normalCounts, largestCoopPlan }));
 var playedCards = new HashSet<int>();
@@ -92,10 +100,11 @@ for (uint seed = 0; seed < 1000; seed++)
     var drawnCards = new HashSet<int>();
     for (int turn = 0; turn < 40; turn++)
     {
-        int energy = turn == 0 ? 4 : turn < 20 ? 3 : 4;
-        a.Prepare(energy); b.Prepare(energy);
+        int energy = (turn < 20 ? 6 : 8) + (turn % 3 == 2 || turn == 0 ? 1 : 0);
+        int draw = turn == 0 ? 7 : 5;
+        a.Prepare(energy, draw); b.Prepare(energy, draw);
         Require(a.Snapshot == b.Snapshot, "royal deck replay differs");
-        Require(a.Hand.Count == 3 && a.Hand.Distinct().Count() == 3, "invalid draw");
+        Require(a.Hand.Count == draw && a.Hand.Distinct().Count() == draw, "invalid draw");
         drawnCards.UnionWith(a.Hand);
         Require(a.Planned.Length > 0 && a.Planned.Sum(i => RoyalDeck.Costs[i]) <= energy, "royal overspend or empty plan");
         Require(a.Hand.Count + a.DrawCount + a.DiscardCount == RoyalDeck.Costs.Length, "royal cards lost or duplicated");
@@ -130,15 +139,15 @@ for (uint seed = 0; seed < 1000; seed++)
     }
     var relicRng = new Rng(seed, "royal-relics");
     var relicReplay = new Rng(seed, "royal-relics");
-    var relics = ChaosSelections.Distinct(5, 9, n => relicRng.NextInt(n));
-    Require(relics.Distinct().Count() == 5 && relics.All(i => i >= 0 && i < 9), "invalid regalia selection");
-    Require(relics.SequenceEqual(ChaosSelections.Distinct(5, 9, n => relicReplay.NextInt(n))), "regalia replay differs");
+    var relics = ChaosSelections.Distinct(10, 14, n => relicRng.NextInt(n));
+    Require(relics.Distinct().Count() == 10 && relics.All(i => i >= 0 && i < 14), "invalid regalia selection");
+    Require(relics.SequenceEqual(ChaosSelections.Distinct(10, 14, n => relicReplay.NextInt(n))), "regalia replay differs");
     int mask = relics.Aggregate(0, (bits, i) => bits | (1 << i));
-    Require(System.Numerics.BitOperations.PopCount((uint)mask) == 5, "regalia checksum mask loses a relic");
+    Require(System.Numerics.BitOperations.PopCount((uint)mask) == 10, "regalia checksum mask loses a relic");
     relicsSeen.UnionWith(relics);
 }
-Require(potionsSeen.Count == 12 && relicsSeen.Count == 9, "selection pool has unreachable entries");
-Console.WriteLine("PASS: 40000 goblin blocks, 160000 distinct co-op potion assignments, 1000 five-relic selections; native-Rng replay and spell-before-attack ordering.");
+Require(potionsSeen.Count == 12 && relicsSeen.Count == 14, "selection pool has unreachable entries");
+Console.WriteLine("PASS: 40000 goblin blocks, 160000 distinct co-op potion assignments, 1000 ten-relic selections; native-Rng replay and spell-before-attack ordering.");
 int royalVisits = 0;
 for (uint seed = 0; seed < 1000; seed++)
 {

@@ -46,8 +46,9 @@ internal static class RoyalDeckView
     }
     internal static void AddRelics(NCreature node, RatKing king)
     {
-        var row = new HBoxContainer { Name = "RoyalRelics", Position = new Vector2(-120, 38), MouseFilter = Control.MouseFilterEnum.Ignore };
-        row.AddThemeConstantOverride("separation", 4);
+        var row = new GridContainer { Name = "RoyalRelics", Columns = 5, Position = new Vector2(-106, 94), MouseFilter = Control.MouseFilterEnum.Ignore };
+        row.AddThemeConstantOverride("h_separation", 4);
+        row.AddThemeConstantOverride("v_separation", 4);
         node.AddChild(row);
         var models = RoyalRegaliaPower.Relics;
         for (int i = 0; i < models.Length; i++)
@@ -55,11 +56,44 @@ internal static class RoyalDeckView
             if ((king.RegaliaMask & (1 << i)) == 0) continue;
             int index = i;
             var relic = models[i];
-            var icon = new TextureRect { Texture = relic.Icon, CustomMinimumSize = new Vector2(44, 44), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = Control.MouseFilterEnum.Stop };
+            var icon = new TextureRect { ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, Texture = relic.Icon, CustomMinimumSize = new Vector2(40, 40), StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = Control.MouseFilterEnum.Stop };
             row.AddChild(icon);
-            icon.MouseEntered += () => NHoverTipSet.CreateAndShow(icon, new HoverTip(relic.Title, RoyalRegaliaPower.Effects[index], relic.Icon));
+            icon.MouseEntered += () => NHoverTipSet.CreateAndShow(icon, new HoverTip(relic.Title, RoyalRegaliaPower.Effects[index], relic.Icon), HoverTipAlignment.Right);
             icon.MouseExited += () => NHoverTipSet.Remove(icon);
+            icon.TreeExiting += () => NHoverTipSet.Remove(icon);
         }
+        var display = node.GetNode<NCreatureStateDisplay>("%HealthBar");
+        var powers = display.GetNode<NPowerContainer>("%PowerContainer");
+        // The native power container wraps without increasing its own height.
+        // Follow the actual power rectangles, including a second buff row.
+        void Layout()
+        {
+            if (!GodotObject.IsInstanceValid(row) || !row.IsInsideTree()) return;
+            var toLocal = node.GetGlobalTransform().AffineInverse();
+            float bottom = (toLocal * powers.GlobalPosition).Y;
+            foreach (var power in powers.GetChildren().OfType<Control>())
+                if (power.Visible && !power.IsQueuedForDeletion())
+                    bottom = Math.Max(bottom, (toLocal * power.GetGlobalTransform() * power.Size).Y);
+            row.Position = new Vector2(-row.Size.X / 2, Math.Max(94, bottom + 12));
+        }
+        bool queued = false;
+        void QueueLayout()
+        {
+            if (queued) return;
+            queued = true;
+            Callable.From(() => { queued = false; Layout(); }).CallDeferred();
+        }
+        powers.ChildOrderChanged += QueueLayout;
+        powers.ItemRectChanged += QueueLayout;
+        display.ItemRectChanged += QueueLayout;
+        row.Resized += QueueLayout;
+        row.TreeExiting += () =>
+        {
+            powers.ChildOrderChanged -= QueueLayout;
+            powers.ItemRectChanged -= QueueLayout;
+            display.ItemRectChanged -= QueueLayout;
+        };
+        QueueLayout();
     }
 }
 
@@ -91,6 +125,6 @@ internal static class RoyalInitialViewPatch
         var animator = __instance.Visuals.GetNodeOrNull<AnimationPlayer>("Visuals/AnimationPlayer");
         if (animator != null)
             foreach (string name in new[] { "Attack", "Cast", "Hit" }) animator.AnimationSetNext(name, "Idle");
-        RoyalDeckView.AddRelics(__instance, king);
+        if (__instance.Entity.CombatState?.Encounter is RatKingEncounter) RoyalDeckView.AddRelics(__instance, king);
     }
 }

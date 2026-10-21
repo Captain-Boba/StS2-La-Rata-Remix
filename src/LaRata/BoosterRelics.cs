@@ -23,9 +23,10 @@ public abstract class BoosterRelic : CustomRelicModel
     protected abstract int Pack { get; }
     internal static readonly string[] Labels = ["Ironclad", "Silent", "Defect", "Regent", "Necrobinder", "La Rata"];
     internal static readonly string[] Art = ["ironclad_pack", "silent_pack", "defect_pack", "regent_pack", "necrobinder_pack", "royal_pack"];
-    public override RelicRarity Rarity => RelicRarity.Uncommon;
+    public override RelicRarity Rarity => RelicRarity.Common;
     public override bool HasUponPickupEffect => true;
     [SavedProperty] public bool Opened { get; set; }
+    [SavedProperty] public bool StarterPending { get; set; }
     [SavedProperty] public List<SerializableCard> Contents { get; set; } = [];
     private bool opening;
     public override string PackedIconPath => $"res://LaRata/images/relics/{Art[Pack]}.png";
@@ -34,11 +35,17 @@ public abstract class BoosterRelic : CustomRelicModel
     public override List<(string, string)> Localization =>
     [
         ("title", $"{Labels[Pack]} Booster"),
-        ("description", $"Upon pickup, open 5 different {Labels[Pack]} cards. Keep any number of them." + (Pack == 5 ? " A 20% chance replaces one card with a playable royal boss card." : " Any character can use them.")),
+        ("description", $"Upon pickup, open 5 different {Labels[Pack]} cards plus 2 neutral cards from the regular and La Rata pools. Keep any number of them." + (Pack == 5 ? " A 20% chance replaces one of the first five cards with a playable royal boss card." : " Any character can use them.")),
         ("flavor", "A little cardboard. A lot of possibilities."),
-        ("selection", "Choose any cards to keep. Unselected cards are discarded. You may keep all five or none.")
+        ("selection", "Choose any cards to keep. Unselected cards are discarded. You may keep all or none.")
     ];
-    public override async Task AfterObtained()
+    public override Task AfterObtained() => StarterPending ? Task.CompletedTask : OpenOnce();
+    internal async Task OpenStarter()
+    {
+        await OpenOnce();
+        if (Opened) StarterPending = false;
+    }
+    private async Task OpenOnce()
     {
         if (Opened || opening) return;
         opening = true;
@@ -55,7 +62,7 @@ public abstract class BoosterRelic : CustomRelicModel
         else
         {
             // Regular reward RNG/rarity odds can be local-only. Use a native isolated RNG
-            // and Uniform odds so all peers generate the same five choices before syncing indexes.
+            // and Uniform odds so all peers generate the same choices before syncing indexes.
             var rng = new Rng(Owner.RunState.Rng.Seed, $"LaRata/booster/v1/{Owner.NetId}/{Id.Entry}/{FloorAddedToDeck}");
             var pool = (Pack == 5 ? RemixCard.Neutrals : pools[Pack].GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint))
                 .Where(c => c.Rarity is CardRarity.Common or CardRarity.Uncommon or CardRarity.Rare)
@@ -69,6 +76,12 @@ public abstract class BoosterRelic : CustomRelicModel
                 var prize = rng.NextItem(RemixCard.BossPrizes)!;
                 cards[slot] = new CardCreationResult(Owner.RunState.CreateCard(prize, Owner));
             }
+            var neutralPool = NeutralBonusPool(
+                ModelDb.CardPool<ColorlessCardPool>().GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint),
+                cards.Select(c => c.Card));
+            var neutralOptions = new CardCreationOptions(neutralPool, CardCreationSource.Other, CardRarityOddsType.Uniform)
+                .WithRngOverride(rng).WithFlags(CardCreationFlags.NoUpgradeRoll | CardCreationFlags.NoModifyHooks | CardCreationFlags.NoCardPoolModifications | CardCreationFlags.NoCardModelModifications);
+            cards.AddRange(CardFactory.CreateForReward(Owner, 2, neutralOptions));
             Contents = cards.Select(c => c.Card.ToSerializable()).ToList();
         }
         // Mark only these card instances; unrelated rewards/screens never receive the opening.
@@ -87,6 +100,12 @@ public abstract class BoosterRelic : CustomRelicModel
         }
         finally { foreach (var card in cards) BoosterOpening.Unmark(card.Card); }
     }
+
+    internal static CardModel[] NeutralBonusPool(IEnumerable<CardModel> unlocked, IEnumerable<CardModel> offered) =>
+        unlocked.Concat(RemixCard.Neutrals)
+            .Where(c => c.Rarity is CardRarity.Common or CardRarity.Uncommon or CardRarity.Rare)
+            .ExceptBy(offered.Select(c => c.Id), c => c.Id).DistinctBy(c => c.Id)
+            .OrderBy(c => c.Id.Entry, StringComparer.Ordinal).ToArray();
 }
 
 [Pool(typeof(SharedRelicPool))] public sealed class IroncladBooster : BoosterRelic { protected override int Pack => 0; }

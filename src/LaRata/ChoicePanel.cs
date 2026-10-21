@@ -16,12 +16,17 @@ internal static class ChoicePanel
     private static NVerticalPopup? popup;
     private static TaskCompletionSource<int>? pending;
     private static NPopupYesNoButton? defaultButton;
+    internal static bool IsOpen => GodotObject.IsInstanceValid(modal);
+    private static bool restoreCursor;
+    private static readonly AccessTools.FieldRef<NCursorManager, bool> CursorShown =
+        AccessTools.FieldRefAccess<NCursorManager, bool>("_shouldShowCursor");
     internal static bool Owns(NGenericPopup instance) => ReferenceEquals(instance, modal);
     internal static Control? DefaultFocus => GodotObject.IsInstanceValid(defaultButton) && defaultButton!.IsEnabled ? defaultButton : null;
 
     internal static void Show(string heading, string detail)
     {
         Close();
+        restoreCursor = CursorShown(NGame.Instance!.CursorManager);
         modal = NGenericPopup.Create() ?? throw new InvalidOperationException("Native popup unavailable.");
         popup = modal.GetNode<NVerticalPopup>("VerticalPopup");
         NModalContainer.Instance!.Add(modal);
@@ -81,6 +86,7 @@ internal static class ChoicePanel
 
     internal static void Close()
     {
+        bool wasOpen = IsOpen;
         pending?.TrySetCanceled();
         pending = null;
         defaultButton = null;
@@ -91,6 +97,19 @@ internal static class ChoicePanel
         }
         modal = null;
         popup = null;
+        if (wasOpen) NGame.Instance?.CursorManager.SetCursorShown(restoreCursor);
+    }
+}
+
+// SharedRelicPicking screen updates can hide the native cursor after our popup
+// opens. Override only that visibility request while the choice modal exists;
+// the native manager still handles controller input and cursor artwork.
+[HarmonyPatch(typeof(NCursorManager), nameof(NCursorManager.SetCursorShown))]
+internal static class RelicChoiceCursorPatch
+{
+    [HarmonyPrefix] private static void Prefix(ref bool show)
+    {
+        if (ChoicePanel.IsOpen) show = true;
     }
 }
 

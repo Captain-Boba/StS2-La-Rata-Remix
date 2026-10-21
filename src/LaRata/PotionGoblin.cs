@@ -49,18 +49,19 @@ internal static class PotionGoblin
         {
             if (room != null)
             {
-                var sheet = ResourceLoader.Load<Texture2D>("res://LaRata/images/potion_goblin_poses.png");
+                var sheet = ResourceLoader.Load<Texture2D>("res://LaRata/images/potion_goblin_spire.png");
                 goblin = new Sprite2D
                 {
                     Position = new Vector2(2020, 630), Scale = Vector2.One * (300f / (sheet.GetHeight() / 2f))
                 };
                 poses = new Texture2D[]
                 {
-                    new AtlasTexture { Atlas = sheet, Region = new Rect2(0, 0, 627, 627) },
-                    new AtlasTexture { Atlas = sheet, Region = new Rect2(627, 0, 627, 627) },
-                    // The throwing foot extends slightly past the sheet's midpoint.
-                    new AtlasTexture { Atlas = sheet, Region = new Rect2(0, 627, 640, 627) },
-                    new AtlasTexture { Atlas = sheet, Region = new Rect2(640, 627, 614, 627) }
+                    new AtlasTexture { Atlas = sheet, Region = new Rect2(0, 0, 650, 627) },
+                    new AtlasTexture { Atlas = sheet, Region = new Rect2(650, 0, 604, 627) },
+                    // The throwing pose extends beyond the atlas midpoint. Split
+                    // in the transparent gutter instead of clipping its hand/foot.
+                    new AtlasTexture { Atlas = sheet, Region = new Rect2(0, 627, 700, 627) },
+                    new AtlasTexture { Atlas = sheet, Region = new Rect2(700, 627, 554, 627) }
                 };
                 SetPose(goblin, poses, 0);
                 room.CombatVfxContainer.AddChild(goblin);
@@ -85,7 +86,7 @@ internal static class PotionGoblin
                     var bottle = new Sprite2D
                     {
                         Texture = potion.Image,
-                        Position = new Vector2(75, -75) / goblin.Scale,
+                        Position = new Vector2(90, -65) / goblin.Scale,
                         Scale = Vector2.One * (48f / potion.Image.GetWidth()) / goblin.Scale
                     };
                     goblin.AddChild(bottle);
@@ -99,7 +100,7 @@ internal static class PotionGoblin
                     release.TweenProperty(goblin, "rotation", -.04f, .2).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
                     release.TweenProperty(goblin, "rotation", 0f, .3).SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
                     var target = room.GetCreatureNode(player.Creature)?.VfxSpawnPosition ?? Vector2.Zero;
-                    var vfx = NItemThrowVfx.Create(goblin.ToGlobal(new Vector2(-145, -5) / goblin.Scale), target, potion.Image, Vector2.One * .6f);
+                    var vfx = NItemThrowVfx.Create(goblin.ToGlobal(new Vector2(-160, -8) / goblin.Scale), target, potion.Image, Vector2.One * .6f);
                     if (vfx != null)
                     {
                         // Native exported scene property; retain the game's throw arc.
@@ -123,6 +124,7 @@ internal static class PotionGoblin
                 CombatManager.Instance.BeginCardOrPotionEffect(player);
                 try { await (Task)method.Invoke(potion, [context, player.Creature])!; }
                 finally { CombatManager.Instance.EndCardOrPotionEffect(player); context.PopModel(potion); }
+                CombatJournal.Record(combat, "potion", potion, player.NetId);
                 if (goblin != null && GodotObject.IsInstanceValid(goblin))
                 {
                     SetPose(goblin, poses, 3);
@@ -150,10 +152,10 @@ internal static class PotionGoblin
         // Register the planted feet, retaining each pose's natural upper-body motion.
         goblin.Offset = pose switch
         {
-            0 => new Vector2(-77, 0),
-            1 => new Vector2(-35.5f, 0),
-            2 => new Vector2(-81, 60),
-            _ => new Vector2(-13.5f, 58)
+            0 => new Vector2(-65.5f, 0),
+            1 => new Vector2(-18.5f, 0),
+            2 => new Vector2(-82, 74),
+            _ => new Vector2(17, 74)
         };
     }
 }

@@ -185,13 +185,13 @@ public sealed class RatInvitation : CustomEventModel
     public override List<(string, string)> Localization =>
     [
         ("title", "You Are Not Prepared"),
-        ("pages.INITIAL.description", "Your victory is secure. Beyond the Spire, the Rat King waits.\n\nRecover with an unseen Ancient, then visit a shop, an unknown room, the Kingsguard and a campfire before facing La Rata and his royal deck. Even defeat here will preserve your regular victory.\n\nEvery player must agree to enter."),
+        ("pages.INITIAL.description", "The Spire falls silent. Then, beneath the stone, something laughs.\n\nAn emerald slit opens in the darkness. Beyond it waits a throne of broken crowns, and upon that throne, two hungry green eyes.\n\nA voice slips through the crack. \"So. You thought yourselves finished. Come closer, little heroes. Let us see what your triumph is worth.\""),
         ("pages.INITIAL.options.ENTER.title", "Enter the Rat King's domain"),
-        ("pages.INITIAL.options.ENTER.description", "Face the optional final challenge. Requires unanimous agreement."),
-        ("pages.INITIAL.options.LEAVE.title", "End the run"),
-        ("pages.INITIAL.options.LEAVE.description", "Continue to the Architect and the regular ending."),
-        ("pages.ACCEPTED.description", "The party has agreed. The Rat King awaits. Your regular victory remains secure."),
-        ("pages.DECLINED.description", "The party has chosen the regular ending. The Architect awaits.")
+        ("pages.INITIAL.options.ENTER.description", "Follow the laughter beneath the throne."),
+        ("pages.INITIAL.options.LEAVE.title", "Turn toward the light"),
+        ("pages.INITIAL.options.LEAVE.description", "Leave the crown to its shadows. The Architect awaits."),
+        ("pages.ACCEPTED.description", "The doors groan open. Somewhere beyond them, iron boots strike stone.\n\nThe laughter stops.\n\n\"At last. Guests worthy of my table.\""),
+        ("pages.DECLINED.description", "You turn away. The green light narrows to a thread, then vanishes.\n\nBehind the stone, a crown scrapes against a throne.\n\n\"Another time, then.\"")
     ];
     protected override IReadOnlyList<EventOption> GenerateInitialOptions() => [Option(Enter), Option(Leave)];
     protected override void SetInitialEventState(bool isPreFinished)
@@ -347,21 +347,13 @@ internal static class BonusMapWordsPatch
         {
             var point = pair.Value;
             var anchor = point.GetParent<Control>().Size * new Vector2(point.AnchorLeft, point.AnchorTop);
-            point.Position = anchor + (point is NBossMapPoint ? new Vector2(-200, -160) : new Vector2(-80, 800 - pair.Key.row * 190));
-            if (point is NBossMapPoint)
-            {
-                foreach (string name in new[] { "%PlaceholderImage", "%PlaceholderOutline" })
-                {
-                    var portrait = point.GetNode<TextureRect>(name);
-                    portrait.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
-                    portrait.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered;
-                    portrait.Size = new Vector2(280, 300);
-                    portrait.MouseFilter = Control.MouseFilterEnum.Ignore;
-                    // The prototype has no separate silhouette asset. Avoid
-                    // drawing a second, offset copy of the full-color portrait.
-                    if (name == "%PlaceholderOutline") portrait.Visible = false;
-                }
-            }
+            // Keep the native boss scene, hitbox, tint, outline and hover animation.
+            // Its 374x306 hitbox previously overlapped PREPARED (top: 40).
+            // Center using the actual native width and leave room for the taller
+            // 374x350 artwork, including its native 1.05 hover scale.
+            point.Position = anchor + (point is NBossMapPoint
+                ? new Vector2(-point.Size.X / 2, -370)
+                : new Vector2(-80, 800 - pair.Key.row * 190));
         }
         var drawPaths = AccessTools.Method(typeof(NMapScreen), "DrawPaths");
         foreach (var point in ____mapPointDictionary.Values) drawPaths.Invoke(__instance, new object[] { point, point.Point });

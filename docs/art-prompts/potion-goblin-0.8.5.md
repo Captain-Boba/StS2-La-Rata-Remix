@@ -1,0 +1,15 @@
+# Potion Goblin repaint — 0.8.5
+
+Generated with the built-in image generator on 2026-10-18. Replacement requested by the owner after the 0.8.4 solo playtest. No additional runtime dependency.
+
+Runtime asset: `assets/LaRata/images/potion_goblin_spire.png` (1254 × 1254, RGBA, transparent). The previous sprite sheets remain in the repository for provenance; `PotionGoblin.cs` now uses this sheet. Four atlas regions preserve idle, wind-up, throw and laugh. Their foot offsets and bottle origin were adjusted to the replacement drawing. No gameplay timing or potion selection changed.
+
+References: previous mod-owned `potion_goblin_poses.png` as the edit target; `.research/BuffTheSpire/BuffTheSpire/images/showcase/showcase3-crab.png` as an in-game style reference only. The reference screenshot is not redistributed as runtime art.
+
+## Exact prompt
+
+Redesign the potion goblin sprite sheet in reference 1 for Slay the Spire 2, using reference 2 ONLY as a reference for the game's simplified painted combat art. Reference 1 is the EDIT TARGET: replace its generic orange-haired Warcraft-style goblin with a peculiar small hunched Spire creature, long asymmetric hooked nose, tiny off-white eyes set in dark sockets, muted grey olive skin, sparse dark hair, oversized ragged dusty plum hood/scarf and simple patched brown tunic, two small potion bottles on belt. Crafty, scruffy, strange and charming, NOT cute mobile-game mascot. Hand-painted 2D paper-cut shapes, chunky uneven dark contour lines, broad matte angular shadow planes, restrained muted palette, sparse texture, no rendering gloss, no neon glow, no intricate leather detail. FOUR matching full-body animation poses in an exactly equal 2 by 2 sprite atlas: upper left crouched idle facing LEFT, upper right same planted feet winding up throwing arm at upper RIGHT with empty hand, lower left throwing arm extended toward LEFT with empty hand, lower right shoulders lifted mischievous chuckle. Precisely consistent proportions, outfit, foot position and ground baseline across all four cells. Each figure centered in its own square cell, entirely contained with at least 8 percent transparent margin on each side. Match same character scale in each cell. Do not cross the cell borders. Entire image transparent background with real alpha, no ground, no cast ground shadows, no grid, no text, no logos. Output square 2x2 production sprite atlas. This is an original mod character, not a copy of existing game monsters.
+
+## Inspection
+
+The generated sheet was visually inspected: angular matte planes, subdued plum/olive palette, hooded asymmetric silhouette, four consistent actions and transparent margins. The final atlas splits follow transparent gutters at x=650 in the upper row and x=700 in the lower row, with y=627 separating the rows. An initial equal-width upper-row split crossed 18 occupied pixels and was corrected; pose offsets compensate for the changed region centers. In-game fit, animation registration and human style acceptance remain pending; a generated sheet is not proof of final game appearance.

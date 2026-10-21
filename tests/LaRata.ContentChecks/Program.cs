@@ -41,7 +41,7 @@ TestMode.IsOn = true;
 foreach (var type in typeof(AbstractModel).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(AbstractModel)) && t.GetConstructor(Type.EmptyTypes) != null && t != typeof(MegaCrit.Sts2.Core.Models.Cards.Cleanse)))
     ModelDb.Inject(type);
 var cards = types.Where(t => !t.IsAbstract && (t.IsSubclassOf(typeof(RoyalCard)) || t.IsSubclassOf(typeof(RemixCard)) || t == typeof(Cleanse))).OrderBy(t => t.Name).ToArray();
-Require(cards.Length == 36, "Expected 20 boss cards, Cleanse, 10 neutrals and 5 playable boss prizes.");
+Require(cards.Length == 46, "Expected 25 boss cards, Cleanse, 10 neutrals and 10 playable boss prizes.");
 var models = new List<CardModel>();
 foreach (var type in cards)
 {
@@ -88,15 +88,21 @@ foreach (var type in relics)
     var relic = canonical.ToMutable();
     if (relic is BoosterRelic pack)
     {
-        pack.Contents = models.Take(5).Select(c => c.ToSerializable()).ToList();
-        var saved = Roundtrip(pack);
         var restored = (BoosterRelic)canonical.ToMutable();
-        saved!.Fill(restored);
-        Require(!restored.Opened && restored.Contents.Count == 5 && restored.Contents[0].Id == pack.Contents[0].Id, "Pending pack save roundtrip failed.");
+          pack.StarterPending = true;
+          Roundtrip(pack).Fill(restored);
+          Require(restored.StarterPending && !restored.Opened && restored.Contents.Count == 0, "Deferred starting pack save roundtrip failed.");
+          pack.StarterPending = false;
+        foreach (int count in new[] { 5, 7 })
+        {
+            pack.Contents = models.Take(count).Select(c => c.ToSerializable()).ToList();
+            Roundtrip(pack).Fill(restored);
+            Require(!restored.Opened && restored.Contents.Select(c => c.Id).SequenceEqual(pack.Contents.Select(c => c.Id)), "Pending legacy/new pack save roundtrip failed.");
+        }
         pack.Opened = true;
         pack.Contents = [];
         Roundtrip(pack).Fill(restored);
-        Require(restored.Opened && restored.Contents.Count == 0, "Opened memento save roundtrip failed.");
+         Require(restored.Opened && !restored.StarterPending && restored.Contents.Count == 0, "Opened memento save roundtrip failed.");
     }
     if (relic is ComboRelic combo)
     {
@@ -106,7 +112,7 @@ foreach (var type in relics)
         Require(restored.Triggered && restored.SeenTypes == 3, "Combo state save roundtrip failed.");
     }
 }
-Console.WriteLine("PASS: 36 card constructors/clones serialize using native model IDs; all 16 player upgrades change effects/costs, preserve canonical values and reload through native card JSON; Borrowed Breath+ heals 6 and draws 3; 11 relic constructors and native SavedProperties JSON roundtrips for pending packs, opened mementos and combo counters. No full game registration, gameplay, UI or network test.");
+Console.WriteLine("PASS: 46 card constructors/clones serialize using native model IDs; all 21 player upgrades change effects/costs, preserve canonical values and reload through native card JSON; Borrowed Breath+ heals 6 and draws 3; 11 relic constructors and native SavedProperties JSON roundtrips for pending packs, opened mementos and combo counters. No full game registration, gameplay, UI or network test.");
 
 var catalog = types.Single(t => t.Name == "GoblinPotionCatalog");
 var supported = (Type[])catalog.GetField("Supported", BindingFlags.NonPublic | BindingFlags.Static)!.GetValue(null)!;
@@ -188,3 +194,5 @@ Require(Helpers(0, early.Select(m => m.Id).ToArray(), early.Select(m => m.Id).To
     "Exhausted diversity preferences must still provide a valid pool.");
 Console.WriteLine("PASS: four early/seven later reinforcement types construct native move states; occupied/recent types are avoided; 128 seeded selections replay identically on four simulated peers. Not a network test.");
 
+FeedbackChecks.Run();
+RoyalFinaleChecks.Run();
