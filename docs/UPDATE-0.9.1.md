@@ -1,0 +1,5 @@
+# Version 0.9.1 — Starter Booster Hotfix
+
+- Fix starting boosters waiting for another player's pack in co-op.
+- Open each player's starter booster when they select their initial Ancient relic; resolve the selected relic after their pack is complete.
+- Prevent the Ancient relic's card selection from overlapping the starter booster, and wait for pending pack choices before entering combat.

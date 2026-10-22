@@ -3,7 +3,7 @@
   "name": "La Rata Remix",
   "author": "La Rata",
   "description": "Seeded chaos for 1-4 players, six interactive card boosters, ten new neutral cards and five combo relics. A 25-card Rat King finale with two Kingsguard escorts and ten combat relics. Requires game v0.107.1 and BaseLib 3.4.7. Start a new run.",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "has_pck": true,
   "has_dll": true,
   "min_game_version": "0.107.1",

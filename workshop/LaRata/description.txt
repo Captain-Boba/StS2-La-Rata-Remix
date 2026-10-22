@@ -1,4 +1,4 @@
-[b]Current version: 0.9.0[/b]
+[b]Current version: 0.9.1[/b]
 
 La Rata Remix brings controlled chaos and tougher, more varied encounters to Slay the Spire 2, scaling from solo to four-player co-op.
 

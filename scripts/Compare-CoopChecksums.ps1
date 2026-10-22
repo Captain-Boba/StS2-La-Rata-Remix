@@ -1,12 +1,13 @@
 param(
     [Parameter(Mandatory)][string[]]$Logs,
+    [ValidateRange(2, 4)][int]$ExpectedPlayers = 4,
     [string[]]$RequiredMarkers = @('encounter=TWO_TAILED_RATS_NORMAL players=4', 'Suppression resolved for 4 living players'),
     [int]$MinimumChecksums = 10,
     [string]$ExpectedModVersion = '0.2.0',
     [switch]$AllowEngineShutdownResourceLeaks
 )
 $ErrorActionPreference = 'Stop'
-if ($Logs.Count -ne 4 -or ($Logs | Select-Object -Unique).Count -ne 4) { throw 'Supply four distinct logs from the same run (host first).' }
+if ($Logs.Count -ne $ExpectedPlayers -or ($Logs | Select-Object -Unique).Count -ne $ExpectedPlayers) { throw "Supply $ExpectedPlayers distinct logs from the same run (host first)." }
 $records = @()
 foreach ($path in $Logs) {
     $text = Get-Content -LiteralPath $path -Raw
@@ -41,10 +42,10 @@ foreach ($path in $Logs) {
     if ($map.Count -lt $MinimumChecksums) { throw "Too few checksum observations in $path." }
     $records += ,$map
 }
-foreach ($peer in 1..3) {
+foreach ($peer in 1..($ExpectedPlayers - 1)) {
     if ($records[$peer].Count -ne $records[0].Count) { throw "Peer $peer has incomplete checksum coverage. Finish all actions and close cleanly before comparing." }
     foreach ($id in $records[0].Keys) {
         if ($records[$peer][$id] -cne $records[0][$id]) { throw "Peer $peer differs at native checksum ID $id." }
     }
 }
-Write-Output "PASS: $($records[0].Count) identical native checksum IDs and contexts on all four peers; all requested scenario markers observed. This covers this recorded scenario only."
+Write-Output "PASS: $($records[0].Count) identical native checksum IDs and contexts on all $ExpectedPlayers peers; all requested scenario markers observed. This covers this recorded scenario only."

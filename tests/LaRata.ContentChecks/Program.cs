@@ -196,3 +196,4 @@ Console.WriteLine("PASS: four early/seven later reinforcement types construct na
 
 FeedbackChecks.Run();
 RoyalFinaleChecks.Run();
+StarterBoosterChecks.Run();

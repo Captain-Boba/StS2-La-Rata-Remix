@@ -110,7 +110,7 @@ internal static class FeedbackChecks
             pending.AfterObtained().GetAwaiter().GetResult(); // no UI or Owner yet
             Require(!pending.Opened && pending.Contents.Count == 0, "Starting pack opened before the run UI exists");
         }
-        Console.WriteLine("PASS: all five native characters receive their own pack; initial pickup defers opening until the room transition finishes.");
+        Console.WriteLine("PASS: all five native characters receive their own pack; initial pickup defers opening to the synchronized Ancient relic choice.");
 
         var snapshot = new JournalSnapshot("combat-a", [new(2, "card", ModelDb.Card<RoyalTax>().Id.ToString(), null),
             new(3, "potion", ModelDb.Potion<StrengthPotion>().Id.ToString(), 44)]);

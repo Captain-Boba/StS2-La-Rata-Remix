@@ -30,7 +30,8 @@ internal static class StartingRelicsPatch
             {
                 var starter = (BoosterRelic)booster.ToMutable();
                 // NRun and its overlays do not exist during FinalizeStartingRelics.
-                // Keep the deferred opening in the native relic save properties.
+                // The synchronized Ancient option opens it before granting the
+                // chosen relic; no gameplay choices belong in a local fade task.
                 starter.StarterPending = true;
                 await RelicCmd.Obtain(starter, player);
             }
@@ -50,21 +51,28 @@ internal static class StartingRelicsPatch
     };
 }
 
-[HarmonyPatch(typeof(RunManager), "FadeIn")]
-internal static class StartingBoosterOpeningPatch
+[HarmonyPatch(typeof(EventModel), "RelicOption", [typeof(RelicModel), typeof(Func<Task>), typeof(string)])]
+internal static class StartingBoosterChoicePatch
 {
-    [HarmonyPostfix]
-    private static void Postfix(RunManager __instance, ref Task __result) => __result = Open(__result, __instance);
-
-    private static async Task Open(Task original, RunManager manager)
+    [HarmonyPrefix]
+    private static void Prefix(EventModel __instance, ref Func<Task>? onChosen)
     {
-        await original;
-        // AfterRoomEntered runs beneath the opaque room transition. Wait until
-        // the native fade has finished and location-targeted choices can arrive.
-        var run = manager.DebugOnlyGetState();
-        if (run == null) return;
-        foreach (var player in run.Players.OrderBy(p => p.NetId).ToArray())
-            foreach (var pack in player.Relics.OfType<BoosterRelic>().Where(p => p.StarterPending && !p.Opened).ToArray())
-                await pack.OpenStarter();
+        if (__instance is not AncientEventModel || onChosen == null) return;
+        var ancient = __instance;
+        var original = onChosen;
+        onChosen = () => OpenThenChoose(ancient, original);
+    }
+
+    internal static async Task OpenThenChoose(EventModel ancient, Func<Task> original)
+    {
+        // EventSynchronizer executes this owner's option on every peer and
+        // tracks its Task. EventRoom.Exit awaits it before combat-state sync.
+        // Other players can finish their own packs independently, while later
+        // choices from this Ancient's relic cannot overtake this player's pack.
+        var owner = ancient.Owner ?? throw new InvalidOperationException("Starting booster requires an active Ancient event owner.");
+        foreach (var pack in owner.Relics.OfType<BoosterRelic>()
+                     .Where(p => p.StarterPending).ToArray())
+            await pack.OpenStarter();
+        await original();
     }
 }

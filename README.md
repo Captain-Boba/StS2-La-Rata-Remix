@@ -1,8 +1,8 @@
 # La Rata Remix
 
-**Version 0.9 — The Crown Strikes Back** (package version **0.9.0**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
+**Version 0.9.1 — Starter Booster Hotfix** (package version **0.9.1**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
 
-La Rata now fights with two random Kingsguard knights, 3,000 base HP, a 25-card illustrated deck and ten combat relics. Each player starts with a class booster; combat histories, solo variety and presentation have been improved. Read the [0.9 patch notes and validation scope](docs/UPDATE-0.9.0.md). Automated checks do not replace fresh in-game or co-op acceptance.
+This hotfix corrects the starting booster flow in co-op. Each player completes their own pack before their selected Ancient relic resolves. Read the [0.9.1 patch notes](docs/UPDATE-0.9.1.md), [startup test report](docs/COOP-START-20261023.md) and [0.9 content notes](docs/UPDATE-0.9.0.md).
 
 ## Installation
 
@@ -12,17 +12,17 @@ Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.9.0 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Version 0.9.1 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
 
 **Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
-**Release 0.9.0.** Includes all current content and fixes. See the [patch notes](docs/UPDATE-0.9.0.md) for changes and remaining live-test coverage.
+**Release 0.9.1.** Includes all current content and fixes. See the [patch notes](docs/UPDATE-0.9.1.md) for changes and remaining live-test coverage.
 
-You need the **compiled package**, such as `LaRata-0.9.0.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
+You need the **compiled package**, such as `LaRata-0.9.1.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
 
-**Release 0.9.0:** [LaRata-0.9.0.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.0/LaRata-0.9.0.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.0) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.9.0.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
+**Release 0.9.1:** [LaRata-0.9.1.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.1/LaRata-0.9.1.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.1) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.9.1.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
 
 1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
 2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
@@ -72,7 +72,7 @@ After enemy block clearing and before any enemy attacks, the hidden card is reve
 
 ## Card boosters and combo relics
 
-Every player starts a **new run with one booster for their class**, opening as the first room becomes visible, alongside the initial Ancient relic choice. This applies to all five regular characters in solo and co-op. Third-party characters without a dedicated pack receive a La Rata booster instead. Pending openings are saved; loading does not grant a second pack. Existing runs receive no retroactive starter pack.
+Every player starts a **new run with one booster for their class**. Selecting the initial Ancient relic opens that player's booster first; the chosen relic resolves after the pack is completed. Players can complete their own packs independently. This applies to all five regular characters in solo and co-op. Third-party characters without a dedicated pack receive a La Rata booster instead. Pending openings are saved; loading does not grant a second pack. Existing runs receive no retroactive starter pack. See the [three-client startup investigation](docs/COOP-START-20261023.md) for evidence and limitations.
 
 Six common relics offer **Ironclad, Silent, Defect, Regent, Necrobinder or La Rata boosters**, regardless of your character. Each opens once upon pickup and remains as a memento. Five cards come from the named pool; two additional distinct cards come from the combined regular colorless and La Rata neutral pools. Previously saved five-card packs keep their original contents. Open the pack, hover over the seven facedown cards to see their rarity glow, then click each to turn it over. Common, uncommon and rare reveals have different colors and bursts; royal boss prizes glow emerald. After all seven are revealed, the native selection screen lets you keep **any number, including all seven or none**.
 
@@ -263,7 +263,7 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires four complete logs from one scenario and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.0` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.1` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
 
 ## References and dependencies
 
