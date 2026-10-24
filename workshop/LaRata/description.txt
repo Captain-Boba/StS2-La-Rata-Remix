@@ -1,11 +1,11 @@
-[b]Current version: 0.9.1[/b]
+[b]Current version: 0.9.2[/b]
 
 La Rata Remix brings controlled chaos and tougher, more varied encounters to Slay the Spire 2, scaling from solo to four-player co-op.
 
 [h2]New content[/h2]
 [list]
-[*]44 encounter twists, extra enemies and a potion-throwing goblin.
-[*]An optional endgame path featuring The Kingsguard and La Rata: a boss with his own 25-card deck, ten combat relics and two knight bodyguards.
+[*]43 encounter twists, extra enemies and a potion-throwing goblin.
+[*]An optional endgame path featuring The Kingsguard and La Rata: a boss with his own 23-card deck, ten combat relics and two knight bodyguards.
 [*]11 neutral cards, including Cleanse, and 10 playable royal boss-card variants, all with upgrades.
 [*]Six animated, seven-card booster packs, five combo relics, Well and A Thousand Cuts. Every player starts with a class booster.
 [*]Choose Rock, Paper or Scissors for contested treasure, three relic choices in solo chests, and combat histories for royal cards and goblin potions.

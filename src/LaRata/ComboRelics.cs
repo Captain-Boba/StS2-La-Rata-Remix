@@ -24,7 +24,7 @@ public abstract class ComboRelic : CustomRelicModel
     private static readonly string[] Art = ["ashen_spool", "crown_capacitor", "crossroads_compass", "bottled_echo", "smugglers_thread"];
     private static readonly string[] Text =
     [
-        "Whenever you Exhaust a card, gain 3 Block. The first time each turn, also draw 1 card.",
+        "Whenever you Exhaust a card, gain 1 Block. The first time each turn, also draw 1 card.",
         "The first time you play a Power each turn, gain 1 Energy and 4 Vigor.",
         "The first time you play two different card types in a turn, draw 1 card and gain 4 Block.",
         "Whenever you use a Potion in combat, gain 1 Strength and immediately draw 2 cards.",
@@ -56,7 +56,7 @@ public abstract class ComboRelic : CustomRelicModel
         bool draw = !Triggered;
         Triggered = true; // Reserve before awaits: recursive exhaust/draw hooks cannot retrigger.
         Flash();
-        await CreatureCmd.GainBlock(Owner.Creature, 3, ValueProp.Unpowered, null);
+        await CreatureCmd.GainBlock(Owner.Creature, 1, ValueProp.Unpowered, null);
         if (draw && Active) await CardPileCmd.Draw(ctx, 1, Owner);
     }
     public override async Task AfterCardPlayed(PlayerChoiceContext ctx, CardPlay play)

@@ -188,7 +188,15 @@ internal static class CombatJournalView
             label.AddThemeFontOverride("font", GD.Load<Font>("res://themes/kreon_regular_shared.tres"));
             label.AddThemeFontSizeOverride("font_size", 20);
             row.AddChild(label);
-            row.MouseEntered += () => NHoverTipSet.CreateAndShow(row, potion.HoverTips, HoverTipAlignment.Right);
+            row.MouseEntered += () =>
+            {
+                NHoverTipSet.Remove(row);
+                var tips = NHoverTipSet.CreateAndShow(row, potion.HoverTips, HoverTipAlignment.Right);
+                // Native tips normally live below the modal backstop. Keep this
+                // set inside its owning popup, above the dimmer and outside the
+                // scroll container's clipping, preserving native positioning.
+                tips?.Reparent(modal);
+            };
             row.MouseExited += () => NHoverTipSet.Remove(row);
             row.TreeExiting += () => NHoverTipSet.Remove(row);
         }

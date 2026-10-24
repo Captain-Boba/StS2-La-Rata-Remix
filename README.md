@@ -1,8 +1,8 @@
 # La Rata Remix
 
-**Version 0.9.1 — Starter Booster Hotfix** (package version **0.9.1**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
+**Version 0.9.2 — Royal Rebalance** (package version **0.9.2**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
 
-This hotfix corrects the starting booster flow in co-op. Each player completes their own pack before their selected Ancient relic resolves. Read the [0.9.1 patch notes](docs/UPDATE-0.9.1.md), [startup test report](docs/COOP-START-20261023.md) and [0.9 content notes](docs/UPDATE-0.9.0.md).
+This update halves La Rata's HP, removes two poison cards from his boss deck and expands his intervention pool to six cards. It also adjusts Ashen Spool, removes Shroud twists and Inklet reinforcements, and fixes potion-history tooltip layering. Read the [0.9.2 patch notes](docs/UPDATE-0.9.2.md). The [0.9.1 starter booster fix](docs/UPDATE-0.9.1.md) remains included; its [startup test report](docs/COOP-START-20261023.md) is historical evidence, not validation of this release's balance.
 
 ## Installation
 
@@ -12,17 +12,17 @@ Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.9.1 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Version 0.9.2 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
 
 **Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
-**Release 0.9.1.** Includes all current content and fixes. See the [patch notes](docs/UPDATE-0.9.1.md) for changes and remaining live-test coverage.
+**Release 0.9.2.** Includes all current content and fixes. See the [patch notes](docs/UPDATE-0.9.2.md) for changes and remaining live-test coverage.
 
-You need the **compiled package**, such as `LaRata-0.9.1.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
+You need the **compiled package**, such as `LaRata-0.9.2.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
 
-**Release 0.9.1:** [LaRata-0.9.1.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.1/LaRata-0.9.1.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.1) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.9.1.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
+**Release 0.9.2:** [LaRata-0.9.2.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.2/LaRata-0.9.2.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.2) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.9.2.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
 
 1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
 2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
@@ -54,7 +54,7 @@ The game uses separate modded profiles. This mod does not erase, reset, migrate 
 - **Starting Potion Belt and White Beast Statue for every player**, through native relic acquisition. Potion Belt supplies +2 slots (normally five total); White Beast Statue guarantees potion rewards after combat. The independent +2-slot patch is removed. Existing owners get no duplicate, and loading a save grants nothing extra. Older runs retain their saved capacity; start a new run for the new relic setup.
 - **Compact map title:** only `La Rata Remix` remains at the bottom right, using the native map-legend font. The development effects panel and expansion control are removed.
 - **Controlled chaos:** seeded encounter changes within a shared difficulty budget, with at least one tactical effect instead of only raising health and damage.
-- **Varied reinforcements:** eligible ordinary fights draw from four small native helper types in act one (Inklet, Leaf Slime, Twig Slime and Corpse Slug), with Nibbit, Flyconid and Fuzzy Wurm Crawler joining from act two. The pool is no longer restricted to enemies from the current act. Existing enemy types and types from the previous combat are avoided when alternatives exist; the special rat formation retains its additional rat. Budget and formation caps are unchanged.
+- **Varied reinforcements:** eligible ordinary fights draw from three small native helper types in act one (Leaf Slime, Twig Slime and Corpse Slug), with Nibbit, Flyconid and Fuzzy Wurm Crawler joining from act two. Inklet is excluded from random reinforcements. The pool is not restricted to enemies from the current act. Existing enemy types and types from the previous combat are avoided when alternatives exist; the special rat formation retains its additional rat. Budget and formation caps are unchanged.
 - **Final boss reinforcement:** the regular final boss gains a compatible boss from an earlier act that has not appeared in this run. The helper retains native mechanics and now starts at **100% of its normal multiplayer-scaled HP** in every party size. The duo receives no additional generator affixes.
 - **Potion goblin:** one encounter per seeded block of three is selected for a visit between rounds, after the second or third enemy turn. Each living player receives a different randomly selected native potion splash. Short fights that end before the arrival skip the visit. 58 audited native potions form the supported pool, including native choice effects and class mechanics; no inventory slot is consumed. Revival, a deprecated placeholder and four incompatible area effects are excluded. Situationally ineffective potions are skipped. See the [full eligibility rules](docs/UPDATE-0.8.2.md#goblin-potions). The splash resolves before the next player action phase, after block clearing, so Block Potion remains useful. His four poses show arrival, wind-up, throwing and laughter, with the selected native potion visible in his hand. The initial standing pause is 0.2 seconds; co-op awaits each throw, effect and any native player choice before the next recipient. Instant mode no longer skips the appearance.
 
@@ -64,7 +64,7 @@ Version 0.8.3 holds intervention cards for **3.35 seconds**, two seconds longer 
 
 One fight per seeded block of three ordinary/elite fights schedules a royal intervention on player turn 2 or 3. Bosses and the Kingsguard are excluded. A black-and-emerald version of the native card-debuff symbol appears above one living enemy. **Only the coming intervention is announced, never the card's identity.** Defeat that enemy before the enemy turn to cancel it; the mark never transfers. Short fights can finish before an intervention happens.
 
-After enemy block clearing and before any enemy attacks, the hidden card is revealed through the native play animation, accompanied by an original ElevenLabs ratlike chuckle. La Rata's character never appears. The pool uses Sewer Alchemy, Royal Flush, Stolen Aegis and Exposed Crown with their actual royal-card effects: Poison/status cards affect the living party, while Block/Buffer/self-Vulnerable affect the marked enemy. It excludes surprise direct attacks, Doom and pre-attack Strength. Each fight has at most one intervention, and it never shares a round with the goblin. The reveal remains visible in Instant mode.
+After enemy block clearing and before any enemy attacks, the hidden card is revealed through the native play animation, accompanied by an original ElevenLabs ratlike chuckle. La Rata's character never appears. The six-card pool uses Royal Flush, Stolen Aegis, Exposed Crown, Stolen Hour, Royal Pardon and Nightfall Decree with their actual royal-card effects. Status cards affect the living party; Block/Buffer/self-Vulnerable affect the marked enemy; Royal Pardon removes Weak/Frail from living enemies and Nightfall Decree grants them capped Ritual. It excludes direct attacks, Poison, Doom and immediate Strength grants. Each fight has at most one intervention, and it never shares a round with the goblin. The reveal remains visible in Instant mode.
 
 ## Neutral cards
 
@@ -82,7 +82,7 @@ The ten new colorless cards support energy/draw, exhaust, discard, Vigor, Poison
 
 | Relic | Rarity | Effect |
 | --- | --- | --- |
-| Ashen Spool | Uncommon | Each Exhaust grants 3 Block; the first each turn also draws 1 |
+| Ashen Spool | Uncommon | Each Exhaust grants 1 Block; the first each turn also draws 1 |
 | Crown Capacitor | Rare | First Power each turn grants 1 Energy and 4 Vigor |
 | Crossroads Compass | Uncommon | First pair of different card types in a turn grants 4 Block and draws 1 |
 | Bottled Echo | Rare | Using a Potion in combat grants 1 Strength and immediately draws 2 cards |
@@ -106,7 +106,7 @@ After the regular finale, a shared invitation offers the bonus path. Entry requi
 
 The path contains **an unseen Ancient → YOU (shop) → ARE (?) → NOT (elite) → PREPARED (rest site) → La Rata**. The Ancient is drawn from native Ancients across all acts, excluding Neow and anyone already visited this run. Its normal entry healing and reward logic apply, including native Ascension healing restrictions. The unknown room uses the game's normal resolver and Glory content pools. The regular victory is retained in progression and run history if the party dies during the bonus. Defeating La Rata leads to the Architect and the ordinary ending.
 
-La Rata starts with **3,000 base HP**, accompanied by two distinct random Kingsguard knights. Native boss HP scaling yields **7,800 / 11,700 / 15,600 HP** for two / three / four players. The knights' support and percentage healing also benefit the king. His darker painted character uses twelve atlas frames, native crossfades and gentle 18-second idle breathing. Each turn he draws five cards from a seeded 25-card draw/discard deck, prioritizes expensive affordable cards, and spends **6 Energy, increasing to 8 at half HP or below**. Unplayed cards are discarded; the discard pile reshuffles when needed. His hand is hidden. Skills and powers resolve before attacks; cards appear only while played through the native play-pile animation. Native attack intents include pending royal Strength.
+La Rata starts with **1,500 base HP**, accompanied by two distinct random Kingsguard knights. Native boss HP scaling yields **3,900 / 5,850 / 7,800 HP** for two / three / four players. The knights' support and percentage healing also benefit the king. His darker painted character uses twelve atlas frames, native crossfades and gentle 18-second idle breathing. Each turn he draws five cards from a seeded 23-card draw/discard deck, prioritizes expensive affordable cards, and spends **6 Energy, increasing to 8 at half HP or below**. Unplayed cards are discarded; the discard pile reshuffles when needed. His hand is hidden. Skills and powers resolve before attacks; cards appear only while played through the native play-pile animation. Native attack intents include pending royal Strength.
 
 Every encounter gives him **ten distinct combat relics**, selected from Vajra, Oddly Smooth Stone, Anchor, Bronze Scales, Horn Cleat, Captain's Wheel, Orichalcum, Mercury Hourglass, Lantern, Bag of Preparation, Happy Flower, Bag of Marbles, Tungsten Rod and Self-Forming Clay. Two rows of five native icons sit below the power rows, with tooltips explaining enemy-specific effects. Selection reconstructs from the encounter seed on loading. [Full finale changes and card values](docs/UPDATE-0.8.7.md).
 
@@ -115,7 +115,6 @@ Every encounter gives him **ten distinct combat relics**, selected from Vajra, O
 | Royal Tax | 1 | 12 damage to every player |
 | Scepter Storm | 1 | 7 damage three times to every player |
 | Off With Their Heads | 3 | 34 damage to every player, then 2 Vulnerable after all attacks |
-| Sewer Alchemy | 2 | Double player Poison, add 4; cap the resulting Poison at 14 |
 | Borrowed Tomorrow | 2 | 10 Doom and 1 Weak to every player |
 | Royal Flush | 2 | 2 Dazed into each draw pile and 1 Burn into each discard pile |
 | Stolen Aegis | 2 | 24 base Block and 1 Buffer if none remains; native co-op scaling |
@@ -133,7 +132,6 @@ Every encounter gives him **ten distinct combat relics**, selected from Vajra, O
 | Rattling Arsenal | 2 | 4 damage five times and 1 Dazed per player |
 | Royal Pardon | 1 | Remove Weak/Frail from the living court; 10 base Block for the caster |
 | Black Tithe | 2 | Remove all player Block; apply 2 Weak and 2 Frail to every player |
-| Plague of Crowns | 3 | 8 Poison, 12 Doom and 2 Burns in every player's discard |
 | Kneel Before the Crown | 2 | Give the living court 30 base Block and 3 Strength |
 | Soul Foreclosure | 3 | 26 damage to every player; heal the living court for 8% max HP |
 | Nightfall Decree | 3 | Give the living court 2 Ritual, capped at 6 |
@@ -176,11 +174,11 @@ For budgets below **6 points**, ten families use **Lesser** variants at half pri
 | Venomous | An announced action adds 2 Poison | 2 |
 | Ominous | An announced action adds 4 Doom, capped at 25% of target max HP | 2 |
 | Cinders / Disorienting / Lacerating | Add a Burn / Dazed / Wound through an announced action | 2 |
-| Reinforcement | One additional existing small enemy at 60% HP and 65% base damage (Inklets retain normal damage) | 4 per extra |
+| Reinforcement | One additional existing small enemy at 60% HP and 65% base damage | 4 per extra |
 
 Act-one budgets scale linearly with **1/2/3/4 players**. Budgets are 25% below 0.8.3. Normal: **3.75/7.5/11.25/15** points; elite: **2.8125/5.625/8.4375/11.25**; ordinary boss: **1.875/3.75/5.625/7.5**. Multiply by **1.0 / 1.4 / 1.8 / 2.2** for acts 1 / 2 / 3 / 4+. Flat defensive grants use **1 / 1.5 / 2 / 2.5**, rounded upward, before applicable native party scaling. Sturdy gains 4 percentage points per act; Keen gains 2. The table lists act-one values. Select up to three changes per player, plus one per later act, within budget and compatibility limits. Twists spread across the least-loaded eligible enemies. Direct damage is not multiplied by party size. At most one added offensive amplifier and one extra hex source (two with 3–4 players); at most one added shield, block engine and retaliation family per enemy. Immunity durations and debuff caps remain bounded.
 
-Eligible normal formations have a **70/80/90/100% reinforcement chance**, plus 5 percentage points per later act, capped at 100%. Regular extras cost 4 points. In a normal encounter with less than 4 points (solo act one), a **Scout reinforcement** instead costs **2.5 points**, uses **35% HP and 50% base damage**, and leaves room for a small effect. Inklets retain their native attack. Two regular extras are available with 2+ players (solo from act 3); three with 3+ players from act 2, subject to extra rolls, remaining budget and space. Reinforced formations start with at most four enemies. Fixed scenes/slots remain excluded except **Two-Tailed Rats Normal**, which prioritizes its fourth rat in `second` and preserves `first` for native summons. The early cross-act helper pool is Inklet, Small Leaf Slime, Small Twig Slime and Corpse Slug. Nibbit, Flyconid and Fuzzy Wurm Crawler join from act two. Present/recent monsters are avoided when alternatives exist. Reinforcement can coexist with other twists.
+Eligible normal formations have a **70/80/90/100% reinforcement chance**, plus 5 percentage points per later act, capped at 100%. Regular extras cost 4 points. In a normal encounter with less than 4 points (solo act one), a **Scout reinforcement** instead costs **2.5 points**, uses **35% HP and 50% base damage**, and leaves room for a small effect. Two regular extras are available with 2+ players (solo from act 3); three with 3+ players from act 2, subject to extra rolls, remaining budget and space. Reinforced formations start with at most four enemies. Fixed scenes/slots remain excluded except **Two-Tailed Rats Normal**, which prioritizes its fourth rat in `second` and preserves `first` for native summons. The early cross-act helper pool is Small Leaf Slime, Small Twig Slime and Corpse Slug; Inklet is excluded. Nibbit, Flyconid and Fuzzy Wurm Crawler join from act two. Present/recent monsters are avoided when alternatives exist. Reinforcement can coexist with other twists.
 
 The following ten families remain included:
 
@@ -197,9 +195,9 @@ The following ten families remain included:
 | Constricting | Announced 2 Constrict, capped at 4 | 3 |
 | Eroding | Announced 1 Disintegration, capped at 2 | 3 |
 
-Reactive families retained from 0.8.1: **Venom Coated, Ember Guard, Glass Crown, Mirror Guard, Blood Feud, Doomweaver, Hotheaded and Afterglow**. **Armored, Slippery, Spiteful/Rupture and Skill Hunter/Enrage are removed from random selection.** Empowered no longer grants or amplifies Plating. Native enemy abilities and the Kingsguard remain separate.
+Reactive families retained from 0.8.1: **Venom Coated, Ember Guard, Glass Crown, Mirror Guard, Blood Feud, Hotheaded and Afterglow**. **Armored, Slippery, Spiteful/Rupture, Skill Hunter/Enrage and Doomweaver/Shroud are removed from random selection.** Empowered no longer grants or amplifies Plating. Native enemy abilities and the Kingsguard remain separate.
 
-Eight new families bring the active pool to **44 twists / 45 families including reinforcement**:
+The active pool now contains **43 twists / 44 families including reinforcement**. The eight families introduced in 0.8.1 remain available:
 
 | Affix | Effect (act-one values) | Cost |
 | --- | --- | --- |
@@ -263,7 +261,7 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.1` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.2` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
 
 ## References and dependencies
 

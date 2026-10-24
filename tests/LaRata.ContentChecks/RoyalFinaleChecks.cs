@@ -44,12 +44,12 @@ internal static class RoyalFinaleChecks
         for (int players = 1; players <= 4; players++)
         {
             var body = new Creature(ModelDb.Monster<RatKing>().ToMutable(), CombatSide.Enemy, "king");
-            Require(body.MaxHp == 3000, "Base HP is not 3000");
+            Require(body.MaxHp == 1500, "Base HP is not 1500");
             // The existing bonus-act patch maps act index 3 to this native final-act table.
             body.ScaleMonsterHpForMultiplayer(canonical, players, 2);
             hp.Add(body.MaxHp);
         }
-        Require(hp.SequenceEqual(new[] { 3000, 7800, 11700, 15600 }), "Native boss HP scaling changed");
+        Require(hp.SequenceEqual(new[] { 1500, 3900, 5850, 7800 }), "Native boss HP scaling changed");
         Console.WriteLine("PASS: 128 encounter seeds on four simulated peers; six unique guard pairs; native HP for 1/2/3/4 players = " + string.Join('/', hp));
 
         var combat = new CombatState(canonical.ToMutable());
@@ -92,6 +92,23 @@ internal static class RoyalFinaleChecks
         Console.WriteLine("PASS: guard support includes king; six attack intents track 5 pending Strength without Bestiary Creature access; ten-relic replay/display and owner-scoped Tungsten Rod hook.");
 
         Require(RoyalCard.All.Length == 25 && RemixCard.BossPrizes.Length == 10, "Royal pools have incorrect size");
+        Require(RoyalDeck.ActiveCards.Length == 23 && RoyalDeck.ActiveCards.All(i => RoyalCard.All[i] is not (SewerAlchemy or PlagueOfCrowns)), "Retired poison cards remain in the active boss deck");
+        Require(CameoSchedule.RoyalPool.All(i => RoyalDeck.ActiveCards.Contains(i)), "Royal cameo uses a retired boss card");
+        Require(CameoSchedule.RoyalPool.Select(i => RoyalCard.All[i].GetType()).SequenceEqual(new[]
+        {
+            typeof(RoyalFlush), typeof(StolenAegis), typeof(ExposedCrown),
+            typeof(StolenHour), typeof(RoyalPardon), typeof(NightfallDecree)
+        }), "Royal intervention IDs resolve to the wrong card models");
+        ModelDb.Inject(typeof(RoyalInterventionPower));
+        foreach (int card in CameoSchedule.RoyalPool)
+        {
+            var marker = (RoyalInterventionPower)ModelDb.Power<RoyalInterventionPower>().ToMutable();
+            marker.ApplyInternal(kingBody, CameoSchedule.Encode(3, card), true);
+            Require(CameoSchedule.Card(marker.Amount) == card && CameoSchedule.Round(marker.Amount) == 3 && marker.DisplayAmount == 0,
+                "Native power changes or exposes the extended hidden intervention state");
+            marker.RemoveInternal();
+        }
+        Console.WriteLine("PASS: six intervention IDs resolve to approved native card models; native power amount preserves extended card/round state without displaying it.");
         foreach (var (card, cost, target, expected) in new (RemixCard, int, TargetType, (string Key, int Base, int Up)[])[]
         {
             (ModelDb.Card<RoyalTithePrize>(),1,TargetType.AnyEnemy,[("Damage",10,16)]),

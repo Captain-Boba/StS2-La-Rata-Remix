@@ -155,7 +155,8 @@ MonsterModel[] Helpers(int act, ModelId[] present, ModelId[] previous) =>
     (MonsterModel[])candidatesMethod.Invoke(null, [act, present, previous])!;
 var early = Helpers(0, [], []);
 var late = Helpers(1, [], []);
-Require(early.Length == 4 && late.Length == 7, "Cross-act reinforcement pool size changed.");
+Require(early.Length == 3 && late.Length == 6, "Cross-act reinforcement pool size changed.");
+Require(Enumerable.Range(0, 4).All(act => Helpers(act, [], []).All(m => m is not MegaCrit.Sts2.Core.Models.Monsters.Inklet)), "Inklet must never be a random reinforcement.");
 Require(early.All(m => m is not (MegaCrit.Sts2.Core.Models.Monsters.Nibbit or MegaCrit.Sts2.Core.Models.Monsters.Flyconid or MegaCrit.Sts2.Core.Models.Monsters.FuzzyWurmCrawler)), "Strong helpers entered act one.");
 var slug = ModelDb.Monster<MegaCrit.Sts2.Core.Models.Monsters.CorpseSlug>().Id;
 Require(Helpers(0, [], [slug]).All(m => m.Id != slug), "A previous slug must not force another slug.");
@@ -189,10 +190,10 @@ foreach (uint seed in Enumerable.Range(0, 128).Select(i => (uint)i))
     }).ToArray();
     Require(peers.Distinct().Count() == 1, "Reinforcement replay differs across identical inputs.");
 }
-Require(seenHelpers.Count == 5, "Eligible reinforcement types are not all reachable.");
-Require(Helpers(0, early.Select(m => m.Id).ToArray(), early.Select(m => m.Id).ToArray()).Length == 4,
+Require(seenHelpers.Count == 4, "Eligible reinforcement types are not all reachable.");
+Require(Helpers(0, early.Select(m => m.Id).ToArray(), early.Select(m => m.Id).ToArray()).Length == 3,
     "Exhausted diversity preferences must still provide a valid pool.");
-Console.WriteLine("PASS: four early/seven later reinforcement types construct native move states; occupied/recent types are avoided; 128 seeded selections replay identically on four simulated peers. Not a network test.");
+Console.WriteLine("PASS: three early/six later reinforcement types construct native move states; Inklet is excluded; occupied/recent types are avoided; 128 seeded selections replay identically on four simulated peers. Not a network test.");
 
 FeedbackChecks.Run();
 RoyalFinaleChecks.Run();

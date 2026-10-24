@@ -82,7 +82,7 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
     internal static int StageBudget(int players, int tier, int actIndex) => 3 * BaseBudget(players, tier) * (5 + 2 * Math.Clamp(actIndex, 0, 3));
     // Keep enum IDs stable for diagnostics; retired families never enter a new plan.
     internal static readonly TwistKind[] ActiveKinds = Enum.GetValues<TwistKind>().Where(k => k is not
-        (TwistKind.Armored or TwistKind.Slippery or TwistKind.Spiteful or TwistKind.SkillHunter)).ToArray();
+        (TwistKind.Armored or TwistKind.Slippery or TwistKind.Spiteful or TwistKind.SkillHunter or TwistKind.Doomweaver)).ToArray();
     internal string[] Affixes => [.. Enumerable.Repeat(ScoutReinforcement ? "Scout reinforcement: 35% HP, 50% attack (Inklet keeps its native attack)" : "Reinforcement", ReinforcementCount), .. Twists.Select(t => $"enemy[{t.Target}] {t.Description}")];
     internal const int ReinforcementCost = 64;
     internal static int ReinforcementChance(int players, int actIndex) => Math.Min(100, 70 + (Math.Clamp(players, 1, 4) - 1) * 10 + Math.Clamp(actIndex, 0, 3) * 5);

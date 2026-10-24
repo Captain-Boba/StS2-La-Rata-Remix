@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Random;
 
 var distribution = new Dictionary<string, int>();
 var observedKinds = new HashSet<TwistKind>();
+Require(!EncounterPlan.ActiveKinds.Contains(TwistKind.Doomweaver), "Shroud/Doomweaver must stay out of random twists");
 var reinforcementCounts = new int[4];
 var normalCounts = new int[4];
 int cases = 0;
@@ -93,6 +94,8 @@ Require(new EnemyTwist(TwistKind.Fortified, 0, 4, 0).Defense(4) == 4 && new Enem
 Console.WriteLine($"PASS: {cases} native-Rng policies across four acts; replay, party-linear/stage-growing budgets, costs, target indices, formations, exclusions, {observedKinds.Count}-family reachability and co-op diversity.");
 Console.WriteLine(JsonSerializer.Serialize(new { distribution, reinforcementCounts, normalCounts, largestCoopPlan }));
 var playedCards = new HashSet<int>();
+Require(RoyalDeck.ActiveCards.Length == 23 && !RoyalDeck.ActiveCards.Contains(3) && !RoyalDeck.ActiveCards.Contains(21), "retired poison cards remain active");
+Require(CameoSchedule.RoyalPool.All(RoyalDeck.ActiveCards.Contains), "retired card remains in cameo pool");
 for (uint seed = 0; seed < 1000; seed++)
 {
     var aRng = new Rng(seed); var bRng = new Rng(seed);
@@ -107,7 +110,7 @@ for (uint seed = 0; seed < 1000; seed++)
         Require(a.Hand.Count == draw && a.Hand.Distinct().Count() == draw, "invalid draw");
         drawnCards.UnionWith(a.Hand);
         Require(a.Planned.Length > 0 && a.Planned.Sum(i => RoyalDeck.Costs[i]) <= energy, "royal overspend or empty plan");
-        Require(a.Hand.Count + a.DrawCount + a.DiscardCount == RoyalDeck.Costs.Length, "royal cards lost or duplicated");
+        Require(a.Hand.Count + a.DrawCount + a.DiscardCount == RoyalDeck.ActiveCards.Length, "royal cards lost or duplicated");
         Require(a.Planned.SkipWhile(i => !RoyalDeck.IsAttack(i)).All(RoyalDeck.IsAttack), "spell scheduled after an attack");
         foreach (int card in a.Planned.ToArray())
         {
@@ -115,11 +118,11 @@ for (uint seed = 0; seed < 1000; seed++)
             Require(a.Energy >= 0 && a.Snapshot == b.Snapshot, "invalid card payment");
         }
         a.Finish(); b.Finish();
-        Require(a.DrawCount + a.DiscardCount == RoyalDeck.Costs.Length && a.Hand.Count == 0, "discard invariant failed");
+        Require(a.DrawCount + a.DiscardCount == RoyalDeck.ActiveCards.Length && a.Hand.Count == 0, "discard invariant failed");
     }
-    Require(drawnCards.Count == RoyalDeck.Costs.Length, "royal deck cannot draw every card");
+    Require(drawnCards.SetEquals(RoyalDeck.ActiveCards), "royal draws differ from active deck");
 }
-Require(playedCards.Count == RoyalDeck.Costs.Length, "royal planning excludes a card");
+Require(playedCards.SetEquals(RoyalDeck.ActiveCards), "royal plays differ from active deck");
 Console.WriteLine("PASS: 40000 royal turns; deterministic draws, reshuffles, card conservation and energy limits.");
 var potionsSeen = new HashSet<int>();
 var relicsSeen = new HashSet<int>();
@@ -149,6 +152,21 @@ for (uint seed = 0; seed < 1000; seed++)
 Require(potionsSeen.Count == 12 && relicsSeen.Count == 14, "selection pool has unreachable entries");
 Console.WriteLine("PASS: 40000 goblin blocks, 160000 distinct co-op potion assignments, 1000 ten-relic selections; native-Rng replay and spell-before-attack ordering.");
 int royalVisits = 0;
+Require(CameoSchedule.RoyalPool.SequenceEqual(new[] { 5, 6, 8, 15, 19, 24 }), "royal intervention pool differs from its six approved cards");
+foreach (int round in new[] { 2, 3 })
+    foreach (int card in new[] { 3, 5, 6, 8 })
+    {
+        int legacy = round * 16 + card;
+        Require(CameoSchedule.Card(legacy) == card && CameoSchedule.Round(legacy) == round, "legacy intervention state changed");
+    }
+var encodedCameos = new HashSet<int>();
+for (int round = 1; round <= 100; round++)
+    foreach (int card in CameoSchedule.RoyalPool)
+    {
+        int encoded = CameoSchedule.Encode(round, card);
+        Require(encodedCameos.Add(encoded) && CameoSchedule.Card(encoded) == card && CameoSchedule.Round(encoded) == round,
+            "extended intervention IDs collide or change round/card");
+    }
 for (uint seed = 0; seed < 1000; seed++)
 {
     for (int block = 0; block < 40; block++)
@@ -182,5 +200,5 @@ for (uint seed = 0; seed < 1000; seed++)
     }
 }
 Require(CameoSchedule.RoyalRound(1, 0, 0) == null && CameoSchedule.GoblinRound(1, 0) == null, "invalid combat scheduled");
-Console.WriteLine($"PASS: 120000 cameo schedules, {royalVisits} royal visits; no goblin overlap, unchanged goblin timing, hidden state round-trips and safe card pool. These are policy checks, not network/gameplay tests.");
+Console.WriteLine($"PASS: 120000 cameo schedules, {royalVisits} royal visits; no goblin overlap, unchanged goblin timing, six-card pool, extended hidden state round-trips and legacy decoding. These are policy checks, not network/gameplay tests.");
 static void Require(bool condition, string reason) { if (!condition) throw new Exception(reason); }

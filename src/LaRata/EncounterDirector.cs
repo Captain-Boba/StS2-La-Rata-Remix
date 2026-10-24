@@ -73,8 +73,8 @@ internal static class EncounterDirector
         // These native helpers need no encounter-specific scene. Larger helpers
         // join from act two; early fights retain small bodies.
         MonsterModel[] pool = actIndex <= 0
-            ? [ModelDb.Monster<Inklet>(), ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>()]
-            : [ModelDb.Monster<Inklet>(), ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>(),
+            ? [ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>()]
+            : [ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>(),
                 ModelDb.Monster<Nibbit>(), ModelDb.Monster<Flyconid>(), ModelDb.Monster<FuzzyWurmCrawler>()];
         pool = pool.OrderBy(x => x.Id.Entry, StringComparer.Ordinal).ToArray();
         var occupied = present.ToHashSet();

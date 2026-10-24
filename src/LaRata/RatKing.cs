@@ -24,8 +24,8 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
     private int preparedTurns;
     private int? regaliaMask;
     internal int RegaliaMask => regaliaMask ??= RoyalRegaliaPower.Choose(EncounterDirector.Random(CombatState.RunState, CombatState.Encounter!, "royal-relics"));
-    public override int MinInitialHp => 3000;
-    public override int MaxInitialHp => 3000;
+    public override int MinInitialHp => 1500;
+    public override int MaxInitialHp => 1500;
     public override string? CustomVisualPath => "res://LaRata/scenes/rat_king.tscn";
     public List<(string, string)> Localization =>
     [
@@ -126,7 +126,7 @@ internal sealed class RoyalHandIntent : BuffIntent
     {
         var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".deck.description");
         var deck = (owner.Monster as RatKing)?.Deck;
-        description.Add("Plan", "Draws 5 hidden cards from a 25-card deck. Plays spells and powers before attacking.\n" +
+        description.Add("Plan", $"Draws 5 hidden cards from a {RoyalDeck.ActiveCards.Length}-card deck. Plays spells and powers before attacking.\n" +
             (deck == null ? "6 Energy, increasing to 8 at half HP." : $"Energy: {deck.Energy}/{deck.Capacity}. Draw: {deck.DrawCount}. Discard: {deck.DiscardCount}."));
         return description;
     }

@@ -5,7 +5,10 @@ namespace LaRata;
 internal sealed class RoyalDeck(Func<int, int> next)
 {
     internal static readonly int[] Costs = [1, 1, 3, 2, 2, 2, 2, 0, 0, 2, 2, 2, 1, 3, 2, 1, 2, 3, 2, 1, 2, 3, 2, 3, 3];
-    private readonly List<int> draw = Enumerable.Range(0, Costs.Length).ToList();
+    // Preserve catalog IDs for existing card models, history and player prizes.
+    // Sewer Alchemy (3) and Plague of Crowns (21) no longer enter the boss deck.
+    internal static readonly int[] ActiveCards = Enumerable.Range(0, Costs.Length).Where(card => card is not (3 or 21)).ToArray();
+    private readonly List<int> draw = ActiveCards.ToList();
     private readonly List<int> discard = [];
     private readonly List<int> hand = [];
     private bool shuffled;

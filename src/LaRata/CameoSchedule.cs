@@ -24,8 +24,12 @@ internal static class CameoSchedule
 
     // No surprise direct damage, Strength before already-announced attacks or Doom.
     // These are actual cards from La Rata's deck with their full printed effects.
-    internal static readonly int[] RoyalPool = [3, 5, 6, 8];
-    internal static int Encode(int round, int card) => round * 16 + card;
-    internal static int Card(int value) => value % 16;
-    internal static int Round(int value) => value / 16;
+    internal static readonly int[] RoyalPool = [5, 6, 8, 15, 19, 24];
+
+    // Keep using the native power amount for synchronized hidden state. The marker
+    // distinguishes the wider card field from existing round * 16 + card values.
+    private const int EncodingV2 = 1 << 20;
+    internal static int Encode(int round, int card) => EncodingV2 + round * 32 + card;
+    internal static int Card(int value) => value >= EncodingV2 ? (value - EncodingV2) % 32 : value % 16;
+    internal static int Round(int value) => value >= EncodingV2 ? (value - EncodingV2) / 32 : value / 16;
 }

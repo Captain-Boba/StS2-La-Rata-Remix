@@ -1,0 +1,27 @@
+[h1]Version 0.9.2 - Royal Rebalance[/h1]
+
+[h2]La Rata[/h2]
+- Halve base HP from 3,000 to 1,500: 1,500 / 3,900 / 5,850 / 7,800 HP with one / two / three / four players. Kingsguard HP is unchanged.
+- Remove Sewer Alchemy and Plague of Crowns from the boss deck without replacements, leaving 23 cards. Rotting Tribute remains; playable booster variants are unchanged.
+
+[h2]Royal interventions[/h2]
+- Remove Sewer Alchemy from regular and elite encounter interventions.
+- Expand the pool to six cards: Royal Flush, Stolen Aegis, Exposed Crown, Stolen Hour, Royal Pardon and Nightfall Decree.
+- Stolen Hour adds 2 Dazed to each living player's draw pile and gives the marked enemy 12 base Block.
+- Royal Pardon removes Weak and Frail from all living enemies and gives the marked enemy 10 base Block.
+- Nightfall Decree gives all living enemies 2 Ritual, capped at 6 total, using native Ritual timing.
+- Keep intervention frequency, concealed-card warnings and cancellation by defeating the marked enemy unchanged.
+- Extend hidden intervention state to support the new card IDs while preserving legacy decoding.
+
+[h2]Encounter and relic feedback[/h2]
+- Reduce Ashen Spool to 1 Block per exhausted card. Its first-exhaust card draw each turn is unchanged.
+- Remove Doomweaver/Shroud from random twists. Native enemy abilities and royal card effects are unchanged.
+- Remove Inklet from random reinforcements. Native Inklet encounters remain available.
+
+[h2]Interface[/h2]
+- Fix potion-history hover tips appearing behind the dimming layer; tips now appear above the popup and outside the list's clipping area.
+
+[h2]Compatibility and work in progress[/h2]
+- Requires Slay the Spire 2 v0.107.1 and BaseLib 3.4.7. Includes the 0.9.1 starter booster fix.
+- All co-op players must use matching versions. Finish an active shared session before updating; start a new run for revised encounter rules.
+- Balancing and multiplayer compatibility remain work in progress. Automated build/content/policy checks passed; this release has no fresh live gameplay, tooltip visual or network acceptance.
