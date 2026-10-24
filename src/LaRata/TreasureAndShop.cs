@@ -56,10 +56,9 @@ public sealed class AThousandCuts : CustomRelicModel
 internal static class RepeatRemovalPatch
 {
     [HarmonyPrefix]
-    private static bool Prefix(MerchantCardRemovalEntry __instance, Player ____player)
+    private static bool Prefix(Player ____player)
     {
         if (!____player.Relics.Any(r => r is AThousandCuts) || !Hook.ShouldAllowMerchantCardRemoval(____player.RunState, ____player)) return true;
-        __instance.CalcCost();
         return false;
     }
 }
@@ -68,11 +67,25 @@ internal static class RepeatRemovalPatch
 internal static class RemovalAvailablePatch
 {
     [HarmonyPostfix]
-    private static void Postfix(MerchantCardRemovalEntry __instance, Player ____player, ref bool __result)
+    private static void Postfix(Player ____player, ref bool __result)
     {
         if (!____player.Relics.Any(r => r is AThousandCuts) || !Hook.ShouldAllowMerchantCardRemoval(____player.RunState, ____player)) return;
-        __instance.CalcCost();
         __result = false;
+    }
+}
+
+// The native entry caches its base price for a single purchase. Recalculate at
+// the price boundary, before affordability, display and payment read it, rather
+// than as a side effect of querying Used. Native synchronization owns the saved
+// removal count; native Cost still applies discounts and other price hooks.
+[HarmonyPatch(typeof(MerchantEntry), nameof(MerchantEntry.Cost), MethodType.Getter)]
+internal static class RepeatRemovalPricePatch
+{
+    [HarmonyPrefix]
+    private static void Prefix(MerchantEntry __instance, Player ____player)
+    {
+        if (__instance is MerchantCardRemovalEntry && ____player.Relics.Any(r => r is AThousandCuts))
+            __instance.CalcCost();
     }
 }
 

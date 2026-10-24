@@ -1,0 +1,17 @@
+[h1]Version 0.9.3 - Double Boss Spoils[/h1]
+
+[h2]Final boss rewards[/h2]
+- Restore rewards after the regular final boss, before the La Rata invitation.
+- Defeating the reinforced boss duo now gives each player two complete native boss reward batches: gold from both bosses, two independent three-card boss offers and two potion rolls.
+- White Beast Statue guarantees both potions. Without a compatible reinforcement, the regular finale gives one boss reward batch.
+- Include room-specific extra rewards once. La Rata's own victory and the Architect transition remain unchanged.
+
+[h2]Cards, relics and twists[/h2]
+- Move vanilla Barricade from Rare to Uncommon in the Ironclad pool. Its effects, energy costs and upgrade remain unchanged. Bowler Hat retains its native gold effect.
+- Reduce the selection weight of Bristling and Toxic Shell by 75%, making Thorns twists substantially less common without changing their strength or the encounter budget.
+- Fix A Thousand Cuts removal pricing: each successful removal raises the next price through the normal saved counter. Existing removal history, discounts and restrictions remain in effect; cancelled removals do not increase the price.
+
+[h2]Compatibility and work in progress[/h2]
+- Requires Slay the Spire 2 v0.107.1 and BaseLib 3.4.7. All co-op players must use matching versions; finish a shared session before updating and start a new run for revised encounter generation.
+- We recommend starting without Ascension levels.
+- Balancing and multiplayer compatibility testing remain work in progress. German and Chinese localizations are planned; mod-added text is currently English only.

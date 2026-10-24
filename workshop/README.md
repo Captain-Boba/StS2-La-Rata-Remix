@@ -6,13 +6,13 @@ Publishing uses Mega Crit's official [sts2-mod-uploader](https://github.com/mega
 
 The downloaded `ModUploader-win-x64.zip` SHA-256 was `2B55C19CC5932235CA9DBD663CA07D04E5D5A0018402303199F9B4EC8CA06578`.
 
-Release target: **0.9.2**, using the same runtime files as the GitHub ZIP. The short Workshop description contains the current version, mod summary, content list and a brief work-in-progress notice; detailed patch notes and validation limits live in [UPDATE-0.9.2.md](../docs/UPDATE-0.9.2.md).
+Release target: **0.9.3**, using the three runtime files from the local 0.9.3 package. The GitHub binary release remains 0.9.2 until separately updated. The short Workshop description contains the current version, mod summary, content list, a recommendation to start without Ascension levels and a brief work-in-progress notice; detailed patch notes and validation limits live in [UPDATE-0.9.3.md](../docs/UPDATE-0.9.3.md).
 
 ## Files
 
 - `LaRata/workshop.json`: official upload configuration, English description, visibility, change notes, tags and BaseLib dependency (3737335127).
 - `LaRata/description.txt`: editable source of the description; copy changes into `workshop.json` before publishing. The uploader reads the JSON description.
-- `LaRata/changelog-0.9.2.txt`: full Steam change notes, mirrored into `workshop.json` for upload.
+- `LaRata/changelog-0.9.3.txt`: full Steam change notes, mirrored into `workshop.json` for upload.
 - `LaRata/mod_id.txt`: stable item identity.
 - `LaRata/image.png`: 600 x 600 square Workshop thumbnail, below Steam's 1 MiB limit, recomposed to fill square tiles without letterboxing. The existing artwork license applies.
 - `LaRata/artwork-square-source.png`: full-resolution square cover generated from the widescreen cover, keeping the rat king left and the large logo right. This is the current thumbnail source.

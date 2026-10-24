@@ -198,3 +198,5 @@ Console.WriteLine("PASS: three early/six later reinforcement types construct nat
 FeedbackChecks.Run();
 RoyalFinaleChecks.Run();
 StarterBoosterChecks.Run();
+ShopRemovalChecks.Run();
+FinalRewardChecks.Run();

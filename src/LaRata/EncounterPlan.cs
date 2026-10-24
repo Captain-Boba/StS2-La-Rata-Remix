@@ -1,3 +1,5 @@
+using MegaCrit.Sts2.Core.Random;
+
 namespace LaRata;
 
 internal enum TwistKind
@@ -92,6 +94,16 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
     internal static bool IsShield(TwistKind k) => k is TwistKind.Buffered or TwistKind.Phased or TwistKind.Slippery or TwistKind.GlassCrown or TwistKind.MirrorGuard;
     internal static bool IsBlock(TwistKind k) => k is TwistKind.Armored or TwistKind.Entrenched or TwistKind.Agile or TwistKind.Fortified or TwistKind.SecondWind or TwistKind.Reservist or TwistKind.MirrorGuard or TwistKind.BloodFeud or TwistKind.Doomweaver or TwistKind.Afterglow or TwistKind.BrittleWard;
     internal static bool IsRetaliation(TwistKind k) => k is TwistKind.Bristling or TwistKind.EmberGuard or TwistKind.MirrorGuard or TwistKind.ToxicShell;
+    // Both native Thorns grants have one quarter of the normal selection weight.
+    // Retaliation effects that do not grant Thorns keep their existing weight.
+    internal static int SelectionWeight(TwistKind kind) => kind is TwistKind.Bristling or TwistKind.ToxicShell ? 1 : 4;
+    internal static TwistKind SelectTwist(IReadOnlyList<TwistKind> choices, Func<int, int> next)
+    {
+        int totalWeight = choices.Sum(SelectionWeight);
+        // Midpoints avoid the native weighted selector's inclusive boundaries.
+        return Rng.WeightedNextItem((next(totalWeight) + .5f) / totalWeight, choices,
+            kind => SelectionWeight(kind), choices[^1]);
+    }
     internal static int Cost(TwistKind k) => 4 * (k switch
     {
         TwistKind.Sturdy => 4,
@@ -147,7 +159,7 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
             var choices = smallBudget && i == 0 && extra == 0
                 ? candidates.Where(k => Price(k) <= remaining / 2).ToList() : candidates;
             if (choices.Count == 0) choices = candidates;
-            var kind = choices[next(choices.Count)];
+            var kind = SelectTwist(choices, next);
             candidates.Remove(kind);
             var eligible = Targets(kind);
             int load = eligible.Min(target => twists.Count(t => t.Target == target));

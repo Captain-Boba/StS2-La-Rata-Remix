@@ -5,6 +5,21 @@ using MegaCrit.Sts2.Core.Random;
 var distribution = new Dictionary<string, int>();
 var observedKinds = new HashSet<TwistKind>();
 Require(!EncounterPlan.ActiveKinds.Contains(TwistKind.Doomweaver), "Shroud/Doomweaver must stay out of random twists");
+var selectionCounts = EncounterPlan.ActiveKinds.ToDictionary(kind => kind, _ => 0);
+int totalSelectionWeight = EncounterPlan.ActiveKinds.Sum(EncounterPlan.SelectionWeight);
+for (int slot = 0; slot < totalSelectionWeight; slot++)
+{
+    int chosenSlot = slot;
+    var chosen = EncounterPlan.SelectTwist(EncounterPlan.ActiveKinds, upper =>
+    {
+        Require(upper == totalSelectionWeight, "Weighted draw uses the wrong native RNG range");
+        return chosenSlot;
+    });
+    selectionCounts[chosen]++;
+}
+Require(selectionCounts.All(pair => pair.Value == (pair.Key is TwistKind.Bristling or TwistKind.ToxicShell ? 1 : 4)),
+    "Thorns selection weight is not reduced by exactly 75%, or another twist weight changed");
+Console.WriteLine("PASS: native weighted selection gives Bristling/Toxic Shell one quarter of every other family's weight; effects and budgets unchanged.");
 var reinforcementCounts = new int[4];
 var normalCounts = new int[4];
 int cases = 0;

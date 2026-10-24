@@ -1,6 +1,6 @@
 # Install La Rata Remix
 
-For Slay the Spire 2 **v0.107.1**, with **BaseLib 3.4.7**. All mod-added text is English. Supports solo and 2–4 players. Version 0.9.2 rebalances the royal finale, expands interventions and incorporates encounter/relic feedback. See the [patch notes](UPDATE-0.9.2.md). The 0.9.1 starter booster fix remains included: select your initial Ancient relic to open your pack; the relic resolves after you finish the pack.
+For Slay the Spire 2 **v0.107.1**, with **BaseLib 3.4.7**. All mod-added text is English. Supports solo and 2–4 players. Version 0.9.3 restores final-boss loot, adds double rewards for the reinforced finale, makes Barricade Uncommon, reduces Thorns twist weighting and fixes repeated removal pricing. See the [patch notes](UPDATE-0.9.3.md). We recommend starting without Ascension levels. The starter booster opens after selecting your initial Ancient relic; the relic resolves after you finish the pack.
 
 ## Steam Workshop (recommended)
 
@@ -8,13 +8,13 @@ For Slay the Spire 2 **v0.107.1**, with **BaseLib 3.4.7**. All mod-added text is
 2. Wait for Steam's downloads to finish. No manual `mods` folder is needed.
 3. If previously installed manually, move `mods/LaRata` outside the game's `mods` directory. Also move `mods/BaseLib` outside it when switching that dependency to Workshop. Local copies override Workshop copies; do not keep both sources installed for the same mod.
 4. Remove `--nomods` from Steam launch options, start the game and enable BaseLib and La Rata Remix in the mod menu. Follow any restart prompt.
-5. Confirm La Rata **0.9.2**, BaseLib **3.4.7** and game **v0.107.1**, then start a new run. Steam handles future Workshop downloads automatically; check versions before continuing a co-op run.
+5. Confirm La Rata **0.9.3**, BaseLib **3.4.7** and game **v0.107.1**, then start a new run. Steam handles future Workshop downloads automatically; check versions before continuing a co-op run.
 
 To disable La Rata while keeping other mods, use its individual switch in the mod menu. Keep it enabled when loading a run containing custom La Rata content.
 
 ## Manual download (alternative)
 
-GitHub and Workshop provide the same **0.9.2** runtime package. Do not mix mod versions in co-op.
+The GitHub binary release below is still **0.9.2**; it lacks the **0.9.3** Workshop fixes. Use Workshop for the current patch. Do not mix mod versions in co-op. The repository source and locally built 0.9.3 package match the Workshop target.
 
 - [LaRata-0.9.2.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.2/LaRata-0.9.2.zip): the compiled mod, ready to install.
 - [BaseLib 3.4.7](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.7): download the author's `BaseLib.3.4.7.zip`. BaseLib is a separate required dependency.

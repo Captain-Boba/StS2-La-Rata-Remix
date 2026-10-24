@@ -1,8 +1,10 @@
 # La Rata Remix
 
-**Version 0.9.2 — Royal Rebalance** (package version **0.9.2**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
+**Version 0.9.3 — Double Boss Spoils** (package version **0.9.3**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
 
-This update halves La Rata's HP, removes two poison cards from his boss deck and expands his intervention pool to six cards. It also adjusts Ashen Spool, removes Shroud twists and Inklet reinforcements, and fixes potion-history tooltip layering. Read the [0.9.2 patch notes](docs/UPDATE-0.9.2.md). The [0.9.1 starter booster fix](docs/UPDATE-0.9.1.md) remains included; its [startup test report](docs/COOP-START-20261023.md) is historical evidence, not validation of this release's balance.
+This update restores the regular finale's rewards and gives both bosses' loot in a reinforced finale. Barricade is now Uncommon, Thorns twists have lower selection weight, and A Thousand Cuts uses the correct increasing removal price. Read the [0.9.3 patch notes](docs/UPDATE-0.9.3.md). The [0.9.2 rebalance](docs/UPDATE-0.9.2.md) and [0.9.1 starter booster fix](docs/UPDATE-0.9.1.md) remain included.
+
+**We recommend starting without Ascension levels.**
 
 **Work in progress:** balancing, visual polish and multiplayer compatibility testing. German and Chinese localizations are planned; mod-added text is currently English only.
 
@@ -14,13 +16,13 @@ Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.9.2 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Version 0.9.3 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
 
 **Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
-**Release 0.9.2.** Includes all current content and fixes. See the [patch notes](docs/UPDATE-0.9.2.md) for changes and remaining live-test coverage.
+**The latest GitHub binary release is 0.9.2.** It does not include the 0.9.3 Workshop patch. Use Workshop for 0.9.3; do not mix versions within a co-op party. The source in this checkout and locally built package target 0.9.3.
 
 You need the **compiled package**, such as `LaRata-0.9.2.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
 
@@ -58,6 +60,9 @@ The game uses separate modded profiles. This mod does not erase, reset, migrate 
 - **Controlled chaos:** seeded encounter changes within a shared difficulty budget, with at least one tactical effect instead of only raising health and damage.
 - **Varied reinforcements:** eligible ordinary fights draw from three small native helper types in act one (Leaf Slime, Twig Slime and Corpse Slug), with Nibbit, Flyconid and Fuzzy Wurm Crawler joining from act two. Inklet is excluded from random reinforcements. The pool is not restricted to enemies from the current act. Existing enemy types and types from the previous combat are avoided when alternatives exist; the special rat formation retains its additional rat. Budget and formation caps are unchanged.
 - **Final boss reinforcement:** the regular final boss gains a compatible boss from an earlier act that has not appeared in this run. The helper retains native mechanics and now starts at **100% of its normal multiplayer-scaled HP** in every party size. The duo receives no additional generator affixes.
+- **Double boss spoils:** the reinforced regular finale gives each player two native boss reward batches before the optional invitation: both gold rewards, two independent three-card boss offers and two potion rolls (both guaranteed with White Beast Statue). A finale without a compatible helper gives one batch. Room-specific extra rewards are included once; La Rata's own ending is unchanged.
+- **Barricade:** the vanilla Ironclad card is Uncommon instead of Rare while La Rata Remix is enabled. Its effects, costs and upgrade are unchanged. It uses normal Uncommon selection and pricing; Bowler Hat retains its original gold effect.
+- **Less frequent Thorns:** Bristling and Toxic Shell have one quarter of the normal twist selection weight. Their strength and encounter budgets are unchanged.
 - **Potion goblin:** one encounter per seeded block of three is selected for a visit between rounds, after the second or third enemy turn. Each living player receives a different randomly selected native potion splash. Short fights that end before the arrival skip the visit. 58 audited native potions form the supported pool, including native choice effects and class mechanics; no inventory slot is consumed. Revival, a deprecated placeholder and four incompatible area effects are excluded. Situationally ineffective potions are skipped. See the [full eligibility rules](docs/UPDATE-0.8.2.md#goblin-potions). The splash resolves before the next player action phase, after block clearing, so Block Potion remains useful. His four poses show arrival, wind-up, throwing and laughter, with the selected native potion visible in his hand. The initial standing pause is 0.2 seconds; co-op awaits each throw, effect and any native player choice before the next recipient. Instant mode no longer skips the appearance.
 
 ## The King's Gambit
@@ -263,7 +268,7 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.2` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.3` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
 
 ## References and dependencies
 
