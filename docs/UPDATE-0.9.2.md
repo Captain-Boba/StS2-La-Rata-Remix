@@ -35,3 +35,4 @@ Requires game **v0.107.1** and **BaseLib 3.4.7**. The 0.9.1 starter booster fix 
 - Policy checks pass 384,000 encounter cases, 40,000 royal turns and 120,000 intervention schedules, including deterministic replay, deck conservation, retired-card exclusion, old/new encoding round-trips and goblin timing separation.
 - The dependency vulnerability feed was unavailable during the local build (NU1900 warning); compilation had no errors.
 - No fresh live gameplay, visual tooltip acceptance, real mid-run save/load or multiplayer synchronization test was performed for 0.9.2. These checks do not establish gameplay or network acceptance. Balance remains work in progress.
+- German and Chinese localizations are planned. Mod-added text is currently English only.

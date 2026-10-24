@@ -4,6 +4,8 @@
 
 This update halves La Rata's HP, removes two poison cards from his boss deck and expands his intervention pool to six cards. It also adjusts Ashen Spool, removes Shroud twists and Inklet reinforcements, and fixes potion-history tooltip layering. Read the [0.9.2 patch notes](docs/UPDATE-0.9.2.md). The [0.9.1 starter booster fix](docs/UPDATE-0.9.1.md) remains included; its [startup test report](docs/COOP-START-20261023.md) is historical evidence, not validation of this release's balance.
 
+**Work in progress:** balancing, visual polish and multiplayer compatibility testing. German and Chinese localizations are planned; mod-added text is currently English only.
+
 ## Installation
 
 ### Steam Workshop (recommended)

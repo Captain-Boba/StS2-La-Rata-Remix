@@ -25,3 +25,5 @@
 - Requires Slay the Spire 2 v0.107.1 and BaseLib 3.4.7. Includes the 0.9.1 starter booster fix.
 - All co-op players must use matching versions. Finish an active shared session before updating; start a new run for revised encounter rules.
 - Balancing and multiplayer compatibility remain work in progress. Automated build/content/policy checks passed; this release has no fresh live gameplay, tooltip visual or network acceptance.
+
+- German and Chinese localizations are planned. Mod-added text is currently English only.

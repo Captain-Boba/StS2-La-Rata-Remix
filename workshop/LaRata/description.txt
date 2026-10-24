@@ -12,4 +12,4 @@ La Rata Remix brings controlled chaos and tougher, more varied encounters to Sla
 [/list]
 
 [h2]Work in progress[/h2]
-Balancing is the main focus: encounter twists, solo and co-op scaling, The Kingsguard and La Rata, and card/relic combinations. Visual polish and multiplayer compatibility testing are ongoing.
+Balancing is the main focus: encounter twists, solo and co-op scaling, The Kingsguard and La Rata, and card/relic combinations. Visual polish and multiplayer compatibility testing are ongoing. German and Chinese localizations are planned; mod-added text is currently English only.
