@@ -1,13 +1,14 @@
 using BaseLib.Abstracts;
 using BaseLib.Utils;
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 
 namespace LaRata;
 
 // BaseLib applies our materials to the game's existing sculpted frame and banner.
 public sealed class RoyalCardPool : CustomCardPoolModel
 {
-    public override string Title => "The Royal Court";
+    public override string Title => UiText.Get("pool.royal");
     public override bool IsColorless => true;
     public override bool IsShared => true;
     public override Color ShaderColor => RoyalCardStyle.FrameColor;
@@ -23,5 +24,8 @@ internal static class RoyalCardStyle
     {
         Shader = ResourceLoader.Load<Shader>("res://LaRata/shaders/royal_card_frame.gdshader")
     };
-    internal static Material Banner() => ShaderUtils.GenerateHsv(.41f, .62f, .58f);
+    // Let the native rarity getter supply its exact blue/gold banner, border
+    // and type-plaque materials. Pool-colored frame material is independent.
+    internal static Material? Banner(CardRarity rarity) =>
+        rarity is CardRarity.Uncommon or CardRarity.Rare ? null : ShaderUtils.GenerateHsv(.41f, .62f, .58f);
 }

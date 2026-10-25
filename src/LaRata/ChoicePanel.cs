@@ -67,7 +67,7 @@ internal static class ChoicePanel
             {
                 if (source.Task.IsCompleted) return;
                 foreach (var other in buttons) other.Disable();
-                popup.SetText(heading, $"{options[choice]} locked in.\nWaiting for the other contenders...");
+                popup.SetText(heading, UiText.Format("choice.locked", options[choice]));
                 pending = null;
                 source.TrySetResult(choice);
             }));

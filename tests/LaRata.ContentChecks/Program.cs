@@ -12,18 +12,83 @@ using Cleanse = LaRata.Cleanse;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 
+if (args.Length == 2 && args[0] == "--wave-localization")
+{
+    LocalizationWaveChecks.Run(args[1]);
+    return;
+}
+if (args.Length == 2 && args[0] == "--export-localization")
+{
+    LocalizationExport.Run(args[1]);
+    return;
+}
+if (args.Length == 1 && args[0] is "--booster-policy" or "--rarity-pools" or "--atc" or "--followup-cards" or "--night-relics" or "--night-twists" or "--wave-cards" or "--wave-testers" or "--wave-payment" or "--wave-relics" or "--wave-deferred" or "--wave-regalia" or "--patches-only" or "--asset-paths")
+{
+    TestMode.IsOn = true;
+    var ids = new HarmonyLib.Harmony("LaRata.ContentChecks.WaveIds");
+    ids.CreateClassProcessor(typeof(BaseLib.Patches.Content.PrefixIdPatch)).Patch();
+    try
+    {
+    foreach (var type in typeof(AbstractModel).Assembly.GetTypes().Concat(typeof(ModEntry).Assembly.GetTypes())
+        .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(AbstractModel)) && t.GetConstructor(Type.EmptyTypes) != null))
+    {
+        ModelDb.Inject(type);
+        if (type.Assembly == typeof(ModEntry).Assembly) SavedPropertiesTypeCache.InjectTypeIntoCache(type);
+    }
+    if (args[0] == "--patches-only")
+    {
+        var smoke = new HarmonyLib.Harmony("LaRata.ContentChecks.PatchActivation");
+        NativeConsoleFixture.PatchDesktop(smoke);
+        try
+        {
+            RelicMetrics.Register();
+            smoke.PatchAllUncategorized(typeof(ModEntry).Assembly);
+            smoke.PatchCategory(typeof(ModEntry).Assembly, ResetEnergyLedger.PatchCategory);
+            smoke.PatchCategory(typeof(ModEntry).Assembly, "LaRataRelicEffectContexts");
+            Console.WriteLine($"PASS: complete mod Harmony patch set activated; {smoke.GetPatchedMethods().Count()} methods patched by this fixture, including desktop substitutions. Patch activation only; no game/engine initialization, UI execution or live compatibility claim.");
+        }
+        finally { smoke.UnpatchAll(smoke.Id); }
+    }
+    else if (args[0] == "--atc") { ShopRemovalChecks.Run(); ShopPurchasePathChecks.Run(); }
+    else if (args[0] == "--rarity-pools") RarityPoolChecks.Run();
+    else if (args[0] == "--booster-policy") BoosterWaveChecks.Run();
+    else if (args[0] == "--followup-cards") RelicWaveChecks.Run(cardsOnly: true);
+    else if (args[0] == "--night-twists") NightTwistChecks.Run();
+    else if (args[0] == "--night-relics") RelicWaveChecks.Run(nightOnly: true);
+    else if (args[0] == "--wave-relics") { RelicWaveChecks.Run(); RelicChoiceWaveChecks.Run(); }
+    else if (args[0] == "--wave-deferred") RelicWaveChecks.Run(deferredOnly: true);
+    else if (args[0] == "--wave-testers") TesterCardChecks.Run();
+    else if (args[0] == "--wave-payment") RelicWaveChecks.Run(paymentOnly: true);
+    else if (args[0] == "--asset-paths") AssetPathChecks.Run();
+    else if (args[0] == "--wave-regalia") RegaliaWaveChecks.Run();
+    else { BoosterWaveChecks.Run(); CardWaveChecks.Run(); RoyalIntentWaveChecks.Run(); }
+    }
+    finally { ids.UnpatchAll(ids.Id); }
+    return;
+}
+
 static void Require(bool condition, string message) { if (!condition) throw new Exception(message); }
+static string CardEnglish(CustomCardModel card, string suffix)
+{
+    var inline = card.Localization?.FirstOrDefault(p => p.Item1 == suffix).Item2;
+    if (inline != null) return inline;
+    string path = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../assets/LaRata/localization/eng/cards.json"));
+    using var document = JsonDocument.Parse(File.ReadAllText(path));
+    return document.RootElement.GetProperty(card.Id.Entry + "." + suffix).GetString()!;
+}
 static SavedProperties Roundtrip(AbstractModel model) => JsonSerializer.Deserialize(
     JsonSerializer.Serialize(SavedProperties.From(model)!, JsonSerializationUtility.GetTypeInfo<SavedProperties>()),
     JsonSerializationUtility.GetTypeInfo<SavedProperties>())!;
 var types = typeof(ModEntry).Assembly.GetTypes();
+var modelIds = new HarmonyLib.Harmony("LaRata.ContentChecks.NativeIds");
+modelIds.CreateClassProcessor(typeof(BaseLib.Patches.Content.PrefixIdPatch)).Patch();
 // Exercise the real formatter: without (), SmartFormat treats energyIcons as
 // a numeric format and silently prints a number without the energy symbol.
 var formatter = SmartFormat.Smart.CreateDefaultSmartFormat();
 formatter.AddExtensions(new MegaCrit.Sts2.Core.Localization.Formatters.EnergyIconsFormatter());
 foreach (var energyCard in new RemixCard[] { new EmeraldWard(), new GraveSpark() })
 {
-    var description = energyCard.Localization.Single(l => l.Item1 == "description").Item2;
+    var description = CardEnglish(energyCard, "description");
     var token = System.Text.RegularExpressions.Regex.Match(description, @"\{Energy:[^}]+\}").Value;
     foreach (var amount in new[] { 1, 2 })
     {
@@ -36,12 +101,17 @@ foreach (var energyCard in new RemixCard[] { new EmeraldWard(), new GraveSpark()
 Console.WriteLine("PASS: Emerald Ward and Grave Spark use native energy symbols for base and upgraded values.");
 TestMode.IsOn = true;
 // Native test registration without launching the game's mod manager or UI.
-// BaseLib's runtime ID-prefix patch is not installed in this model-only runner;
-// leave the native namesake Cleanse out so the custom card can be registered.
-foreach (var type in typeof(AbstractModel).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(AbstractModel)) && t.GetConstructor(Type.EmptyTypes) != null && t != typeof(MegaCrit.Sts2.Core.Models.Cards.Cleanse)))
+// The actual BaseLib ID prefix keeps the native and custom Cleanse distinct.
+foreach (var type in typeof(AbstractModel).Assembly.GetTypes().Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(AbstractModel)) && t.GetConstructor(Type.EmptyTypes) != null))
     ModelDb.Inject(type);
-var cards = types.Where(t => !t.IsAbstract && (t.IsSubclassOf(typeof(RoyalCard)) || t.IsSubclassOf(typeof(RemixCard)) || t == typeof(Cleanse))).OrderBy(t => t.Name).ToArray();
-Require(cards.Length == 46, "Expected 25 boss cards, Cleanse, 10 neutrals and 10 playable boss prizes.");
+if (args.Contains("--shop-only"))
+{
+    ModelDb.Inject(typeof(AThousandCuts));
+    ShopPurchasePathChecks.Run();
+    return;
+}
+var cards = types.Where(t => !t.IsAbstract && (t.IsSubclassOf(typeof(RoyalCard)) || t.IsSubclassOf(typeof(RemixCard)) || t.IsSubclassOf(typeof(ComboCard)) || t == typeof(Cleanse))).OrderBy(t => t.Name).ToArray();
+Require(cards.Length == 60, "Expected 25 boss cards, 25 regular player cards and 10 playable boss prizes.");
 var models = new List<CardModel>();
 foreach (var type in cards)
 {
@@ -49,20 +119,21 @@ foreach (var type in cards)
     var canonical = (CustomCardModel)ModelDb.GetById<CardModel>(ModelDb.GetId(type));
     var card = canonical.ToMutable();
     Require(card.EnergyCost.Canonical is >= 0 and <= 3, $"Invalid energy: {type.Name}");
-    Require(canonical.Localization!.Any(l => l.Item1 == "title" && l.Item2.Length > 0), $"Missing title: {type.Name}");
+    Require(!string.IsNullOrWhiteSpace(CardEnglish(canonical, "title")), $"Missing title: {type.Name}");
     Require(canonical.CustomPortraitPath is not null, $"Missing portrait: {type.Name}");
     var save = card.ToSerializable();
     Require(save.Id == canonical.Id && save.CurrentUpgradeLevel == 0, $"Save identity: {type.Name}");
-    if (canonical is RemixCard or Cleanse)
+    if (canonical is RemixCard or ComboCard or Cleanse)
     {
         var before = canonical.DynamicVars.ToDictionary(v => v.Key, v => v.Value.BaseValue);
+        var beforeKeywords = card.Keywords.ToArray();
         if (card is EmeraldWard)
             Require(card.EnergyCost.Canonical == 2 && before["Block"] == 5 && before["Energy"] == 1, "Emerald Ward base: 2 cost, 5 Block, 1 Energy.");
         if (card is RoyalScepterPrize)
             Require(card.EnergyCost.Canonical == 2 && before["Damage"] == 10 && before["WeakPower"] == 1 && before["VulnerablePower"] == 1, "Scepter Storm base values.");
         card.UpgradeInternal();
         card.FinalizeUpgradeInternal();
-        Require(card.DynamicVars.Any(v => v.Value.BaseValue != before[v.Key]) || card.EnergyCost.GetWithModifiers(CostModifiers.None) < canonical.EnergyCost.Canonical, $"Upgrade has no effect: {type.Name}");
+        Require(card.DynamicVars.Any(v => v.Value.BaseValue != before[v.Key]) || card.EnergyCost.GetWithModifiers(CostModifiers.None) < canonical.EnergyCost.Canonical || !card.Keywords.SequenceEqual(beforeKeywords), $"Upgrade has no effect: {type.Name}");
         if (card is BorrowedBreath)
             Require(card.DynamicVars["Heal"].BaseValue == 6 && card.DynamicVars.Cards.BaseValue == 3, "Borrowed Breath+ must heal 6 and draw 3.");
         if (card is EmeraldWard)
@@ -112,7 +183,8 @@ foreach (var type in relics)
         Require(restored.Triggered && restored.SeenTypes == 3, "Combo state save roundtrip failed.");
     }
 }
-Console.WriteLine("PASS: 46 card constructors/clones serialize using native model IDs; all 21 player upgrades change effects/costs, preserve canonical values and reload through native card JSON; Borrowed Breath+ heals 6 and draws 3; 11 relic constructors and native SavedProperties JSON roundtrips for pending packs, opened mementos and combo counters. No full game registration, gameplay, UI or network test.");
+Console.WriteLine("PASS: 60 card constructors/clones serialize using native model IDs; all 35 player upgrades change effects/costs/keywords, preserve canonical values and reload through native card JSON; Borrowed Breath+ heals 6 and draws 3; 11 relic constructors and native SavedProperties JSON roundtrips for pending packs, opened mementos and combo counters. No full game registration, gameplay, UI or network test.");
+if (args.Contains("--models-only")) return;
 
 var catalog = types.Single(t => t.Name == "GoblinPotionCatalog");
 var supported = (Type[])catalog.GetField("Supported", BindingFlags.NonPublic | BindingFlags.Static)!.GetValue(null)!;
@@ -199,4 +271,7 @@ FeedbackChecks.Run();
 RoyalFinaleChecks.Run();
 StarterBoosterChecks.Run();
 ShopRemovalChecks.Run();
+ShopPurchasePathChecks.Run();
 FinalRewardChecks.Run();
+BoosterWaveChecks.Run();
+CardWaveChecks.Run();

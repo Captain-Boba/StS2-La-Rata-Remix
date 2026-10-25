@@ -34,7 +34,7 @@ public abstract class RemixCard : CustomCardModel
         "Lose 3 HP. Draw {Cards:diff()} cards.",
         "Draw {Cards:diff()} cards. Discard 1 card.",
         "All living players gain {Block:diff()} Block and {Energy:energyIcons()}.",
-        "Whenever you play a card, gain 1 Block.",
+        "Whenever you play a card, gain {AfterimagePower:diff()} Block.",
         "Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak to ALL enemies.",
         "Apply {WeakPower:diff()} Weak and {VulnerablePower:diff()} Vulnerable. Deal {Damage:diff()} damage.",
         "Double the enemy's Poison, then apply {PoisonPower:diff()} Poison.",
@@ -48,14 +48,14 @@ public abstract class RemixCard : CustomCardModel
         "All living players gain {RitualPower:diff()} Ritual."
     ];
     protected RemixCard(int index) : base(Costs[index], index is 3 or 10 or 14 or 15 or 18 ? CardType.Attack : index is 8 or 19 ? CardType.Power : CardType.Skill,
-        index is 0 or 4 or 8 or >= 10 ? CardRarity.Rare : CardRarity.Uncommon,
+        index is 0 or 4 or 7 or 8 or >= 10 ? CardRarity.Rare : CardRarity.Uncommon,
         index is 2 or 10 or 11 or 15 ? TargetType.AnyEnemy : index is 3 or 9 or 14 or 16 or 18 ? TargetType.AllEnemies : index is 7 or 13 or 17 or 19 ? TargetType.AllAllies : TargetType.Self, true, index < 10)
     { Index = index; if (index >= 10) CustomContentDictionary.RegisterType(GetType()); }
     public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
     public override Material? CreateCustomFrameMaterial => RoyalCardStyle.Frame();
-    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner();
+    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner(Rarity);
     public override string? CustomPortraitPath => $"res://LaRata/images/cards/{Art[Index]}.png";
-    public override List<(string, string)> Localization => [("title", Names[Index]), ("description", Text[Index])];
+    public override List<(string, string)> Localization => [];
     public override bool GainsBlock => Index is 1 or 7 or 12 or 17;
     protected override IEnumerable<IHoverTip> ExtraHoverTips => Index switch
     {
@@ -75,7 +75,7 @@ public abstract class RemixCard : CustomCardModel
         new DamageVar(Index is 10 or 15 ? 10 : Index == 18 ? 24 : Index == 14 ? 5 : 3, ValueProp.Move),
         new BlockVar(Index == 12 ? 20 : Index == 17 ? 12 : Index == 7 ? 5 : 8, ValueProp.Move),
         new CardsVar(Index == 0 ? 1 : Index == 6 ? 3 : 2), new EnergyVar(1), new HealVar(Index == 18 ? 6 : 3),
-        new PowerVar<VigorPower>(4), new PowerVar<PoisonPower>(Index == 14 ? 3 : Index == 16 ? 6 : 5), new PowerVar<DoomPower>(Index == 16 ? 12 : 5),
+        new PowerVar<AfterimagePower>(1), new PowerVar<VigorPower>(4), new PowerVar<PoisonPower>(Index == 14 ? 3 : Index == 16 ? 6 : 5), new PowerVar<DoomPower>(Index == 16 ? 12 : 5),
         new PowerVar<VulnerablePower>(Index == 10 ? 1 : 2), new PowerVar<WeakPower>(Index == 10 ? 1 : 2), new PowerVar<BufferPower>(1), new PowerVar<StrengthPower>(2), new PowerVar<RitualPower>(1)
     ];
     protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay play)
@@ -110,7 +110,7 @@ public abstract class RemixCard : CustomCardModel
                     await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, player);
                 }
                 break;
-            case 8: await PowerCmd.Apply<AfterimagePower>(ctx, self, 1, self, this); break;
+            case 8: await PowerCmd.Apply<AfterimagePower>(ctx, self, DynamicVars["AfterimagePower"].BaseValue, self, this); break;
             case 9:
                 await PowerCmd.Apply<VulnerablePower>(ctx, combat.HittableEnemies, DynamicVars["VulnerablePower"].BaseValue, self, this);
                 await PowerCmd.Apply<WeakPower>(ctx, combat.HittableEnemies, DynamicVars["WeakPower"].BaseValue, self, this); break;
@@ -163,8 +163,9 @@ public abstract class RemixCard : CustomCardModel
             case 4: DynamicVars["Heal"].UpgradeValueBy(3); DynamicVars.Cards.UpgradeValueBy(1); break;
             case 5 or 6: DynamicVars.Cards.UpgradeValueBy(1); break;
             case 7: DynamicVars.Block.UpgradeValueBy(5); DynamicVars.Energy.UpgradeValueBy(1); break;
-            case 8 or 9: EnergyCost.UpgradeBy(-1); break;
-            case 11: DynamicVars["PoisonPower"].UpgradeValueBy(3); break;
+            case 8: DynamicVars["AfterimagePower"].UpgradeValueBy(1); break;
+            case 9: EnergyCost.UpgradeBy(-1); break;
+            case 11: DynamicVars["PoisonPower"].UpgradeValueBy(3); EnergyCost.UpgradeBy(-1); break;
             case 12: DynamicVars["BufferPower"].UpgradeValueBy(1); break;
             case 13: DynamicVars["StrengthPower"].UpgradeValueBy(1); break;
             case 15: DynamicVars.Damage.UpgradeValueBy(6); break;
@@ -174,8 +175,8 @@ public abstract class RemixCard : CustomCardModel
             case 19: DynamicVars["RitualPower"].UpgradeValueBy(1); break;
         }
     }
-    internal static CardModel[] Neutrals => [ModelDb.Card<Cleanse>(), ModelDb.Card<GraveSpark>(), ModelDb.Card<UmbralStitch>(), ModelDb.Card<SewerPact>(), ModelDb.Card<PhantomParade>(), ModelDb.Card<BorrowedBreath>(), ModelDb.Card<CrownExchange>(), ModelDb.Card<MidnightRehearsal>(), ModelDb.Card<EmeraldWard>(), ModelDb.Card<SecondShadow>(), ModelDb.Card<OpenTheGates>()];
-    internal static CardModel[] BossPrizes => [ModelDb.Card<RoyalScepterPrize>(), ModelDb.Card<RoyalAlchemyPrize>(), ModelDb.Card<RoyalAegisPrize>(), ModelDb.Card<RoyalContractPrize>(), ModelDb.Card<RoyalTempestPrize>(), ModelDb.Card<RoyalTithePrize>(), ModelDb.Card<RoyalPlaguePrize>(), ModelDb.Card<RoyalKneelPrize>(), ModelDb.Card<RoyalForeclosurePrize>(), ModelDb.Card<RoyalNightfallPrize>()];
+    internal static CardModel[] Neutrals => LaRataCardCatalog.Neutrals;
+    internal static CardModel[] BossPrizes => LaRataCardCatalog.BossPrizes;
 }
 
 [Pool(typeof(ColorlessCardPool))] public sealed class GraveSpark() : RemixCard(0);

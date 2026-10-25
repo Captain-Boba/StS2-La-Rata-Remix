@@ -10,7 +10,7 @@ Increase the existing 1–4 player seeded encounter budgets by 25%, with a wider
 
 All players claiming the same chest relic privately select Rock, Paper or Scissors before revealing. Ties repeat. Eliminated players watch. Native consolation rewards and relic ownership remain authoritative. Well is a rare co-op-only relic in the shared pool, including eligible reward and shop generation. It automatically beats non-holders; equal seeded probability among multiple holders. No custom network transport or new save format.
 
-Solo nonempty chests offer three relics and award one selected relic. A Thousand Cuts is a rare solo/co-op relic allowing its owner unlimited paid removals per shop. Keep the native selection, cancellation, gold payment and saved price escalation.
+Solo nonempty chests offer three relic choices and award one selected relic. A Thousand Cuts is a rare solo/co-op relic allowing its active owner unlimited paid removals per shop, each priced as the native first removal with current discounts and Inflation. Keep native selection, cancellation, payment and successful-removal history; only the owner's pricing index is effectively zero while the relic is active. Earlier escalating-price descriptions and passes document the previous incorrect requirement.
 
 ## Bonus path
 

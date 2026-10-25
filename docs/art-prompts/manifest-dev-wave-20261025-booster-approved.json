@@ -1,0 +1,591 @@
+{
+  "date": "2026-10-25",
+  "generator": "built-in image_gen",
+  "nativeReferences": "Local v0.107.1 Anchor, Vajra and Membership Card decoded using installed Pillow BC7; native references excluded from runtime assets. Existing mod-owned cards are the illustration style reference.",
+  "note": "26 selected generated assets. Runtime map masks use the established prepare-map-icon.py. Pack shape corrections used image_gen, never a custom image editor. No game/engine start. Human visual approval on 2026-10-25 applies only to the six current booster images; see booster-approval-20261025.json.",
+  "assets": [
+    {
+      "key": "ser_kevs_thorn_buster",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-8aaa3219-8b8d-4d9d-bdb7-c948ef04ae49.png",
+      "target": "assets/LaRata/images/cards/ser_kevs_thorn_buster.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: a fictional armoured rat-court knight Ser Kev uses a broad heavy steel thorn breaker to snap and scatter a clearly visible snarling wall of green magical thorns. Action and the broken thorn barrier are central, face and broad gripping gauntlets legible, no real person likeness. Palette: warm copper-orange dusk, ivory steel flashes, burgundy mantle, emerald restricted to the breaking thorns. A vivid amber backlight distinguishes armour against the ruined sewer arch. The image communicates removing thorns, not poison spray.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "b2050b5480b4ec7e30115ff303700408006c021f458dc21576e476fcbf79ffcb",
+      "sourceSha256": "b2050b5480b4ec7e30115ff303700408006c021f458dc21576e476fcbf79ffcb"
+    },
+    {
+      "key": "gutter_feint",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-42d37d32-4c4c-4d63-bc6c-84e81bbf9a8f.png",
+      "target": "assets/LaRata/images/cards/gutter_feint.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: a nimble gray rat rogue in a sweeping burgundy cloak feints sideways in a stone gutter, deflecting an opponent's steel blade with the reinforced cloak; the bent blade path and rogue form a readable strong diagonal. Palette: warm burgundy and ochre, pale silvery blade, cool slate-blue canal shadows, a restrained emerald clasp. Twilight reflected water and old arches, dynamic but clean focal silhouette.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "0e4e6c0829bf65030bf15d6f9152e9b8c7f34620f2920f5e142667d18631f597",
+      "sourceSha256": "0e4e6c0829bf65030bf15d6f9152e9b8c7f34620f2920f5e142667d18631f597"
+    },
+    {
+      "key": "ragpickers_guard",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-44fb0f63-29b4-4964-ad42-283b9c65996a.png",
+      "target": "assets/LaRata/images/cards/ragpickers_guard.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: An improvised shield woven from a few large discarded fabric scraps and bent metal plates protects a small determined rat scavenger in a crumbling alley. Palette ochre-yellow cloth, worn terracotta-red metal, dusty warm daylight and cool slate shadows. Clearly readable central patchwork shield, not a green magic barrier.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1449,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "3a538f73f69db135cd3b8646aba7570973d281d8bb693ffd37a60a1c585a8e51",
+      "sourceSha256": "3a538f73f69db135cd3b8646aba7570973d281d8bb693ffd37a60a1c585a8e51"
+    },
+    {
+      "key": "cinder_receipt",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-c83b2c1a-86fd-491a-ad53-344450e57056.png",
+      "target": "assets/LaRata/images/cards/cinder_receipt.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A long blank paper receipt burns away into a powerful spectral fist above a rat court merchant's desk. No writing on the paper. Palette hot ember orange and ash-white, deep burgundy surroundings, copper reflections, small violet magic accents. Central burning paper-to-fist transformation.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "e812f9d9675432cd4f1071a0b2d02e4229fdf8c089c7132f4380e20e3a4ef412",
+      "sourceSha256": "e812f9d9675432cd4f1071a0b2d02e4229fdf8c089c7132f4380e20e3a4ef412"
+    },
+    {
+      "key": "venomous_encore",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e8dca061-8192-4ab1-a536-7fb4ba87eaa9.png",
+      "target": "assets/LaRata/images/cards/venomous_encore.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A sinister rat assassin's two curving daggers strike in two clearly separated arcs before a looming abstract death shadow. Palette royal violet, electric cyan edge light and a little acidic chartreuse on the blade tips. Poison and Doom visually distinct, broad movement, no large green flame cloud.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574",
+      "sourceSha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574"
+    },
+    {
+      "key": "graveyard_shift",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-758d3dba-280a-4624-8450-26b2dee1ff4d.png",
+      "target": "assets/LaRata/images/cards/graveyard_shift.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: An exhausted rat scribe works at a crooked stone desk among grave markers under a single tall candle, one wrapped paw reaching for a fresh blank page. Palette warm amber candlelight, wax ivory and sepia against lavender-blue nocturnal stone, tiny burgundy HP-sacrifice accent. Sympathetic sinister humour, confident painterly details, no text.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "64de3a566b8655792d38bbcb80743799c1e685d158502d276ab35ecbc08f7625",
+      "sourceSha256": "64de3a566b8655792d38bbcb80743799c1e685d158502d276ab35ecbc08f7625"
+    },
+    {
+      "key": "scrap_coronation",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-8772a081-cea7-4c2e-8774-b5d7c6530d75.png",
+      "target": "assets/LaRata/images/cards/scrap_coronation.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A scavenged bronze crown is being hammered into a huge gleaming forged blade on a black anvil by a rat smith's heavy gauntlet. The transformation is central, sparks make a strong diagonal. Palette blazing orange, red hot iron, antique gold and deep indigo shadows. Do not flood the scene with green magic.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "2899729593faacfa6a25e8bdbaa0eadec002ed2a0ee7c0d5a7ab79249eb25588",
+      "sourceSha256": "2899729593faacfa6a25e8bdbaa0eadec002ed2a0ee7c0d5a7ab79249eb25588"
+    },
+    {
+      "key": "cold_circuit",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4ffcf24c-b0ef-4680-b858-8a3bc9d693d2.png",
+      "target": "assets/LaRata/images/cards/cold_circuit.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A large frost-rimmed copper circuit ring floats above a discarded card-shaped metal scrap, a rat artificer's gloved paw completes the ring. Angular ice crystals and a bright white-blue core. Palette glacier cyan, powder blue and copper-orange against clean dark cobalt architecture. Frost, never poison. Detailed painterly finish matching the references.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "64da270e066ad6e75d17f1ea732a05fe5240397e33e83f1172277f19bccad823",
+      "sourceSha256": "64da270e066ad6e75d17f1ea732a05fe5240397e33e83f1172277f19bccad823"
+    },
+    {
+      "key": "borrowed_backbone",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-137276da-8e2c-4ed0-b994-0b67263a1e63.png",
+      "target": "assets/LaRata/images/cards/borrowed_backbone.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A large curved spectral ivory spine arches protectively like a shield in front of a rat-court traveller; beyond it a looming ominous shadow with violet eyes suggests Doom. Palette bone ivory, plum-violet, muted blue and a small emerald clasp. Strong central ribbed shield silhouette, no green fog blanket.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "3c5afa73b8a7b4e6670bf05687f56313ed800b56410e8ae44be8a24f10292c8f",
+      "sourceSha256": "3c5afa73b8a7b4e6670bf05687f56313ed800b56410e8ae44be8a24f10292c8f"
+    },
+    {
+      "key": "smugglers_dividend",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-7d60e6a2-e9af-4e56-8dd8-8f6bdb8cbe3f.png",
+      "target": "assets/LaRata/images/cards/smugglers_dividend.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A rat smuggler's dark gloved paw pulls a thin crimson thread from a hidden pouch; one heavy golden coin slides along the thread, gathering a compact amber surge of strength. Palette rich gold, wine-red thread, warm cream highlights and midnight-blue surroundings. Central coin and thread readable; not a handshake and not loose piles of tiny coins.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "04ee761a6afefd0cbbdd4aeecfa638fb4b7d6325381f402afd95714468ca8acc",
+      "sourceSha256": "04ee761a6afefd0cbbdd4aeecfa638fb4b7d6325381f402afd95714468ca8acc"
+    },
+    {
+      "key": "court_of_cinders",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4d192126-1201-4d47-8199-88b1e75f3494.png",
+      "target": "assets/LaRata/images/cards/court_of_cinders.png",
+      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A handful of large burning royal decrees rises from a stone brazier into an imposing ghostly rat court, three distinct court silhouettes composed of charcoal and ember. Blank parchment, no writing. Palette copper-orange and magenta embers, pale smoky violet spirits, deep aubergine stone and restrained toxic emerald only at the brazier base. A wide dramatic scene, coherent with the existing rat-court card illustrations.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "sha256": "e4eb9fca2d026bd0b389352d3e503e443f4354b37ed950267b94d562a09df713",
+      "sourceSha256": "e4eb9fca2d026bd0b389352d3e503e443f4354b37ed950267b94d562a09df713"
+    },
+    {
+      "key": "map_rat_king",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-46b7e755-7fb7-48a4-8093-5239815f6fc5.png",
+      "target": "docs/art-prompts/map-rat-king-source.png",
+      "prompt": "Use case: stylized-concept. Production HEAD portrait for the native Slay the Spire 2 boss MAP icon. The mod-owned reference image is the character identity reference and old map-art target. Redesign with a tighter focus on the crowned gray rat king's long muzzle, incisors, round ears, spiked crown and a very short shoulder cloak. Keep recognisable menacing mischievous grin. An expressive hand-inked storybook creature head: irregular confident pen contours, restrained hatching, broad shadow shapes with transparent internal cutouts. A single dark brown ink color, absolutely no grey shading, gradients, green, glow, frame or text. Real transparent alpha background. Square canvas1254x1254; COMPLETE crown, ears, fur and muzzle contained within central80% with equal visible safe margins on ALL sides. No throne spikes extending into margins, no torso below upper shoulders. This will be tinted by the game's native map colors at approx300px. Head silhouette must be legible. Do not draw an esports logo.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        94,
+        54,
+        1197,
+        1226
+      ],
+      "sha256": "09a994e764e3c9284eb5201da81a4d6ea23e3dcc48b746fdf80498106779e7ad",
+      "sourceSha256": "09a994e764e3c9284eb5201da81a4d6ea23e3dcc48b746fdf80498106779e7ad",
+      "derivedOutputs": [
+        {
+          "target": "assets/LaRata/images/map_rat_king.png",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "alphaBoundsAt16": [
+            94,
+            54,
+            1197,
+            1226
+          ],
+          "sha256": "5b34ed314605f69405602f0aeb8a9810d4dbafa0e8474e4c5ea1e0a01febbc4a"
+        },
+        {
+          "target": "assets/LaRata/images/map_rat_king_outline.png",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "alphaBoundsAt16": [
+            93,
+            53,
+            1198,
+            1227
+          ],
+          "sha256": "7a490d35addf006c52b20213b0d3f2db3c688bc5386c7c4cc963374e2257545c"
+        }
+      ]
+    },
+    {
+      "key": "ironclad_pack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-6210accb-6c45-454c-8f94-f343dbbcd857.png",
+      "target": "assets/LaRata/images/relics/ironclad_pack.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the MASTER GEOMETRY / edit target. Image2 is ONLY the desired emblem and color reference. Create this master pack's exact matching sibling: brick red / burgundy wrapper, ivory horned iron mask emblem. Change ONLY the INTERIOR wrapper color and central emblem of Image1. Preserve Image1's alpha silhouette, outer border positions, total width and height, parallel upright sides, front-facing orientation, top/bottom seals, canvas dimensions and optical margins EXACTLY. The SAME master pack frame must be visibly reused, not a new independently shaped pack. Do not copy Image2's geometry. Match native Slay the Spire 2 relic icon art: thick dark contour, two/three broad simple painted color planes. No new ornament, text, particles, scenery or fine detailing. Genuine transparent alpha. The underlying master pack has already been selected for near-native card proportion; do NOT widen, narrow, shorten, tilt or change its shape.",
+      "previousSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-6ba76921-62e7-411f-9879-8dc3726a43fc.png",
+      "tool": "built-in image_gen",
+      "human_approved": true,
+      "kind": "relic",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/ironclad_pack.png",
+      "export": "Proportional placement only; target visible height 980 on 1254-square canvas (rounding may add 1 pixel); no warp.",
+      "requestedPackRatio": 0.7053140096618358,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        276,
+        137,
+        977,
+        1117
+      ],
+      "observedOuterSilhouetteRatio": 0.71531,
+      "sha256": "598928c0d8bb123078bc6b19c0b0239c22f314fe607900ddb3e30dbdc3c2a6d9",
+      "sourceSha256": "204c131d32accd71943709dc7918e05a1f7451c558d23219740ab6dfeee2c30d",
+      "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-c1f86d3e-060d-4b20-82b8-8bd98e9546d7.png",
+      "geometryMaster": "regent_pack",
+      "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+    },
+    {
+      "key": "silent_pack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-68fc0f9e-7f05-4cb2-aa5c-79ef9878dc86.png",
+      "target": "assets/LaRata/images/relics/silent_pack.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the MASTER GEOMETRY / edit target. Image2 is ONLY the desired emblem and color reference. Create this master pack's exact matching sibling: moss green wrapper, cream plain skull emblem. Change ONLY the INTERIOR wrapper color and central emblem of Image1. Preserve Image1's alpha silhouette, outer border positions, total width and height, parallel upright sides, front-facing orientation, top/bottom seals, canvas dimensions and optical margins EXACTLY. The SAME master pack frame must be visibly reused, not a new independently shaped pack. Do not copy Image2's geometry. Match native Slay the Spire 2 relic icon art: thick dark contour, two/three broad simple painted color planes. No new ornament, text, particles, scenery or fine detailing. Genuine transparent alpha. The underlying master pack has already been selected for near-native card proportion; do NOT widen, narrow, shorten, tilt or change its shape.",
+      "previousSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-49812c8e-5705-4674-bf99-b143f2b6d738.png",
+      "tool": "built-in image_gen",
+      "human_approved": true,
+      "kind": "relic",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/silent_pack.png",
+      "export": "Proportional placement only; target visible height 980 on 1254-square canvas (rounding may add 1 pixel); no warp.",
+      "requestedPackRatio": 0.7053140096618358,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        273,
+        137,
+        980,
+        1117
+      ],
+      "observedOuterSilhouetteRatio": 0.72143,
+      "sha256": "a06c794ba49903d77bff242b77bc61b3c44ddcd269e8319395df77ce3ac25e54",
+      "sourceSha256": "401fc93e45334f678cd152e9d2c8c665a06460108a7acb9a014b6dcc74e859f8",
+      "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-98cca818-2dbc-44bd-8689-d30e355ee939.png",
+      "geometryMaster": "regent_pack",
+      "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+    },
+    {
+      "key": "defect_pack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-7f378468-d95e-465e-afae-dc1947611ef8.png",
+      "target": "assets/LaRata/images/relics/defect_pack.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the MASTER GEOMETRY / edit target. Image2 is ONLY the desired emblem and color reference. Create this master pack's exact matching sibling: cobalt blue wrapper, pale cyan circular orb emblem. Change ONLY the INTERIOR wrapper color and central emblem of Image1. Preserve Image1's alpha silhouette, outer border positions, total width and height, parallel upright sides, front-facing orientation, top/bottom seals, canvas dimensions and optical margins EXACTLY. The SAME master pack frame must be visibly reused, not a new independently shaped pack. Do not copy Image2's geometry. Match native Slay the Spire 2 relic icon art: thick dark contour, two/three broad simple painted color planes. No new ornament, text, particles, scenery or fine detailing. Genuine transparent alpha. The underlying master pack has already been selected for near-native card proportion; do NOT widen, narrow, shorten, tilt or change its shape.",
+      "previousSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-176805f6-0852-4f9b-b652-a0f6fa89a973.png",
+      "tool": "built-in image_gen",
+      "human_approved": true,
+      "kind": "relic",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/defect_pack.png",
+      "export": "Proportional placement only; target visible height 980 on 1254-square canvas (rounding may add 1 pixel); no warp.",
+      "requestedPackRatio": 0.7053140096618358,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        275,
+        137,
+        979,
+        1117
+      ],
+      "observedOuterSilhouetteRatio": 0.71837,
+      "sha256": "e8e5d5c08aecfbd5386c0f3ff648cfeeae251c6c458ba2b8762a9e55b8cc336a",
+      "sourceSha256": "fec14f7cf319d4638cdf595f29566594015817c3737c6e786408f187ce15e10b",
+      "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-2c40047e-06a2-4b0c-b675-243fccd06467.png",
+      "geometryMaster": "regent_pack",
+      "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+    },
+    {
+      "key": "regent_pack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-30d414fb-948f-46e9-a22d-6b69528ae460.png",
+      "target": "assets/LaRata/images/relics/regent_pack.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the edit target. Make a single precise geometry correction ONLY: this current upright pack is TOO NARROW. Make its entire outer painted wrapper 6% WIDER, keeping its HEIGHT UNCHANGED. The target VISIBLE PACK rectangle is width:height292:414 (0.7053). Increase horizontal width, never narrow it. Preserve exact emblem, colors, simple native-game flat hand-painted shading, thick outline, upright front-facing position and transparent background. Keep parallel vertical sides, nearly straight top and bottom, small organic seal edges within the main width. Do not introduce perspective, tilt or ornament. Maintain one square1254x1254 transparent canvas. Center it, with the same substantial vertical margins. Target actual OUTER object width approximately735px for approximately1042px height, excluding only transparent pixels. All six packs need the same visible card-like proportion. Do not add any text or scale markers. This is shape correction, not style redesign.",
+      "previousSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-0a7daf1f-0907-4651-8558-ac2f79c11875.png",
+      "tool": "built-in image_gen",
+      "human_approved": true,
+      "kind": "relic",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/regent_pack.png",
+      "export": "Proportional placement only; target visible height 980 on 1254-square canvas (rounding may add 1 pixel); no warp.",
+      "requestedPackRatio": 0.7053140096618358,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        277,
+        136,
+        977,
+        1117
+      ],
+      "observedOuterSilhouetteRatio": 0.71356,
+      "sha256": "98afa4847f2372d428f554a1c07e0ceafffbbcebc41014f944d0c1f6a632dd8b",
+      "sourceSha256": "81f667c4ed6cbded072cb6b74d6bc0018bc5d2c0e181aa05b99dbc86027b79b0",
+      "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+    },
+    {
+      "key": "necrobinder_pack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-de4b1104-364d-4166-93dc-a0c4f079647e.png",
+      "target": "assets/LaRata/images/relics/necrobinder_pack.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the MASTER GEOMETRY / edit target. Image2 is ONLY the desired emblem and color reference. Create this master pack's exact matching sibling: deep purple wrapper, pale lilac curling ghost-flame emblem. Change ONLY the INTERIOR wrapper color and central emblem of Image1. Preserve Image1's alpha silhouette, outer border positions, total width and height, parallel upright sides, front-facing orientation, top/bottom seals, canvas dimensions and optical margins EXACTLY. The SAME master pack frame must be visibly reused, not a new independently shaped pack. Do not copy Image2's geometry. Match native Slay the Spire 2 relic icon art: thick dark contour, two/three broad simple painted color planes. No new ornament, text, particles, scenery or fine detailing. Genuine transparent alpha. The underlying master pack has already been selected for near-native card proportion; do NOT widen, narrow, shorten, tilt or change its shape.",
+      "previousSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-73b25b71-c5ad-4cde-80eb-3f06908c1527.png",
+      "tool": "built-in image_gen",
+      "human_approved": true,
+      "kind": "relic",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/necrobinder_pack.png",
+      "export": "Proportional placement only; target visible height 980 on 1254-square canvas (rounding may add 1 pixel); no warp.",
+      "requestedPackRatio": 0.7053140096618358,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        277,
+        136,
+        978,
+        1117
+      ],
+      "observedOuterSilhouetteRatio": 0.71458,
+      "sha256": "3ea78b9e04997dbdf551bd94eef4b2824835b4b2d8cbaa5b258cf0374a424e68",
+      "sourceSha256": "d01626d25b18bae0a4d841ccffd8567a4b088986d43c85dfce48993bda41eadd",
+      "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4fc5cb46-249f-407b-a231-33f1898d2b80.png",
+      "geometryMaster": "regent_pack",
+      "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+    },
+    {
+      "key": "royal_pack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-0cae18de-29d2-4b6a-ac94-d2deae8e5a3e.png",
+      "target": "assets/LaRata/images/relics/royal_pack.png",
+      "prompt": "Use case: precise-object-edit. Image1 is the MASTER GEOMETRY / edit target. Image2 is ONLY the desired emblem and color reference. Create this master pack's exact matching sibling: charcoal wrapper, ivory rat skull with emerald crown emblem. Change ONLY the INTERIOR wrapper color and central emblem of Image1. Preserve Image1's alpha silhouette, outer border positions, total width and height, parallel upright sides, front-facing orientation, top/bottom seals, canvas dimensions and optical margins EXACTLY. The SAME master pack frame must be visibly reused, not a new independently shaped pack. Do not copy Image2's geometry. Match native Slay the Spire 2 relic icon art: thick dark contour, two/three broad simple painted color planes. No new ornament, text, particles, scenery or fine detailing. Genuine transparent alpha. The underlying master pack has already been selected for near-native card proportion; do NOT widen, narrow, shorten, tilt or change its shape.",
+      "previousSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-f88fb8eb-3ced-492d-b91e-b91750a5cc18.png",
+      "tool": "built-in image_gen",
+      "human_approved": true,
+      "kind": "relic",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/royal_pack.png",
+      "export": "Proportional placement only; target visible height 980 on 1254-square canvas (rounding may add 1 pixel); no warp.",
+      "requestedPackRatio": 0.7053140096618358,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        267,
+        136,
+        987,
+        1117
+      ],
+      "observedOuterSilhouetteRatio": 0.73394,
+      "sha256": "bdafe58b53961205f4d0c96400178cc72cbad1c79da523db6f3da289b368a998",
+      "sourceSha256": "7e8fc366a16262044d642672979665768e407a4320cd8491b98b6b00f24cc600",
+      "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-10191354-f706-461a-a8d3-202bc0d35753.png",
+      "geometryMaster": "regent_pack",
+      "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+    },
+    {
+      "key": "well",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-69fa5646-b3cd-4d97-a2f9-5fcceb764b55.png",
+      "target": "assets/LaRata/images/well.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: A tiny squat stone well: an oval gray stone rim, only four large visible stones, one broad wooden crossbeam on two short posts, a single ochre bucket, a flat deep-teal water patch. Extremely simplified shapes, no moss texture, no individual rope strands. Muted warm gray, ochre, teal.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        148,
+        167,
+        1115,
+        1099
+      ],
+      "sha256": "fae0f68212d1177ca8960033461cbb1d1657b7c04ede0fedda551ab8748c5710",
+      "sourceSha256": "fae0f68212d1177ca8960033461cbb1d1657b7c04ede0fedda551ab8748c5710"
+    },
+    {
+      "key": "a_thousand_cuts",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e7fd5999-6b69-41ab-922a-fd74edbf3868.png",
+      "target": "assets/LaRata/images/a_thousand_cuts.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: One chunky bronze-gold pair of scissors cutting a single ivory card with one broad red diagonal slash. Two thick round handle loops, plain blades, simple emerald pivot dot, no gems/facets/filigree or paper texture.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        59,
+        193,
+        1209,
+        1076
+      ],
+      "sha256": "5a817e050f75bcbe3b2f9df88daa17a1afdaca873538541002277c79605cee23",
+      "sourceSha256": "5a817e050f75bcbe3b2f9df88daa17a1afdaca873538541002277c79605cee23"
+    },
+    {
+      "key": "ashen_spool",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-6001376f-e9f8-4888-992b-9df4c527474f.png",
+      "target": "assets/LaRata/images/relics/ashen_spool.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: One stout ochre wooden thread spool with a few broad charcoal thread bands and a short emerald thread tail. Compact tilted silhouette, just two large shadow planes, no individual thin thread strands.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        136,
+        109,
+        1136,
+        1149
+      ],
+      "sha256": "cdd123f97d9772e9f1c960c39d9534691ec103305bd25c77d1ca86b5591706d2",
+      "sourceSha256": "cdd123f97d9772e9f1c960c39d9534691ec103305bd25c77d1ca86b5591706d2"
+    },
+    {
+      "key": "crown_capacitor",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-cd2a43ff-124f-4774-b54a-33cec73e5f4c.png",
+      "target": "assets/LaRata/images/relics/crown_capacitor.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: One squat brass battery capacitor with a tiny three-point crown-shaped top and one broad jade lightning bolt on its center. Plain flat brass faces, charcoal shadow, simple green stripe, no circuitry or etched details.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        200,
+        63,
+        1053,
+        1174
+      ],
+      "sha256": "e641e8acc4c563dfaf197b713d58cc75b7bc675a398f612339d33807dd0a2868",
+      "sourceSha256": "e641e8acc4c563dfaf197b713d58cc75b7bc675a398f612339d33807dd0a2868"
+    },
+    {
+      "key": "crossroads_compass",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d2947793-2afd-4336-9c00-15a38a21b776.png",
+      "target": "assets/LaRata/images/relics/crossroads_compass.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: One round plain antique-gold compass with one large dark four-point needle and a single emerald center dot. Bold outer circle, no numbers, map, lettering, small tick marks, or elaborate markings.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        149,
+        63,
+        1190,
+        1201
+      ],
+      "sha256": "4113a895d636ce6408bc69e89b902bd66f2d0ba1913244c317f156817d77cc93",
+      "sourceSha256": "4113a895d636ce6408bc69e89b902bd66f2d0ba1913244c317f156817d77cc93"
+    },
+    {
+      "key": "bottled_echo",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-54eca374-e47f-4374-946b-98e30049af8d.png",
+      "target": "assets/LaRata/images/relics/bottled_echo.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: One round teal-glass potion bottle with one thick ochre cork, a single cream reflection and two broad pale-green curved echo shapes visible inside. No chains, frames, tiny bubbles or intricate smoke.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        187,
+        109,
+        1082,
+        1183
+      ],
+      "sha256": "c80da9f1ea33b71bdf2da09b6b3bd88a272974c232abdbbf635f623490089b16",
+      "sourceSha256": "c80da9f1ea33b71bdf2da09b6b3bd88a272974c232abdbbf635f623490089b16"
+    },
+    {
+      "key": "smugglers_thread",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-2648fb9c-3a1e-44d8-82ae-001ff97ce396.png",
+      "target": "assets/LaRata/images/relics/smugglers_thread.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: One compact charcoal drawstring pouch with a plain green band and one oversized silver sewing needle carrying a single broad crimson thread loop. No tiny stitching, textures or ornate buckles.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        174,
+        86,
+        1170,
+        1167
+      ],
+      "sha256": "8b5dc01a08117ea2436a8ab3a6ab9dbd29293e2ce05f06e352c36614010c2541",
+      "sourceSha256": "8b5dc01a08117ea2436a8ab3a6ab9dbd29293e2ce05f06e352c36614010c2541"
+    },
+    {
+      "key": "relic_remover",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-1f010b2a-56c0-4f8b-91e6-4823a0f24e9c.png",
+      "target": "assets/LaRata/images/relics/relic_remover.png",
+      "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: A short oversized plain iron pry bar lifting a small cracked brass ring off a flat dark stone chip. Three large simple shapes, one pale-blue steel highlight, amber brass, charcoal stone. Readable removal/tool silhouette; no complex mechanism or scattered debris.",
+      "tool": "built-in image_gen",
+      "human_approved": false,
+      "kind": "relic",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        69,
+        92,
+        1201,
+        1187
+      ],
+      "sha256": "d5885cd50969d0c224d75533692d260e5a7939d7833c5ae0b3eafc7196dc3b14",
+      "sourceSha256": "d5885cd50969d0c224d75533692d260e5a7939d7833c5ae0b3eafc7196dc3b14"
+    }
+  ],
+  "limits": [
+    "No game, engine, package export or live UI inspection.",
+    "Pack silhouettes are upright and generated in card-like proportions. Exact contour identity is not implied by a common canvas; observed ratios are recorded.",
+    "Human visual approval applies only to the six boosters and their recorded current hashes; other artwork remains pending. See booster-approval-20261025.json."
+  ]
+}

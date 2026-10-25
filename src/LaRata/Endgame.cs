@@ -68,8 +68,8 @@ internal static class BonusDefeatMessagePatch
     static void Postfix(RunState ____runState, NCommonBanner ____banner, MegaRichTextLabel ____victoryDamageLabel)
     {
         if (Endgame.Phase.Get(____runState) != 4 || ____runState.Act is not RatDomain) return;
-        ____banner.label.SetTextAutoSize("Regular victory secured");
-        ____victoryDamageLabel.Text = "The bonus challenge ends here.\nYour regular victory and progression are preserved.\nLa Rata keeps his crown... for now.";
+        ____banner.label.SetTextAutoSize(UiText.Get("endgame.victory_title"));
+        ____victoryDamageLabel.SetTextAutoSize(UiText.Get("endgame.bonus_end"));
     }
 }
 
@@ -182,17 +182,7 @@ public sealed class RatInvitation : CustomEventModel
     public override bool IsAllowed(IRunState runState) => false;
     public override bool IsShared => true;
     public override string? CustomInitialPortraitPath => "res://LaRata/images/throne_room.png";
-    public override List<(string, string)> Localization =>
-    [
-        ("title", "You Are Not Prepared"),
-        ("pages.INITIAL.description", "The Spire falls silent. Then, beneath the stone, something laughs.\n\nAn emerald slit opens in the darkness. Beyond it waits a throne of broken crowns, and upon that throne, two hungry green eyes.\n\nA voice slips through the crack. \"So. You thought yourselves finished. Come closer, little heroes. Let us see what your triumph is worth.\""),
-        ("pages.INITIAL.options.ENTER.title", "Enter the Rat King's domain"),
-        ("pages.INITIAL.options.ENTER.description", "Follow the laughter beneath the throne."),
-        ("pages.INITIAL.options.LEAVE.title", "Turn toward the light"),
-        ("pages.INITIAL.options.LEAVE.description", "Leave the crown to its shadows. The Architect awaits."),
-        ("pages.ACCEPTED.description", "The doors groan open. Somewhere beyond them, iron boots strike stone.\n\nThe laughter stops.\n\n\"At last. Guests worthy of my table.\""),
-        ("pages.DECLINED.description", "You turn away. The green light narrows to a thread, then vanishes.\n\nBehind the stone, a crown scrapes against a throne.\n\n\"Another time, then.\"")
-    ];
+    public override List<(string, string)> Localization => [];
     protected override IReadOnlyList<EventOption> GenerateInitialOptions() => [Option(Enter), Option(Leave)];
     protected override void SetInitialEventState(bool isPreFinished)
     {
@@ -215,7 +205,7 @@ public sealed class RatInvitation : CustomEventModel
 public sealed class RatDomain : CustomActModel, ILocalizationProvider
 {
     public RatDomain() : base(4, false) { }
-    public List<(string, string)> Localization => [("title", "The Rat King's Domain")];
+    public List<(string, string)> Localization => [];
     protected override int BaseNumberOfRooms => 5;
     public override IEnumerable<AncientEventModel> AllAncients => ModelDb.AllAncients
         .Where(a => a.GetType().Assembly == typeof(AncientEventModel).Assembly && a is not Neow);
@@ -357,7 +347,7 @@ internal static class BonusMapWordsPatch
         }
         var drawPaths = AccessTools.Method(typeof(NMapScreen), "DrawPaths");
         foreach (var point in ____mapPointDictionary.Values) drawPaths.Invoke(__instance, new object[] { point, point.Point });
-        string[] words = ["YOU", "ARE", "NOT", "PREPARED"];
+        string[] words = Enumerable.Range(0, 4).Select(i => UiText.Get($"endgame.map_word.{i}")).ToArray();
         for (int row = 0; row < words.Length; row++)
         {
             if (!____mapPointDictionary.TryGetValue(new MapCoord(3, row + 1), out var point) || point.HasNode("LaRataWord")) continue;

@@ -4,11 +4,13 @@ param(
     [string[]]$RequiredMarkers = @('encounter=TWO_TAILED_RATS_NORMAL players=4', 'Suppression resolved for 4 living players'),
     [int]$MinimumChecksums = 10,
     [string]$ExpectedModVersion = '0.2.0',
-    [switch]$AllowEngineShutdownResourceLeaks
+    [switch]$AllowEngineShutdownResourceLeaks,
+    [switch]$RequireResetAudit
 )
 $ErrorActionPreference = 'Stop'
 if ($Logs.Count -ne $ExpectedPlayers -or ($Logs | Select-Object -Unique).Count -ne $ExpectedPlayers) { throw "Supply $ExpectedPlayers distinct logs from the same run (host first)." }
 $records = @()
+$resetRecords = @()
 foreach ($path in $Logs) {
     $text = Get-Content -LiteralPath $path -Raw
     if ($AllowEngineShutdownResourceLeaks) {
@@ -25,7 +27,9 @@ foreach ($path in $Logs) {
         }
     }
     if ($text -match 'State divergence|state diverged|Exception thrown|LaRata: unexpected|\[ERROR\]|(?m)^ERROR:|(?m)^SCRIPT ERROR:') { throw "Failure recorded in $path" }
-    foreach ($required in (@("[LaRata] Loaded ${ExpectedModVersion}:") + $RequiredMarkers)) {
+    $versionPattern = '(?m)^\[INFO\] \[LaRata\] Loaded (?:La Rata Remix )?' + [regex]::Escape($ExpectedModVersion) + '(?:\.|:)(?:\s|$)'
+    if ($text -notmatch $versionPattern) { throw "Incomplete scenario in ${path}: missing exact loaded version $ExpectedModVersion" }
+    foreach ($required in $RequiredMarkers) {
         if (!$text.Contains($required)) { throw "Incomplete scenario in ${path}: missing $required" }
     }
     $map = @{}
@@ -41,11 +45,25 @@ foreach ($path in $Logs) {
     }
     if ($map.Count -lt $MinimumChecksums) { throw "Too few checksum observations in $path." }
     $records += ,$map
+    if ($RequireResetAudit) {
+        $resetMap = @{}
+        foreach ($match in [regex]::Matches($text, 'AUDIT reset id=(\d+) (combat=[01] round=\d+ side=\w+ owners=\[(?:\d+:\d+(?:,\d+:\d+)*)?\])')) {
+            $id = $match.Groups[1].Value
+            if ($resetMap.ContainsKey($id)) { throw "Duplicate Reset audit ID $id in $path." }
+            $resetMap[$id] = $match.Groups[2].Value
+        }
+        if ($resetMap.Count -ne $map.Count -or @($map.Keys | Where-Object { !$resetMap.ContainsKey($_) }).Count -ne 0) {
+            throw "Reset ledger audit does not cover every native checksum in $path."
+        }
+        $resetRecords += ,$resetMap
+    }
 }
 foreach ($peer in 1..($ExpectedPlayers - 1)) {
     if ($records[$peer].Count -ne $records[0].Count) { throw "Peer $peer has incomplete checksum coverage. Finish all actions and close cleanly before comparing." }
     foreach ($id in $records[0].Keys) {
         if ($records[$peer][$id] -cne $records[0][$id]) { throw "Peer $peer differs at native checksum ID $id." }
+        if ($RequireResetAudit -and $resetRecords[$peer][$id] -cne $resetRecords[0][$id]) { throw "Peer $peer differs at private Reset ledger ID $id." }
     }
 }
 Write-Output "PASS: $($records[0].Count) identical native checksum IDs and contexts on all $ExpectedPlayers peers; all requested scenario markers observed. This covers this recorded scenario only."
+if ($RequireResetAudit) { Write-Output "PASS: private Reset owner balances and native combat/round/side match at all $($records[0].Count) checksum boundaries on all $ExpectedPlayers actual peer logs." }

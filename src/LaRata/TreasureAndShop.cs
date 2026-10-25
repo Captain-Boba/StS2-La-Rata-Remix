@@ -42,49 +42,52 @@ public sealed class AThousandCuts : CustomRelicModel
     public override string PackedIconPath => "res://LaRata/images/a_thousand_cuts.png";
     protected override string PackedIconOutlinePath => PackedIconPath;
     protected override string BigIconPath => PackedIconPath;
-    public override List<(string, string)> Localization =>
-    [
-        ("title", "A Thousand Cuts"),
-        ("description", "You may remove cards at the Merchant any number of times. Pay the normal cost each time. The removal price still increases after every purchase."),
-        ("flavor", "The perfect deck is hiding inside your deck. Keep cutting.")
-    ];
+    public override List<(string, string)> Localization => [];
+
+    internal static bool IsActiveFor(Player player) =>
+        player.Relics.Any(r => r is AThousandCuts && !r.IsMelted);
 }
 
 // Keep the original selection, payment, synchronized removal and saved price counter.
 // Native restrictions (for example another relic disabling removal) still take precedence.
-[HarmonyPatch(typeof(MerchantCardRemovalEntry), nameof(MerchantCardRemovalEntry.SetUsed))]
-internal static class RepeatRemovalPatch
-{
-    [HarmonyPrefix]
-    private static bool Prefix(Player ____player)
-    {
-        if (!____player.Relics.Any(r => r is AThousandCuts) || !Hook.ShouldAllowMerchantCardRemoval(____player.RunState, ____player)) return true;
-        return false;
-    }
-}
-
+// Do not suppress SetUsed: its underlying native value must survive relic loss.
 [HarmonyPatch(typeof(MerchantCardRemovalEntry), nameof(MerchantCardRemovalEntry.Used), MethodType.Getter)]
 internal static class RemovalAvailablePatch
 {
     [HarmonyPostfix]
     private static void Postfix(Player ____player, ref bool __result)
     {
-        if (!____player.Relics.Any(r => r is AThousandCuts) || !Hook.ShouldAllowMerchantCardRemoval(____player.RunState, ____player)) return;
+        if (!AThousandCuts.IsActiveFor(____player) || !Hook.ShouldAllowMerchantCardRemoval(____player.RunState, ____player)) return;
         __result = false;
     }
 }
 
-// The native entry caches its base price for a single purchase. Recalculate at
-// the price boundary, before affordability, display and payment read it, rather
-// than as a side effect of querying Used. Native synchronization owns the saved
-// removal count; native Cost still applies discounts and other price hooks.
+// Native CalcCost at removal index zero is exactly its own BaseCost getter.
+// Reuse that getter so Inflation stays native; never mutate the saved counter
+// or freeze a potentially increased price when acquiring the relic.
+[HarmonyPatch(typeof(MerchantCardRemovalEntry), nameof(MerchantCardRemovalEntry.CalcCost))]
+internal static class FirstRemovalBasePricePatch
+{
+    private static readonly Func<int> NativeFirstCost = AccessTools
+        .PropertyGetter(typeof(MerchantCardRemovalEntry), "BaseCost").CreateDelegate<Func<int>>();
+
+    [HarmonyPostfix]
+    private static void Postfix(Player ____player, ref int ____cost)
+    {
+        if (AThousandCuts.IsActiveFor(____player)) ____cost = NativeFirstCost();
+    }
+}
+
+// Recalculate before display, affordability and the transmitted payment read.
+// Also recalculate after relic loss: an entry must not retain its ATC base price.
+// Native Cost still applies current discounts and other merchant-price hooks.
 [HarmonyPatch(typeof(MerchantEntry), nameof(MerchantEntry.Cost), MethodType.Getter)]
 internal static class RepeatRemovalPricePatch
 {
     [HarmonyPrefix]
-    private static void Prefix(MerchantEntry __instance, Player ____player)
+    private static void Prefix(MerchantEntry __instance)
     {
-        if (__instance is MerchantCardRemovalEntry && ____player.Relics.Any(r => r is AThousandCuts))
+        if (__instance is MerchantCardRemovalEntry)
             __instance.CalcCost();
     }
 }

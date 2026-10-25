@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-25",
+  "generator": "built-in image_gen",
+  "key": "lord_tibos_reset",
+  "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-9806451a-ac04-4a26-acc7-34daa530a031.png",
+  "target": "assets/LaRata/images/cards/lord_tibos_reset.png",
+  "prompt": "Use case: identity-preserve / precise-object-edit.\nImage1 is the current human Tibo Reset card artwork to edit. Image2 is the user-provided identity reference photograph.\nChange ONLY THE RENDERING STYLE OF THE HUMAN FACE, HAIR AND VISIBLE NECK in image1. Keep Tibo's actual likeness from image2: same short dark hair and hairline, thick eyebrows, eye spacing, long straight nose, jaw outline, small stubble and broad toothy friendly smile. Same expression, head pose, lighting direction and position.\nThe current face is too photographic compared with the rest. REPAINT IT COMPLETELY AS A STYLIZED HAND-PAINTED STS2 / LA RATA CARD CHARACTER, matching the chunky brush shapes of his hands, cloak and architecture. Visible angular simplified cheek/forehead/nose planes, broad ochre and warm peach light shapes, plum/burgundy shadow masses, confident dark painted contour accents around nose/eyes/jaw, grouped hair spikes rendered as broad shapes, simplified tooth/eye shapes. No photographic skin texture or pores, no smooth photographic gradients, no photo pasted into painting, no 3D skin or beauty retouch. It should look drawn/painted by the same artist as the rest, while still recognizably this exact human Tibo. Preserve his natural face proportions; no animal features or exaggerated caricature.\nEVERYTHING ELSE remains unchanged: all golden floating Energy BALLS and curved trails, human body and clothing, both hands, depressed ancient reset button with arrow, environment, composition, 4:3 dimensions, dark violet and golden palette. No words, frame, watermark or additional objects.",
+  "inputReferences": [
+    "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-b623bd0b-feec-40b3-a4c7-26514596c98f.png",
+    "C:\\Users\\lukas\\AppData\\Local\\Temp\\codex-clipboard-01779317-3643-4303-ae04-59d812ec9210.png"
+  ],
+  "generationHistory": [
+    {
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-b623bd0b-feec-40b3-a4c7-26514596c98f.png",
+      "prompt": "Use case: identity-preserve / style-transfer.\nAsset: replacement illustration for \"Lord Tibo's Reset\", La Rata Remix game card. Full bleed landscape 4:3, ideally1448x1086, opaque RGB, no words, title, card frame, UI or watermark.\n\nINPUT ROLES:\nImage1 is the USER-SUPPLIED PHOTO OF TIBO, the mandatory identity/face reference. Transform this real man into a HUMAN fantasy character while retaining his recognizability: short slightly tousled dark brown hair and hairline, thick straight dark eyebrows, warm eyes, long straight nose, subtle jaw stubble, light skin, broad friendly toothy smile, natural head shape and slight relaxed head tilt. Keep him a youthful adult man. Do not substitute a generic handsome wizard or rat.\nImage2 is the PREVIOUS RESET CARD ILLUSTRATION: composition/palette/ancient reset mechanism reference ONLY. Replace its rat character COMPLETELY with the human from image1. No rat muzzle, whiskers, animal ears, fur, paws, tail or animal companion.\nImage3 is a mod-owned LA RATA CARD STYLE REFERENCE: rich dark fantasy painting, sculpted color planes, broad decisive brushwork and contours, vibrant readable light. It contributes style only, no vehicle, creature or thorns.\n\nSCENE AND ACTION:\nExpand the human photo into a three-quarter waist-up action portrait in a ruined royal Spire chamber. Tibo occupies the center/right and retains the reference's warm recognizable smile. Dress him in a simple charcoal fantasy tunic with a burgundy cloak and restrained gold/emerald clasp, preserving a dark clothing silhouette. Hair and face fully visible. He presses a large physical RESET BUTTON on an ancient stone-and-brass pedestal in the foreground left. His connected human forearm and palm firmly press down the circular button cap, visibly depressed beneath its rim. Button carries a single clean circular return-arrow symbol, with NO lettering.\nAdd MANY DISTINCT FLOATING ENERGY BALLS ALL AROUND HIM, across foreground, both sides, upper background and near his free hand. They are clearly round magical orbs with glowing amber/gold cores and broad warm halos, a variety of sizes and depths, linked by a few curved energy trails into the reset-button pulse. Some smaller emerald/gold accents, but not blue star shapes. Keep the face and pressing hand unobscured and make the button contact clear. A magical energy-recall burst at the pressure point powers the orbs. Cool indigo/plum stone and deep shadow contrast with warm golden energy.\n\nSTYLE:\nCompletely repaint ALL pixels, especially the face, into the established Slay the Spire2 / La Rata card-art language. Human likeness should remain immediately recognizable from the photo, but rendered as a coherent stylized game illustration with expressive simplified facial planes, strong dark edges, chunky brushwork and painted light. No pasted photographic face, photoreal skin, airbrushed glamour, anime, glossy 3D or generic caricature. Character, orbs, button and architecture share one painted style. Keep key face/button/hand within central85% for native rounded card crop. No animal features at all.",
+      "inputReferences": [
+        "C:\\Users\\lukas\\AppData\\Local\\Temp\\codex-clipboard-01779317-3643-4303-ae04-59d812ec9210.png",
+        "E:\\Spieleentwicklung\\StS2 - La Rata Mod\\assets\\LaRata\\images\\cards\\lord_tibos_reset.png",
+        "E:\\Spieleentwicklung\\StS2 - La Rata Mod\\assets\\LaRata\\images\\cards\\ser_kevs_thorn_buster.png"
+      ],
+      "reason": "Intermediate human composition; selected follow-up makes the face more consistently painted while retaining likeness."
+    }
+  ],
+  "tool": "built-in image_gen",
+  "human_approved": false,
+  "newGameplayCard": true,
+  "brief": "User-supplied Tibo portrait becomes a recognizable human fantasy character, with a depressed return-arrow reset button and many floating golden Energy balls. No rat features. Art-only replacement; name, card identity, mechanics and localization unchanged.",
+  "identityReference": {
+    "source": "User-attached portrait; identity reference only, not runtime content.",
+    "preservedReference": ".research/user-art-reference-20261025/tibo-portrait-9d011bf7fb8c.png",
+    "sha256": "9d011bf7fb8cd1ad92cc4109e313787907673e5678f6e9401ae498e241e07495"
+  },
+  "previousVersions": [
+    {
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-572b2763-c8a9-44ef-85a7-561ff710ea7a.png",
+      "prompt": "Use case: stylized-concept. New original landscape 4:3 fantasy game-card illustration for La Rata Remix, ideally1448x1086. A recognizable crowned gray RAT KING with round pink ears, long whiskered muzzle, gold crown with emerald and burgundy royal mantle is emphatically PRESSING DOWN a large physical RESET BUTTON on an ancient dark stone-and-brass pedestal. Three-quarter close-medium view, rat on right, button central-left. His paw firmly contacts the depressed circular button; rim above button cap and compressed mechanism make the PRESS MOMENT unmistakable. Button face has only a simple broad curved RETURN ARROW / circular rewind symbol, no alphabetic text. It is an integrated magical Spire mechanism, NOT a modern plastic keyboard key or computer interface. At the exact contact, a strong spiral of luminous AMBER/PALE GOLD ENERGY erupts up around the rat's paw and crown, drawn from small emberlike energy motes curling back inward from the surrounding scene. Visual idea: recalling spent Energy, active forceful reset. No blue Stars, no filling energy meter, no cards, coins, health potions or words. Dark ruined royal Spire chamber with cool plum/indigo stone, charcoal shadow masses, restrained readable green jewels, amber energy as focal light. Chunky richly hand-painted Slay the Spire2 card-art style, strong dark brush contours and broad sculpted fur/cloth/stone planes, expressive mischievous determination. Main silhouette, paw-button contact and energy spiral safe in central85% crop, broad readable shapes at thumbnail size. Full bleed, no text, numbers, card frame, UI, logos or watermark.",
+      "sha256": "4c1d8f03d38e216f05e3de9898c54384ecc269a7802935f1c0bb68b3800bee81",
+      "archivedTarget": "artifacts/dev-wave-20261025/k5/before/lord_tibos_reset-rat-4c1d8f03d38e.png",
+      "reason": "User replaced the royal rat concept with the actual human Tibo from the supplied portrait."
+    }
+  ],
+  "dimensions": [
+    1448,
+    1086
+  ],
+  "mode": "RGB",
+  "sha256": "55f2a16573e47f8823ed0ac9dc1a759704bf8a5fd5f106995cf842dc59ec52c0",
+  "sourceSha256": "55f2a16573e47f8823ed0ac9dc1a759704bf8a5fd5f106995cf842dc59ec52c0"
+}

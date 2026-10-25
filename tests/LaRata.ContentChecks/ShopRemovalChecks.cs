@@ -32,12 +32,13 @@ internal static class ShopRemovalChecks
     {
         ModelDb.Inject(typeof(AThousandCuts));
         var harmony = new Harmony("LaRata.ShopRemovalChecks");
-        harmony.CreateClassProcessor(typeof(RepeatRemovalPatch)).Patch();
+        // Install the ascension context before the native BaseCost delegate is JIT-compiled.
+        harmony.Patch(AccessTools.Method(typeof(RunManager), nameof(RunManager.HasAscension)), prefix: new(typeof(ShopRemovalChecks), nameof(Ascension)));
+        harmony.CreateClassProcessor(typeof(FirstRemovalBasePricePatch)).Patch();
         harmony.CreateClassProcessor(typeof(RemovalAvailablePatch)).Patch();
         harmony.CreateClassProcessor(typeof(RepeatRemovalPricePatch)).Patch();
         // Use the real synchronized completion/counter path; replace only UI,
         // audiovisual gold/deck commands and the current run's ascension context.
-        harmony.Patch(AccessTools.Method(typeof(RunManager), nameof(RunManager.HasAscension)), prefix: new(typeof(ShopRemovalChecks), nameof(Ascension)));
         harmony.Patch(AccessTools.Method(typeof(Hook), nameof(Hook.ShouldAllowMerchantCardRemoval)), prefix: new(typeof(ShopRemovalChecks), nameof(AllowRemoval)));
         harmony.Patch(AccessTools.Method(typeof(CardSelectCmd), nameof(CardSelectCmd.FromDeckForRemoval)), prefix: new(typeof(ShopRemovalChecks), nameof(SelectCard)));
         harmony.Patch(AccessTools.Method(typeof(PlayerCmd), nameof(PlayerCmd.LoseGold)), prefix: new(typeof(ShopRemovalChecks), nameof(SpendGold)));
@@ -56,23 +57,24 @@ internal static class ShopRemovalChecks
                 var entry = new MerchantCardRemovalEntry(player);
                 int initial = highAscension ? 300 : 175;
                 int step = highAscension ? 50 : 25;
-                Require(entry.Cost == initial, "Initial native removal price differs");
+                int first = highAscension ? 100 : 75;
+                Require(entry.Cost == initial, $"Initial native removal price differs: inflation={highAscension} expected={initial} actual={entry.Cost} counter={player.ExtraFields.CardShopRemovalsUsed}");
                 entry.SetUsed();
                 Require(entry.Used && !entry.IsStocked, "Non-owner shop was reopened");
                 relics.Add(ModelDb.Relic<AThousandCuts>().ToMutable());
-                Require(!entry.Used && entry.IsStocked && entry.Cost == initial, "Mid-shop acquisition resets the price or fails to reopen");
+                Require(!entry.Used && entry.IsStocked && entry.Cost == first, "Late acquisition failed to use first price or reopen");
                 var synchronizer = (OneOffSynchronizer)RuntimeHelpers.GetUninitializedObject(typeof(OneOffSynchronizer));
                 var complete = AccessTools.Method(typeof(OneOffSynchronizer), "DoMerchantCardRemoval");
                 int expectedSpent = 0;
                 for (int purchase = 0; purchase < 3; purchase++)
                 {
                     int price = entry.Cost;
-                    Require(price == initial + purchase * step, "Repeated removal used a stale/reset price");
+                    Require(price == first, "ATC removal increased above native first price");
                     bool success = ((Task<bool>)complete.Invoke(synchronizer, [player, price, true])!).GetAwaiter().GetResult();
                     expectedSpent += price;
                     Require(success && player.ExtraFields.CardShopRemovalsUsed == 5 + purchase, "Native completion did not advance exactly once");
                     // Read price before Used/SetUsed/UI callbacks: this is the regression.
-                    Require(entry.Cost == initial + (purchase + 1) * step, "Price needs a Used getter/UI callback to advance");
+                    Require(entry.Cost == first, "ATC price changed after successful removal");
                     entry.SetUsed();
                     Require(!entry.Used && charged == expectedSpent && removed == purchase + 1, "Slot/payment/removal lifecycle differs");
                 }
@@ -86,12 +88,17 @@ internal static class ShopRemovalChecks
                 var restored = JsonSerializer.Deserialize(JsonSerializer.Serialize(saved, JsonSerializationUtility.GetTypeInfo<SerializableExtraPlayerFields>()), JsonSerializationUtility.GetTypeInfo<SerializableExtraPlayerFields>())!;
                 AccessTools.PropertySetter(typeof(Player), nameof(Player.ExtraFields)).Invoke(player, [ExtraPlayerFields.FromSerializable(restored)]);
                 Require(new MerchantCardRemovalEntry(player).Cost == nextPrice, "Next shop/reloaded native counter resets price");
+                relics.Clear();
+                Require(entry.Cost == initial + 3 * step && entry.Used && !entry.IsStocked, "Relic loss failed to restore native price/used history");
+                Require(new MerchantCardRemovalEntry(player).Cost == initial + 3 * step, "Non-owner new shop lost legitimate removal history");
+                relics.Add(ModelDb.Relic<AThousandCuts>().ToMutable());
+                Require(entry.Cost == first && !entry.Used, "Reacquisition did not restore first price");
                 blocked = true;
                 entry.SetUsed();
                 Require(entry.Used && !entry.IsStocked, "Repeat removal bypasses a native removal restriction");
             }
         }
         finally { harmony.UnpatchAll(harmony.Id); }
-        Console.WriteLine("PASS: native removal counter advances across repeated purchases at both inflation tiers; prior removals, mid-shop relic acquisition, cancellation, affordability, restrictions and saved-counter reload. UI/payment commands simulated; not a live shop/network test.");
+        Console.WriteLine("PASS: constant native first price with advancing successful counter at both inflation tiers; relic loss restores native increasing price and used state; prior removals, mid-shop relic acquisition, cancellation, affordability, restrictions and saved-counter reload. UI/payment commands simulated; not a live shop/network test.");
     }
 }

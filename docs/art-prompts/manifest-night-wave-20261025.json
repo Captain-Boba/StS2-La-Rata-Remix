@@ -1,0 +1,497 @@
+{
+  "date": "2026-10-25",
+  "tool": "built-in image_gen",
+  "scope": "Five user-approved new-relic redesigns selected at their original artkeys; existing complete royal combat pose/animation replacement is preserved. Existing cards, sixth Remover selection in the development manifest and approved boosters are unchanged except for the explicitly coordinated six-relic integration.",
+  "assets": [
+    {
+      "key": "sootbound_ticket",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-39e59207-c263-4762-b13e-226fd5a7bd5f.png",
+      "target": "assets/LaRata/images/relics/sootbound_ticket.png",
+      "prompt": "Use case: stylized-concept. ONE original Slay the Spire2 / La Rata RELIC ICON, genuine transparent alpha background, square ideally1254x1254. Complete isolated centered object about75% canvas height. Native small-icon visual economy: bold irregular dark outline, few large flat hand-painted color planes, max2–3 values per material, clear negative space and simple asymmetrical silhouette legible at32px/48px. No scene, hand, character, border, letters, numbers, text, labels, watermark, microengraving, tiny filigree, sparkles, photorealism or glossy3D. New construction from scratch, not a variation of a prior icon.\nDESIGN: An unmistakable FLAT WIDE RECTANGULAR ADMISSION TICKET, roughly2:1 width/height, tilted modestly diagonally. Ticket silhouette has characteristic big SEMICIRCULAR CUTOUT NOTCHES on both short edges and one clipped corner. Thick ivory paper, left third burned into deep black charcoal, surviving cream right side. A single broad crooked TEAR splits it across the middle; the two halves are held together by ONE OVERSIZED RED-COPPER STAPLE/STITCH, a simple broad squared loop that passes through two large punched holes on either side of the tear. The loop visibly BRIDGES the broken ticket, like someone repaired a burned one-use pass to use it once more. One rusty orange ember plane at the charred tear, no flames. Keep the whole ticket flat and rectangular, no curled tube, sail, boat, bird, ship, folded origami animal, scroll or other transformed object. Only three graphic forms: surviving ivory ticket, black scorched torn half, one thick red-copper repair stitch. No printed lines, seals, arrows, writing or digits. The familiar ticket silhouette must be recognizable instantly before noticing its odd giant repair.",
+      "kind": "relic",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        23,
+        241,
+        1242,
+        1019
+      ],
+      "sha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "sourceSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "previousVersions": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-bf39383e-7e1b-41e1-9d8e-8faa4a8c9a11.png",
+          "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. One broad cream/ochre ADMISSION TICKET with two simple punched edge notches, charred black corners and a large folded-back curled return tab on one end. The strong curled return fold is the distinctive silhouette. A few broad burnt orange planes, no printing or symbols; it reads as one burned ticket, not scroll/book/arrow icon.",
+          "sha256": "cd9392a1b8ddcccc1ef63a141aa459daf24c5590becadef095c3fd95d359ac65",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "archivedTarget": "artifacts/relic-redesign-20261025/k5/integration-before/sootbound_ticket-cd9392a1b8dd.png",
+          "reason": "Superseded by the user-approved six-relic redesign during the explicitly coordinated K6 asset window."
+        }
+      ],
+      "tool": "built-in image_gen",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+    },
+    {
+      "key": "stairwell_key",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-995231a3-dd63-4592-a8dc-b9a5e60066a9.png",
+      "target": "assets/LaRata/images/relics/stairwell_key.png",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A bizarre ancient KEY fabricated from a miniature staircase bent into one solid stepped object. The main shaft is a bold three-step DESCENDING ZIGZAG of dark brick-red cast iron, with three broad ivory worn tread surfaces. Its upper end has a thick rectangular arch shaped like an EMPTY TINY DOORWAY, not a circular key bow. Lowest step ends in one stout sideways key tooth. The entire key silhouette is a squat descending staircase with a doorway at its high end, tilted modestly diagonally. Clearly three big descending treads, no extra tiny steps or rails. Material heavy red iron and worn pale stone integrated as one relic. Story: someone folded an entire secret stairway until it would fit in a lock. NOT a standard gold key with stair-shaped teeth pasted on. No gold filigree, gems, sparks or background.",
+      "kind": "relic",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        184,
+        64,
+        1091,
+        1190
+      ],
+      "sha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "sourceSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "previousVersions": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e11bb7c7-c34f-43b8-bc22-0e87a80d1cb9.png",
+          "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. A single LARGE BRASS KEY with a chunky simple round bow, straight shaft and exactly THREE broad descending staircase-like teeth. Strong clearly stepped silhouette, antique golden yellow body with two broad brown shadow planes, one pale highlight. Not ornate, no chain, gems, letters or tiny serrations.",
+          "sha256": "3bac34b25b01924d584f0fdf0a86cab84e037a559ae164223e77412a920fafb5",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "archivedTarget": "artifacts/relic-redesign-20261025/k5/integration-before/stairwell_key-3bac34b25b01.png",
+          "reason": "Superseded by the user-approved six-relic redesign during the explicitly coordinated K6 asset window."
+        }
+      ],
+      "tool": "built-in image_gen",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+    },
+    {
+      "key": "mocking_bell",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-45a44799-65b1-4355-9418-acb8f133a54f.png",
+      "target": "assets/LaRata/images/relics/mocking_bell.png",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: One lopsided cast-bronze MOCKING BELL whose mouth is stretched sideways into a broad rude laughing opening. A broad thick PLUM-PURPLE TONGUE hangs in one curved hook out of its dark interior, and the tongue's tip IS A SECOND SMALL UPSIDE-DOWN BELL rather than a standard round clapper. The little answering bell points sideways away from the large one, clearly distinct at thumbnail size, joined continuously by the chunky purple tongue. Large bell body has one folded ear-like top handle, no conventional circular suspension ring. Main silhouette is a crooked opened bell with one hooked purple tongue/second bell off its lower side. Only3major shapes, subdued aged bronze/plum/dark mouth, two broad planes per material. Suggest mocking expression through the mouth opening and tilted shape, no detailed eyes or face stuck on. Story: it never rings without answering itself. NOT a symmetrical stock bell with a purple ball clapper.",
+      "kind": "relic",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        168,
+        70,
+        1126,
+        1196
+      ],
+      "sha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "sourceSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "previousVersions": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-62fbe403-2f53-4e6b-9c76-29ef4dc1dd2c.png",
+          "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. A single slightly CROOKED BRONZE HANDBELL with a short thick top loop and one prominent oversized VIOLET CLAPPER visibly hanging in its open lower mouth. Tilt the bell a little for a mischievous silhouette. Warm bronze/ochre shell, dark brown interior and clear plum/purple clapper; only broad painted planes, no face or engraving.",
+          "sha256": "d909e377b6ea8428eafa4ece4f3010d19813579bb3485916a8930cf31eed4a91",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "archivedTarget": "artifacts/relic-redesign-20261025/k5/integration-before/mocking_bell-d909e377b6ea.png",
+          "reason": "Superseded by the user-approved six-relic redesign during the explicitly coordinated K6 asset window."
+        }
+      ],
+      "tool": "built-in image_gen",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+    },
+    {
+      "key": "brass_scavenger",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-f7a5a002-60b6-46a9-a631-312833ba665a.png",
+      "target": "assets/LaRata/images/relics/brass_scavenger.png",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A strange squat cast-BRASS SCAVENGER BEETLE figurine. One oversized asymmetrical shovel-like jaw bites a single visibly split BLUE-GRAY SHIELD SHARD. Its round convex brass belly is shaped like one smooth old coin, with no stamped symbol. A dark iron back and only two visible broad stubby claw feet, no six thin insect legs. Main silhouette is a compact hunched beetle with an enormous forward shovel-mouth and the broken shield shard caught in it;3–4big readable forms. The jaw is physically connected to the body and grips the shard. Warm muted brass broad planes, cool slate-blue shard, charcoal back, no tiny joints/gears. Story: this greedy little metal scavenger eats a shattered shield and saves the valuable scrap in its coin belly. NOT a gold crescent hook on a shield, hammer, generic gear, money bag or ornate robot.",
+      "kind": "relic",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        75,
+        179,
+        1197,
+        1044
+      ],
+      "sha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "sourceSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "previousVersions": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-708c6e07-e23d-48e5-b298-aadbe9168f94.png",
+          "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. One heavy curved BRASS FANG hooked through a single BROKEN BLUE-GRAY SHIELD FRAGMENT, forming one compact unified relic. The gold/brass tooth is the main large silhouette, cracked shield shard a small supporting shape. One strong gold highlight and dark blue-gray planes. No coins, text, trophies, extra teeth, gore or microscopic cracks.",
+          "sha256": "c0ea3dbec2679cf66e36860ab76e0dd9d1525a39edf7cc5b386b515219bca96d",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "archivedTarget": "artifacts/relic-redesign-20261025/k5/integration-before/brass_scavenger-c0ea3dbec267.png",
+          "reason": "Superseded by the user-approved six-relic redesign during the explicitly coordinated K6 asset window."
+        }
+      ],
+      "tool": "built-in image_gen",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+    },
+    {
+      "key": "moonlit_stopper",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d0721056-b709-4b38-896c-96ac7bb0f9c6.png",
+      "target": "assets/LaRata/images/relics/moonlit_stopper.png",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A peculiar bottle STOPPER that is a sleeping SILVER MOON-FISH. The fish's thick body curls into an asymmetric crescent, with one tiny simple closed-eye slash, no scales. Its single wide folded tail is wedged down into a SHORT BROKEN VIOLET GLASS BOTTLENECK COLLAR, physically sealing it. No cork at all: the moon-fish itself is the plug. One large turquoise potion-drop bead rests in the crescent belly opening, captured like a stored possibility. The neck is only a chunky short collar, not an entire bottle. Main silhouette a curled ivory/silver fish, broad forked tail below and jagged violet glass collar; cold silver/navy/violet with one turquoise bead. Story: the bottle is gone but its moon-shaped keeper still holds one impossible drop. Organic handmade ceramic/silver object, no detailed fins/scales, no stars or glow cloud. NOT a generic crescent stuck on top of a brown cork. Max4large shapes.",
+      "kind": "relic",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        186,
+        75,
+        1149,
+        1180
+      ],
+      "sha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "sourceSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "previousVersions": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-9ce1330e-6d4e-4b37-a6a4-89a9f990f427.png",
+          "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. One large tapered warm-brown CORK STOPPER with a simple SILVER CRESCENT MOON cap on its top. The cork and bold pale silver crescent form a single clear silhouette; a little muted blue shadow under crescent. No bottle, liquid, stars, magic swirls, text or detailed cork pores; just broad brown/silver/blue painted shapes.",
+          "sha256": "7f62dda4a8e5db249ae665c174c622dfad404785f69ae9e451d6accd1886f378",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "mode": "RGBA",
+          "archivedTarget": "artifacts/relic-redesign-20261025/k5/integration-before/moonlit_stopper-7f62dda4a8e5.png",
+          "reason": "Superseded by the user-approved six-relic redesign during the explicitly coordinated K6 asset window."
+        }
+      ],
+      "tool": "built-in image_gen",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+    },
+    {
+      "key": "idle",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-3c6a8059-181e-4249-a3ea-262585291ac5.png",
+      "target": "assets/LaRata/images/royal_combat/idle.png",
+      "prompt": "Use case: identity-preserve / stylized-concept. Production FULL-BODY combat-model redesign for La Rata Remix, not a card portrait. Image1 is the old mod-owned rat king IDENTITY reference: retain recognizable gray royal rat, round pink ears, long expressive muzzle/whiskers, green eyes, gold crown, fur-trimmed royal mantle and emerald scepter. Image2 is the mod's PAINTED CARD rendering reference, not a scene or outfit to copy.\nCreate ONE complete LEFT-FACING three-quarter standing combat rat king on genuine transparent alpha. No throne, scenery, platform, floor shadow, text, labels or frame. Full crown, both feet, mantle hem, curled tail and entire scepter inside the canvas with 10% transparent margins.\nRedesign the figure to fit native StS2 painted cartoon silhouettes AND the mod's richer card illustrations: more confident asymmetrical painted shapes, visible broad brush planes, large expressive rat head, stocky rat body and low planted stance, not a tall human in a robe, not plastic/3D/esports art. Gray fur with warm highlights, cream fur collar in broad tufts, charcoal robe, deep burgundy royal mantle with dark emerald lining, a few antique-gold shapes and restrained readable emerald gems. Crown has five readable large points and one green central gem, no micro-ornament. Big rounded ears, sly sinister grin, sharp incisors. Emerald eyes are readable but not laser-bright.\nForward LEFT paw grips a simple gold scepter with one faceted emerald head; rear/right free paw held naturally near his chest ready to cast royal cards. Four digits per hand (three fingers and a thumb), coherent joints and grip. Tail curls behind to image-right; robe and mantle do not hide both planted clawed feet. Clear neutral idle pose, balanced shoulders and grounded silhouette; this is the consistent master design for later Idle/Attack/Cast/Hit/Death animation sheets. No weapons other than the same scepter. Matte painterly finish, strong dark contours and simple sculpted light planes rather than tiny details. Ideally1254-square RGBA transparent background.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        30,
+        41,
+        1250,
+        1189
+      ],
+      "sha256": "aa6f9d508b08797c881440ed515e3c50feed4d13e28984fc4e52da8b510b0640",
+      "sourceSha256": "aa6f9d508b08797c881440ed515e3c50feed4d13e28984fc4e52da8b510b0640"
+    },
+    {
+      "key": "blink",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-2f2588a1-42b6-4ceb-ba3c-41f58f2153b5.png",
+      "target": "assets/LaRata/images/royal_combat/blink.png",
+      "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nThe exact same neutral standing pose as master, but with both eyes fully closed for a natural blink. Same feet, planted staff, mantle/tail and free paw position; no other action change.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        30,
+        41,
+        1252,
+        1189
+      ],
+      "sha256": "2923d681891a9f12659073d24c639c30be7410d249655d588a9bdd0de77fe06c",
+      "sourceSha256": "2923d681891a9f12659073d24c639c30be7410d249655d588a9bdd0de77fe06c"
+    },
+    {
+      "key": "attack_windup",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-197d9e39-627f-40bd-bde9-8e832036a28a.png",
+      "target": "assets/LaRata/images/royal_combat/attack_windup.png",
+      "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne clear ATTACK ANTICIPATION pose: weight shifts back/image-right, knees flex, torso twists; scepter-gripping arm raises/draws that scepter back over the near shoulder in preparation for a leftward strike. Other/free arm braces naturally in front of chest. Crown/head remain left-facing, mantle follows twist. Complete staff remains visible.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        38,
+        29,
+        1251,
+        1220
+      ],
+      "sha256": "b81927841371d70c4185896ae470501663abd69da58b6c91f95b167d84d3687b",
+      "sourceSha256": "b81927841371d70c4185896ae470501663abd69da58b6c91f95b167d84d3687b"
+    },
+    {
+      "key": "attack_impact",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-3b63897c-881a-45c1-a1f4-d89cae702d87.png",
+      "target": "assets/LaRata/images/royal_combat/attack_impact.png",
+      "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne clear ATTACK IMPACT pose: grounded LEFTWARD scepter thrust/sweep, the scepter hand/arm extends toward left, staff points diagonally/horizontally forward-left, torso leans left, knees bend and cape trails right. The second/free paw braces at chest. Exactly two coherent arms. Strong strike silhouette, all staff and feet inside canvas, no impact effect/background.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        13,
+        178,
+        1254,
+        1103
+      ],
+      "sha256": "853863af9af301a8d1ec4af77a7da76bc658c38570dda4021145be17991bce57",
+      "sourceSha256": "853863af9af301a8d1ec4af77a7da76bc658c38570dda4021145be17991bce57"
+    },
+    {
+      "key": "cast_gather",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-fb9f56ef-23a7-4ee0-ba21-1e2736e80bd5.png",
+      "target": "assets/LaRata/images/royal_combat/cast_gather.png",
+      "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne CAST GATHER pose. Scepter stays in its normal forward LEFT gripping paw. The OTHER/rear arm is the ONLY casting arm: move its free paw from its chest to a raised open-palm position on IMAGE-RIGHT beside the rat's shoulder. That old idle chest paw no longer exists; exactly TWO hands total. Three small emerald spectral cards gather directly above this real open palm, no broad halo. Body preparing, eyes left.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        45,
+        45,
+        1247,
+        1196
+      ],
+      "sha256": "2886c6856a1ee55d03de5877466b268df71ea49bbfe403d9d467585b0ed87032",
+      "sourceSha256": "2886c6856a1ee55d03de5877466b268df71ea49bbfe403d9d467585b0ed87032"
+    },
+    {
+      "key": "hit",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-fd20008c-66d9-4a49-8976-bf1f32c1c656.png",
+      "target": "assets/LaRata/images/royal_combat/hit.png",
+      "prompt": "Use case: precise-object-edit. Create one SUBTLE HIT-REACTION pose from this exact full-body master, not a new stance. Preserve both feet/lower robe/tail at the SAME positions, same head/body size, same staff in the same image-left hand. Only upper-body reaction: shoulders tuck slightly, head remains FACING LEFT and recoils by only a small distance (about one tenth of head width), muzzle still points left, eyes squeezed shut and teeth clenched. Do NOT turn the face to image-right, do NOT bend the torso far sideways or move head across the whole body. Free right paw braces slightly closer to chest without adding a hand. Same crown, burgundy mantle, cream fur, charcoal/emerald robe. Exactly two arms; staff grip preserved. One whole pose on real transparent alpha ideally1254square, no copies, floor, background, red overlay, text or frame. The result must crossfade naturally with this master without a head teleport or footprint change.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "previousGeneration": {
+        "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-fb81dfd2-993e-4a91-a7d1-113e29e484b4.png",
+        "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne HIT RECOIL pose: shoulders and head recoil toward image-right, knees dip, free hand braces chest, scepter tilts but remains gripped by other paw. Pained expression with eyes squeezed shut; tail and mantle follow. Feet on a common ground, no blood, no red overlay, no other characters.",
+        "reason": "Recoil initially reversed head direction; replaced with subtle left-facing reaction."
+      },
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        31,
+        44,
+        1251,
+        1188
+      ],
+      "sha256": "4edfccbd27d39a8a198e71fe7fe2cf2ee5337d59c4977d7385eeec115c737a45",
+      "sourceSha256": "4edfccbd27d39a8a198e71fe7fe2cf2ee5337d59c4977d7385eeec115c737a45"
+    },
+    {
+      "key": "death_kneel",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-b64f7b50-8a28-4226-9e50-880cde95bdc8.png",
+      "target": "assets/LaRata/images/royal_combat/death_kneel.png",
+      "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne DEFEAT/KNEEL pose: rat sinks to BOTH knees, head bowed and green eyes nearly closed, crown askew but retained, mantle pools naturally. Scepter held low in one paw, free paw touches knee. Same physical head/body size, no blood. Complete lower body/staff within canvas.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        15,
+        162,
+        1242,
+        1128
+      ],
+      "sha256": "70f1e4ef11253235ec5af04bd46f7f637f908d194209fb8e03c8d311fb089ce2",
+      "sourceSha256": "70f1e4ef11253235ec5af04bd46f7f637f908d194209fb8e03c8d311fb089ce2"
+    },
+    {
+      "key": "death_lie",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-5723a046-ea3d-4ba0-89a0-83f2f6aff4ea.png",
+      "target": "assets/LaRata/images/royal_combat/death_lie.png",
+      "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne final DEAD/DEFEATED resting pose: rat fully lying on his side on the invisible ground, eyes closed, crown tilted but recognizable, burgundy mantle folded over his connected body, tail settled behind. Scepter lies beside the connected paw. Entire low horizontal figure and staff inside canvas, no blood, no detached crown/limbs, no floor/shadow.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        7,
+        383,
+        1250,
+        902
+      ],
+      "sha256": "c6604453355536badcf5f9519a4a1746f2263cc9c69583a8bd4004c666df387c",
+      "sourceSha256": "c6604453355536badcf5f9519a4a1746f2263cc9c69583a8bd4004c666df387c"
+    },
+    {
+      "key": "cast_release",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-a8da7185-6b02-4423-9c86-a201c311e363.png",
+      "target": "assets/LaRata/images/royal_combat/cast_release.png",
+      "prompt": "Use case: precise-object-edit. This is the CAST GATHER frame of a combat animation. Make the immediately following CAST RELEASE pose while preserving anatomy/registration. Exactly TWO arms. The scepter MUST STAY in the SAME image-LEFT gripping hand and same image-LEFT position as in this image; do not move it to the other hand. Keep that planted scepter/grip/staff side unchanged. The free arm already raised on IMAGE-RIGHT extends a little farther outward/upward on IMAGE-RIGHT, palm open, and releases its three emerald cards in a curved arc UP and toward LEFT over the rat's head. Erase cards at their old gather positions; no extra paw at chest. His torso leans slightly forward-left, cape follows, green eyes track left. Keep identical rat/crown/feet/tail/robe design, same body/head scale and ground baseline, full body on true transparent alpha. Entire figure, scepter and small card arc fit with transparent margins inside square canvas, ideally1254x1254. No new background, floor, labels, frame, duplicate arm or hand swap. This is ONE complete pose, not a grid.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "previousGeneration": {
+        "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-a1a680f0-3bb1-407d-b843-08a6357f1901.png",
+        "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne CAST RELEASE pose. Scepter still gripped with the forward LEFT paw. The OTHER/rear free arm moves forward across the torso and extends its palm to the LEFT; erase its old chest position, exactly TWO arms/hands total. A small arc of three emerald spectral cards leaves the actual casting palm toward left, sparse attached wisps only. Torso leans slightly and cloak follows. Scepter and free hand are distinct, not an extra floating palm.",
+        "reason": "Continuity correction: keep scepter hand and fall orientation consistent."
+      },
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        42,
+        8,
+        1251,
+        1214
+      ],
+      "sha256": "a4a103447710e4b236bb532c5ccba80a98dd35edf375e5296f2ca54ba81c8614",
+      "sourceSha256": "a4a103447710e4b236bb532c5ccba80a98dd35edf375e5296f2ca54ba81c8614"
+    },
+    {
+      "key": "death_fall",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d95b047d-2504-4db2-9ca0-a91446f43ddd.png",
+      "target": "assets/LaRata/images/royal_combat/death_fall.png",
+      "prompt": "Use case: precise-object-edit. The supplied image is the FINAL COLLAPSED pose for La Rata's death animation. Create the pose immediately BEFORE it: the same rat halfway lowered onto his LEFT-facing side, upper body/head raised slightly off the eventual resting position, supporting forearm still bent, knees folded, cloak settling. Keep the HEAD and crown at IMAGE-LEFT and body/feet/tail extending toward IMAGE-RIGHT, exactly the same physical direction and same body/head size as the supplied final pose. The SAME scepter lies diagonally beside the same connected paw with its GEM END AT IMAGE-LEFT; do not flip the whole character or reverse the staff. Green eyes nearly closed, weak defeated expression. This must naturally lower into the supplied corpse without a mirror flip or teleport. Exactly two connected arms, no detached body parts/blood. Preserve gray rat/burgundy mantle/cream fur/emerald lining/gold crown design and painted style. One whole contained pose on true transparent alpha, ideally1254square; entire staff, crown and tail inside generous margins. No floor, shadows, background, text or extra frames.",
+      "kind": "boss_pose",
+      "human_approved": false,
+      "previousGeneration": {
+        "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-ad8e167b-0fbc-4526-bc80-7cba14fc3bd0.png",
+        "prompt": "Use case: precise-object-edit. The supplied mod-owned image is the La Rata full-body combat MASTER. Produce EXACTLY ONE full-body animation pose of this SAME character, on a genuine transparent background, ideally1254x1254 RGBA. No sprite grid, copies, panels, text, floor, shadows, backdrop or detached limbs. Preserve his gray rat face/round pink ears/green eyes, five-point gold emerald crown, cream fur collar, burgundy mantle, charcoal robe with emerald lining, gold scepter, curled pink tail, coherent FOUR-DIGIT paws. Same detailed chunky hand-painted StS2/card-art finish. Facing LEFT. The ENTIRE crown, feet, tail, scepter and any magic must fit inside central80% of canvas with generous transparent margins. Exactly TWO arms/hands: one gripping the same scepter, ONE free arm attached to the other shoulder. Never keep an extra old free hand at the chest after moving it.\nOne DEFEAT/FALL pose: kneeling rat tips onto his side toward image-right, body clearly lowered and rotated with mantle folding beneath, head/crown nearing ground, staff being lowered to lie beside connected gripping paw. Exactly two coherent arms, all limbs attached, no blood. Entire sideways silhouette inside canvas.",
+        "reason": "Continuity correction: keep scepter hand and fall orientation consistent."
+      },
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaBoundsAt16": [
+        4,
+        353,
+        1247,
+        947
+      ],
+      "sha256": "b764c518c171010622197256e9c557f2c2bd1d4f4655e81711608732d751147d",
+      "sourceSha256": "b764c518c171010622197256e9c557f2c2bd1d4f4655e81711608732d751147d"
+    }
+  ],
+  "limits": [
+    "Native AnimationPlayer integration; no new runtime dependency.",
+    "Technical and local-client validation belongs to K6; human visual approval is not inferred."
+  ],
+  "animationPipeline": "Native AnimationPlayer and Sprite2D/whole-image AtlasTexture. Ten original individual transparent poses, authored ground pivots and uniform scale, five action states plus RESET. Rejected multipose atlas experiments are not runtime inputs.",
+  "discardedAtlasExperiments": [
+    {
+      "state": "idle",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-964c75bb-d992-4e05-bb19-04bd592d5121.png",
+      "prompt": "Use case: precise-object-edit. Production atlas layout repair for this mod-owned FOUR-POSE IDLE sheet. Preserve the exact rat identity, existing painted style and the same four animation phases in their current TL/TR/BL/BR order. Re-layout the four poses to a STRICTLY NON-OVERLAPPING 2x2 square atlas, ideally1254x1254 RGBA. Each cell627x627. SHRINK EACH POSE within its OWN cell: the ENTIRE character, staff, tail, fur hem and any attached magic must fit within local x85..542 and y85..552. Each pose has an independent at least70px clear TRANSPARENT gutter on all four edges of its cell. No part may touch or cross the central vertical/horizontal split or the outer canvas. Center the feet/ground at local x313,y550 in every cell. Maintain the SAME body/head size across the four poses; bent/dead poses become naturally shorter, not enlarged to fill space. This is an atlas-layout repair, not an art-style redesign. True alpha0 between sprites; no colored rectangular backgrounds, grid, labels or floor shadows. Preserve only clearly attached small magic. Do not add/remove limbs or objects. Keep complete uncut staff/crown/tail inside each cell. No text, frame, watermark or extra image panels.",
+      "reason": "Superseded by individually authored whole poses; cell overlap/extra-arm risk."
+    },
+    {
+      "state": "attack",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-b21e3d03-c64e-407a-bf85-381c866686d8.png",
+      "prompt": "Use case: precise-object-edit. Production atlas layout repair for this mod-owned FOUR-POSE ATTACK sheet. Preserve the exact rat identity, existing painted style and the same four animation phases in their current TL/TR/BL/BR order. Re-layout the four poses to a STRICTLY NON-OVERLAPPING 2x2 square atlas, ideally1254x1254 RGBA. Each cell627x627. SHRINK EACH POSE within its OWN cell: the ENTIRE character, staff, tail, fur hem and any attached magic must fit within local x85..542 and y85..552. Each pose has an independent at least70px clear TRANSPARENT gutter on all four edges of its cell. No part may touch or cross the central vertical/horizontal split or the outer canvas. Center the feet/ground at local x313,y550 in every cell. Maintain the SAME body/head size across the four poses; bent/dead poses become naturally shorter, not enlarged to fill space. This is an atlas-layout repair, not an art-style redesign. True alpha0 between sprites; no colored rectangular backgrounds, grid, labels or floor shadows. Preserve only clearly attached small magic. Do not add/remove limbs or objects. Keep complete uncut staff/crown/tail inside each cell. No text, frame, watermark or extra image panels.",
+      "reason": "Superseded by individually authored whole poses; cell overlap/extra-arm risk."
+    },
+    {
+      "state": "cast",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e5eb0040-bcd4-48d8-adbf-303c7569781b.png",
+      "prompt": "Use case: precise-object-edit. Production atlas layout repair for this mod-owned FOUR-POSE CAST sheet. Preserve the exact rat identity, existing painted style and the same four animation phases in their current TL/TR/BL/BR order. Re-layout the four poses to a STRICTLY NON-OVERLAPPING 2x2 square atlas, ideally1254x1254 RGBA. Each cell627x627. SHRINK EACH POSE within its OWN cell: the ENTIRE character, staff, tail, fur hem and any attached magic must fit within local x85..542 and y85..552. Each pose has an independent at least70px clear TRANSPARENT gutter on all four edges of its cell. No part may touch or cross the central vertical/horizontal split or the outer canvas. Center the feet/ground at local x313,y550 in every cell. Maintain the SAME body/head size across the four poses; bent/dead poses become naturally shorter, not enlarged to fill space. This is an atlas-layout repair, not an art-style redesign. True alpha0 between sprites; no colored rectangular backgrounds, grid, labels or floor shadows. Preserve only clearly attached small magic. CRITICAL ANATOMY REPAIR: exactly TWO arms/hands total in each character. One hand continuously grips the scepter; the OTHER free hand is the casting hand. In top-right frame1, REMOVE the extra third floating forearm/palm while keeping the normal scepter grip and move the actual free hand FROM its chest position INTO the raised casting position. There must NOT also be an extra idle claw left at the chest. In bottom-left frame2 retain exactly two arms, one scepter hand and one extended casting arm. Four digits per paw, consistent attachment to shoulder. Keep cards small, just above the real free palm, within cell. No text, frame, watermark or extra image panels.",
+      "reason": "Superseded by individually authored whole poses; cell overlap/extra-arm risk."
+    },
+    {
+      "state": "hit",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e7d3daca-2dd6-4f1b-b0ec-0ddcbca12983.png",
+      "prompt": "Use case: precise-object-edit. Production atlas layout repair for this mod-owned FOUR-POSE HIT sheet. Preserve the exact rat identity, existing painted style and the same four animation phases in their current TL/TR/BL/BR order. Re-layout the four poses to a STRICTLY NON-OVERLAPPING 2x2 square atlas, ideally1254x1254 RGBA. Each cell627x627. SHRINK EACH POSE within its OWN cell: the ENTIRE character, staff, tail, fur hem and any attached magic must fit within local x85..542 and y85..552. Each pose has an independent at least70px clear TRANSPARENT gutter on all four edges of its cell. No part may touch or cross the central vertical/horizontal split or the outer canvas. Center the feet/ground at local x313,y550 in every cell. Maintain the SAME body/head size across the four poses; bent/dead poses become naturally shorter, not enlarged to fill space. This is an atlas-layout repair, not an art-style redesign. True alpha0 between sprites; no colored rectangular backgrounds, grid, labels or floor shadows. Preserve only clearly attached small magic. Do not add/remove limbs or objects. Keep complete uncut staff/crown/tail inside each cell. No text, frame, watermark or extra image panels.",
+      "reason": "Superseded by individually authored whole poses; cell overlap/extra-arm risk."
+    },
+    {
+      "state": "dead",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-ccd8b2a5-015e-4231-89e6-54598dc79a72.png",
+      "prompt": "Use case: precise-object-edit. Production atlas layout repair for this mod-owned FOUR-POSE DEAD sheet. Preserve the exact rat identity, existing painted style and the same four animation phases in their current TL/TR/BL/BR order. Re-layout the four poses to a STRICTLY NON-OVERLAPPING 2x2 square atlas, ideally1254x1254 RGBA. Each cell627x627. SHRINK EACH POSE within its OWN cell: the ENTIRE character, staff, tail, fur hem and any attached magic must fit within local x85..542 and y85..552. Each pose has an independent at least70px clear TRANSPARENT gutter on all four edges of its cell. No part may touch or cross the central vertical/horizontal split or the outer canvas. Center the feet/ground at local x313,y550 in every cell. Maintain the SAME body/head size across the four poses; bent/dead poses become naturally shorter, not enlarged to fill space. This is an atlas-layout repair, not an art-style redesign. True alpha0 between sprites; no colored rectangular backgrounds, grid, labels or floor shadows. Preserve only clearly attached small magic. Do not add/remove limbs or objects. Keep complete uncut staff/crown/tail inside each cell. No text, frame, watermark or extra image panels.",
+      "reason": "Superseded by individually authored whole poses; cell overlap/extra-arm risk."
+    }
+  ],
+  "scene": {
+    "path": "assets/LaRata/scenes/rat_king.tscn",
+    "sha256": "ee66d3bfab1438f9d79d3f088f71ea2abf6d0510e9144bda701f868f75deb5be",
+    "layout": "docs/art-prompts/royal-combat-20261025/atlas-layout.json",
+    "layoutSha256": "6b0cecea322484ee93bb3a5356d5171afbe8341db999a0cff7ffe14ec138b6f8"
+  },
+  "relicRedesign": {
+    "selectedKeys": [
+      "sootbound_ticket",
+      "stairwell_key",
+      "mocking_bell",
+      "brass_scavenger",
+      "moonlit_stopper"
+    ],
+    "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+    "mapping": "docs/art-prompts/relic-redesign-20261025/manifest-runtime-approved.json",
+    "status": "Six approved runtime PNGs integrated; no PCK/install/live evidence. Other assets unchanged."
+  }
+}

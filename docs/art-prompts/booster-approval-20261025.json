@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-25",
+  "humanThreadId": "01a170cc-23f9-7c73-8c92-ebeefcbf866f",
+  "humanMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+  "reply": "Ja, die Serie passt so",
+  "scope": "Six current booster forms, orientation and simplified style, including disclosed approximately 1-4 percent ratio variation. No other artwork, live UI, packaging or gameplay approval.",
+  "manifest": {
+    "path": "docs/art-prompts/manifest-dev-wave-20261025-booster-approved.json",
+    "sha256": "f1763f156178d090169b14df5f4098bc9d79696b09306350a6bce948da65c7a5"
+  },
+  "contactSheet": {
+    "path": "artifacts/dev-wave-20261025/k5/boosters.png",
+    "sha256": "e8a84caafe953199b8c5251aaaca8663cbc8c423ce9a62ccb1666ccb55f7491a"
+  },
+  "assets": [
+    {
+      "key": "ironclad_pack",
+      "target": "assets/LaRata/images/relics/ironclad_pack.png",
+      "sha256": "598928c0d8bb123078bc6b19c0b0239c22f314fe607900ddb3e30dbdc3c2a6d9",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/ironclad_pack.png",
+      "sourceSha256": "204c131d32accd71943709dc7918e05a1f7451c558d23219740ab6dfeee2c30d",
+      "observedOuterSilhouetteRatio": 0.71531
+    },
+    {
+      "key": "silent_pack",
+      "target": "assets/LaRata/images/relics/silent_pack.png",
+      "sha256": "a06c794ba49903d77bff242b77bc61b3c44ddcd269e8319395df77ce3ac25e54",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/silent_pack.png",
+      "sourceSha256": "401fc93e45334f678cd152e9d2c8c665a06460108a7acb9a014b6dcc74e859f8",
+      "observedOuterSilhouetteRatio": 0.72143
+    },
+    {
+      "key": "defect_pack",
+      "target": "assets/LaRata/images/relics/defect_pack.png",
+      "sha256": "e8e5d5c08aecfbd5386c0f3ff648cfeeae251c6c458ba2b8762a9e55b8cc336a",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/defect_pack.png",
+      "sourceSha256": "fec14f7cf319d4638cdf595f29566594015817c3737c6e786408f187ce15e10b",
+      "observedOuterSilhouetteRatio": 0.71837
+    },
+    {
+      "key": "regent_pack",
+      "target": "assets/LaRata/images/relics/regent_pack.png",
+      "sha256": "98afa4847f2372d428f554a1c07e0ceafffbbcebc41014f944d0c1f6a632dd8b",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/regent_pack.png",
+      "sourceSha256": "81f667c4ed6cbded072cb6b74d6bc0018bc5d2c0e181aa05b99dbc86027b79b0",
+      "observedOuterSilhouetteRatio": 0.71356
+    },
+    {
+      "key": "necrobinder_pack",
+      "target": "assets/LaRata/images/relics/necrobinder_pack.png",
+      "sha256": "3ea78b9e04997dbdf551bd94eef4b2824835b4b2d8cbaa5b258cf0374a424e68",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/necrobinder_pack.png",
+      "sourceSha256": "d01626d25b18bae0a4d841ccffd8567a4b088986d43c85dfce48993bda41eadd",
+      "observedOuterSilhouetteRatio": 0.71458
+    },
+    {
+      "key": "royal_pack",
+      "target": "assets/LaRata/images/relics/royal_pack.png",
+      "sha256": "bdafe58b53961205f4d0c96400178cc72cbad1c79da523db6f3da289b368a998",
+      "projectSource": "docs/art-prompts/booster-sources-20261025/royal_pack.png",
+      "sourceSha256": "7e8fc366a16262044d642672979665768e407a4320cd8491b98b6b00f24cc600",
+      "observedOuterSilhouetteRatio": 0.73394
+    }
+  ]
+}

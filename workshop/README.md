@@ -6,13 +6,19 @@ Publishing uses Mega Crit's official [sts2-mod-uploader](https://github.com/mega
 
 The downloaded `ModUploader-win-x64.zip` SHA-256 was `2B55C19CC5932235CA9DBD663CA07D04E5D5A0018402303199F9B4EC8CA06578`.
 
-Release target: **0.9.3**, using the three runtime files from the local 0.9.3 package. The GitHub binary release remains 0.9.2 until separately updated. The short Workshop description contains the current version, mod summary, content list, a recommendation to start without Ascension levels and a brief work-in-progress notice; detailed patch notes and validation limits live in [UPDATE-0.9.3.md](../docs/UPDATE-0.9.3.md).
+Release target: **0.9.4 BETA**. Description and change notes use EN, Simplified Chinese and German blocks, with language pointers at the top of the description. Before each authorized upload, stage and verify the three runtime files against the current [QA report](../docs/RARITY-ART-QA-20261025.md). The existing ENet disconnect failure remains open. The matching GitHub release uses tag `v0.9.4` and asset `LaRata-0.9.4.zip`.
 
 ## Files
 
-- `LaRata/workshop.json`: official upload configuration, English description, visibility, change notes, tags and BaseLib dependency (3737335127).
+The owner supplied the new English description for 0.9.4. Preserve its wording; remove only pasted formatting artifacts. Follow it with Simplified Chinese and German translations (EN -> CN -> DE). Use ordinary Steam BBCode headings and separators, not unsupported collapsible tags.
+
+Patch notes use three complete language blocks in the same order. Within each block use New Content, Balancing, Bug Fixes, and Compatibility / Known Issues. Keep them concise; do not single out individual new cards. Mirror both text files into the JSON fields read by the uploader.
+
+In Workshop descriptions and similar public-facing copy, write all numbers greater than 3 as numerals, including compound terms such as `4-player` and `7-card`.
+
+- `LaRata/workshop.json`: official upload configuration, trilingual description and change notes, visibility, tags and BaseLib dependency (3737335127).
 - `LaRata/description.txt`: editable source of the description; copy changes into `workshop.json` before publishing. The uploader reads the JSON description.
-- `LaRata/changelog-0.9.3.txt`: full Steam change notes, mirrored into `workshop.json` for upload.
+- `LaRata/changelog-0.9.4.txt`: current Steam change notes, mirrored into `workshop.json` for upload. Older change notes remain historical.
 - `LaRata/mod_id.txt`: stable item identity.
 - `LaRata/image.png`: 600 x 600 square Workshop thumbnail, below Steam's 1 MiB limit, recomposed to fill square tiles without letterboxing. The existing artwork license applies.
 - `LaRata/artwork-square-source.png`: full-resolution square cover generated from the widescreen cover, keeping the rat king left and the large logo right. This is the current thumbnail source.

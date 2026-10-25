@@ -33,15 +33,12 @@ public abstract class KingsguardKnight : CustomMonsterModel, ILocalizationProvid
     public override string? HurtSfx => Model.HurtSfx;
     public override float HpBarSizeReduction => 30;
     public override int MaxInitialHp => MinInitialHp;
-    public List<(string, string)> Localization =>
-    [
-        ("name", GuardName), ("moves.OATH.title", "Keep the Crown"),
-        ("moves.STRIKE.title", "Royal Steel"), ("moves.RENEW.title", "Unbroken Oath")
-    ];
+    public List<(string, string)> Localization => [];
     private RatKing? sovereign;
     // Bestiary builds and evaluates moves before a Creature exists. Bind the
     // commander only through the native live-room lifecycle.
     protected int PendingRoyalStrength => sovereign?.Creature.IsAlive == true ? sovereign.PendingStrength : 0;
+    protected AbstractIntent RoyalAttackIntent(int damage, int hits = 1) => new RoyalForecastAttackIntent(() => sovereign, damage, hits);
     public override async Task AfterAddedToRoom()
     {
         await base.AfterAddedToRoom();
@@ -94,8 +91,8 @@ public sealed class CrownBulwark : KingsguardKnight
     protected override int StartingPlating => 10;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
         new MoveState("OATH", async _ => { await Cast(); await Shield(Court.Where(c => c != Creature), 14); await Plate(Court, 2); }, new DefendIntent(), new BuffIntent()),
-        new MoveState("STRIKE", _ => Strike(18, 2, "FlailAttack", "flail_knight_flail"), new RoyalMultiAttackIntent(() => 18 + PendingRoyalStrength, 2)),
-        new MoveState("RENEW", async _ => { await Strike(36, 1, "RamAttack", "flail_knight_ram"); await Shield([Creature], 10); }, new SingleAttackIntent(() => 36 + PendingRoyalStrength), new DefendIntent()));
+        new MoveState("STRIKE", _ => Strike(18, 2, "FlailAttack", "flail_knight_flail"), RoyalAttackIntent(18, 2)),
+        new MoveState("RENEW", async _ => { await Strike(36, 1, "RamAttack", "flail_knight_ram"); await Shield([Creature], 10); }, RoyalAttackIntent(36), new DefendIntent()));
 }
 
 public sealed class CrownHeadsman : KingsguardKnight
@@ -106,9 +103,9 @@ public sealed class CrownHeadsman : KingsguardKnight
     public override int MinInitialHp => 210;
     protected override int StartingPlating => 8;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
-        new MoveState("STRIKE", _ => Strike(20, 2, "FlailAttack", "flail_knight_flail"), new RoyalMultiAttackIntent(() => 20 + PendingRoyalStrength, 2)),
+        new MoveState("STRIKE", _ => Strike(20, 2, "FlailAttack", "flail_knight_flail"), RoyalAttackIntent(20, 2)),
         new MoveState("OATH", async _ => { await Cast(); await Plate(Court.Where(c => c != Creature), 3); await Shield([Creature], 16); }, new BuffIntent(), new DefendIntent()),
-        new MoveState("RENEW", _ => Strike(36, 1, "RamAttack", "flail_knight_ram"), new SingleAttackIntent(() => 36 + PendingRoyalStrength)));
+        new MoveState("RENEW", _ => Strike(36, 1, "RamAttack", "flail_knight_ram"), RoyalAttackIntent(36)));
 }
 
 public sealed class CrownArmorer : KingsguardKnight
@@ -120,11 +117,11 @@ public sealed class CrownArmorer : KingsguardKnight
     protected override int StartingPlating => 6;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
         new MoveState("OATH", async _ => { await Cast("ShieldAttack"); await Plate(Court, 3); }, new BuffIntent()),
-        new MoveState("STRIKE", async _ => { await Strike(16, 1, "ShieldAttack", "magi_knight_cast_shield"); await Shield(Court.Where(c => c != Creature), 8); }, new SingleAttackIntent(() => 16 + PendingRoyalStrength), new DefendIntent()),
+        new MoveState("STRIKE", async _ => { await Strike(16, 1, "ShieldAttack", "magi_knight_cast_shield"); await Shield(Court.Where(c => c != Creature), 8); }, RoyalAttackIntent(16), new DefendIntent()),
         new MoveState("RENEW", async _ => {
             await Cast("ShieldAttack");
             var ally = Court.Where(c => c != Creature).OrderBy(c => (decimal)c.CurrentHp / c.MaxHp).ThenBy(c => c.CombatId).FirstOrDefault();
-            if (ally != null) { await CreatureCmd.Heal(ally, Math.Ceiling(ally.MaxHp * .25m)); await Plate([ally], 4); }
+            if (ally != null) { await CreatureCmd.Heal(ally, RoyalBalance.GuardHealing(ally.MaxHp, .25m, ally.Monster is RatKing)); await Plate([ally], 4); }
             else await Shield([Creature], 12);
         }, new HealIntent(), new BuffIntent(), new DefendIntent()));
 }
@@ -137,10 +134,10 @@ public sealed class CrownHerald : KingsguardKnight
     public override int MinInitialHp => 155;
     protected override int StartingPlating => 6;
     protected override MonsterMoveStateMachine GenerateMoveStateMachine() => Cycle(
-        new MoveState("STRIKE", _ => Strike(10, 2, "AttackFlame", "spectral_knight_soul_flame"), new RoyalMultiAttackIntent(() => 10 + PendingRoyalStrength, 2)),
+        new MoveState("STRIKE", _ => Strike(10, 2, "AttackFlame", "spectral_knight_soul_flame"), RoyalAttackIntent(10, 2)),
         new MoveState("RENEW", async _ => {
             await Cast();
-            foreach (var ally in Court) await CreatureCmd.Heal(ally, Math.Ceiling(ally.MaxHp * .10m));
+            foreach (var ally in Court) await CreatureCmd.Heal(ally, RoyalBalance.GuardHealing(ally.MaxHp, .10m, ally.Monster is RatKing));
         }, new HealIntent()),
         new MoveState("OATH", async _ => { await Cast(); await Shield(Court, 10); await Plate(Court.Where(c => c != Creature), 2); }, new DefendIntent(), new BuffIntent()));
 }
@@ -148,7 +145,7 @@ public sealed class CrownHerald : KingsguardKnight
 public sealed class KingsguardEncounter : CustomEncounterModel, ILocalizationProvider
 {
     public KingsguardEncounter() : base(RoomType.Elite) { }
-    public List<(string, string)> Localization => [("title", "The Kingsguard")];
+    public List<(string, string)> Localization => [];
     public override bool IsValidForAct(ActModel act) => false;
     public override IEnumerable<MonsterModel> AllPossibleMonsters =>
         [ModelDb.Monster<CrownBulwark>(), ModelDb.Monster<CrownHeadsman>(), ModelDb.Monster<CrownArmorer>(), ModelDb.Monster<CrownHerald>()];

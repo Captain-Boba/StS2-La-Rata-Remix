@@ -57,31 +57,31 @@ public abstract class RoyalCard : CustomCardModel
     }
     public override int MaxUpgradeLevel => 0;
     public override CardPoolModel Pool => ModelDb.CardPool<RoyalCardPool>();
-    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner();
+    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner(Rarity);
     public override Material? CreateCustomFrameMaterial => RoyalCardStyle.Frame();
     public override string? CustomPortraitPath => $"res://LaRata/images/cards/{Art[Index]}.png";
-    public override List<(string, string)> Localization => [("title", Names[Index]), ("description", Descriptions[Index])];
+    public override List<(string, string)> Localization => [];
     internal static RoyalCard[] All => [ModelDb.Card<RoyalTax>(), ModelDb.Card<ScepterStorm>(), ModelDb.Card<OffWithTheirHeads>(), ModelDb.Card<SewerAlchemy>(), ModelDb.Card<BorrowedTomorrow>(), ModelDb.Card<RoyalFlush>(), ModelDb.Card<StolenAegis>(), ModelDb.Card<BloodContract>(), ModelDb.Card<ExposedCrown>(), ModelDb.Card<EmeraldTempest>(), ModelDb.Card<GraveLevy>(), ModelDb.Card<FuneralProcession>(), ModelDb.Card<BoneTreasury>(), ModelDb.Card<CrownOfNight>(), ModelDb.Card<RottingTribute>(), ModelDb.Card<StolenHour>(), ModelDb.Card<DrownedCourt>(), ModelDb.Card<GreenGuillotine>(), ModelDb.Card<RattlingArsenal>(), ModelDb.Card<RoyalPardon>(), ModelDb.Card<BlackTithe>(), ModelDb.Card<PlagueOfCrowns>(), ModelDb.Card<KneelBeforeTheCrown>(), ModelDb.Card<SoulForeclosure>(), ModelDb.Card<NightfallDecree>()];
 
     internal IEnumerable<AbstractIntent> GetIntents(RatKing king) => Index switch
     {
-        0 => [new SingleAttackIntent(() => 12 + king.PendingStrength)],
-        1 => [new RoyalMultiAttackIntent(() => 7 + king.PendingStrength, 3)],
-        2 => [new SingleAttackIntent(() => 34 + king.PendingStrength), new DebuffIntent()],
+        0 => [new SingleAttackIntent(() => king.PreviewAttackDamage(Index, 12))],
+        1 => [new RoyalMultiAttackIntent(() => king.PreviewAttackDamage(Index, 7), 3)],
+        2 => [new SingleAttackIntent(() => king.PreviewAttackDamage(Index, 34)), new DebuffIntent()],
         5 => [new StatusIntent(3)],
         6 or 8 => [new DefendIntent(), new BuffIntent()],
         7 => [new BuffIntent()],
-        9 => [new RoyalMultiAttackIntent(() => 5 + king.PendingStrength, 4), new StatusIntent(1)],
-        10 => [new SingleAttackIntent(() => 18 + king.PendingStrength), new BuffIntent()],
-        11 => [new RoyalMultiAttackIntent(() => 6 + king.PendingStrength, 3), new DebuffIntent()],
+        9 => [new RoyalMultiAttackIntent(() => king.PreviewAttackDamage(Index, 5), 4), new StatusIntent(1)],
+        10 => [new SingleAttackIntent(() => king.PreviewAttackDamage(Index, 18)), new BuffIntent()],
+        11 => [new RoyalMultiAttackIntent(() => king.PreviewAttackDamage(Index, 6), 3), new DebuffIntent()],
         12 or 13 or 16 or 19 => [new DefendIntent(), new BuffIntent()],
         15 => [new StatusIntent(2), new DefendIntent()],
-        17 => [new SingleAttackIntent(() => 40 + king.PendingStrength)],
-        18 => [new RoyalMultiAttackIntent(() => 4 + king.PendingStrength, 5), new StatusIntent(1)],
+        17 => [new SingleAttackIntent(() => king.PreviewAttackDamage(Index, 40))],
+        18 => [new RoyalMultiAttackIntent(() => king.PreviewAttackDamage(Index, 4), 5), new StatusIntent(1)],
         20 => [new RoyalEdictIntent("black_tithe")],
         21 => [new RoyalEdictIntent("plague_of_crowns"), new StatusIntent(2)],
         22 => [new DefendIntent(), new BuffIntent()],
-        23 => [new SingleAttackIntent(() => 26 + king.PendingStrength), new HealIntent()],
+        23 => [new SingleAttackIntent(() => king.PreviewAttackDamage(Index, 26)), new HealIntent()],
         24 => [new BuffIntent()],
         _ => [new DebuffIntent()]
     };
@@ -91,7 +91,7 @@ public abstract class RoyalCard : CustomCardModel
         var context = new ThrowingPlayerChoiceContext();
         var living = targets.Where(c => c.IsAlive).ToArray();
         var owner = king.Creature;
-        if (king is RatKing && !RoyalDeck.IsAttack(Index)) await CreatureCmd.TriggerAnim(owner, "Cast", .4f);
+        if (king is RatKing && !RoyalDeck.IsAttack(Index)) await CreatureCmd.TriggerAnim(owner, "Cast", RatKing.CastImpactTime);
         switch (Index)
         {
             case 0: await Attack(12, 1); break;
@@ -114,7 +114,7 @@ public abstract class RoyalCard : CustomCardModel
                 await CardPileCmd.AddToCombatAndPreview<Burn>(living, PileType.Discard, 1, null);
                 break;
             case 6:
-                await CreatureCmd.GainBlock(owner, 24, ValueProp.Move, null);
+                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, 24), ValueProp.Move, null);
                 if (owner.GetPowerAmount<BufferPower>() == 0) await PowerCmd.Apply<BufferPower>(context, owner, 1, owner, null);
                 break;
             case 7:
@@ -123,7 +123,7 @@ public abstract class RoyalCard : CustomCardModel
                 await PowerCmd.Apply<StrengthPower>(context, king.CombatState.Enemies.Where(c => c.IsAlive), 2, owner, null);
                 break;
             case 8:
-                await CreatureCmd.GainBlock(owner, 16, ValueProp.Move, null);
+                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, 16), ValueProp.Move, null);
                 await PowerCmd.Apply<VulnerablePower>(context, owner, 2, owner, null);
                 break;
             case 9:
@@ -132,7 +132,7 @@ public abstract class RoyalCard : CustomCardModel
                 break;
             case 10:
                 await Attack(18, 1);
-                if (owner.IsAlive) await CreatureCmd.Heal(owner, 24);
+                if (owner.IsAlive) await CreatureCmd.Heal(owner, RoyalBossEffects.GraveLevyHealing(king));
                 break;
             case 11:
                 await Attack(6, 3);
@@ -140,7 +140,7 @@ public abstract class RoyalCard : CustomCardModel
                 break;
             case 12: await PlateCourt(3); break;
             case 13:
-                await CreatureCmd.GainBlock(owner, 30, ValueProp.Move, null);
+                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, 30), ValueProp.Move, null);
                 if (owner.GetPowerAmount<BufferPower>() == 0) await PowerCmd.Apply<BufferPower>(context, owner, 2, owner, null);
                 break;
             case 14:
@@ -149,11 +149,11 @@ public abstract class RoyalCard : CustomCardModel
                 break;
             case 15:
                 await CardPileCmd.AddToCombatAndPreview<Dazed>(living, PileType.Draw, 2, null, CardPilePosition.Random);
-                await CreatureCmd.GainBlock(owner, 12, ValueProp.Move, null);
+                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, 12), ValueProp.Move, null);
                 break;
             case 16:
                 foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).ToArray())
-                    await CreatureCmd.Heal(ally, Math.Max(1, (int)(ally.MaxHp * .05m)));
+                    await CreatureCmd.Heal(ally, king is RatKing ? RoyalBossEffects.CardHealing(king, ally.MaxHp * .05m) : Math.Max(1, (int)(ally.MaxHp * .05m)));
                 await PlateCourt(2);
                 break;
             case 17:
@@ -168,7 +168,7 @@ public abstract class RoyalCard : CustomCardModel
                 foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).ToArray())
                     foreach (var power in ally.Powers.Where(p => p is WeakPower or FrailPower).ToArray())
                         await PowerCmd.Remove(power);
-                await CreatureCmd.GainBlock(owner, 10, ValueProp.Move, null);
+                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, 10), ValueProp.Move, null);
                 break;
             case 20:
                 foreach (var target in living) await CreatureCmd.LoseBlock(target, target.Block);
@@ -184,14 +184,14 @@ public abstract class RoyalCard : CustomCardModel
                 if (king is RatKing sovereign) sovereign.PendingStrength -= 3;
                 foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).OrderBy(c => c.CombatId).ToArray())
                 {
-                    await CreatureCmd.GainBlock(ally, 30, ValueProp.Move, null);
+                    await CreatureCmd.GainBlock(ally, RoyalBossEffects.CardBlock(king, 30), ValueProp.Move, null);
                     await PowerCmd.Apply<StrengthPower>(context, ally, 3, owner, null);
                 }
                 break;
             case 23:
                 await Attack(26, 1);
                 foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).OrderBy(c => c.CombatId).ToArray())
-                    await CreatureCmd.Heal(ally, Math.Ceiling(ally.MaxHp * .08m));
+                    await CreatureCmd.Heal(ally, king is RatKing ? RoyalBossEffects.CardHealing(king, ally.MaxHp * .08m) : Math.Ceiling(ally.MaxHp * .08m));
                 break;
             case 24:
                 foreach (var ally in king.CombatState.Enemies.Where(c => c.IsAlive).OrderBy(c => c.CombatId).ToArray())
@@ -201,7 +201,13 @@ public abstract class RoyalCard : CustomCardModel
                 }
                 break;
         }
-        async Task Attack(int damage, int hits) => await DamageCmd.Attack(damage).FromMonster(king).WithHitCount(hits).WithAttackerAnim("Attack", .3f).Execute(context);
+        async Task Attack(int damage, int hits)
+        {
+            var attack = DamageCmd.Attack(damage).FromMonster(king).WithHitCount(hits)
+                .WithAttackerAnim("Attack", king is RatKing ? RatKing.AttackImpactTime : .3f);
+            if (king is RatKing) attack.OnlyPlayAnimOnce();
+            await attack.Execute(context);
+        }
         async Task PlateCourt(int amount)
         {
             int scale = Math.Max(1, king.CombatState.Players.Count * 2 - 1);

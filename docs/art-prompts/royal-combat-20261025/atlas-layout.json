@@ -1,0 +1,349 @@
+{
+  "version": 1,
+  "date": "2026-10-25",
+  "registration": "All original whole-PNGs; uniform native scale 0.39. Anchors are authored ground pivots, never per-frame height normalization. Bent/dead poses remain naturally lower. Pose dimensions/ground pivots scoped for native playback verification.",
+  "footGroundY": 0,
+  "standingHeightApprox": 445,
+  "triggerMap": {
+    "Idle": "Idle",
+    "Attack": "Attack",
+    "Cast": "Cast",
+    "Hit": "Hit",
+    "Dead": "Dead"
+  },
+  "tempo": {
+    "Normal": 1,
+    "FastAction": 2,
+    "FastDeath": 1,
+    "Instant": "Skip action to Idle; seek terminal Dead and hold, using scoped RoyalAnimationTiming."
+  },
+  "poses": [
+    {
+      "key": "idle",
+      "path": "assets/LaRata/images/royal_combat/idle.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        565,
+        1183
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "blink",
+      "path": "assets/LaRata/images/royal_combat/blink.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        565,
+        1183
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "attack_windup",
+      "path": "assets/LaRata/images/royal_combat/attack_windup.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        620,
+        1215
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "attack_impact",
+      "path": "assets/LaRata/images/royal_combat/attack_impact.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        740,
+        1098
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "cast_gather",
+      "path": "assets/LaRata/images/royal_combat/cast_gather.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        575,
+        1191
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "cast_release",
+      "path": "assets/LaRata/images/royal_combat/cast_release.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        575,
+        1209
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "hit",
+      "path": "assets/LaRata/images/royal_combat/hit.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        565,
+        1183
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "death_kneel",
+      "path": "assets/LaRata/images/royal_combat/death_kneel.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        575,
+        1123
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "death_fall",
+      "path": "assets/LaRata/images/royal_combat/death_fall.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        575,
+        942
+      ],
+      "scale": 0.39
+    },
+    {
+      "key": "death_lie",
+      "path": "assets/LaRata/images/royal_combat/death_lie.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "anchor": [
+        575,
+        897
+      ],
+      "scale": 0.39
+    }
+  ],
+  "clips": [
+    {
+      "name": "Idle",
+      "length": 8,
+      "loop": true,
+      "blend": 0.035,
+      "poses": [
+        [
+          0,
+          "idle"
+        ],
+        [
+          3.6,
+          "blink"
+        ],
+        [
+          3.75,
+          "idle"
+        ]
+      ],
+      "breathing": [
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          2,
+          1.002,
+          1.006
+        ],
+        [
+          4,
+          1,
+          1
+        ],
+        [
+          6,
+          1.002,
+          1.005
+        ],
+        [
+          8,
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "Attack",
+      "length": 0.85,
+      "impact": 0.34,
+      "next": "Idle",
+      "blend": 0.055,
+      "poses": [
+        [
+          0,
+          "idle"
+        ],
+        [
+          0.12,
+          "attack_windup"
+        ],
+        [
+          0.34,
+          "attack_impact"
+        ],
+        [
+          0.7,
+          "idle"
+        ]
+      ],
+      "motion": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.2,
+          6,
+          0
+        ],
+        [
+          0.34,
+          -18,
+          0
+        ],
+        [
+          0.6,
+          -4,
+          0
+        ],
+        [
+          0.85,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "Cast",
+      "length": 1.15,
+      "release": 0.5,
+      "next": "Idle",
+      "blend": 0.065,
+      "poses": [
+        [
+          0,
+          "idle"
+        ],
+        [
+          0.22,
+          "cast_gather"
+        ],
+        [
+          0.5,
+          "cast_release"
+        ],
+        [
+          1.02,
+          "idle"
+        ]
+      ]
+    },
+    {
+      "name": "Hit",
+      "length": 0.42,
+      "next": "Idle",
+      "blend": 0.045,
+      "poses": [
+        [
+          0,
+          "idle"
+        ],
+        [
+          0.12,
+          "hit"
+        ],
+        [
+          0.34,
+          "idle"
+        ]
+      ],
+      "motion": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0.12,
+          6,
+          0
+        ],
+        [
+          0.42,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "Dead",
+      "length": 1.4,
+      "terminal": true,
+      "blend": 0.1,
+      "poses": [
+        [
+          0,
+          "hit"
+        ],
+        [
+          0.42,
+          "death_kneel"
+        ],
+        [
+          0.82,
+          "death_fall"
+        ],
+        [
+          1.15,
+          "death_lie"
+        ]
+      ]
+    },
+    {
+      "name": "RESET",
+      "length": 0.01,
+      "poses": [
+        [
+          0,
+          "idle"
+        ]
+      ]
+    }
+  ]
+}

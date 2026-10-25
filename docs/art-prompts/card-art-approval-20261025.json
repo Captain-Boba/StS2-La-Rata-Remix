@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25",
+  "scope": "Human visual approval of selected Thorn Buster artwork only; does not establish native crop, installation, tests or live UI.",
+  "assets": [
+    {
+      "key": "ser_kevs_thorn_buster",
+      "target": "assets/LaRata/images/cards/ser_kevs_thorn_buster.png",
+      "sha256": "3937a14ab4857c123e4d7798da138efb9d48cdd9a4dc98d5421689bcae90775a",
+      "human_approved": true,
+      "userStatement": "das neue bild von Ser Kevs Thorn Buster ist übrigens richtig geil geworden, richtig gute Arbeit!"
+    }
+  ]
+}

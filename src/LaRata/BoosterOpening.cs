@@ -68,11 +68,11 @@ internal static class BoosterOpening
         }
         veil.Resized += Resize;
         Resize();
-        var title = new Label { Text = pack.Name + " Booster", Position = new Vector2(360, 35), Size = new Vector2(1200, 65), HorizontalAlignment = HorizontalAlignment.Center, MouseFilter = Control.MouseFilterEnum.Ignore };
+        var title = new Label { Text = pack.Name, Position = new Vector2(360, 35), Size = new Vector2(1200, 65), HorizontalAlignment = HorizontalAlignment.Center, MouseFilter = Control.MouseFilterEnum.Ignore };
         title.AddThemeFontSizeOverride("font_size", 44);
         title.AddThemeFontOverride("font", GD.Load<Font>("res://themes/kreon_bold_shared.tres"));
         stage.AddChild(title);
-        var hint = new Label { Text = "Open the pack. Hover to sense rarity. Click each card to reveal it.", Position = new Vector2(300, 980), Size = new Vector2(1320, 50), HorizontalAlignment = HorizontalAlignment.Center, MouseFilter = Control.MouseFilterEnum.Ignore };
+        var hint = new Label { Text = UiText.Get("booster.hint"), Position = new Vector2(300, 980), Size = new Vector2(1320, 50), HorizontalAlignment = HorizontalAlignment.Center, MouseFilter = Control.MouseFilterEnum.Ignore };
         hint.AddThemeFontSizeOverride("font_size", 25);
         hint.AddThemeFontOverride("font", GD.Load<Font>("res://themes/kreon_regular_shared.tres"));
         stage.AddChild(hint);
@@ -80,10 +80,11 @@ internal static class BoosterOpening
         stage.AddChild(open);
         var packIcon = new TextureRect { ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, Texture = GD.Load<Texture2D>(pack.Icon), Size = new Vector2(360, 360), StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = Control.MouseFilterEnum.Ignore };
         open.AddChild(packIcon);
-        var openText = new Label { Text = "Open pack", Position = new Vector2(0, 360), Size = new Vector2(360, 55), HorizontalAlignment = HorizontalAlignment.Center, MouseFilter = Control.MouseFilterEnum.Ignore };
+        var openText = new Label { Text = UiText.Get("booster.open"), Position = new Vector2(0, 360), Size = new Vector2(360, 55), HorizontalAlignment = HorizontalAlignment.Center, MouseFilter = Control.MouseFilterEnum.Ignore };
         openText.AddThemeFontOverride("font", GD.Load<Font>("res://themes/kreon_bold_shared.tres"));
         openText.AddThemeFontSizeOverride("font_size", 32);
         open.AddChild(openText);
+        foreach (var label in new[] { title, hint, openText }) UiText.ApplyFont(label);
         var nativePopup = NGenericPopup.Create()!;
         var choose = (NPopupYesNoButton)nativePopup.GetNode<NPopupYesNoButton>("VerticalPopup/YesButton").Duplicate((int)(Node.DuplicateFlags.Scripts | Node.DuplicateFlags.UseInstantiation));
         nativePopup.Free();
@@ -95,7 +96,7 @@ internal static class BoosterOpening
         choose.Size = new Vector2(180, 72);
         choose.Position = new Vector2((stage.Size.X - choose.Size.X) / 2, 910);
         choose.DisconnectHotkeys();
-        choose.SetText("Choose cards");
+        choose.SetText(UiText.Get("booster.choose"));
         choose.Hide();
         var reveals = new List<NButton>();
         Focuses.AddOrUpdate(screen, new Focus(() => open.Visible ? open : choose.Visible ? choose : reveals.FirstOrDefault(b => b.IsEnabled && !b.HasMeta("revealed"))));
@@ -151,7 +152,7 @@ internal static class BoosterOpening
             card.Hide();
             var back = new TextureRect { ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, Texture = GD.Load<Texture2D>("res://LaRata/images/booster_back.png"), Size = new Vector2(300, 422), StretchMode = TextureRect.StretchModeEnum.Scale, MouseFilter = Control.MouseFilterEnum.Ignore };
             face.AddChild(back);
-            var hit = new NButton { Size = new Vector2(300, 422), FocusMode = Control.FocusModeEnum.All, TooltipText = "Reveal card" };
+            var hit = new NButton { Size = new Vector2(300, 422), FocusMode = Control.FocusModeEnum.All, TooltipText = UiText.Get("booster.reveal") };
             pivot.AddChild(hit);
             hit.Disable(); // A reveal must not race the dealing tween on scale:x.
             reveals.Add(hit);
@@ -230,7 +231,7 @@ internal static class BoosterOpening
                 if (hit.HasFocus() || hit.GetGlobalRect().HasPoint(hit.GetGlobalMousePosition())) Tips(true);
                 if (++revealed == cards.Count)
                 {
-                    hint.Text = "Your pack is revealed. Keep all, some, or none.";
+                    hint.Text = UiText.Get("booster.revealed");
                     choose.Show();
                     choose.GrabFocus();
                 }

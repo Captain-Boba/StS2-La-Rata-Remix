@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-25",
+  "source": "Direct user response relayed by same-project orchestrator K1.",
+  "userStatement": "alles außer die ersten beiden passen schon sehr gut. Also The Relic Remover und Sootbound Ticket. Einfach mal komplett anders und bei dem Ticket soll schon ein Ticket erkennbar sein",
+  "scope": "Visual approval of these exact four draft PNG hashes only; no runtime/PCK/install/live evidence.",
+  "assets": [
+    {
+      "key": "stairwell_key",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/stairwell_key.png",
+      "sha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-995231a3-dd63-4592-a8dc-b9a5e60066a9.png",
+      "human_approved": true
+    },
+    {
+      "key": "mocking_bell",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/mocking_bell.png",
+      "sha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-45a44799-65b1-4355-9418-acb8f133a54f.png",
+      "human_approved": true
+    },
+    {
+      "key": "brass_scavenger",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/brass_scavenger.png",
+      "sha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-f7a5a002-60b6-46a9-a631-312833ba665a.png",
+      "human_approved": true
+    },
+    {
+      "key": "moonlit_stopper",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/moonlit_stopper.png",
+      "sha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d0721056-b709-4b38-896c-96ac7bb0f9c6.png",
+      "human_approved": true
+    }
+  ]
+}

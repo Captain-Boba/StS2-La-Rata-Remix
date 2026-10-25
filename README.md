@@ -1,12 +1,12 @@
 # La Rata Remix
 
-**Version 0.9.3 — Double Boss Spoils** (package version **0.9.3**). Controlled encounter chaos, seven-card boosters, new cards and relics, and an optional royal finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**. All mod-added text is English.
+**Version 0.9.4** — seeded encounter chaos, seven-card boosters, an expanded card collection, relic removal and an optional Rat King finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**.
 
-This update restores the regular finale's rewards and gives both bosses' loot in a reinforced finale. Barricade is now Uncommon, Thorns twists have lower selection weight, and A Thousand Cuts uses the correct increasing removal price. Read the [0.9.3 patch notes](docs/UPDATE-0.9.3.md). The [0.9.2 rebalance](docs/UPDATE-0.9.2.md) and [0.9.1 starter booster fix](docs/UPDATE-0.9.1.md) remain included.
+**Deutsch und 简体中文: kurze Hinweise stehen [weiter unten auf Deutsch](#deutsch) und [简体中文](#简体中文).** In-game text supports English, German and Simplified Chinese through the game's language setting.
 
-**We recommend starting without Ascension levels.**
+This release includes 23 regular neutral cards (16 Uncommon / 7 Rare), explicit 75/25 Royal-main and neutral-bonus booster weights, the expanded 46-family boss deck, ten authored combat poses, six redesigned relic images, native relic-effect statistics and the corrected A Thousand Cuts first-removal price. The collection includes separately labeled playable and boss-exclusive cards. Existing card costs/effects are not strengthened merely by their rarity change.
 
-**Work in progress:** balancing, visual polish and multiplayer compatibility testing. German and Chinese localizations are planned; mod-added text is currently English only.
+**We recommend starting without Ascension levels.** Start a new run after updating; co-op players need identical game/mod versions. Technical checks and targeted earlier live scenarios are documented in [the QA report](TEST-REPORT.md) and [0.9.4 evidence](docs/RARITY-ART-QA-20261025.md). A strict ENet error check still fails after a tested client-window disconnect; cause and broader network stability remain unresolved. This is not a claim of full balance, animation or Internet multiplayer acceptance.
 
 ## Installation
 
@@ -16,17 +16,13 @@ Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.9.3 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Version 0.9.4 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
 
 **Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
-**The latest GitHub binary release is 0.9.2.** It does not include the 0.9.3 Workshop patch. Use Workshop for 0.9.3; do not mix versions within a co-op party. The source in this checkout and locally built package target 0.9.3.
-
-You need the **compiled package**, such as `LaRata-0.9.2.zip`. GitHub's **Code → Download ZIP** downloads source code and cannot be installed directly. The repository intentionally excludes generated DLL/PCK/ZIP files and does not contain a ready-made `mods` folder.
-
-**Release 0.9.2:** [LaRata-0.9.2.zip — ready to install](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.2/LaRata-0.9.2.zip). See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.2) for patch notes, checksums and the separate installation guide. No compilation is needed. Choose `LaRata-0.9.2.zip` under Assets, not GitHub's automatically generated **Source code** downloads. A [standalone installation guide](docs/INSTALL.md) is also included inside the ZIP.
+Use the compiled **[LaRata-0.9.4.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.4/LaRata-0.9.4.zip)** from the [0.9.4 release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.4). GitHub's **Code → Download ZIP** and automatic **Source code** assets contain development sources and cannot be installed directly. No compilation is needed for the compiled package. A [standalone installation guide](docs/INSTALL.md) is included.
 
 1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
 2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
@@ -75,7 +71,7 @@ After enemy block clearing and before any enemy attacks, the hidden card is reve
 
 ## Neutral cards
 
-**Cleanse** is a rare neutral Skill in the native colorless pool: **2 Energy, Exhaust; upgraded cost 1**. It removes active Debuffs from yourself and every other living player, including negative Strength/Dexterity and temporary stat reductions. It also removes Curse cards from every living player's combat piles for this fight only, using the native removal command. Status cards, permanent deck originals and beneficial powers remain; it does not heal HP. It uses La Rata's black frame and dark emerald banner, with a spectral fountain portrait. Native colorless shops/rewards/events can offer it. The existing base-game card with the same English name is unchanged; the new card has its own BaseLib-prefixed model ID.
+**Cleanse** is a rare neutral Skill in the native colorless pool: **2 Energy, Exhaust; upgraded cost 1**. It removes active Debuffs from yourself and every other living player, including negative Strength/Dexterity and temporary stat reductions. It also removes Curse cards from every living player's combat piles for this fight only, using the native removal command. Status cards, permanent deck originals and beneficial powers remain; it does not heal HP. It uses La Rata's frame, the native Rare banner and a spectral fountain portrait. Native colorless shops/rewards/events can offer it. The existing base-game card with the same English name is unchanged; the new card has its own BaseLib-prefixed model ID.
 
 ## Card boosters and combo relics
 
@@ -83,9 +79,9 @@ Every player starts a **new run with one booster for their class**. Selecting th
 
 Six common relics offer **Ironclad, Silent, Defect, Regent, Necrobinder or La Rata boosters**, regardless of your character. Each opens once upon pickup and remains as a memento. Five cards come from the named pool; two additional distinct cards come from the combined regular colorless and La Rata neutral pools. Previously saved five-card packs keep their original contents. Open the pack, hover over the seven facedown cards to see their rarity glow, then click each to turn it over. Common, uncommon and rare reveals have different colors and bursts; royal boss prizes glow emerald. After all seven are revealed, the native selection screen lets you keep **any number, including all seven or none**.
 
-Class packs draw five distinct unlocked cards from that class's regular pool. The La Rata pack draws from Cleanse and the ten new neutral cards; **20% of packs** replace one slot with a playable boss-card variant. The ten available prizes are Scepter Storm, Sewer Alchemy, Stolen Aegis, Blood Contract, Emerald Tempest, Black Tithe, Plague of Crowns, Kneel Before the Crown, Soul Foreclosure and Nightfall Decree, adapted to player energy and targets. [New prize costs and upgrades](docs/UPDATE-0.8.7.md#rare-playable-booster-variants). Boss-only models never enter player decks.
+Class packs draw five distinct unlocked cards from that class's regular pool. The La Rata pack draws five main cards from all **23 regular La Rata neutrals**, using **75% Uncommon / 25% Rare**. The two mixed neutral bonus slots of every pack use the same 75/25 weights; class main slots retain **60% Common / 30% Uncommon / 10% Rare**. Only eligible nonempty rarity groups participate, and IDs cannot repeat across the seven-card offer. A separate roll makes **20% of La Rata packs** replace one main slot with one uniformly chosen playable boss-card variant; there is no per-slot 20% roll or guaranteed Rare. The ten available prizes are Scepter Storm, Sewer Alchemy, Stolen Aegis, Blood Contract, Emerald Tempest, Black Tithe, Plague of Crowns, Kneel Before the Crown, Soul Foreclosure and Nightfall Decree, adapted to player energy and targets. [New prize costs and upgrades](docs/UPDATE-0.8.7.md#rare-playable-booster-variants). Boss-only models never enter player decks.
 
-The ten new colorless cards support energy/draw, exhaust, discard, Vigor, Poison/Doom, team Block and powers: **Grave Spark, Umbral Stitch, Sewer Pact, Phantom Parade, Borrowed Breath, Crown Exchange, Midnight Rehearsal, Emerald Ward, Second Shadow and Open the Gates**. All have their own art and upgrades. Original costs/effects are in [the 0.8.0 notes](docs/UPDATE-0.8.0.md). Borrowed Breath+ heals 6 HP and draws 3. In [0.8.2](docs/UPDATE-0.8.2.md#player-cards-and-relic), Emerald Ward costs 2 and grants all living players 5/10 Block plus 1/2 Energy; playable Scepter Storm costs 2 and applies 1/2 Weak and Vulnerable before dealing 10/20 damage. Regent Booster artwork is orange/gold. Cleanse and all ten playable boss prizes also have upgrades; the enemy-only royal cards do not.
+The original ten colorless additions support energy/draw, exhaust, discard, Vigor, Poison/Doom, team Block and powers: **Grave Spark, Umbral Stitch, Sewer Pact, Phantom Parade, Borrowed Breath, Crown Exchange, Midnight Rehearsal, Emerald Ward, Second Shadow and Open the Gates**. All have their own art and upgrades. Original costs/effects are in [the 0.8.0 notes](docs/UPDATE-0.8.0.md). Borrowed Breath+ heals 6 HP and draws 3. In [0.8.2](docs/UPDATE-0.8.2.md#player-cards-and-relic), Emerald Ward costs 2 and grants all living players 5/10 Block plus 1/2 Energy; playable Scepter Storm costs 2 and applies 1/2 Weak and Vulnerable before dealing 10/20 damage. Regent Booster artwork is orange/gold. Cleanse and all ten playable boss prizes also have upgrades; the enemy-only royal cards do not.
 
 | Relic | Rarity | Effect |
 | --- | --- | --- |
@@ -97,11 +93,13 @@ The ten new colorless cards support energy/draw, exhaust, discard, Vigor, Poison
 
 All five belong to the shared relic pool. They add opportunities without character restrictions or removing existing mechanics.
 
+Version 0.9.4 additionally includes **The Relic Remover, Sootbound Ticket, Stairwell Key, Mocking Bell, Brass Scavenger and Moonlit Stopper**, with six individually approved redesigned icons. The Relic Remover uses an owner-only selection; supported relic-effect counters persist with the run. The complete collection contains 60 model entries: 25 player cards (23 neutral, two class-specific), ten playable boss prizes and 25 boss-exclusive entries. Boss-exclusive presentation does not make those cards eligible player rewards.
+
 ## Treasure contests and Well
 
 In solo play, ordinary nonempty chests offer **three relics; choose one** through the game's existing chest interface. Effects that suppress the chest reward remain effective.
 
-**A Thousand Cuts** is a rare shared-pool relic for solo and co-op. Its owner may purchase card removal repeatedly in the same shop. Every removal uses the native payment and permanent price counter: normally 75, 100, 125 gold, and so on. Native discounts and restrictions still apply. Cancelling the card selection does not charge gold.
+**A Thousand Cuts** is a rare shared-pool relic for solo and co-op. Its owner may purchase any number of card removals at the native first-removal base price: normally 75 gold, or 100 with Inflation, before current discounts/modifiers. Further cuts do not increase that price while the relic is active, including after earlier shops or late acquisition. Successful-removal history is still recorded; losing the relic restores native pricing and shop-use rules. Native restrictions apply, and cancelling does not charge gold.
 
 When several players choose the same chest relic, each contender privately chooses Rock, Paper or Scissors. After everyone locks in, the game's original character hands shake and reveal the chosen signs. Losing hands play the native loss animation; the winner grabs the relic without a second fight announcement. One or three distinct hands tie; with two distinct hands the losing hand is eliminated. Survivors choose again until one remains. Uncontested relics and the game's consolation rewards keep their native behavior.
 
@@ -113,39 +111,15 @@ After the regular finale, a shared invitation offers the bonus path. Entry requi
 
 The path contains **an unseen Ancient → YOU (shop) → ARE (?) → NOT (elite) → PREPARED (rest site) → La Rata**. The Ancient is drawn from native Ancients across all acts, excluding Neow and anyone already visited this run. Its normal entry healing and reward logic apply, including native Ascension healing restrictions. The unknown room uses the game's normal resolver and Glory content pools. The regular victory is retained in progression and run history if the party dies during the bonus. Defeating La Rata leads to the Architect and the ordinary ending.
 
-La Rata starts with **1,500 base HP**, accompanied by two distinct random Kingsguard knights. Native boss HP scaling yields **3,900 / 5,850 / 7,800 HP** for two / three / four players. The knights' support and percentage healing also benefit the king. His darker painted character uses twelve atlas frames, native crossfades and gentle 18-second idle breathing. Each turn he draws five cards from a seeded 23-card draw/discard deck, prioritizes expensive affordable cards, and spends **6 Energy, increasing to 8 at half HP or below**. Unplayed cards are discarded; the discard pile reshuffles when needed. His hand is hidden. Skills and powers resolve before attacks; cards appear only while played through the native play-pile animation. Native attack intents include pending royal Strength.
+La Rata starts with **1,500 base HP**, accompanied by two distinct random Kingsguard knights. Native boss HP scaling adjusts this for party size. His scene uses **ten separately authored poses** with native Idle, Attack, Cast, Hit and Death animation tracks, including wind-up, impact and a staged fall; this replaces the earlier twelve-frame atlas presentation.
 
-Every encounter gives him **ten distinct combat relics**, selected from Vajra, Oddly Smooth Stone, Anchor, Bronze Scales, Horn Cleat, Captain's Wheel, Orichalcum, Mercury Hourglass, Lantern, Bag of Preparation, Happy Flower, Bag of Marbles, Tungsten Rod and Self-Forming Clay. Two rows of five native icons sit below the power rows, with tooltips explaining enemy-specific effects. Selection reconstructs from the encounter seed on loading. [Full finale changes and card values](docs/UPDATE-0.8.7.md).
+The seeded combat deck contains **46 active families**: 23 retained boss families and all 23 regular La Rata neutral families with explicit enemy-side execution. The retired Sewer Alchemy and Plague of Crowns boss entries remain excluded; playable prize variants do not duplicate their boss identities. Each hand normally draws five cards and spends **6 Energy, increasing to 8 at half HP or below**, with a ten-card hand limit and eight-play limit. Draw/Energy gains for the next hand, Exhaust, persistent Powers and material-card requirements use explicit boss rules. The hidden hand is shown through played-card animations and relevant intents, not revealed in advance.
 
-| Card | Energy | Base effect |
-| --- | --- | --- |
-| Royal Tax | 1 | 12 damage to every player |
-| Scepter Storm | 1 | 7 damage three times to every player |
-| Off With Their Heads | 3 | 34 damage to every player, then 2 Vulnerable after all attacks |
-| Borrowed Tomorrow | 2 | 10 Doom and 1 Weak to every player |
-| Royal Flush | 2 | 2 Dazed into each draw pile and 1 Burn into each discard pile |
-| Stolen Aegis | 2 | 24 base Block and 1 Buffer if none remains; native co-op scaling |
-| Blood Contract | 0 | Up to 12 nonlethal self-damage; 2 Strength for the living royal court |
-| Exposed Crown | 0 | 16 base Block and 2 self-Vulnerable |
-| Emerald Tempest | 2 | 5 damage four times to every player and 1 Burn each |
-| Grave Levy | 2 | 18 damage to every player; heal the caster for 24 HP |
-| Funeral Procession | 2 | 6 damage three times and 1 Weak to every player |
-| Bone Treasury | 1 | 3 base Plating for each living court member, capped at 14 base |
-| Crown of Night | 3 | 30 base Block; 2 base Buffer only if none remains |
-| Rotting Tribute | 2 | 5 Poison and 2 Frail to every player |
-| Stolen Hour | 1 | 2 Dazed into each draw pile; 12 base Block for the caster |
-| Drowned Court | 2 | Heal living court members for 5% max HP; 2 base Plating, capped at 14 base |
-| Green Guillotine | 3 | 40 damage to every player; 2 self-Vulnerable |
-| Rattling Arsenal | 2 | 4 damage five times and 1 Dazed per player |
-| Royal Pardon | 1 | Remove Weak/Frail from the living court; 10 base Block for the caster |
-| Black Tithe | 2 | Remove all player Block; apply 2 Weak and 2 Frail to every player |
-| Kneel Before the Crown | 2 | Give the living court 30 base Block and 3 Strength |
-| Soul Foreclosure | 3 | 26 damage to every player; heal the living court for 8% max HP |
-| Nightfall Decree | 3 | Give the living court 2 Ritual, capped at 6 |
+La Rata's direct card Block bases are halved and most card healing bases are reduced to one quarter (rounded down, minimum 1 for positive healing). Grave Levy heals exactly **1% of current maximum HP**, without applying the quarter rule twice. Kingsguard healing directed at La Rata is also quartered; healing of other guards retains its native rule. Plating, Buffer and unrelated player effects are not silently reduced by this card-Block rule.
 
-These are native card models for presentation, with enemy execution through the native monster action system. They do not enter player reward pools. **Spells and powers resolve first, then attacks.** Pending Blood Contract Strength is included in attack previews and removed from the preview adjustment when the actual Strength is applied. Off With Their Heads applies Vulnerable only after all announced attacks. A hand without an attack still finishes with an announced 12-base-damage monster attack.
+Each encounter grants **ten distinct combat relics** from an eighteen-relic native selection pool, with explicit enemy adaptations. Two rows of native icons below the power rows explain those effects. Selection reconstructs from the encounter seed. Skills and powers resolve before attacks; pending Strength is reflected in intents. A hand without an attack ends with an announced 12-base-damage fallback attack. Generic encounter twists and earlier-boss helpers do not stack onto this custom finale.
 
-The randomly selected knights retain their Kingsguard mechanics. Generic encounter affixes and the earlier-boss reinforcement do not stack onto this custom finale. This is an initial gameplay design, not a finished balance claim.
+The earlier card-by-card tables remain in the [historical update reports](docs/UPDATE-0.8.7.md); they are not current 0.9.4 balance values. See [current development evidence](docs/DEV-WAVE-20261025.md) for the expanded deck and bounded live observations. Full animation sequencing, natural difficulty and four-human balance still require playtesting.
 
 ### The Kingsguard
 
@@ -268,7 +242,15 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.3` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.4` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+
+## Deutsch
+
+La Rata Remix 0.9.4 unterstützt deutsche Spieltexte über die Spracheinstellung des Spiels. Benötigt werden Spiel v0.107.1 und BaseLib 3.4.7. Installiere das kompilierte Paket oder abonniere den Workshop-Eintrag; beginne nach dem Update einen neuen Run. Im Koop müssen alle dieselben Versionen verwenden. A Thousand Cuts behält den Erstpreis; weitere Entfernungen erhöhen ihn mit aktivem Relikt nicht. Die technische Prüfung ersetzt keine vollständige Spiel- oder Netzwerkabnahme.
+
+## 简体中文
+
+La Rata Remix 0.9.4 支持简体中文，可在游戏语言设置中选择。需要游戏 v0.107.1 和 BaseLib 3.4.7。请安装编译好的压缩包或订阅创意工坊条目；更新后开始新的一局。联机玩家必须使用相同版本。持有 A Thousand Cuts 时，每次移除卡牌均使用首次移除的基础价格，并应用当前折扣。技术检查不代表已完成全面的游玩或联机验证。
 
 ## References and dependencies
 

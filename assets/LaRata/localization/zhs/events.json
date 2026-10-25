@@ -1,0 +1,10 @@
+{
+  "LARATA-RAT_INVITATION.title": "你们还没准备好",
+  "LARATA-RAT_INVITATION.pages.INITIAL.description": "高塔陷入寂静。随后，石壁之下传来一阵笑声。\n\n黑暗中裂开一道翠绿色的缝隙。缝隙后是一座由破碎王冠堆成的王座，王座上亮着一双饥渴的绿眼睛。\n\n一个声音从裂缝中钻出。\"哦？你们以为这就结束了？靠近些，小英雄们。让我看看，你们的胜利究竟值多少。\"",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.ENTER.title": "进入鼠王的领地",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.ENTER.description": "循着笑声，走向王座之下。",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.LEAVE.title": "转身走向光明",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.LEAVE.description": "把王冠留给阴影。建筑师正在等你。",
+  "LARATA-RAT_INVITATION.pages.ACCEPTED.description": "大门呻吟着打开。门后的某处，铁靴踏上石地。\n\n笑声戛然而止。\n\n\"终于来了。配得上与我同席的客人。\"",
+  "LARATA-RAT_INVITATION.pages.DECLINED.description": "你们转身离去。绿光收束成一条细线，随即消失。\n\n石壁之后，一顶王冠擦过王座。\n\n\"那就下次吧。\""
+}

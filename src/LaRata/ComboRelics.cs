@@ -34,7 +34,7 @@ public abstract class ComboRelic : CustomRelicModel
     public override string PackedIconPath => $"res://LaRata/images/relics/{Art[Kind]}.png";
     protected override string PackedIconOutlinePath => PackedIconPath;
     protected override string BigIconPath => PackedIconPath;
-    public override List<(string, string)> Localization => [("title", Titles[Kind]), ("description", Text[Kind]), ("flavor", "Everything has another use. Especially things the king threw away.")];
+    public override List<(string, string)> Localization => [];
     [SavedProperty] public bool Triggered { get; set; }
     [SavedProperty] public int SeenTypes { get; set; }
     public override Task BeforeSideTurnStart(PlayerChoiceContext ctx, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combat)
@@ -55,6 +55,7 @@ public abstract class ComboRelic : CustomRelicModel
         if (Kind != 0 || card.Owner != Owner || !Active) return;
         bool draw = !Triggered;
         Triggered = true; // Reserve before awaits: recursive exhaust/draw hooks cannot retrigger.
+        RelicMetrics.Record(this, "activations", 1, "Activations");
         Flash();
         await CreatureCmd.GainBlock(Owner.Creature, 1, ValueProp.Unpowered, null);
         if (draw && Active) await CardPileCmd.Draw(ctx, 1, Owner);
@@ -65,6 +66,7 @@ public abstract class ComboRelic : CustomRelicModel
         if (Kind == 1 && play.Card.Type == CardType.Power)
         {
             Triggered = true;
+            RelicMetrics.Record(this, "activations", 1, "Activations");
             Flash();
             await PlayerCmd.GainEnergy(1, Owner);
             await PowerCmd.Apply<VigorPower>(ctx, Owner.Creature, 4, Owner.Creature, null);
@@ -75,6 +77,7 @@ public abstract class ComboRelic : CustomRelicModel
             SeenTypes |= type;
             if ((SeenTypes & (SeenTypes - 1)) == 0) return;
             Triggered = true;
+            RelicMetrics.Record(this, "activations", 1, "Activations");
             Flash();
             await CreatureCmd.GainBlock(Owner.Creature, 4, ValueProp.Unpowered, null);
             if (Active) await CardPileCmd.Draw(ctx, 1, Owner);
@@ -83,6 +86,7 @@ public abstract class ComboRelic : CustomRelicModel
     public override async Task AfterPotionUsed(PotionModel potion, Creature? target)
     {
         if (Kind != 3 || potion.Owner != Owner || !Active) return;
+        RelicMetrics.Record(this, "activations", 1, "Activations");
         Flash();
         // Draw hooks may request a choice (e.g. an autoplayed card). Reuse the
         // native drinking action's context so its queue can pause and synchronize.
@@ -101,6 +105,7 @@ public abstract class ComboRelic : CustomRelicModel
     {
         if (Kind != 4 || card.Owner != Owner || !Active || Triggered || Owner.Creature.CombatState?.CurrentSide != Owner.Creature.Side) return;
         Triggered = true;
+        RelicMetrics.Record(this, "activations", 1, "Activations");
         Flash();
         await PlayerCmd.GainEnergy(1, Owner);
     }

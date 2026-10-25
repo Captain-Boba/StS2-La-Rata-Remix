@@ -1,0 +1,97 @@
+[h1]La Rata Remix – Version 0.9.4[/h1]
+
+[h2]EN – English[/h2]
+[b]1. New Content[/b]
+[list]
+[*]14 new La Rata Cards.
+[*]6 new Relics.
+[*]German and Simplified Chinese localization.
+[*]Dedicated La Rata card compendium and relic run statistics.
+[*]New and reworked artwork, including updated boss animations.
+[/list]
+[b]2. Balancing[/b]
+[list]
+[*]Expanded La Rata's boss card and relic pools. Reduced boss healing and direct Block.
+[*]Adjusted Act 1 reinforcement costs to allow more varied encounter twists.
+[*]Adjusted card rarities and booster drop rates.
+[*]Reworked several card effects.
+[/list]
+[b]3. Bug Fixes[/b]
+[list]
+[*]A Thousand Cuts now keeps removal costs at the first removal's base price, with applicable price modifiers.
+[*]Fixed card cost display and relic tracking issues.
+[*]Added visible indicators for enemy HP and damage modifiers.
+[*]Simplified card descriptions and relic statistics tooltips.
+[/list]
+[b]4. Compatibility / Known Issues[/b]
+[list]
+[*]Requires Slay the Spire 2 v0.107.1 and BaseLib 3.4.7. Start a new run.
+[*]All co-op players should use matching game, BaseLib and mod versions.
+[*]Closing a local co-op client can produce connection errors on the host. Investigation is ongoing.
+[*]Some complex relic effects are not yet tracked by run statistics.
+[*]Balance, visual polish and multiplayer testing remain ongoing.
+[/list]
+
+[h2]CN – 简体中文[/h2]
+[b]1. 新内容[/b]
+[list]
+[*]14 张新的 La Rata 卡牌。
+[*]6 件新遗物。
+[*]新增德语和简体中文本地化。
+[*]专属 La Rata 卡牌图鉴及本局遗物统计。
+[*]新增及重绘美术资源，包括更新的首领动画。
+[/list]
+[b]2. 平衡调整[/b]
+[list]
+[*]扩充 La Rata 的首领卡牌池和遗物池，降低首领治疗量与直接获得的格挡。
+[*]调整第一幕援军费用，让遭遇变数更加多样。
+[*]调整卡牌稀有度和补充包掉落概率。
+[*]重做部分卡牌效果。
+[/list]
+[b]3. 错误修复[/b]
+[list]
+[*]A Thousand Cuts 现在始终以首次移除的基础价格计算移除费用，并应用相应价格修正。
+[*]修复卡牌费用显示和遗物统计问题。
+[*]为敌人的生命值和伤害修正添加可见状态标识。
+[*]精简卡牌描述和遗物统计提示。
+[/list]
+[b]4. 兼容性 / 已知问题[/b]
+[list]
+[*]需要 Slay the Spire 2 v0.107.1 和 BaseLib 3.4.7。请开始新的一局。
+[*]所有联机玩家应使用相同的游戏、BaseLib 和模组版本。
+[*]关闭本地联机客户端可能导致主机出现连接错误，仍在调查中。
+[*]部分复杂遗物效果尚未纳入本局统计。
+[*]平衡调整、美术打磨及多人测试仍在进行。
+[/list]
+
+[h2]DE – Deutsch[/h2]
+[b]1. Neue Inhalte[/b]
+[list]
+[*]14 neue La-Rata-Karten.
+[*]6 neue Relikte.
+[*]Deutsche und vereinfachte chinesische Lokalisierung.
+[*]Eigenes La-Rata-Kartenkompendium und Reliktstatistiken für den aktuellen Run.
+[*]Neue und überarbeitete Grafiken, einschließlich aktualisierter Bossanimationen.
+[/list]
+[b]2. Balancing[/b]
+[list]
+[*]La Ratas Bosskarten- und Reliktpools erweitert. Bossheilung und direkten Block reduziert.
+[*]Verstärkungskosten in Akt 1 angepasst, um vielfältigere Kampf-Twists zu ermöglichen.
+[*]Kartenseltenheiten und Booster-Wahrscheinlichkeiten angepasst.
+[*]Mehrere Karteneffekte überarbeitet.
+[/list]
+[b]3. Fehlerbehebungen[/b]
+[list]
+[*]A Thousand Cuts hält die Entfernungskosten jetzt auf dem Basispreis der ersten Entfernung, einschließlich geltender Preismodifikatoren.
+[*]Probleme bei der Kartenkostenanzeige und Reliktstatistik behoben.
+[*]Sichtbare Statusanzeigen für gegnerische HP- und Schadensmodifikatoren ergänzt.
+[*]Kartentexte und Tooltips der Reliktstatistik vereinfacht.
+[/list]
+[b]4. Kompatibilität / Bekannte Probleme[/b]
+[list]
+[*]Benötigt Slay the Spire 2 v0.107.1 und BaseLib 3.4.7. Bitte einen neuen Run starten.
+[*]Alle Koop-Spieler sollten dieselben Versionen von Spiel, BaseLib und Mod verwenden.
+[*]Das Schließen eines lokalen Koop-Clients kann Verbindungsfehler beim Host auslösen. Die Untersuchung läuft.
+[*]Einige komplexe Relikteffekte werden noch nicht in den Run-Statistiken erfasst.
+[*]Balancing, optischer Feinschliff und Multiplayer-Tests laufen weiter.
+[/list]

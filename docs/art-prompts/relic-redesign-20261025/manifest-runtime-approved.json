@@ -1,0 +1,186 @@
+{
+  "date": "2026-10-25",
+  "status": "RUNTIME_FILES_INTEGRATED_NOT_PACKAGED_OR_INSTALLED",
+  "assetWindow": "Explicit K6 message authorized exactly six PNGs and associated active provenance/approval manifests.",
+  "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+  "assets": [
+    {
+      "key": "relic_remover",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-17a2da8c-f835-48c6-af20-1f96870165e9.png",
+      "sourceSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/relic_remover.png",
+      "draftSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "runtime": "assets/LaRata/images/relics/relic_remover.png",
+      "runtimeSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        72,
+        70,
+        1221,
+        1196
+      ],
+      "human_approved": true,
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "previousRuntimeSha256": "d5885cd50969d0c224d75533692d260e5a7939d7833c5ae0b3eafc7196dc3b14",
+      "archivedPreviousRuntime": "artifacts/relic-redesign-20261025/k5/integration-before/relic_remover-d5885cd50969.png"
+    },
+    {
+      "key": "sootbound_ticket",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-39e59207-c263-4762-b13e-226fd5a7bd5f.png",
+      "sourceSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/sootbound_ticket.png",
+      "draftSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "runtime": "assets/LaRata/images/relics/sootbound_ticket.png",
+      "runtimeSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        23,
+        241,
+        1242,
+        1019
+      ],
+      "human_approved": true,
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "previousRuntimeSha256": "cd9392a1b8ddcccc1ef63a141aa459daf24c5590becadef095c3fd95d359ac65",
+      "archivedPreviousRuntime": "artifacts/relic-redesign-20261025/k5/integration-before/sootbound_ticket-cd9392a1b8dd.png"
+    },
+    {
+      "key": "stairwell_key",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-995231a3-dd63-4592-a8dc-b9a5e60066a9.png",
+      "sourceSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/stairwell_key.png",
+      "draftSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "runtime": "assets/LaRata/images/relics/stairwell_key.png",
+      "runtimeSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        184,
+        64,
+        1091,
+        1190
+      ],
+      "human_approved": true,
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "previousRuntimeSha256": "3bac34b25b01924d584f0fdf0a86cab84e037a559ae164223e77412a920fafb5",
+      "archivedPreviousRuntime": "artifacts/relic-redesign-20261025/k5/integration-before/stairwell_key-3bac34b25b01.png"
+    },
+    {
+      "key": "mocking_bell",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-45a44799-65b1-4355-9418-acb8f133a54f.png",
+      "sourceSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/mocking_bell.png",
+      "draftSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "runtime": "assets/LaRata/images/relics/mocking_bell.png",
+      "runtimeSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        168,
+        70,
+        1126,
+        1196
+      ],
+      "human_approved": true,
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "previousRuntimeSha256": "d909e377b6ea8428eafa4ece4f3010d19813579bb3485916a8930cf31eed4a91",
+      "archivedPreviousRuntime": "artifacts/relic-redesign-20261025/k5/integration-before/mocking_bell-d909e377b6ea.png"
+    },
+    {
+      "key": "brass_scavenger",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-f7a5a002-60b6-46a9-a631-312833ba665a.png",
+      "sourceSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/brass_scavenger.png",
+      "draftSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "runtime": "assets/LaRata/images/relics/brass_scavenger.png",
+      "runtimeSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        75,
+        179,
+        1197,
+        1044
+      ],
+      "human_approved": true,
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "previousRuntimeSha256": "c0ea3dbec2679cf66e36860ab76e0dd9d1525a39edf7cc5b386b515219bca96d",
+      "archivedPreviousRuntime": "artifacts/relic-redesign-20261025/k5/integration-before/brass_scavenger-c0ea3dbec267.png"
+    },
+    {
+      "key": "moonlit_stopper",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d0721056-b709-4b38-896c-96ac7bb0f9c6.png",
+      "sourceSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/moonlit_stopper.png",
+      "draftSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "runtime": "assets/LaRata/images/relics/moonlit_stopper.png",
+      "runtimeSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        186,
+        75,
+        1149,
+        1180
+      ],
+      "human_approved": true,
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "previousRuntimeSha256": "7f62dda4a8e5db249ae665c174c622dfad404785f69ae9e451d6accd1886f378",
+      "archivedPreviousRuntime": "artifacts/relic-redesign-20261025/k5/integration-before/moonlit_stopper-7f62dda4a8e5.png"
+    }
+  ],
+  "activeSelectionManifests": [
+    "docs/art-prompts/manifest-dev-wave-20261025.json",
+    "docs/art-prompts/manifest-night-wave-20261025.json"
+  ],
+  "limits": [
+    "Visual approval is not technical/PCK/install acceptance.",
+    "No changes to mechanics, titles, text, other runtime files, installed ATC snapshot or canonical release package.",
+    "The user has now approved the booster weights. K6 coordinates the final combined candidate after K2 source freeze; no installation is implied by this asset record."
+  ],
+  "boosterDecision": "Subsequent direct user approval relayed by K1 resolves the earlier booster-weight hold. This does not change any approved artwork hash."
+}

@@ -30,7 +30,7 @@ public sealed class RoyalInterventionPower : CustomPowerModel
     public override int DisplayAmount => 0;
     public override string? CustomPackedIconPath => "res://images/atlases/intent_atlas.sprites/intent_card_debuff.tres";
     public override string? CustomBigIconPath => CustomPackedIconPath;
-    public override List<(string, string)> Localization => [("title", "The King's Gambit"), ("description", Notice)];
+    public override List<(string, string)> Localization => [];
     public override Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength) =>
         creature == Owner && !wasRemovalPrevented ? PowerCmd.Remove(this) : Task.CompletedTask;
 }
@@ -136,7 +136,7 @@ internal static class RoyalInterventionMarker
             };
             __instance.Visuals.IntentPosition.AddChild(marker);
             var shown = marker;
-            shown.MouseEntered += () => NHoverTipSet.CreateAndShow(shown, new HoverTip(ModelDb.Power<RoyalInterventionPower>().Title, RoyalInterventionPower.Notice, icon), HoverTipAlignment.Left)?.SetFollowOwner();
+            shown.MouseEntered += () => NHoverTipSet.CreateAndShow(shown, new HoverTip(ModelDb.Power<RoyalInterventionPower>().Title, ModelDb.Power<RoyalInterventionPower>().Description, icon), HoverTipAlignment.Left)?.SetFollowOwner();
             shown.MouseExited += () => NHoverTipSet.Remove(shown);
             // Gentle breathing, no twitching or gameplay RNG.
             var pulse = shown.CreateTween().SetLoops();

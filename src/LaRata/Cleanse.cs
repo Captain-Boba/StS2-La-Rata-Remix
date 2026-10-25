@@ -18,13 +18,9 @@ public sealed class Cleanse() : CustomCardModel(2, CardType.Skill, CardRarity.Ra
     public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     public override Material? CreateCustomFrameMaterial => RoyalCardStyle.Frame();
-    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner();
+    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner(Rarity);
     public override string? CustomPortraitPath => "res://LaRata/images/cleanse.png";
-    public override List<(string, string)> Localization =>
-    [
-        ("title", "Cleanse"),
-        ("description", "Remove all Debuffs from ALL living players. Remove their Curse cards for this combat. Does not remove Status cards.")
-    ];
+    public override List<(string, string)> Localization => [];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

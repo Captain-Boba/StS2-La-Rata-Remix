@@ -79,7 +79,8 @@ internal sealed record EnemyTwist(TwistKind Kind, int Target, int Amount, int Ac
 internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCount, EnemyTwist[] Twists)
 {
     internal bool ScoutReinforcement { get; init; }
-    internal int HelperCost => ScoutReinforcement ? 40 : ReinforcementCost;
+    internal int HelperCost => ScoutReinforcement ? ScoutCost : ReinforcementCost;
+    internal string[] SelectionTrace { get; init; } = [];
     internal static int BaseBudget(int players, int tier) => (tier == 2 ? 2 : tier == 1 ? 3 : 4) * Math.Clamp(players, 1, 4);
     internal static int StageBudget(int players, int tier, int actIndex) => 3 * BaseBudget(players, tier) * (5 + 2 * Math.Clamp(actIndex, 0, 3));
     // Keep enum IDs stable for diagnostics; retired families never enter a new plan.
@@ -87,6 +88,9 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
         (TwistKind.Armored or TwistKind.Slippery or TwistKind.Spiteful or TwistKind.SkillHunter or TwistKind.Doomweaver)).ToArray();
     internal string[] Affixes => [.. Enumerable.Repeat(ScoutReinforcement ? "Scout reinforcement: 35% HP, 50% attack (Inklet keeps its native attack)" : "Reinforcement", ReinforcementCount), .. Twists.Select(t => $"enemy[{t.Target}] {t.Description}")];
     internal const int ReinforcementCost = 64;
+    // A 35%-HP/50%-attack scout must leave room for regular 32-unit twists
+    // in the 60-unit solo act-one budget, not only eight 16-unit Lesser effects.
+    internal const int ScoutCost = 28;
     internal static int ReinforcementChance(int players, int actIndex) => Math.Min(100, 70 + (Math.Clamp(players, 1, 4) - 1) * 10 + Math.Clamp(actIndex, 0, 3) * 5);
     internal static int ReinforcementLimit(int players, int actIndex) => players >= 3 && actIndex >= 1 ? 3 : players >= 2 || actIndex >= 2 ? 2 : 1;
     internal static bool IsHex(TwistKind k) => k is TwistKind.Echoing or TwistKind.Hexed or >= TwistKind.Venomous and <= TwistKind.Lacerating or >= TwistKind.Shackling and <= TwistKind.Eroding or TwistKind.Doomweaver or TwistKind.Leaden or TwistKind.StaticHex or TwistKind.Crossfire;
@@ -128,17 +132,22 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
         int budget = StageBudget(players, tier, actIndex);
         bool smallBudget = budget < 96;
         bool scout = tier == 0 && budget < ReinforcementCost;
-        int helperCost = scout ? 40 : ReinforcementCost;
+        int helperCost = scout ? ScoutCost : ReinforcementCost;
         int Price(TwistKind kind) => Cost(kind) / (smallBudget && HasLesser(kind) ? 2 : 1);
         int extra = 0;
         int capacity = tier == 0 ? Math.Clamp(Math.Min(Math.Min(maxReinforcements, 4 - enemyCount), budget / helperCost), 0, ReinforcementLimit(players, actIndex)) : 0;
-        if (capacity > 0 && (forceReinforce || next(100) < ReinforcementChance(players, actIndex)))
+        int reinforcementRoll = -1;
+        if (capacity > 0 && (forceReinforce || (reinforcementRoll = next(100)) < ReinforcementChance(players, actIndex)))
         {
             extra = 1;
             if (capacity > 1 && next(100) < 60 + actIndex * 5) extra++;
             if (capacity > 2 && extra == 2 && next(100) < 35 + actIndex * 5) extra++;
         }
         int remaining = budget - extra * helperCost;
+        var trace = new List<string>
+        {
+            $"act={actIndex + 1},tier={tier},budget={budget},helperCapacity={capacity},helperChance={ReinforcementChance(players, actIndex)},helperRoll={reinforcementRoll},forced={forceReinforce},helpers={extra}x{helperCost},remaining={remaining}"
+        };
         int totalEnemies = enemyCount + extra;
         var twists = new List<EnemyTwist>();
         var candidates = ActiveKinds.Where(k => k is not (TwistKind.Sturdy or TwistKind.Keen)).ToList();
@@ -153,13 +162,14 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
                 (k == TwistKind.SkillHunter && (actIndex == 0 || tier != 0)) ||
                 (IsOffense(k) && twists.Any(t => IsOffense(t.Kind))) ||
                 (IsHex(k) && twists.Count(t => t.IsHex) >= (players >= 3 ? 2 : 1)) || Targets(k).Length == 0);
-            if (candidates.Count == 0) break;
+            if (candidates.Count == 0) { trace.Add($"step={i},remaining={remaining},eligible=none"); break; }
             // In a small unreinforced encounter, leave room for a second effect
             // when an affordable first effect exists. Larger-party rolls stay unchanged.
             var choices = smallBudget && i == 0 && extra == 0
                 ? candidates.Where(k => Price(k) <= remaining / 2).ToList() : candidates;
             if (choices.Count == 0) choices = candidates;
             var kind = SelectTwist(choices, next);
+            trace.Add($"step={i},remaining={remaining},eligible={string.Join(',', choices.Select(k => $"{k}:{Price(k)}"))},selected={kind}:{Price(kind)}");
             candidates.Remove(kind);
             var eligible = Targets(kind);
             int load = eligible.Min(target => twists.Count(t => t.Target == target));
@@ -174,7 +184,9 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
             remaining -= Price(kind);
             if (i == (smallBudget ? 1 : 0)) candidates.AddRange([TwistKind.Sturdy, TwistKind.Keen]);
         }
-        return new(budget, budget - remaining, extra, twists.ToArray()) { ScoutReinforcement = scout && extra > 0 };
+        trace.Add($"spent={budget - remaining},unspent={remaining},twists={twists.Count}");
+        return new(budget, budget - remaining, extra, twists.ToArray())
+        { ScoutReinforcement = scout && extra > 0, SelectionTrace = trace.ToArray() };
     }
 
     internal static string HexName(int hex) => hex switch { 1 => "Weak", 2 => "Frail", 3 => "Vulnerable", _ => "None" };

@@ -1,0 +1,458 @@
+{
+  "date": "2026-10-25",
+  "status": "ALL_SIX_VISUALLY_APPROVED_AND_RUNTIME_INTEGRATED_PENDING_K6_TECHNICAL_CHECKS",
+  "generator": "built-in image_gen",
+  "scope": "Six user-approved relic originals copied to existing runtime paths in K6 explicitly opened asset window. Effects, titles, localization and flavor unchanged. Installed ATC fix and canonical release package are unchanged.",
+  "nativeReferences": {
+    "viewed": [
+      ".research/native-reference-0.107.1-20261025/relic-reference-png/anchor.png",
+      ".research/native-reference-0.107.1-20261025/relic-reference-png/vajra.png",
+      ".research/native-reference-0.107.1-20261025/relic-reference-png/membership_card.png"
+    ],
+    "principles": "Bold silhouette, a few large color planes, thick irregular dark contour, controlled values; construction and negative space give identity. No native icon is copied into an output, and new generations have no reference-image inputs.",
+    "sha256": {
+      ".research/native-reference-0.107.1-20261025/relic-reference-png/anchor.png": "4c216c760d51f1e4c76d766ddff52fd6abc0e525d270db4fa4b2d166fea54e93",
+      ".research/native-reference-0.107.1-20261025/relic-reference-png/vajra.png": "3577e67aa58817385f3a81b369a3a8661a2b87ec7a370ab8749524e970bed68e",
+      ".research/native-reference-0.107.1-20261025/relic-reference-png/membership_card.png": "73a0256380d84f064dd2a8107f9b42627f4db4bc044c3f8cc466f6f1257055be"
+    }
+  },
+  "export": "Generated original pixels copied unchanged only into the separate drafts folder. Contact sheets proportionally resize the entire image canvas, retaining native optical margins; native48/32 samples are actual pixel sizes, not magnified.",
+  "acceptance": "All six exact original/draft/runtime PNG hashes are visually approved via approval-all-six-designs.json. Runtime file integration is complete; technical PCK/build/install/live evidence belongs separately to K6. The subsequent user booster-weight approval resolves that prior decision hold; K6 still owns the final combined technical/build/install sequence.",
+  "assets": [
+    {
+      "key": "relic_remover",
+      "title": "The Relic Remover",
+      "shortLabel": "Remover",
+      "concept": "A folding pocket oubliette lets an unwanted relic vanish through its trapdoor.",
+      "prompt": "Use case: stylized-concept. ONE original Slay the Spire2 / La Rata RELIC ICON, genuine transparent alpha background, square ideally1254x1254. Complete isolated centered object about75% canvas height. Native small-icon visual economy: bold irregular dark outline, few large flat hand-painted color planes, max2–3 values per material, clear negative space and simple asymmetrical silhouette legible at32px/48px. No scene, hand, character, border, letters, numbers, text, labels, watermark, microengraving, tiny filigree, sparkles, photorealism or glossy3D. New construction from scratch, not a variation of a prior icon.\nDESIGN: A bizarre POCKET OUBLIETTE: a thick shallow CHERRY-RED WOODEN SQUARE FRAME with an impossible pitch-black open hole in its center. A single flat SLATE-BLUE TRAPDOOR LID is hinged up behind it at an angle, making a strong open-book-like silhouette; its underside is plain. One chunky irregular VIOLET RELIC PEBBLE is halfway slipping through the black hole, its lower half vanishing behind the near frame edge. There is NO chest box under the frame: the hole is impossibly bottomless in a thin portable frame. Two stout muted-brass hinge blocks, no ornament. Three major forms only: red frame/black opening, raised slate lid, purple pebble. A clearly physical little hinged artifact that provides a private exit for unwanted treasure. Aim for a strange handmade trapdoor you could carry in a pocket, not a magic spell symbol, treasure chest, rubbish bin or generic tools. NO bones, teeth, jaws, pincers, collars, rings, scissors or crowbar. Muted brick cherry-red, cool slateblue, deep charcoal, one violet stone.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-17a2da8c-f835-48c6-af20-1f96870165e9.png",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/relic_remover.png",
+      "runtime": "assets/LaRata/images/relics/relic_remover.png",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        72,
+        70,
+        1221,
+        1196
+      ],
+      "sha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "sourceSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "before": {
+        "key": "relic_remover",
+        "runtime": "assets/LaRata/images/relics/relic_remover.png",
+        "sha256": "d5885cd50969d0c224d75533692d260e5a7939d7833c5ae0b3eafc7196dc3b14",
+        "before": "artifacts/relic-redesign-20261025/k5/before/relic_remover.png"
+      },
+      "previousSelectionHistory": [
+        {
+          "manifest": "docs/art-prompts/manifest-dev-wave-20261025.json",
+          "asset": {
+            "key": "relic_remover",
+            "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-1f010b2a-56c0-4f8b-91e6-4823a0f24e9c.png",
+            "target": "assets/LaRata/images/relics/relic_remover.png",
+            "prompt": "Use case: stylized-concept. ONE production Slay the Spire 2 relic inventory ICON. Input images are actual native-game style references, not edit targets: match their extremely simple chunky hand-painted shapes, VERY thick dark outer contour, two or three large flat painted color planes, slightly irregular handmade edges. Maximum readability at32px and48px. This is RELIC ICON ART, not detailed CARD illustration. Absolutely no filigree, tiny cracks, etched patterns, particles, lighting bloom, atmospheric scenery, photorealism, 3D render or text. One isolated object on real transparent alpha, centered with generous equal transparent margins. Square1024x1024 canvas. Bold silhouette and limited flat colors.  Subject: A short oversized plain iron pry bar lifting a small cracked brass ring off a flat dark stone chip. Three large simple shapes, one pale-blue steel highlight, amber brass, charcoal stone. Readable removal/tool silhouette; no complex mechanism or scattered debris.",
+            "tool": "built-in image_gen",
+            "human_approved": false,
+            "kind": "relic",
+            "dimensions": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA",
+            "alphaBoundsAt16": [
+              69,
+              92,
+              1201,
+              1187
+            ],
+            "sha256": "d5885cd50969d0c224d75533692d260e5a7939d7833c5ae0b3eafc7196dc3b14",
+            "sourceSha256": "d5885cd50969d0c224d75533692d260e5a7939d7833c5ae0b3eafc7196dc3b14"
+          }
+        }
+      ],
+      "priorDrafts": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d98df5fd-b4ea-4b6e-ac81-a198a66c0c44.png",
+          "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A strange pocket-sized RELIC UNFASTENER made from TWO OVERSIZED CURVED IVORY MOLARS hinged together like a squat lobster claw. A single broad dark CORAL-RED ratchet joint connects them. The two blunt hooked tooth-jaws wedge apart one EMPTY antique-brass collar/socket ring, opening it into a clear C-shaped gap. Design as one coherent handheld contraption, no hand. The open collar is visibly detached/unfastened, not destroyed by a sword. Main silhouette is a compact asymmetrical ivory pincer around an empty round brass socket, with the red hinge as a strong third shape. Few forms, no extra gears or bolts. Story: an old tooth-puller repurposed to remove cursed treasure, leaving its valuable mounting behind. NOT a generic crowbar, scissors, hammer or wrench. Palette bone cream, coral-red hinge, muted brass, dark contours.",
+          "concept": "Ivory ratchet claw pries open an empty relic collar.",
+          "sha256": "00d4fbf13240cdb039e8c49ebb83de46ebe00b166cf99674021f633924051215",
+          "archivedDraft": "docs/art-prompts/relic-redesign-20261025/history/v1/relic_remover.png",
+          "human_approved": false,
+          "reason": "User rejected this motif; requested a completely different construction. Ticket must immediately read as an actual ticket."
+        }
+      ],
+      "revision": 2,
+      "approvedSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "runtimeSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "runtimeIntegrated": true,
+      "runtimeMatchesSelectedArt": true,
+      "runtimeMatchesOriginalBaseline": false
+    },
+    {
+      "key": "sootbound_ticket",
+      "title": "Sootbound Ticket",
+      "shortLabel": "Ticket",
+      "concept": "A charred rectangular admission ticket has been stitched back together with one oversized copper stitch.",
+      "prompt": "Use case: stylized-concept. ONE original Slay the Spire2 / La Rata RELIC ICON, genuine transparent alpha background, square ideally1254x1254. Complete isolated centered object about75% canvas height. Native small-icon visual economy: bold irregular dark outline, few large flat hand-painted color planes, max2–3 values per material, clear negative space and simple asymmetrical silhouette legible at32px/48px. No scene, hand, character, border, letters, numbers, text, labels, watermark, microengraving, tiny filigree, sparkles, photorealism or glossy3D. New construction from scratch, not a variation of a prior icon.\nDESIGN: An unmistakable FLAT WIDE RECTANGULAR ADMISSION TICKET, roughly2:1 width/height, tilted modestly diagonally. Ticket silhouette has characteristic big SEMICIRCULAR CUTOUT NOTCHES on both short edges and one clipped corner. Thick ivory paper, left third burned into deep black charcoal, surviving cream right side. A single broad crooked TEAR splits it across the middle; the two halves are held together by ONE OVERSIZED RED-COPPER STAPLE/STITCH, a simple broad squared loop that passes through two large punched holes on either side of the tear. The loop visibly BRIDGES the broken ticket, like someone repaired a burned one-use pass to use it once more. One rusty orange ember plane at the charred tear, no flames. Keep the whole ticket flat and rectangular, no curled tube, sail, boat, bird, ship, folded origami animal, scroll or other transformed object. Only three graphic forms: surviving ivory ticket, black scorched torn half, one thick red-copper repair stitch. No printed lines, seals, arrows, writing or digits. The familiar ticket silhouette must be recognizable instantly before noticing its odd giant repair.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-39e59207-c263-4762-b13e-226fd5a7bd5f.png",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/sootbound_ticket.png",
+      "runtime": "assets/LaRata/images/relics/sootbound_ticket.png",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        23,
+        241,
+        1242,
+        1019
+      ],
+      "sha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "sourceSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "before": {
+        "key": "sootbound_ticket",
+        "runtime": "assets/LaRata/images/relics/sootbound_ticket.png",
+        "sha256": "cd9392a1b8ddcccc1ef63a141aa459daf24c5590becadef095c3fd95d359ac65",
+        "before": "artifacts/relic-redesign-20261025/k5/before/sootbound_ticket.png"
+      },
+      "previousSelectionHistory": [
+        {
+          "manifest": "docs/art-prompts/manifest-night-wave-20261025.json",
+          "asset": {
+            "key": "sootbound_ticket",
+            "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-bf39383e-7e1b-41e1-9d8e-8faa4a8c9a11.png",
+            "target": "assets/LaRata/images/relics/sootbound_ticket.png",
+            "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. One broad cream/ochre ADMISSION TICKET with two simple punched edge notches, charred black corners and a large folded-back curled return tab on one end. The strong curled return fold is the distinctive silhouette. A few broad burnt orange planes, no printing or symbols; it reads as one burned ticket, not scroll/book/arrow icon.",
+            "kind": "relic",
+            "human_approved": false,
+            "dimensions": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA",
+            "alphaBoundsAt16": [
+              64,
+              175,
+              1225,
+              1095
+            ],
+            "sha256": "cd9392a1b8ddcccc1ef63a141aa459daf24c5590becadef095c3fd95d359ac65",
+            "sourceSha256": "cd9392a1b8ddcccc1ef63a141aa459daf24c5590becadef095c3fd95d359ac65"
+          }
+        }
+      ],
+      "priorDrafts": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e72c2616-7cb3-4704-a53a-8d563c0c0246.png",
+          "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: An admission TICKET that has folded itself into a tiny PAPER FERRY BOAT. A wide shallow angular cream-paper hull with a large black scorched stern; its two pointed bow/stern tips curve back toward each other in a clear return-shaped silhouette. One chunky burnt-orange folded interior plane resembles a surviving ember. One large ROUND PUNCHED HOLE in the raised ticket flap makes the origin as a used ticket legible, no printed markings. The whole object is one charred folded paper ticket-boat, not a full ship, no mast, oar or water. Broad ivory triangle planes against soot-black outer edge, muted rust orange interior. Story: a burned passage ticket became its own boat to bring something back from the discard shore. NOT an ordinary flat rectangular ticket with decorated corners, not a scroll, flame icon or generic origami crane. Keep max5large paper planes.",
+          "concept": "A burned passage ticket has folded itself into a return ferry.",
+          "sha256": "4ee2728916d7a64d8d9ff651071bcd84b83c14ae335072dbba42ff45a0a27116",
+          "archivedDraft": "docs/art-prompts/relic-redesign-20261025/history/v1/sootbound_ticket.png",
+          "human_approved": false,
+          "reason": "User rejected this motif; requested a completely different construction. Ticket must immediately read as an actual ticket."
+        }
+      ],
+      "revision": 2,
+      "approvedSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "runtimeSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "runtimeIntegrated": true,
+      "runtimeMatchesSelectedArt": true,
+      "runtimeMatchesOriginalBaseline": false
+    },
+    {
+      "key": "stairwell_key",
+      "title": "Stairwell Key",
+      "shortLabel": "Key",
+      "concept": "A piece of stairwell has folded into a key.",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A bizarre ancient KEY fabricated from a miniature staircase bent into one solid stepped object. The main shaft is a bold three-step DESCENDING ZIGZAG of dark brick-red cast iron, with three broad ivory worn tread surfaces. Its upper end has a thick rectangular arch shaped like an EMPTY TINY DOORWAY, not a circular key bow. Lowest step ends in one stout sideways key tooth. The entire key silhouette is a squat descending staircase with a doorway at its high end, tilted modestly diagonally. Clearly three big descending treads, no extra tiny steps or rails. Material heavy red iron and worn pale stone integrated as one relic. Story: someone folded an entire secret stairway until it would fit in a lock. NOT a standard gold key with stair-shaped teeth pasted on. No gold filigree, gems, sparks or background.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-995231a3-dd63-4592-a8dc-b9a5e60066a9.png",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/stairwell_key.png",
+      "runtime": "assets/LaRata/images/relics/stairwell_key.png",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        184,
+        64,
+        1091,
+        1190
+      ],
+      "sha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "sourceSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "before": {
+        "key": "stairwell_key",
+        "runtime": "assets/LaRata/images/relics/stairwell_key.png",
+        "sha256": "3bac34b25b01924d584f0fdf0a86cab84e037a559ae164223e77412a920fafb5",
+        "before": "artifacts/relic-redesign-20261025/k5/before/stairwell_key.png"
+      },
+      "previousSelectionHistory": [
+        {
+          "manifest": "docs/art-prompts/manifest-night-wave-20261025.json",
+          "asset": {
+            "key": "stairwell_key",
+            "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e11bb7c7-c34f-43b8-bc22-0e87a80d1cb9.png",
+            "target": "assets/LaRata/images/relics/stairwell_key.png",
+            "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. A single LARGE BRASS KEY with a chunky simple round bow, straight shaft and exactly THREE broad descending staircase-like teeth. Strong clearly stepped silhouette, antique golden yellow body with two broad brown shadow planes, one pale highlight. Not ornate, no chain, gems, letters or tiny serrations.",
+            "kind": "relic",
+            "human_approved": false,
+            "dimensions": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA",
+            "alphaBoundsAt16": [
+              160,
+              127,
+              1193,
+              1153
+            ],
+            "sha256": "3bac34b25b01924d584f0fdf0a86cab84e037a559ae164223e77412a920fafb5",
+            "sourceSha256": "3bac34b25b01924d584f0fdf0a86cab84e037a559ae164223e77412a920fafb5"
+          }
+        }
+      ],
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "approvedSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "runtimeSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "runtimeIntegrated": true,
+      "runtimeMatchesSelectedArt": true,
+      "runtimeMatchesOriginalBaseline": false
+    },
+    {
+      "key": "mocking_bell",
+      "title": "Mocking Bell",
+      "shortLabel": "Bell",
+      "concept": "A crooked bell's purple tongue ends in a second answering bell.",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: One lopsided cast-bronze MOCKING BELL whose mouth is stretched sideways into a broad rude laughing opening. A broad thick PLUM-PURPLE TONGUE hangs in one curved hook out of its dark interior, and the tongue's tip IS A SECOND SMALL UPSIDE-DOWN BELL rather than a standard round clapper. The little answering bell points sideways away from the large one, clearly distinct at thumbnail size, joined continuously by the chunky purple tongue. Large bell body has one folded ear-like top handle, no conventional circular suspension ring. Main silhouette is a crooked opened bell with one hooked purple tongue/second bell off its lower side. Only3major shapes, subdued aged bronze/plum/dark mouth, two broad planes per material. Suggest mocking expression through the mouth opening and tilted shape, no detailed eyes or face stuck on. Story: it never rings without answering itself. NOT a symmetrical stock bell with a purple ball clapper.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-45a44799-65b1-4355-9418-acb8f133a54f.png",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/mocking_bell.png",
+      "runtime": "assets/LaRata/images/relics/mocking_bell.png",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        168,
+        70,
+        1126,
+        1196
+      ],
+      "sha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "sourceSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "before": {
+        "key": "mocking_bell",
+        "runtime": "assets/LaRata/images/relics/mocking_bell.png",
+        "sha256": "d909e377b6ea8428eafa4ece4f3010d19813579bb3485916a8930cf31eed4a91",
+        "before": "artifacts/relic-redesign-20261025/k5/before/mocking_bell.png"
+      },
+      "previousSelectionHistory": [
+        {
+          "manifest": "docs/art-prompts/manifest-night-wave-20261025.json",
+          "asset": {
+            "key": "mocking_bell",
+            "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-62fbe403-2f53-4e6b-9c76-29ef4dc1dd2c.png",
+            "target": "assets/LaRata/images/relics/mocking_bell.png",
+            "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. A single slightly CROOKED BRONZE HANDBELL with a short thick top loop and one prominent oversized VIOLET CLAPPER visibly hanging in its open lower mouth. Tilt the bell a little for a mischievous silhouette. Warm bronze/ochre shell, dark brown interior and clear plum/purple clapper; only broad painted planes, no face or engraving.",
+            "kind": "relic",
+            "human_approved": false,
+            "dimensions": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA",
+            "alphaBoundsAt16": [
+              179,
+              123,
+              1136,
+              1147
+            ],
+            "sha256": "d909e377b6ea8428eafa4ece4f3010d19813579bb3485916a8930cf31eed4a91",
+            "sourceSha256": "d909e377b6ea8428eafa4ece4f3010d19813579bb3485916a8930cf31eed4a91"
+          }
+        }
+      ],
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "approvedSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "runtimeSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "runtimeIntegrated": true,
+      "runtimeMatchesSelectedArt": true,
+      "runtimeMatchesOriginalBaseline": false
+    },
+    {
+      "key": "brass_scavenger",
+      "title": "Brass Scavenger",
+      "shortLabel": "Scavenger",
+      "concept": "A squat brass scavenger beetle bites a broken shield.",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A strange squat cast-BRASS SCAVENGER BEETLE figurine. One oversized asymmetrical shovel-like jaw bites a single visibly split BLUE-GRAY SHIELD SHARD. Its round convex brass belly is shaped like one smooth old coin, with no stamped symbol. A dark iron back and only two visible broad stubby claw feet, no six thin insect legs. Main silhouette is a compact hunched beetle with an enormous forward shovel-mouth and the broken shield shard caught in it;3–4big readable forms. The jaw is physically connected to the body and grips the shard. Warm muted brass broad planes, cool slate-blue shard, charcoal back, no tiny joints/gears. Story: this greedy little metal scavenger eats a shattered shield and saves the valuable scrap in its coin belly. NOT a gold crescent hook on a shield, hammer, generic gear, money bag or ornate robot.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-f7a5a002-60b6-46a9-a631-312833ba665a.png",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/brass_scavenger.png",
+      "runtime": "assets/LaRata/images/relics/brass_scavenger.png",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        75,
+        179,
+        1197,
+        1044
+      ],
+      "sha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "sourceSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "before": {
+        "key": "brass_scavenger",
+        "runtime": "assets/LaRata/images/relics/brass_scavenger.png",
+        "sha256": "c0ea3dbec2679cf66e36860ab76e0dd9d1525a39edf7cc5b386b515219bca96d",
+        "before": "artifacts/relic-redesign-20261025/k5/before/brass_scavenger.png"
+      },
+      "previousSelectionHistory": [
+        {
+          "manifest": "docs/art-prompts/manifest-night-wave-20261025.json",
+          "asset": {
+            "key": "brass_scavenger",
+            "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-708c6e07-e23d-48e5-b298-aadbe9168f94.png",
+            "target": "assets/LaRata/images/relics/brass_scavenger.png",
+            "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. One heavy curved BRASS FANG hooked through a single BROKEN BLUE-GRAY SHIELD FRAGMENT, forming one compact unified relic. The gold/brass tooth is the main large silhouette, cracked shield shard a small supporting shape. One strong gold highlight and dark blue-gray planes. No coins, text, trophies, extra teeth, gore or microscopic cracks.",
+            "kind": "relic",
+            "human_approved": false,
+            "dimensions": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA",
+            "alphaBoundsAt16": [
+              142,
+              103,
+              1126,
+              1157
+            ],
+            "sha256": "c0ea3dbec2679cf66e36860ab76e0dd9d1525a39edf7cc5b386b515219bca96d",
+            "sourceSha256": "c0ea3dbec2679cf66e36860ab76e0dd9d1525a39edf7cc5b386b515219bca96d"
+          }
+        }
+      ],
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "approvedSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "runtimeSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "runtimeIntegrated": true,
+      "runtimeMatchesSelectedArt": true,
+      "runtimeMatchesOriginalBaseline": false
+    },
+    {
+      "key": "moonlit_stopper",
+      "title": "Moonlit Stopper",
+      "shortLabel": "Stopper",
+      "concept": "A sleeping silver moon-fish seals a discarded bottle neck with its tail.",
+      "prompt": "Use case: stylized-concept. One ORIGINAL Slay the Spire2-style inventory RELIC ICON for La Rata Remix, NOT a card illustration or scene. Genuine transparent background (alpha), square canvas ideally1254x1254. One complete centered object occupies75% canvas height with generous clean transparent margin. Match the visual economy of native Anchor/Vajra/MembershipCard: thick dark charcoal irregular outline, few broad hand-painted flat planes, only2–3 values per material, slight organic asymmetry, bold silhouette readable at32px and48px. This must be an unusual specific tangible relic with a little story, not a generic UI symbol. Restrained palette, no realism, glossy3D, fine engraving, ornamental filigree, tiny accessories, particle effects, scenery, backdrop, drop-shadow rectangle, letters, numbers, text, labels, icon border or watermark. Distinctive CONSTRUCTION rather than extra decoration.\n\nDESIGN: A peculiar bottle STOPPER that is a sleeping SILVER MOON-FISH. The fish's thick body curls into an asymmetric crescent, with one tiny simple closed-eye slash, no scales. Its single wide folded tail is wedged down into a SHORT BROKEN VIOLET GLASS BOTTLENECK COLLAR, physically sealing it. No cork at all: the moon-fish itself is the plug. One large turquoise potion-drop bead rests in the crescent belly opening, captured like a stored possibility. The neck is only a chunky short collar, not an entire bottle. Main silhouette a curled ivory/silver fish, broad forked tail below and jagged violet glass collar; cold silver/navy/violet with one turquoise bead. Story: the bottle is gone but its moon-shaped keeper still holds one impossible drop. Organic handmade ceramic/silver object, no detailed fins/scales, no stars or glow cloud. NOT a generic crescent stuck on top of a brown cork. Max4large shapes.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d0721056-b709-4b38-896c-96ac7bb0f9c6.png",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/moonlit_stopper.png",
+      "runtime": "assets/LaRata/images/relics/moonlit_stopper.png",
+      "human_approved": true,
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBoundsAt16": [
+        186,
+        75,
+        1149,
+        1180
+      ],
+      "sha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "sourceSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "before": {
+        "key": "moonlit_stopper",
+        "runtime": "assets/LaRata/images/relics/moonlit_stopper.png",
+        "sha256": "7f62dda4a8e5db249ae665c174c622dfad404785f69ae9e451d6accd1886f378",
+        "before": "artifacts/relic-redesign-20261025/k5/before/moonlit_stopper.png"
+      },
+      "previousSelectionHistory": [
+        {
+          "manifest": "docs/art-prompts/manifest-night-wave-20261025.json",
+          "asset": {
+            "key": "moonlit_stopper",
+            "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-9ce1330e-6d4e-4b37-a6a4-89a9f990f427.png",
+            "target": "assets/LaRata/images/relics/moonlit_stopper.png",
+            "prompt": "Use case: stylized-concept. Production ONE native-style Slay the Spire 2 RELIC ICON, not card illustration. Image1 is a local native shape/outline reference, Image2 a mod-owned simplified icon-style reference. Match their thick dark irregular contour, a few large flat painted color planes, clear asymmetrical silhouette and restrained two/three-tone shading. Genuine transparent background, ideally1254x1254 RGBA. One centered complete isolated object at about75% optical canvas height, generous transparent margin; readable at32px/48px. No text, letters, numbers, UI, frame, scene, particles, glow backdrop, decorative microtexture, detailed engraving or extra objects. One large tapered warm-brown CORK STOPPER with a simple SILVER CRESCENT MOON cap on its top. The cork and bold pale silver crescent form a single clear silhouette; a little muted blue shadow under crescent. No bottle, liquid, stars, magic swirls, text or detailed cork pores; just broad brown/silver/blue painted shapes.",
+            "kind": "relic",
+            "human_approved": false,
+            "dimensions": [
+              1254,
+              1254
+            ],
+            "mode": "RGBA",
+            "alphaBoundsAt16": [
+              284,
+              74,
+              1047,
+              1187
+            ],
+            "sha256": "7f62dda4a8e5db249ae665c174c622dfad404785f69ae9e451d6accd1886f378",
+            "sourceSha256": "7f62dda4a8e5db249ae665c174c622dfad404785f69ae9e451d6accd1886f378"
+          }
+        }
+      ],
+      "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
+      "approvedSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "runtimeSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "runtimeIntegrated": true,
+      "runtimeMatchesSelectedArt": true,
+      "runtimeMatchesOriginalBaseline": false
+    }
+  ],
+  "previews": [
+    {
+      "path": "artifacts/relic-redesign-20261025/k5/six-relics-before-after.png",
+      "sha256": "83eb5e81eb88edc68cdcbcf816414131974716ad4109b385fcb2b40c469af313"
+    },
+    {
+      "path": "artifacts/relic-redesign-20261025/k5/six-relics-native-sizes.png",
+      "sha256": "13f473c73f799453d39c53384f4dd26452f3269e424860819c660680091e8db4"
+    },
+    {
+      "path": "artifacts/relic-redesign-20261025/k5/two-relics-revision.png",
+      "sha256": "4fe4f04da387d3cb5618e1fb344f8f37683832f55be1ed5f557f85ded467db8a"
+    }
+  ]
+}

@@ -9,14 +9,26 @@ using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Nodes.HoverTips;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.addons.mega_text;
+using System.Runtime.CompilerServices;
+using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 
 namespace LaRata;
 
 internal static class RoyalDeckView
 {
+    private sealed record BossPreview(int? Id, string? Description, bool Replace);
+    private static readonly ConditionalWeakTable<CardModel, BossPreview> BossPreviews = new();
+    internal static void MarkBossPreview(CardModel model, int bossId, bool replace = true) =>
+        BossPreviews.AddOrUpdate(model, new(bossId, null, replace));
     internal static Task<NCard?> Show(RatKing king, RoyalCard model) => Show(king.Creature, model);
-    internal static async Task<NCard?> Show(Creature source, RoyalCard model, bool offscreen = false)
+    internal static Task<NCard?> Show(RatKing king, CardModel model, string bossDescription) =>
+        ShowCard(king.Creature, model, false, bossDescription);
+    internal static Task<NCard?> Show(Creature source, RoyalCard model, bool offscreen = false) =>
+        ShowCard(source, model, offscreen, null);
+    private static async Task<NCard?> ShowCard(Creature source, CardModel model, bool offscreen, string? bossDescription)
     {
         var room = NCombatRoom.Instance;
         if (room == null) return null;
@@ -24,6 +36,11 @@ internal static class RoyalDeckView
         if (card == null) return null;
         room.Ui.PlayContainer.AddChild(card);
         card.UpdateVisuals(PileType.None, CardPreviewMode.None);
+        if (bossDescription != null && card.Model is CardModel shownModel)
+        {
+            BossPreviews.AddOrUpdate(shownModel, new(null, bossDescription, true));
+            card.GetNode<MegaRichTextLabel>("%DescriptionLabel").SetTextAutoSize("[center]" + bossDescription + "[/center]");
+        }
         card.GlobalPosition = offscreen ? new Vector2(1960, 180) : room.GetCreatureNode(source)?.GlobalPosition ?? new Vector2(1200, 400);
         card.Scale = Vector2.One * .25f;
         card.AnimCardToPlayPile();
@@ -36,6 +53,46 @@ internal static class RoyalDeckView
         }
         else await Cmd.Wait(.75f);
         return card;
+    }
+    internal static async Task ShowResolution(NCard? card, string note)
+    {
+        if (card == null || !GodotObject.IsInstanceValid(card) || card.Model is not CardModel shownModel || string.IsNullOrWhiteSpace(note)) return;
+        string description = BossPreviews.TryGetValue(shownModel, out var preview) ? Describe(preview) : "";
+        card.GetNode<MegaRichTextLabel>("%DescriptionLabel").SetTextAutoSize("[center]" + description + "\n[color=#FFE3A0]" + note + "[/color][/center]");
+        var reading = card.CreateTween();
+        reading.TweenInterval(1.0);
+        await reading.AwaitFinished(card);
+    }
+    private static string Describe(BossPreview preview) => preview.Id is int id ? RoyalBossEffects.Description(id) : preview.Description ?? "";
+
+    [HarmonyPatch(typeof(AbstractModel), nameof(AbstractModel.MutableClone))]
+    private static class CopyPreviewContext
+    {
+        [HarmonyPostfix] private static void Postfix(AbstractModel __instance, AbstractModel __result)
+        {
+            if (__instance is CardModel source && __result is CardModel clone && BossPreviews.TryGetValue(source, out var preview))
+                BossPreviews.AddOrUpdate(clone, preview);
+        }
+    }
+
+    [HarmonyPatch(typeof(NCard), nameof(NCard.UpdateVisuals))]
+    private static class BossPreviewVisuals
+    {
+        [HarmonyPostfix] private static void Postfix(NCard __instance)
+        {
+            if (__instance.Model != null && BossPreviews.TryGetValue(__instance.Model, out var preview) && preview.Replace)
+                __instance.GetNode<MegaRichTextLabel>("%DescriptionLabel").SetTextAutoSize("[center]" + Describe(preview) + "[/center]");
+        }
+    }
+    [HarmonyPatch(typeof(CardModel), nameof(CardModel.HoverTips), MethodType.Getter)]
+    private static class BossPreviewTips
+    {
+        [HarmonyPostfix] private static void Postfix(CardModel __instance, ref IEnumerable<IHoverTip> __result)
+        {
+            if (!BossPreviews.TryGetValue(__instance, out var preview)) return;
+            IHoverTip tip = new HoverTip(new LocString("larata_ui", "library.boss_effect"), Describe(preview));
+            __result = preview.Replace ? [tip] : __result.Append(tip);
+        }
     }
     internal static void Dismiss(NCard? card)
     {

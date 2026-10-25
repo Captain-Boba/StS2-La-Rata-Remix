@@ -70,7 +70,7 @@ internal static class CombatJournalView
                 NHoverTipSet.Remove(button);
                 if (show) NHoverTipSet.CreateAndShow(button,
                     new HoverTip(new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + (royal ? ".history.title" : ".history.goblin")),
-                        royal ? "View cards played in this combat and their rounds." : "View thrown potions, rounds and recipients."), HoverTipAlignment.Left);
+                        UiText.Get(royal ? "journal.royal_tip" : "journal.potion_tip")), HoverTipAlignment.Left);
                 icon.Modulate = show ? new Color(1.2f, 1.2f, 1.2f) : Colors.White;
             }
             button.MouseEntered += () => Tips(true);
@@ -135,9 +135,10 @@ internal static class CombatJournalView
         var cards = new List<CardPileAddResult>();
         foreach (var entry in CombatJournal.Read(combat).Entries.Where(e => e.Kind == "card"))
         {
-            var canonical = RoyalCard.All.FirstOrDefault(c => c.Id.ToString() == entry.Model);
-            if (canonical == null) continue;
-            var card = canonical.ToMutable();
+            var catalog = LaRataCardCatalog.Entries.FirstOrDefault(c => c.BossId.HasValue && c.ModelId.ToString() == entry.Model);
+            if (catalog == null || catalog.BossId is not int bossId) continue;
+            var card = catalog.Model.ToMutable();
+            RoyalDeckView.MarkBossPreview(card, bossId);
             Rounds.Add(card, new(entry.Round));
             cards.Add(new CardPileAddResult { cardAdded = card });
         }
@@ -152,8 +153,8 @@ internal static class CombatJournalView
         var modal = NGenericPopup.Create()!;
         var panel = modal.GetNode<NVerticalPopup>("VerticalPopup");
         NModalContainer.Instance!.Add(modal);
-        panel.SetText("Potion Goblin", "Thrown potions in this combat. Hover for their effects.");
-        panel.YesButton.SetText("Close");
+        panel.SetText(UiText.Get("journal.potion_title"), UiText.Get("journal.potion_detail"));
+        panel.YesButton.SetText(UiText.Get("common.close"));
         panel.YesButton.Show();
         panel.YesButton.Enable();
         var description = panel.GetNode<Control>("Description");
@@ -182,11 +183,12 @@ internal static class CombatJournalView
             if (recipient != null) row.AddChild(new TextureRect { Texture = recipient.Character.IconTexture,
                 CustomMinimumSize = new Vector2(38, 48), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
                 StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered, MouseFilter = Control.MouseFilterEnum.Ignore });
-            var label = new Label { Text = $"Round {entry.Round} · {potion.Title.GetFormattedText()}\nTo player {seat}: {recipient?.Character.Title.GetFormattedText() ?? "Unknown"}",
+            var label = new Label { Text = UiText.Format("journal.potion_row", entry.Round, potion.Title.GetFormattedText(), seat, recipient?.Character.Title.GetFormattedText() ?? UiText.Get("common.unknown")),
                 SizeFlagsHorizontal = Control.SizeFlags.ExpandFill, AutowrapMode = TextServer.AutowrapMode.WordSmart,
                 MouseFilter = Control.MouseFilterEnum.Ignore };
             label.AddThemeFontOverride("font", GD.Load<Font>("res://themes/kreon_regular_shared.tres"));
             label.AddThemeFontSizeOverride("font_size", 20);
+            UiText.ApplyFont(label);
             row.AddChild(label);
             row.MouseEntered += () =>
             {
@@ -213,7 +215,7 @@ internal static class CombatJournalView
             {
                 var title = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".history.round");
                 title.Add("Round", played.Round);
-                __result = __result.Append(new HoverTip(title, "Played by La Rata in this combat."));
+                __result = __result.Append(new HoverTip(title, UiText.Get("journal.played")));
             }
         }
     }

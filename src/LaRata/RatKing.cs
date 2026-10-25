@@ -18,27 +18,46 @@ namespace LaRata;
 
 public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
 {
+    // Shared with the native AnimationPlayer scene exported by the art owner.
+    internal const float AttackImpactTime = .34f;
+    internal const float CastImpactTime = .50f;
+    internal const float AttackRecoveryTime = .51f;
+    internal const float CastRecoveryTime = .65f;
+    internal const float DeathAnimationTime = 1.40f;
     private RoyalDeck? deck;
     internal RoyalDeck? Deck => deck;
     internal int PendingStrength { get; set; }
     private int preparedTurns;
+    private HashSet<int> resolvedCards = [];
+    private Dictionary<int, ulong> targetIds = [];
+    internal bool IsResolvingHand { get; private set; }
+    internal string LastResolutionNote { get; private set; } = "";
+    internal string TargetSummary
+    {
+        get
+        {
+            var players = CombatState.Players.OrderBy(p => p.NetId).ToList();
+            return string.Join("; ", targetIds.OrderBy(p => p.Key).Select(pair =>
+            {
+                int seat = players.FindIndex(player => player.NetId == pair.Value);
+                return seat < 0 ? null : $"{LaRataCardCatalog.GetBossModel(pair.Key).Title} → #{seat + 1} {players[seat].Creature.Name}";
+            }).Where(text => text != null));
+        }
+    }
+    internal IEnumerable<int> RemainingPlan => deck?.Planned.Where(i => !resolvedCards.Contains(i)) ?? [];
     private int? regaliaMask;
     internal int RegaliaMask => regaliaMask ??= RoyalRegaliaPower.Choose(EncounterDirector.Random(CombatState.RunState, CombatState.Encounter!, "royal-relics"));
     public override int MinInitialHp => 1500;
     public override int MaxInitialHp => 1500;
+    public override float DeathAnimLengthOverride => DeathAnimationTime;
     public override string? CustomVisualPath => "res://LaRata/scenes/rat_king.tscn";
-    public List<(string, string)> Localization =>
-    [
-        ("name", "La Rata"),
-        ("moves.ROYAL_HAND.title", "The Royal Hand"),
-        ("deck.description", "{Plan}"),
-        ("edict.black_tithe", "Removes ALL of your Block before the attacks. Applies 2 Weak and 2 Frail to every player."),
-        ("edict.plague_of_crowns", "Applies 8 Poison and 12 Doom to every player. Adds 2 Burns to each player's discard pile."),
-        ("history.round", "Round {Round}"),
-        ("history.title", "La Rata's played cards"),
-        ("history.goblin", "Potion Goblin history"),
-        ("history.description", "Royal discard - played cards from this combat. Hover a card to see its round."),
-    ];
+    protected override void DeepCloneFields()
+    {
+        base.DeepCloneFields();
+        resolvedCards = new(resolvedCards);
+        targetIds = new(targetIds);
+    }
+    public List<(string, string)> Localization => [];
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
@@ -51,25 +70,43 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
         return new MonsterMoveStateMachine([turn, draw, assets], draw);
     }
 
-    private string PrepareHand(MoveState turn)
+    private RoyalDeck GetOrCreateDeck()
     {
         if (deck == null)
         {
+            RoyalBossEffects.ValidateCatalog();
             var rng = EncounterDirector.Random(CombatState.RunState, CombatState.Encounter ?? throw new InvalidOperationException("Royal deck needs an encounter."), "royal-deck");
             deck = new RoyalDeck(n => rng.NextInt(n));
         }
+        return deck;
+    }
+
+    private string PrepareHand(MoveState turn)
+    {
+        var deck = GetOrCreateDeck();
         int turnNumber = ++preparedTurns;
         int energy = (Creature.CurrentHp * 2 <= Creature.MaxHp ? 8 : 6)
             + (turnNumber == 1 && (RegaliaMask & (1 << 8)) != 0 ? 1 : 0)
             + (turnNumber % 3 == 0 && (RegaliaMask & (1 << 10)) != 0 ? 1 : 0);
-        deck.Prepare(energy, 5 + (turnNumber == 1 && (RegaliaMask & (1 << 9)) != 0 ? 2 : 0));
+        resolvedCards.Clear(); targetIds.Clear();
+        LastResolutionNote = "";
+        deck.Prepare(energy, 5 + (turnNumber == 1 && (RegaliaMask & (1 << 9)) != 0 ? 2 : 0), i => RoyalBossEffects.Unavailable(this, i));
+        var targeting = EncounterDirector.Random(CombatState.RunState, CombatState.Encounter!, $"royal-targets/{turnNumber}");
+        var players = CombatState.Players.Where(p => p.Creature.IsAlive).OrderBy(p => p.NetId).ToArray();
+        foreach (int index in deck.Planned.Where(i => i is 28 or 41 or 44))
+        {
+            // Graveyard Shift consumes an existing opening. Select and announce
+            // once; losing that status or dying later never triggers retargeting.
+            var eligible = index == 41 ? players.Where(p => p.Creature.GetPowerAmount<VulnerablePower>() > 0).ToArray() : players;
+            if (eligible.Length > 0) targetIds[index] = eligible[targeting.NextInt(eligible.Length)].NetId;
+        }
         PendingStrength = (deck.Planned.Contains(7) ? 2 : 0) + (deck.Planned.Contains(22) ? 3 : 0);
-        var cards = RoyalCard.All;
-        var intents = deck.Planned.SelectMany(i => cards[i].GetIntents(this)).ToList();
-        if (!deck.Planned.Any(RoyalDeck.IsAttack)) intents.Add(new SingleAttackIntent(() => 12 + PendingStrength));
+        var intents = deck.Planned.SelectMany(i => RoyalBossEffects.Intents(this, i)).ToList();
+        if (!deck.Planned.Any(RoyalDeck.IsAttack)) intents.Add(new RoyalForecastAttackIntent(this, -1, 12, 1));
         intents.Add(new RoyalHandIntent());
         AccessTools.PropertySetter(typeof(MoveState), nameof(MoveState.Intents)).Invoke(turn, [intents]);
-        ModEntry.Log.Info($"ROYAL PLAN {deck.Snapshot}");
+        foreach (var skipped in deck.Skipped) Note(skipped.Key, skipped.Value == "no_material" ? RoyalBossText.Text("no_material", "No spare hand card available.") : skipped.Value);
+        ModEntry.Log.Info($"ROYAL PLAN {Snapshot}");
         return turn.Id;
     }
 
@@ -77,25 +114,107 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
     {
         var activeDeck = deck ?? throw new InvalidOperationException("Royal hand was not prepared.");
         int[] plan = activeDeck.Planned.ToArray();
-        var cards = RoyalCard.All;
+        var cards = LaRataCardCatalog.BossCards;
         bool execution = false;
+        IsResolvingHand = true;
+        Creature.GetPower<RoyalRegaliaPower>()?.BeginRoyalHand();
         foreach (int index in plan)
         {
             if (!Creature.IsAlive || CombatManager.Instance.IsEnding) break;
             activeDeck.Spend(index);
+            LastResolutionNote = "";
             ModEntry.Log.Info($"ROYAL PLAY card={cards[index].Id.Entry} {activeDeck.Snapshot}");
-            var preview = await RoyalDeckView.Show(this, cards[index]);
+            var shadow = Creature.GetPower<RoyalSecondShadowPower>();
+            var preview = await RoyalDeckView.Show(this, cards[index], RoyalBossEffects.Description(index));
             CombatJournal.Record(CombatState, "card", cards[index]);
-            await cards[index].Resolve(this, targets);
-            RoyalDeckView.Dismiss(preview);
+            try
+            {
+                await RoyalBossEffects.Resolve(this, index, targets);
+                activeDeck.Complete(index);
+                resolvedCards.Add(index);
+                if (Creature.IsAlive && !CombatManager.Instance.IsEnding)
+                {
+                    if (RoyalDeck.IsExhaust(index)) await AfterPileAction(true);
+                    if (shadow != null) await shadow.AfterRoyalCard();
+                    if (Creature.GetPower<RoyalRegaliaPower>() is { } regalia) await regalia.AfterRoyalCard(index);
+                }
+                await FinishActionAnimation(RoyalDeck.IsAttack(index));
+                await RoyalDeckView.ShowResolution(preview, LastResolutionNote);
+            }
+            finally { RoyalDeckView.Dismiss(preview); }
             execution |= index == 2;
         }
         if (!plan.Any(RoyalDeck.IsAttack) && Creature.IsAlive && !CombatManager.Instance.IsEnding)
-            await DamageCmd.Attack(12).FromMonster(this).WithAttackerAnim("Attack", .3f).Execute(new ThrowingPlayerChoiceContext());
+        {
+            await DamageCmd.Attack(12).FromMonster(this).WithAttackerAnim("Attack", AttackImpactTime).Execute(new ThrowingPlayerChoiceContext());
+            await FinishActionAnimation(true);
+        }
         if (execution && Creature.IsAlive && !CombatManager.Instance.IsEnding)
             await PowerCmd.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), targets.Where(c => c.IsAlive), 2, Creature, null);
+        if (Creature.IsAlive && Creature.GetPower<RoyalRegaliaPower>() is { } courtRelics)
+            await courtRelics.EndRoyalHand(activeDeck.LastHandHadAttack);
         activeDeck.Finish();
+        IsResolvingHand = false;
         if (Creature.IsAlive) await CreatureCmd.TriggerAnim(Creature, "Idle", 0);
+    }
+
+    private Task FinishActionAnimation(bool attack)
+    {
+        if (!Creature.IsAlive || CombatManager.Instance.IsEnding) return Task.CompletedTask;
+        float seconds = attack ? AttackRecoveryTime : CastRecoveryTime;
+        return Cmd.CustomScaledWait(seconds / 2, seconds);
+    }
+
+    internal string Snapshot => $"turn={preparedTurns};mask={RegaliaMask};{deck?.Snapshot};targets={string.Join(',', targetIds.OrderBy(p => p.Key).Select(p => $"{p.Key}:{p.Value}"))};resolved={string.Join(',', resolvedCards.Order())};relics={Creature.GetPower<RoyalRegaliaPower>()?.Progress}";
+    internal Creature? TargetFor(int index) => targetIds.TryGetValue(index, out ulong id) ? CombatState.Players.FirstOrDefault(p => p.NetId == id)?.Creature : null;
+    internal void Note(int index, string reason)
+    {
+        LastResolutionNote = string.IsNullOrEmpty(LastResolutionNote) ? $"{LaRataCardCatalog.GetBossModel(index).Title}: {reason}" : LastResolutionNote + "\n" + reason;
+        ModEntry.Log.Info($"ROYAL RESULT card={index} {reason}");
+    }
+    internal Task ReserveNext(int source, int cards, int energy, bool relic = false)
+    {
+        var granted = GetOrCreateDeck().ReserveNext(cards, energy, relic);
+        Note(source, RoyalBossText.Text("reserve", "Next royal hand: +{Draw} cards, +{Energy} Energy. Card caps: +3 draw / +2 Energy; hand limit 10.", ("Draw", granted.Draw), ("Energy", granted.Energy)));
+        return Task.CompletedTask;
+    }
+    internal Task ReserveRelic(int relic, int cards, int energy)
+    {
+        GetOrCreateDeck().ReserveNext(cards, energy, relic: true);
+        string note = RoyalRegaliaPower.Relics[relic].Title.GetFormattedText() + ": " +
+            RoyalBossText.Text("relic_reserve", "Next royal hand: +{Draw} cards, +{Energy} Energy. Hand limit 10.", ("Draw", cards), ("Energy", energy));
+        LastResolutionNote = string.IsNullOrEmpty(LastResolutionNote) ? note : LastResolutionNote + "\n" + note;
+        ModEntry.Log.Info($"ROYAL RELIC index={relic} {LastResolutionNote}");
+        return Task.CompletedTask;
+    }
+    internal async Task AfterPileAction(bool isExhaust)
+    {
+        if (isExhaust)
+        {
+            if (Creature.GetPower<RoyalCourtOfCindersPower>() is { } cinders) await cinders.AfterRoyalExhaust(this);
+        }
+        else if (Creature.GetPower<RoyalSmugglersDividendPower>() is { } dividend) await dividend.AfterRoyalDiscard();
+    }
+    internal decimal PreviewAttackDamage(int index, int basis)
+    {
+        bool first = RemainingPlan.FirstOrDefault(RoyalDeck.IsAttack, -1) == index;
+        return basis + PendingStrength + (first ? PendingVigor() : -Creature.GetPowerAmount<VigorPower>());
+    }
+    internal int PendingVigor()
+    {
+        int vigor = 0;
+        var dividendPower = Creature.GetPower<RoyalSmugglersDividendPower>();
+        bool dividend = dividendPower != null;
+        bool dividendUsed = IsResolvingHand && dividendPower?.Amount == 2;
+        foreach (int index in RemainingPlan)
+        {
+            if (RoyalDeck.IsAttack(index)) break;
+            if (index == 45) dividend = true;
+            if (index == 27 || index is 39 or 42 && deck!.HasMaterial(index)) vigor += 4;
+            if (dividend && !dividendUsed && index is 32 or 38 or 43 && deck!.HasMaterial(index))
+            { vigor += 3; dividendUsed = true; }
+        }
+        return vigor;
     }
 
     public override async Task BeforeCombatStart()
@@ -125,9 +244,14 @@ internal sealed class RoyalHandIntent : BuffIntent
     protected override LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner)
     {
         var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".deck.description");
-        var deck = (owner.Monster as RatKing)?.Deck;
-        description.Add("Plan", $"Draws 5 hidden cards from a {RoyalDeck.ActiveCards.Length}-card deck. Plays spells and powers before attacking.\n" +
-            (deck == null ? "6 Energy, increasing to 8 at half HP." : $"Energy: {deck.Energy}/{deck.Capacity}. Draw: {deck.DrawCount}. Discard: {deck.DiscardCount}."));
+        var king = owner.Monster as RatKing;
+        var deck = king?.Deck;
+        string plan = deck == null ? RoyalBossText.Text("hand_unprepared", "Draws 5 hidden cards. 6 Energy, increasing to 8 at half HP. Skills and Powers precede attacks.") :
+            RoyalBossText.Text("hand_summary", "Drew {Drawn} hidden cards from {Total} families. Skills and Powers precede attacks. Energy {Energy}/{Capacity}. Draw {Draw}; discard {Discard}; Exhaust {Exhaust}; active Powers {Powers}. NEXT hand bonuses: {NextDraw} cards, {NextEnergy} Energy. Hand limit 10; play limit 8.",
+                ("Drawn", deck.DrawnThisTurn), ("Total", RoyalDeck.ActiveCards.Length), ("Energy", deck.Energy), ("Capacity", deck.Capacity), ("Draw", deck.DrawCount), ("Discard", deck.DiscardCount), ("Exhaust", deck.ExhaustCount), ("Powers", deck.PersistentCount), ("NextDraw", deck.NextDraw), ("NextEnergy", deck.NextEnergy));
+        if (!string.IsNullOrEmpty(king?.TargetSummary)) plan += "\n" + RoyalBossText.Text("targets", "Announced single-target effects: {Targets}.", ("Targets", king.TargetSummary));
+        if (!string.IsNullOrEmpty(king?.LastResolutionNote)) plan += "\n" + RoyalBossText.Text("last_result", "Last resolution: {Result}", ("Result", king.LastResolutionNote));
+        description.Add("Plan", plan);
         return description;
     }
 }
@@ -135,7 +259,7 @@ internal sealed class RoyalHandIntent : BuffIntent
 public sealed class RatKingEncounter : CustomEncounterModel, ILocalizationProvider
 {
     public RatKingEncounter() : base(RoomType.Boss) { }
-    public List<(string, string)> Localization => [("title", "La Rata")];
+    public List<(string, string)> Localization => [];
     public override bool IsValidForAct(ActModel act) => false; // Explicitly included only by RatDomain.
     internal static MonsterModel[] Guards => [ModelDb.Monster<CrownBulwark>(), ModelDb.Monster<CrownHeadsman>(), ModelDb.Monster<CrownArmorer>(), ModelDb.Monster<CrownHerald>()];
     public override IEnumerable<MonsterModel> AllPossibleMonsters => new[] { ModelDb.Monster<RatKing>() }.Cast<MonsterModel>().Concat(Guards);

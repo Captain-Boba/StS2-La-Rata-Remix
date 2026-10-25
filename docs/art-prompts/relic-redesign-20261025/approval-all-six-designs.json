@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-25",
+  "source": "Direct user responses relayed by same-project orchestrator K1; K6 separately verified the six-design approval and explicitly opened the integration asset window.",
+  "scope": "Human visual approval of these exact six original/draft PNG hashes. No build, PCK, installation or live UI approval is implied.",
+  "userStatements": [
+    {
+      "appliesTo": [
+        "stairwell_key",
+        "mocking_bell",
+        "brass_scavenger",
+        "moonlit_stopper"
+      ],
+      "verbatim": "alles außer die ersten beiden passen schon sehr gut. Also The Relic Remover und Sootbound Ticket. Einfach mal komplett anders und bei dem Ticket soll schon ein Ticket erkennbar sein"
+    },
+    {
+      "appliesTo": [
+        "relic_remover",
+        "sootbound_ticket"
+      ],
+      "verbatim": "beide neuen Motive gut"
+    }
+  ],
+  "assets": [
+    {
+      "key": "relic_remover",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-17a2da8c-f835-48c6-af20-1f96870165e9.png",
+      "sourceSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/relic_remover.png",
+      "draftSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "runtime": "assets/LaRata/images/relics/relic_remover.png",
+      "approvedSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "human_approved": true,
+      "userStatement": "beide neuen Motive gut"
+    },
+    {
+      "key": "sootbound_ticket",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-39e59207-c263-4762-b13e-226fd5a7bd5f.png",
+      "sourceSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/sootbound_ticket.png",
+      "draftSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "runtime": "assets/LaRata/images/relics/sootbound_ticket.png",
+      "approvedSha256": "376bb8e28113f094c393a1636b74797557535f00b602f82a75d04901d81d8b38",
+      "human_approved": true,
+      "userStatement": "beide neuen Motive gut"
+    },
+    {
+      "key": "stairwell_key",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-995231a3-dd63-4592-a8dc-b9a5e60066a9.png",
+      "sourceSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/stairwell_key.png",
+      "draftSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "runtime": "assets/LaRata/images/relics/stairwell_key.png",
+      "approvedSha256": "b08421023bbe4bb86dc2d85280ba76e9020103fde584b96e2c0a354cc8a2b275",
+      "human_approved": true,
+      "userStatement": "alles außer die ersten beiden passen schon sehr gut. Also The Relic Remover und Sootbound Ticket. Einfach mal komplett anders und bei dem Ticket soll schon ein Ticket erkennbar sein"
+    },
+    {
+      "key": "mocking_bell",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-45a44799-65b1-4355-9418-acb8f133a54f.png",
+      "sourceSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/mocking_bell.png",
+      "draftSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "runtime": "assets/LaRata/images/relics/mocking_bell.png",
+      "approvedSha256": "d455f6d6cb09c06304d953dac98ca9eff64ac97681f90064eb93e691b97140b2",
+      "human_approved": true,
+      "userStatement": "alles außer die ersten beiden passen schon sehr gut. Also The Relic Remover und Sootbound Ticket. Einfach mal komplett anders und bei dem Ticket soll schon ein Ticket erkennbar sein"
+    },
+    {
+      "key": "brass_scavenger",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-f7a5a002-60b6-46a9-a631-312833ba665a.png",
+      "sourceSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/brass_scavenger.png",
+      "draftSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "runtime": "assets/LaRata/images/relics/brass_scavenger.png",
+      "approvedSha256": "6a29506a61921b6f031c3b1151f718664a8be92770337d435fe87d53c4eb5486",
+      "human_approved": true,
+      "userStatement": "alles außer die ersten beiden passen schon sehr gut. Also The Relic Remover und Sootbound Ticket. Einfach mal komplett anders und bei dem Ticket soll schon ein Ticket erkennbar sein"
+    },
+    {
+      "key": "moonlit_stopper",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d0721056-b709-4b38-896c-96ac7bb0f9c6.png",
+      "sourceSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "draft": "docs/art-prompts/relic-redesign-20261025/drafts/moonlit_stopper.png",
+      "draftSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "runtime": "assets/LaRata/images/relics/moonlit_stopper.png",
+      "approvedSha256": "614497c502e4491b894cce0721bc846c284735f61dcf62301cc0a4d36105d34a",
+      "human_approved": true,
+      "userStatement": "alles außer die ersten beiden passen schon sehr gut. Also The Relic Remover und Sootbound Ticket. Einfach mal komplett anders und bei dem Ticket soll schon ein Ticket erkennbar sein"
+    }
+  ]
+}

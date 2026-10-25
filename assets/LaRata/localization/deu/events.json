@@ -1,0 +1,10 @@
+{
+  "LARATA-RAT_INVITATION.title": "Ihr seid nicht vorbereitet",
+  "LARATA-RAT_INVITATION.pages.INITIAL.description": "Der Spire verstummt. Dann ertönt unter dem Stein ein Lachen.\n\nEin smaragdgrüner Spalt öffnet sich in der Dunkelheit. Dahinter wartet ein Thron aus zerbrochenen Kronen. Auf ihm glühen zwei hungrige grüne Augen.\n\nEine Stimme dringt durch den Spalt. \"So. Ihr glaubt also, ihr wärt fertig. Kommt näher, kleine Helden. Zeigt mir, was euer Triumph wert ist.\"",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.ENTER.title": "Das Reich des Rattenkönigs betreten",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.ENTER.description": "Folgt dem Lachen unter dem Thron.",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.LEAVE.title": "Dem Licht zuwenden",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.LEAVE.description": "Überlasst die Krone ihren Schatten. Der Architekt wartet.",
+  "LARATA-RAT_INVITATION.pages.ACCEPTED.description": "Die Türen öffnen sich ächzend. Irgendwo dahinter schlagen eiserne Stiefel auf Stein.\n\nDas Lachen verstummt.\n\n\"Endlich. Gäste, die meiner Tafel würdig sind.\"",
+  "LARATA-RAT_INVITATION.pages.DECLINED.description": "Ihr wendet euch ab. Das grüne Licht schrumpft zu einem Faden und erlischt.\n\nHinter dem Stein schabt eine Krone über einen Thron.\n\n\"Dann ein andermal.\""
+}

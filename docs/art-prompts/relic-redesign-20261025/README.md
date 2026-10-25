@@ -1,0 +1,30 @@
+# Six independent relic artwork proposals
+
+For the distinction between unchanged approved PNGs and normal imported CTEX border-color processing, see [IMPORT-PROCESSING.md](IMPORT-PROCESSING.md). PNG SHA-256 identity does not assert full raw PNG-to-CTEX RGBA equality.
+
+Status: **all six designs visually approved and integrated as runtime files**, with technical package checks still owned by K6. These designs respond to the user's rejection of generic objects while preserving all six relic names, effects and existing flavor/localization. K6 explicitly opened a separate asset window for these six files. The installed ATC fix and canonical release package remain unchanged; this artwork integration does not imply installation.
+
+| Relic | Distinct construction | Visual connection to its existing effect |
+| --- | --- | --- |
+| The Relic Remover | A thin red pocket trapdoor with a raised slate lid lets a violet relic disappear into its dark opening. | An unwanted treasure gets its own private exit. |
+| Sootbound Ticket | A flat rectangular notched admission ticket, half charred, is repaired with one oversized copper staple. | A burned one-use passage is held together for another return. |
+| Stairwell Key | A doorway and three pale descending treads form the entire red-iron key. | Descending steps recall the decreasing Energy sequence. |
+| Mocking Bell | A crooked laughing mouth has a broad purple tongue ending in a second answering bell. | One target's affliction receives an answer from another. |
+| Brass Scavenger | A squat brass scavenger beetle bites a split shield shard with its oversized jaw. | Broken defenses become valuable scrap in its coin-shaped belly. |
+| Moonlit Stopper | A sleeping silver moon-fish holds one drop; its tail seals a broken violet bottle neck. | The discarded bottle leaves one stored possibility behind. |
+
+These are visual briefs, not replacement flavor text. Each image was generated independently through the existing built-in ImageGen workflow with genuine alpha and no native-image input. K5 opened the installed v0.107.1 Anchor, Vajra and Membership Card images first, studying their silhouettes, negative space, dark contours and broad color planes. No vanilla icon is copied or recolored. The reference paths/hashes, exact prompts, generated original paths, old selected prompts/history, before-image hashes and draft hashes are in `manifest-drafts.json`.
+
+Selected PNGs in `drafts/` are unchanged generator originals. The production script `build-previews.py` copies them only into this draft folder and builds two local review sheets under `artifacts/relic-redesign-20261025/k5`: `six-relics-before-after.png` and `six-relics-native-sizes.png`. The 48/32 samples scale the full original canvas proportionally without optical normalization or sharpening; light/dark backgrounds reveal silhouette and alpha readability. Large previews help assess construction, while the small samples expose details that disappear. No source pixels are repainted by the script.
+
+K5 inspected all selected originals and updated sheets. The pocket opening, notched repaired ticket, stair treads, tongue/answer bell, shield fragment and captured drop are the intended landmarks. Author inspection is separate from human approval and native live UI acceptance. Before integration, all six runtime-image hashes matched their saved original baseline; after the authorized copy, each runtime hash matches its approved original/draft hash. Booster, card, Tibo portrait, boss scene/animation and relic mechanics/text are unchanged.
+
+Runtime integration was performed only after K6 explicitly opened the separate asset window. Exactly six approved originals were copied unchanged to their existing artkeys. `manifest-runtime-approved.json` maps original/draft/runtime SHA-256 values, dimensions, alpha bounds, previous runtime archives and active selection manifests. The previous PNGs and active manifests are saved under `artifacts/relic-redesign-20261025/k5/integration-before`. No new dependency was introduced; existing offline Pillow is used only for metadata and requested contact-sheet production.
+
+## User review and second approaches
+
+The user's exact review is preserved in `approval-four-designs.json`: the shown Stairwell Key, Mocking Bell, Brass Scavenger and Moonlit Stopper drafts are visually approved at their recorded hashes. Their sources and selected draft files are frozen; the preview exporter checks those identities and does not recopy or rewrite approved PNGs. This is visual approval only, not a runtime/PCK/installation result.
+
+The first two proposals were rejected. The entire original manifest, bone-claw Remover and folded-boat Ticket are retained in `history/v1`; earlier comparison sheets are retained in the artifact directory's `before` folder. The replacement Remover uses a completely different pocket-oubliette construction. The replacement Ticket keeps a recognizable wide rectangular ticket silhouette with side notches, charred half and one copper repair staple; it is not a boat or another transformed object. Both replacements were generated independently from scratch through built-in ImageGen with their exact new prompts and prior-draft histories recorded in the current manifest. The user subsequently approved these exact two with "beide neuen Motive gut". `approval-all-six-designs.json` combines both actual user statements and freezes all six source/draft hashes. No further art iteration was performed.
+
+`two-relics-revision.png` compares only these two: original runtime, rejected proposal, approved design and literal 48/32-pixel samples on dark/light backgrounds. `six-relics-before-after.png` and `six-relics-native-sizes.png` show the complete approved set. Only the six approved PNGs and their active provenance/selection records were integrated. K6 owns separate source/PCK checks; no build, PCK, install or live result is inferred from this file copy. The user's subsequent booster-weight approval resolves the earlier decision hold; K6 coordinates the final combined candidate after K2's source freeze.

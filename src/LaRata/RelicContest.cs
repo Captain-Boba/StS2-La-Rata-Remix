@@ -27,7 +27,7 @@ internal static class RelicContest
     internal static bool Active => RunManager.Instance.DebugOnlyGetState() != null && State(RunManager.Instance.TreasureRoomRelicSynchronizer).Resolving;
     private static readonly System.Reflection.MethodInfo Award = AccessTools.Method(typeof(TreasureRoomRelicSynchronizer), "AwardRelics");
     private static readonly System.Reflection.MethodInfo End = AccessTools.Method(typeof(TreasureRoomRelicSynchronizer), "EndRelicVoting");
-    private static string PlayerLabel(IRunState run, Player player) => $"Player {run.Players.ToList().IndexOf(player) + 1} ({player.Character.Title.GetFormattedText()})";
+    private static string PlayerLabel(IRunState run, Player player) => UiText.Format("contest.player", run.Players.ToList().IndexOf(player) + 1, player.Character.Title.GetFormattedText());
 
     internal static async Task Execute(TreasureRoomRelicSynchronizer sync, Player player, int? index)
     {
@@ -68,9 +68,15 @@ internal static class RelicContest
         {
             var rng = new Rng(run.Rng.Seed, $"LaRata/Well/v1/{run.CurrentActIndex}/{run.TotalFloor}/{slot}/{relic.Id.Entry}");
             var winner = wells[rng.NextInt(wells.Count)];
-            ChoicePanel.Show("Well wins", $"{relic.Title.GetFormattedText()}\n{PlayerLabel(run, winner)} wins the contest.\n" +
-                (wells.Count == 1 ? "The well swallows every hand." : $"Equal chances between {wells.Count} Well holders."));
+            ChoicePanel.Show(UiText.Get("contest.well_title"), UiText.Format("contest.winner", relic.Title.GetFormattedText(), PlayerLabel(run, winner),
+                wells.Count == 1 ? UiText.Get("contest.well_single") : UiText.Format("contest.well_multiple", wells.Count)));
             await Task.Delay(1800, cancellation);
+            foreach (var player in wells)
+            {
+                var well = player.Relics.OfType<Well>().First(r => !r.IsMelted);
+                RelicMetrics.Record(well, "contests_resolved", 1, "Contests");
+                if (player == winner) RelicMetrics.Record(well, "contests_won", 1, "Contests");
+            }
             ModEntry.Log.Info($"RPS well winner={winner.NetId} contenders={contenders.Count} wells={wells.Count} relic={relic.Id}");
             return new RelicPickingResult { relic = relic, player = winner, type = RelicPickingResultType.OnlyOnePlayerVoted };
         }
@@ -87,9 +93,9 @@ internal static class RelicContest
             var ids = remaining.Select(p => synchronizer.ReserveChoiceId(p)).ToArray();
             var local = remaining.FirstOrDefault(LocalContext.IsMe);
             Task<int>? localChoice = null;
-            string detail = $"{relic.Title.GetFormattedText()} · Round {roundNumber}\nChoose privately. Reveal after everyone locks in.";
-            if (local != null) localChoice = ChoicePanel.Choose("Rock, Paper, Scissors", detail, "Rock", "Paper", "Scissors");
-            else ChoicePanel.Show("Rock, Paper, Scissors", detail + "\nWatching the remaining contenders...");
+            string detail = UiText.Format("contest.detail", relic.Title.GetFormattedText(), roundNumber);
+            if (local != null) localChoice = ChoicePanel.Choose(UiText.Get("contest.title"), detail, UiText.Get("contest.rock"), UiText.Get("contest.paper"), UiText.Get("contest.scissors"));
+            else ChoicePanel.Show(UiText.Get("contest.title"), detail + "\n" + UiText.Get("contest.watching"));
 
             async Task<int> Choice(Player p, uint id)
             {

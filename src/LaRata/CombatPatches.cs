@@ -85,6 +85,12 @@ internal static class StartingBuffsPatch
         if (rules == null || rules.Started) return;
         rules.Started = true;
         var context = new ThrowingPlayerChoiceContext();
+        // The reduced reinforcement body and its attack multiplier are otherwise
+        // only visible in director logs. Boss duos retain their separate contract.
+        if (!rules.BossDuo)
+            foreach (var monster in rules.Roster.Where(rules.IsExtra))
+                if (monster.Creature.IsAlive)
+                    await Marker<ReinforcementTwistPower>(monster.Creature, rules.Plan.ScoutReinforcement ? 35 : 60);
         foreach (var twist in rules.Plan.Twists)
         {
             var target = rules.Roster[twist.Target].Creature;
@@ -94,8 +100,13 @@ internal static class StartingBuffsPatch
             Task Block(int amount) => CreatureCmd.GainBlock(target, amount, ValueProp.Move, null);
             switch (twist.Kind)
             {
+                case TwistKind.Sturdy:
+                    if (target.MaxHp > 1) await Marker<SturdyTwistPower>(target, twist.Amount);
+                    break;
+                case TwistKind.Keen: await Marker<KeenTwistPower>(target, twist.Amount); break;
                 case TwistKind.Warded: await Grant<ArtifactPower>(1); break;
-                case TwistKind.Empowered: await Grant<VigorPower>(2); break;
+                case TwistKind.Empowered:
+                    await Marker<EmpoweredTwistPower>(target, 1); await Grant<VigorPower>(2); break;
                 case TwistKind.Bristling: await Grant<ThornsPower>(twist.Magnitude(2)); break;
                 case TwistKind.Regenerating:
                     // The budget already scales with party size. Do not multiply this
@@ -157,6 +168,12 @@ internal static class StartingBuffsPatch
                 case TwistKind.FadingMight:
                     await Grant<FlexPotionPower>(5); await Grant<WeakPower>(1); break;
             }
+        }
+        async Task Marker<T>(Creature target, int amount) where T : PowerModel
+        {
+            // Do not add amounts if startup is revisited with restored powers.
+            if (target.GetPower<T>() == null)
+                await PowerCmd.Apply<T>(context, target, amount, null, null);
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+  "LARATA-RAT_INVITATION.pages.ACCEPTED.description": "The doors groan open. Somewhere beyond them, iron boots strike stone.\n\nThe laughter stops.\n\n\"At last. Guests worthy of my table.\"",
+  "LARATA-RAT_INVITATION.pages.DECLINED.description": "You turn away. The green light narrows to a thread, then vanishes.\n\nBehind the stone, a crown scrapes against a throne.\n\n\"Another time, then.\"",
+  "LARATA-RAT_INVITATION.pages.INITIAL.description": "The Spire falls silent. Then, beneath the stone, something laughs.\n\nAn emerald slit opens in the darkness. Beyond it waits a throne of broken crowns, and upon that throne, two hungry green eyes.\n\nA voice slips through the crack. \"So. You thought yourselves finished. Come closer, little heroes. Let us see what your triumph is worth.\"",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.ENTER.description": "Follow the laughter beneath the throne.",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.ENTER.title": "Enter the Rat King's domain",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.LEAVE.description": "Leave the crown to its shadows. The Architect awaits.",
+  "LARATA-RAT_INVITATION.pages.INITIAL.options.LEAVE.title": "Turn toward the light",
+  "LARATA-RAT_INVITATION.title": "You Are Not Prepared"
+}

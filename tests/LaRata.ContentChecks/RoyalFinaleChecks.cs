@@ -92,7 +92,7 @@ internal static class RoyalFinaleChecks
         Console.WriteLine("PASS: guard support includes king; six attack intents track 5 pending Strength without Bestiary Creature access; ten-relic replay/display and owner-scoped Tungsten Rod hook.");
 
         Require(RoyalCard.All.Length == 25 && RemixCard.BossPrizes.Length == 10, "Royal pools have incorrect size");
-        Require(RoyalDeck.ActiveCards.Length == 23 && RoyalDeck.ActiveCards.All(i => RoyalCard.All[i] is not (SewerAlchemy or PlagueOfCrowns)), "Retired poison cards remain in the active boss deck");
+        Require(RoyalDeck.ActiveCards.Length == 46 && !RoyalDeck.ActiveCards.Contains(3) && !RoyalDeck.ActiveCards.Contains(21), "Retired poison cards remain in the active boss deck");
         Require(CameoSchedule.RoyalPool.All(i => RoyalDeck.ActiveCards.Contains(i)), "Royal cameo uses a retired boss card");
         Require(CameoSchedule.RoyalPool.Select(i => RoyalCard.All[i].GetType()).SequenceEqual(new[]
         {

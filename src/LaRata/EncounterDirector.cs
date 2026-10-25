@@ -156,6 +156,7 @@ internal static class GenerateEncounterPatch
         state.Roster = expanded.Select(x => x.Item1).ToArray();
         EncounterDirector.Rules.Add(__instance, state);
         ModEntry.Log.Info($"DIRECTOR floor={runState.TotalFloor} encounter={__instance.Id.Entry} players={runState.Players.Count} sixteenthBudget={plan.Spent}/{plan.Budget} roster={string.Join(",", state.Roster.Select(m => m.Id.Entry))} rules={string.Join("; ", plan.Affixes)}");
+        ModEntry.Log.Info($"DIRECTOR selection encounter={__instance.Id.Entry} {string.Join(" | ", plan.SelectionTrace)}");
     }
 }
 

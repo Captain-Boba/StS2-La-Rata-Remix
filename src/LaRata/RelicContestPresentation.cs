@@ -46,7 +46,7 @@ internal sealed class RelicContestPresentation : IDisposable
         ChoicePanel.Close();
         backdrop.Show();
         backdrop.Modulate = Colors.White;
-        label.SetTextAutoSize($"Round {number}");
+        label.SetTextAutoSize(UiText.Format("contest.round", number));
         hands.BeforeFightStarted(contenders);
         foreach (var p in contenders) hands.GetHand(p.NetId)!.Show();
         await Cmd.Wait(.35f, cancellation);
@@ -56,7 +56,7 @@ internal sealed class RelicContestPresentation : IDisposable
             if (ModEntry.AuditChecksums) ModEntry.Log.Info($"RPS animated round={number} player={contenders[i].NetId} move={(RelicPickingFightMove)moves[i]}");
         await Cmd.Wait(.7f, cancellation);
         await Task.WhenAll(contenders.Where(p => !survivors.Contains(p)).Select(p => hands.GetHand(p.NetId)!.DoLoseShake(.7f)));
-        label.SetTextAutoSize(survivors.Count == 1 ? "Contest decided" : survivors.Count == contenders.Count ? "Tie!" : "Next round");
+        label.SetTextAutoSize(UiText.Get(survivors.Count == 1 ? "contest.decided" : survivors.Count == contenders.Count ? "contest.tie" : "contest.next"));
         await Cmd.Wait(.7f, cancellation);
         foreach (var p in contenders) hands.GetHand(p.NetId)!.SetIsInFight(false);
         backdrop.Hide();
