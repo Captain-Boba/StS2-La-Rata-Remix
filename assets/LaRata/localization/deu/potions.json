@@ -1,0 +1,10 @@
+{
+  "LARATA-ASHBRAND.title": "Aschebrand",
+  "LARATA-ASHBRAND.description": "[gold]Erschöpfe[/gold] eine [gold]Handkarte[/gold] ohne X-Kosten. Erhalte Energie in Höhe ihrer Kosten vor vorübergehenden Rabatten.",
+  "LARATA-ASHBRAND.selectionScreenPrompt": "Wähle eine Karte ohne X-Kosten zum [gold]Erschöpfen[/gold].",
+  "LARATA-RUSTWATER.title": "Rostwasser",
+  "LARATA-RUSTWATER.description": "Entferne sämtlichen [gold]Block[/gold] eines Gegners.",
+  "LARATA-CROWN_LACQUER.title": "Kronenlack",
+  "LARATA-CROWN_LACQUER.description": "Wähle eine [gold]Handkarte[/gold]. Entferne für diesen Kampf ihr Schlüsselwort [gold]Erschöpfen[/gold].",
+  "LARATA-CROWN_LACQUER.selectionScreenPrompt": "Wähle eine Karte, von der du [gold]Erschöpfen[/gold] entfernst."
+}

@@ -1,0 +1,9 @@
+{
+  "generator": "built-in image_gen",
+  "intent": "edit",
+  "prompt": "Edit the provided Crown Lacquer potion icon. Change ONLY the ivory-white lacquer spilling over the left shoulder and down the left side of the bottle: recolor that entire drip a rich saturated amber-gold/orange lacquer, with ochre shadows and golden-orange highlights. No white, cream or pale ivory anywhere on the drip. Keep the exact same purple bottle, crooked gold crown stopper, dark outlines, golden liquid inside, painted style, shape, composition and transparent background. This is a minimal color correction, not a redesign. Preserve all other details and silhouette. No text or frame.",
+  "reference": "assets/LaRata/images/potions/crown_lacquer.png (original ivory drip)",
+  "source": "C:/Users/lukas/.codex/generated_images/01a170cc-23f9-7c73-8c92-ebeefcbf866f/exec-8641ffea-a54d-482d-90ba-b17e0248536e.png",
+  "runtime": "assets/LaRata/images/potions/crown_lacquer.png",
+  "transparent_background": true
+}

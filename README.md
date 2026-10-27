@@ -1,12 +1,12 @@
 # La Rata Remix
 
-**Version 0.9.4** — seeded encounter chaos, seven-card boosters, an expanded card collection, relic removal and an optional Rat King finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**.
+**Version 0.9.5** — seeded encounter chaos, seven-card boosters, an expanded card collection, relic removal and an optional Rat King finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**.
 
 **Deutsch und 简体中文: kurze Hinweise stehen [weiter unten auf Deutsch](#deutsch) und [简体中文](#简体中文).** In-game text supports English, German and Simplified Chinese through the game's language setting.
 
-This release includes 23 regular neutral cards (16 Uncommon / 7 Rare), explicit 75/25 Royal-main and neutral-bonus booster weights, the expanded 46-family boss deck, ten authored combat poses, six redesigned relic images, native relic-effect statistics and the corrected A Thousand Cuts first-removal price. The collection includes separately labeled playable and boss-exclusive cards. Existing card costs/effects are not strengthened merely by their rarity change.
+Version 0.9.5 adds Ashbrand, Rustwater and Crown Lacquer, gradual attack damage for La Rata and his two bodyguards, co-op synchronization fixes, clearer twist indicators and updated artwork. All relic run statistics are temporarily disabled. The existing card and relic collection remains available.
 
-**We recommend starting without Ascension levels.** Start a new run after updating; co-op players need identical game/mod versions. Technical checks and targeted earlier live scenarios are documented in [the QA report](TEST-REPORT.md) and [0.9.4 evidence](docs/RARITY-ART-QA-20261025.md). A strict ENet error check still fails after a tested client-window disconnect; cause and broader network stability remain unresolved. This is not a claim of full balance, animation or Internet multiplayer acceptance.
+**We recommend starting without Ascension levels.** Start a new run after updating; co-op players need identical game/mod versions. Only the Public game branch v0.107.1 is supported. See [0.9.5 changes and validation](docs/UPDATE-0.9.5.md) and the [focused local co-op playtest](docs/DESYNC-PLAYTEST-20261027.md). Gameplay checksums matched and orderly disconnect completed without network exceptions in that test. Broader Steam/Internet multiplayer, forced disconnect during active actions and full balance acceptance remain open; engine resource diagnostics still occurred on exit.
 
 ## Installation
 
@@ -16,13 +16,13 @@ Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.9.4 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Version 0.9.5 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
 
 **Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
-Use the compiled **[LaRata-0.9.4.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.4/LaRata-0.9.4.zip)** from the [0.9.4 release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.4). GitHub's **Code → Download ZIP** and automatic **Source code** assets contain development sources and cannot be installed directly. No compilation is needed for the compiled package. A [standalone installation guide](docs/INSTALL.md) is included.
+Use the compiled **[LaRata-0.9.5.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.5/LaRata-0.9.5.zip)** from the [0.9.5 release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.5). GitHub's **Code → Download ZIP** and automatic **Source code** assets contain development sources and cannot be installed directly. No compilation is needed for the compiled package. A [standalone installation guide](docs/INSTALL.md) is included.
 
 1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
 2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
@@ -93,7 +93,7 @@ The original ten colorless additions support energy/draw, exhaust, discard, Vigo
 
 All five belong to the shared relic pool. They add opportunities without character restrictions or removing existing mechanics.
 
-Version 0.9.4 additionally includes **The Relic Remover, Sootbound Ticket, Stairwell Key, Mocking Bell, Brass Scavenger and Moonlit Stopper**, with six individually approved redesigned icons. The Relic Remover uses an owner-only selection; supported relic-effect counters persist with the run. The complete collection contains 60 model entries: 25 player cards (23 neutral, two class-specific), ten playable boss prizes and 25 boss-exclusive entries. Boss-exclusive presentation does not make those cards eligible player rewards.
+Version 0.9.4 introduced **The Relic Remover, Sootbound Ticket, Stairwell Key, Mocking Bell, Brass Scavenger and Moonlit Stopper**, with six individually approved redesigned icons. The Relic Remover uses an owner-only selection; relic statistics are disabled in 0.9.5, while legacy saved counters are preserved for compatibility. The complete collection contains 60 model entries: 25 player cards (23 neutral, two class-specific), ten playable boss prizes and 25 boss-exclusive entries. Boss-exclusive presentation does not make those cards eligible player rewards.
 
 ## Treasure contests and Well
 
@@ -119,7 +119,7 @@ La Rata's direct card Block bases are halved and most card healing bases are red
 
 Each encounter grants **ten distinct combat relics** from an eighteen-relic native selection pool, with explicit enemy adaptations. Two rows of native icons below the power rows explain those effects. Selection reconstructs from the encounter seed. Skills and powers resolve before attacks; pending Strength is reflected in intents. A hand without an attack ends with an announced 12-base-damage fallback attack. Generic encounter twists and earlier-boss helpers do not stack onto this custom finale.
 
-The earlier card-by-card tables remain in the [historical update reports](docs/UPDATE-0.8.7.md); they are not current 0.9.4 balance values. See [current development evidence](docs/DEV-WAVE-20261025.md) for the expanded deck and bounded live observations. Full animation sequencing, natural difficulty and four-human balance still require playtesting.
+The earlier card-by-card tables remain in the [historical update reports](docs/UPDATE-0.8.7.md); they are not current 0.9.5 balance values. See [current release evidence](docs/UPDATE-0.9.5.md) for the expanded deck and bounded live observations. Full animation sequencing, natural difficulty and four-human balance still require playtesting.
 
 ### The Kingsguard
 
@@ -242,15 +242,15 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.4` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.5` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
 
 ## Deutsch
 
-La Rata Remix 0.9.4 unterstützt deutsche Spieltexte über die Spracheinstellung des Spiels. Benötigt werden Spiel v0.107.1 und BaseLib 3.4.7. Installiere das kompilierte Paket oder abonniere den Workshop-Eintrag; beginne nach dem Update einen neuen Run. Im Koop müssen alle dieselben Versionen verwenden. A Thousand Cuts behält den Erstpreis; weitere Entfernungen erhöhen ihn mit aktivem Relikt nicht. Die technische Prüfung ersetzt keine vollständige Spiel- oder Netzwerkabnahme.
+La Rata Remix 0.9.5 unterstützt deutsche Spieltexte über die Spracheinstellung des Spiels. Benötigt werden Spiel v0.107.1 und BaseLib 3.4.7. Installiere das kompilierte Paket oder abonniere den Workshop-Eintrag; beginne nach dem Update einen neuen Run. Im Koop müssen alle dieselben Versionen verwenden. A Thousand Cuts behält den Erstpreis; weitere Entfernungen erhöhen ihn mit aktivem Relikt nicht. Die technische Prüfung ersetzt keine vollständige Spiel- oder Netzwerkabnahme.
 
 ## 简体中文
 
-La Rata Remix 0.9.4 支持简体中文，可在游戏语言设置中选择。需要游戏 v0.107.1 和 BaseLib 3.4.7。请安装编译好的压缩包或订阅创意工坊条目；更新后开始新的一局。联机玩家必须使用相同版本。持有 A Thousand Cuts 时，每次移除卡牌均使用首次移除的基础价格，并应用当前折扣。技术检查不代表已完成全面的游玩或联机验证。
+La Rata Remix 0.9.5 支持简体中文，可在游戏语言设置中选择。需要游戏 v0.107.1 和 BaseLib 3.4.7。请安装编译好的压缩包或订阅创意工坊条目；更新后开始新的一局。联机玩家必须使用相同版本。持有 A Thousand Cuts 时，每次移除卡牌均使用首次移除的基础价格，并应用当前折扣。技术检查不代表已完成全面的游玩或联机验证。
 
 ## References and dependencies
 

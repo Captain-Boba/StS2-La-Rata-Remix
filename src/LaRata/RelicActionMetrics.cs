@@ -14,6 +14,7 @@ namespace LaRata;
 // A completed auto-play is distinct from damage dealt by that card. Native card
 // callbacks mask the relic while resolving their own effects; history completion
 // returns to the originating relic's command, if there is one.
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(CombatHistory), nameof(CombatHistory.CardPlayFinished))]
 internal static class RelicAutoPlayMetrics
 {
@@ -25,6 +26,7 @@ internal static class RelicAutoPlayMetrics
 }
 
 // This is an actual mutation of blade base damage, not projected attack damage.
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(SovereignBlade), nameof(SovereignBlade.AddDamage))]
 internal static class RelicForgeMetrics
 {
@@ -37,6 +39,7 @@ internal static class RelicForgeMetrics
     }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(OrbCmd), nameof(OrbCmd.Passive))]
 internal static class RelicDirectOrbPassiveMetrics
 {
@@ -56,6 +59,7 @@ internal static class RelicDirectOrbPassiveMetrics
 // Native AfterFlush supplies the cards that actually survived that flush. Cards
 // with independent Retain are excluded; a second flush-prevention relic would
 // make individual causal attribution ambiguous and is deliberately not split.
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(Hook), nameof(Hook.AfterFlush))]
 internal static class RelicPyramidRetentionMetrics
 {

@@ -49,9 +49,7 @@ internal static class RelicWaveChecks
         NativeConsoleFixture.PatchDesktop(harmony);
         RelicMetrics.Register();
         // Match production startup order; no test-only re-patching probe.
-        harmony.PatchAllUncategorized(typeof(ModEntry).Assembly);
-        harmony.PatchCategory(typeof(ModEntry).Assembly, ResetEnergyLedger.PatchCategory);
-        harmony.PatchCategory(typeof(ModEntry).Assembly, "LaRataRelicEffectContexts");
+        ModEntry.ApplyPatches(harmony);
         Console.WriteLine($"PATCH SET: {harmony.GetPatchedMethods().Count()} methods including fixture desktop substitutions; production category order.");
         var savedFieldsPatch = typeof(SavedSpireField<,>).Assembly.GetType("BaseLib.Patches.Utils.SavedSpireFieldPatch")!;
         harmony.CreateClassProcessor(savedFieldsPatch).Patch();

@@ -1,8 +1,8 @@
 # Install La Rata Remix
 
-For **La Rata Remix 0.9.4**, Slay the Spire 2 **v0.107.1** and **BaseLib 3.4.7**. In-game text supports **English, German and Simplified Chinese** through the game's language setting. Supports solo and 2–4 players; matching versions are required. We recommend starting without Ascension levels and beginning a new run after updating.
+For **La Rata Remix 0.9.5**, Slay the Spire 2 **v0.107.1** and **BaseLib 3.4.7**. In-game text supports **English, German and Simplified Chinese** through the game's language setting. Supports solo and 2–4 players; matching versions are required. We recommend starting without Ascension levels and beginning a new run after updating.
 
-This release includes the expanded boss deck, new cards and relics, corrected constant first-price removals with A Thousand Cuts, 75/25 neutral booster weights and six redesigned relic images. See the [current QA summary](RARITY-ART-QA-20261025.md) for exact checks and remaining limits, including the unresolved client-disconnect ENet log failure. The starter booster opens after selecting your initial Ancient relic; that relic resolves after the pack.
+Version 0.9.5 adds three potions, gradual royal attack damage, co-op synchronization fixes and clearer twist indicators. Relic run statistics are temporarily disabled. Only the Public game branch is supported; the game Beta branch is unsupported. See the [release QA summary](UPDATE-0.9.5.md) for scope and remaining limits. The starter booster opens after selecting your initial Ancient relic; that relic resolves after the pack.
 
 ## Steam Workshop (recommended)
 
@@ -10,15 +10,15 @@ This release includes the expanded boss deck, new cards and relics, corrected co
 2. Wait for Steam's downloads to finish. No manual `mods` folder is needed.
 3. If previously installed manually, move `mods/LaRata` outside the game's `mods` directory. Also move `mods/BaseLib` outside it when switching that dependency to Workshop. Local copies override Workshop copies; do not keep both sources installed for the same mod.
 4. Remove `--nomods` from Steam launch options, start the game and enable BaseLib and La Rata Remix in the mod menu. Follow any restart prompt.
-5. Confirm La Rata **0.9.4**, BaseLib **3.4.7** and game **v0.107.1**, then start a new run. Steam handles future Workshop downloads automatically; check versions before continuing a co-op run.
+5. Confirm La Rata **0.9.5**, BaseLib **3.4.7** and game **v0.107.1**, then start a new run. Steam handles future Workshop downloads automatically; check versions before continuing a co-op run.
 
 To disable La Rata while keeping other mods, use its individual switch in the mod menu. Keep it enabled when loading a run containing custom La Rata content.
 
 ## Manual download (alternative)
 
-Download the compiled 0.9.4 release package. Keep the same mod version across a co-op party.
+Download the compiled 0.9.5 release package. Keep the same mod version across a co-op party.
 
-- [LaRata-0.9.4.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.4/LaRata-0.9.4.zip): the compiled mod, ready to install.
+- [LaRata-0.9.5.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.5/LaRata-0.9.5.zip): the compiled mod, ready to install.
 - [BaseLib 3.4.7](https://github.com/Alchyr/BaseLib-StS2/releases/tag/v3.4.7): download the author's `BaseLib.3.4.7.zip`. BaseLib is a separate required dependency.
 
 Do not download **Code → Download ZIP** or the **Source code** assets for installation. Those contain development files, not the compiled mod. You do not need .NET SDK, Godot or GitHub Desktop to install the compiled package.
@@ -28,7 +28,7 @@ Do not download **Code → Download ZIP** or the **Source code** assets for inst
 1. Close the game.
 2. In Steam, open Slay the Spire 2's **Browse local files** action. Use the directory containing `SlayTheSpire2.exe`, not a save folder or your GitHub checkout.
 3. Create a folder named **mods** in that directory if it is missing. The name is plural.
-4. Extract `LaRata-0.9.4.zip`. Copy its **LaRata** folder into **mods**.
+4. Extract `LaRata-0.9.5.zip`. Copy its **LaRata** folder into **mods**.
 5. Install BaseLib from its own compiled package according to the author's instructions. If installing its three runtime files manually, place them directly inside **mods/BaseLib**.
 6. Check the final layout:
 
@@ -66,4 +66,4 @@ Every player installs the same package and BaseLib version on the same supported
 - The game uses separate modded profiles. La Rata does not erase, migrate or unlock progress. Keep La Rata and BaseLib installed while loading a save that contains their custom content.
 - The release's `SHA256SUMS.txt` allows optional download-integrity verification with PowerShell's `Get-FileHash -Algorithm SHA256`.
 
-See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.4) for changes and the repository's test reports for validation limits.
+See the [release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.5) for changes and the repository's test reports for validation limits.

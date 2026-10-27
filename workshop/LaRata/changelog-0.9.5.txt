@@ -1,0 +1,73 @@
+[h1]Version 0.9.5 - Fixes & Potions[/h1]
+
+[h2]EN – English[/h2]
+[b]1. New Content[/b]
+Three new potions:
+[list]
+[*][b]Ashbrand[/b]: Exhaust a non-X card in your Hand. Gain Energy equal to its cost before temporary discounts.
+[*][b]Rustwater[/b]: Remove all Block from an enemy.
+[*][b]Crown Lacquer[/b]: Choose a card in your Hand. Remove its Exhaust keyword this combat.
+[/list]
+[b]2. Balancing[/b]
+[list]
+[*]La Rata and his two bodyguards now start at 40% attack damage, increasing to 100% by turn 7.
+[/list]
+[b]3. Bug Fixes[/b]
+[list]
+[*]Fixed several co-op synchronization and disconnect issues. All relic run statistics are temporarily disabled.
+[*]Fixed booster card focus, improved twist status indicators and simplified card text.
+[*]Updated card artwork and relic outlines.
+[/list]
+[b]4. Compatibility / Known Issues[/b]
+[list]
+[*]Public branch v0.107.1 and BaseLib 3.4.7 required; the game Beta branch is not supported. Start a new run with matching versions for all co-op players.
+[*]Further multiplayer stability and balancing work is ongoing.
+[/list]
+
+[h2]CN – 简体中文[/h2]
+[b]1. 新内容[/b]
+三种新药水：
+[list]
+[*][b]灰烬燃剂[/b]: 消耗一张非X费手牌。获得等同于其临时减费前费用的能量。
+[*][b]锈水[/b]: 移除一名敌人的所有格挡。
+[*][b]王冠漆[/b]: 选择一张手牌。在本场战斗中移除其消耗关键词。
+[/list]
+[b]2. 平衡调整[/b]
+[list]
+[*]La Rata 及其两名护卫的攻击伤害从 40% 开始，逐回合提高，到第 7 回合达到 100%。
+[/list]
+[b]3. 错误修复[/b]
+[list]
+[*]修复多项联机同步和断线问题。所有本局遗物统计暂时停用。
+[*]修复补充包卡牌焦点问题，改进遭遇变数状态标识，并精简卡牌描述。
+[*]更新部分卡牌插画和遗物轮廓。
+[/list]
+[b]4. 兼容性 / 已知问题[/b]
+[list]
+[*]需要游戏正式分支（Public）v0.107.1 和 BaseLib 3.4.7；不支持游戏测试分支（Beta）。请开始新的一局，所有联机玩家须使用相同版本。
+[*]多人稳定性与平衡调整仍在持续完善。
+[/list]
+
+[h2]DE – Deutsch[/h2]
+[b]1. Neue Inhalte[/b]
+Drei neue Tränke:
+[list]
+[*][b]Aschebrand[/b]: Erschöpfe eine Handkarte ohne X-Kosten. Erhalte Energie in Höhe ihrer Kosten vor vorübergehenden Rabatten.
+[*][b]Rostwasser[/b]: Entferne sämtlichen Block eines Gegners.
+[*][b]Kronenlack[/b]: Wähle eine Handkarte. Entferne für diesen Kampf ihr Schlüsselwort Erschöpfen.
+[/list]
+[b]2. Balancing[/b]
+[list]
+[*]La Rata und seine 2 Leibwächter starten mit 40% Angriffsschaden und steigern sich bis Runde 7 auf 100%.
+[/list]
+[b]3. Fehlerbehebungen[/b]
+[list]
+[*]Mehrere Koop-Synchronisations- und Verbindungsfehler behoben. Sämtliche Reliktstatistiken sind vorübergehend deaktiviert.
+[*]Booster-Kartenfokus korrigiert, Twist-Statusanzeigen verbessert und Kartentexte vereinfacht.
+[*]Kartenillustrationen und Reliktkonturen überarbeitet.
+[/list]
+[b]4. Kompatibilität / Bekannte Probleme[/b]
+[list]
+[*]Benötigt den Public-Branch v0.107.1 und BaseLib 3.4.7; der Beta-Branch des Spiels wird nicht unterstützt. Neuen Run starten und im Koop gleiche Versionen verwenden.
+[*]Weitere Arbeiten an Multiplayer-Stabilität und Balancing laufen.
+[/list]

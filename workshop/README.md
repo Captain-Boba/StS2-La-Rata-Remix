@@ -6,7 +6,7 @@ Publishing uses Mega Crit's official [sts2-mod-uploader](https://github.com/mega
 
 The downloaded `ModUploader-win-x64.zip` SHA-256 was `2B55C19CC5932235CA9DBD663CA07D04E5D5A0018402303199F9B4EC8CA06578`.
 
-Release target: **0.9.4 BETA**. Description and change notes use EN, Simplified Chinese and German blocks, with language pointers at the top of the description. Before each authorized upload, stage and verify the three runtime files against the current [QA report](../docs/RARITY-ART-QA-20261025.md). The existing ENet disconnect failure remains open. The matching GitHub release uses tag `v0.9.4` and asset `LaRata-0.9.4.zip`.
+Release target: **0.9.5 BETA**. Description and change notes use EN, Simplified Chinese and German blocks, with language pointers at the top of the description. Before each authorized upload, stage and verify the three runtime files against the current [QA report](../docs/UPDATE-0.9.5.md). The focused local ENet gameplay and orderly disconnect checks passed; wider network coverage and engine shutdown diagnostics remain open. The matching GitHub release uses tag `v0.9.5` and asset `LaRata-0.9.5.zip`.
 
 ## Files
 
@@ -18,7 +18,7 @@ In Workshop descriptions and similar public-facing copy, write all numbers great
 
 - `LaRata/workshop.json`: official upload configuration, trilingual description and change notes, visibility, tags and BaseLib dependency (3737335127).
 - `LaRata/description.txt`: editable source of the description; copy changes into `workshop.json` before publishing. The uploader reads the JSON description.
-- `LaRata/changelog-0.9.4.txt`: current Steam change notes, mirrored into `workshop.json` for upload. Older change notes remain historical.
+- `LaRata/changelog-0.9.5.txt`: current Steam change notes, mirrored into `workshop.json` for upload. Older change notes remain historical.
 - `LaRata/mod_id.txt`: stable item identity.
 - `LaRata/image.png`: 600 x 600 square Workshop thumbnail, below Steam's 1 MiB limit, recomposed to fill square tiles without letterboxing. The existing artwork license applies.
 - `LaRata/artwork-square-source.png`: full-resolution square cover generated from the widescreen cover, keeping the rat king left and the large logo right. This is the current thumbnail source.

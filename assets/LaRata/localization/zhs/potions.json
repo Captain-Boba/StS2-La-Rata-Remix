@@ -1,0 +1,10 @@
+{
+  "LARATA-ASHBRAND.title": "灰烬燃剂",
+  "LARATA-ASHBRAND.description": "[gold]消耗[/gold]一张非X费[gold]手牌[/gold]。获得等同于其临时减费前费用的能量。",
+  "LARATA-ASHBRAND.selectionScreenPrompt": "选择一张非X费牌[gold]消耗[/gold]。",
+  "LARATA-RUSTWATER.title": "锈水",
+  "LARATA-RUSTWATER.description": "移除一名敌人的所有[gold]格挡[/gold]。",
+  "LARATA-CROWN_LACQUER.title": "王冠漆",
+  "LARATA-CROWN_LACQUER.description": "选择一张[gold]手牌[/gold]。在本场战斗中移除其[gold]消耗[/gold]关键词。",
+  "LARATA-CROWN_LACQUER.selectionScreenPrompt": "选择一张牌，移除其[gold]消耗[/gold]。"
+}

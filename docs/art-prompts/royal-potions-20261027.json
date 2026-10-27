@@ -1,0 +1,44 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-10-27",
+  "transparent_background": true,
+  "processing": "Generated PNGs copied unchanged; standard Godot import with fix_alpha_border=true. Same alpha silhouette supplied to native black-modulated potion Outline. No external image dependency or native artwork redistribution.",
+  "acceptance": "Assistant reviewed; user visual/game acceptance pending.",
+  "images": [
+    {
+      "key": "ashbrand",
+      "source": "C:/Users/lukas/.codex/generated_images/01a170cc-23f9-7c73-8c92-ebeefcbf866f/exec-a4ad49bf-0182-4157-9d46-a18e6cd3a1d1.png",
+      "runtime": "assets/LaRata/images/potions/ashbrand.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "prompt": "Create ONE original Slay the Spire 2 style POTION inventory icon for the La Rata Remix mod. Transparent background with real alpha. One centered complete bottle, square canvas, generous transparent padding, readable at 48 pixels. Hand painted chunky silhouette, uneven dark charcoal contour, only 2-3 broad matte color planes per material, very little interior detail. A distinctive tangible bottle, not a generic mobile-game icon. NO words, letters, labels, numbers, frame, scenery, floor, cast shadow or glow cloud. Do not depict cards or a scene. Aschebrand / Ashbrand: a squat soot-black ceramic flask shaped like a tiny crooked furnace, one wide amber-orange ember visible through a single angular crack, short thick neck and a charred wooden cork. Warm orange, black and ivory. At most four main shapes. Energy from burned cards concept, but no actual card shown.",
+      "sha256": "1F2352DA17358C3119482A57E8F9BFB6BD721CE78F2DC2DBF65E3BA3F84CDEF8"
+    },
+    {
+      "key": "rustwater",
+      "source": "C:/Users/lukas/.codex/generated_images/01a170cc-23f9-7c73-8c92-ebeefcbf866f/exec-e00ba572-971b-404b-b1c4-12187e80a404.png",
+      "runtime": "assets/LaRata/images/potions/rustwater.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "prompt": "Create ONE original Slay the Spire 2 style POTION inventory icon for the La Rata Remix mod. Transparent background with real alpha. One centered complete bottle, square canvas, generous transparent padding, readable at 48 pixels. Hand painted chunky silhouette, uneven dark charcoal contour, only 2-3 broad matte color planes per material, very little interior detail. A distinctive tangible bottle, not a generic mobile-game icon. NO words, letters, labels, numbers, frame, scenery, floor, cast shadow or glow cloud. Do not depict cards or a scene. Rostwasser / Rustwater: an asymmetrical broad-shouldered pale turquoise glass bottle with a narrow waist and one blunt rusty iron collar partly eaten away into a large simple notch. Cloudy rust-orange liquid occupies lower half, dark brown stopper. Strong turquoise/rust color contrast. At most four main shapes.",
+      "sha256": "70B4B479EB51DADE01362009DD38691C391ED3E19BF74934E539166FE55498FD"
+    },
+    {
+      "key": "crown_lacquer",
+      "source": "C:/Users/lukas/.codex/generated_images/01a170cc-23f9-7c73-8c92-ebeefcbf866f/exec-8641ffea-a54d-482d-90ba-b17e0248536e.png",
+      "runtime": "assets/LaRata/images/potions/crown_lacquer.png",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "prompt": "Create ONE original Slay the Spire 2 style POTION inventory icon for the La Rata Remix mod. Transparent background with real alpha. One centered complete bottle, square canvas, generous transparent padding, readable at 48 pixels. Hand painted chunky silhouette, uneven dark charcoal contour, only 2-3 broad matte color planes per material, very little interior detail. A distinctive tangible bottle, not a generic mobile-game icon. NO words, letters, labels, numbers, frame, scenery, floor, cast shadow or glow cloud. Do not depict cards or a scene. Kronenlack / Crown Lacquer: a small bulbous deep-purple lacquer bottle topped by a crooked oversized gold crown used as its stopper, three blunt crown points, no jewels. Thick ivory wax drip on one side, visible warm golden liquid highlight as one broad shape. Purple, muted gold, ivory. Royal rat court personality without depicting a rat or face.",
+      "sha256": "A72C9F583AA0D0A08DE58C46F4C18665BC9EB954864297AA4E61C1DE33FB62C8",
+      "previousSource": "C:/Users/lukas/.codex/generated_images/01a170cc-23f9-7c73-8c92-ebeefcbf866f/exec-aad05637-9dd0-4719-9608-dda3c16f7634.png",
+      "editProvenance": "docs/art-prompts/crown-lacquer-gold-20261027.json"
+    }
+  ]
+}

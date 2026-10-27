@@ -23,6 +23,7 @@ internal static class RelicDeferredMetrics
     // BaseLib 3.4.7 preps Reward.ToSerializable, but native overrides such as
     // GoldReward create their own SerializableReward without calling base.
     // Reuse its registered payload API; no parallel reward save format.
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class NativeRewardSavePayload
     {
@@ -35,6 +36,7 @@ internal static class RelicDeferredMetrics
                 new ExtendedSaveHandlers<Reward, SerializableReward>.ExtendedSaveData(__instance);
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(Reward), MethodType.Constructor, [typeof(Player)])]
     private static class RewardCreated
     {
@@ -45,6 +47,7 @@ internal static class RelicDeferredMetrics
         }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(RestSiteOption), MethodType.Constructor, [typeof(Player)])]
     private static class OptionCreated
     {
@@ -78,6 +81,7 @@ internal static class RelicDeferredMetrics
         return RelicMetricSource.Enter(null);
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class SelectionContext
     {
@@ -96,6 +100,7 @@ internal static class RelicDeferredMetrics
         { RelicMetricSource.Restore(__state); return __exception; }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class SuccessfulOption
     {

@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace LaRata;
 
@@ -24,19 +25,23 @@ internal static class RelicMetricSource
     internal static Target? Enter(RelicModel? relic)
     {
         var previous = Current.Value;
-        int acquisition = relic is { HasBeenRemovedFromState: false, IsMelted: false, Owner: not null }
+        int acquisition = relic is { IsCanonical: false, HasBeenRemovedFromState: false, IsMelted: false, Owner: not null } &&
+            relic.Owner.Relics.Any(r => ReferenceEquals(r, relic))
             ? RelicMetrics.Identity(relic) : 0;
         Current.Value = acquisition > 0 ? new(relic!.Owner!, acquisition, relic.Id.ToString(), relic) : null;
         return previous;
     }
     internal static Target? EnterDeferred(Player owner, int acquisition)
     {
-        var live = owner.Relics.FirstOrDefault(r => RelicMetrics.Acquisition.Get(r) == acquisition);
-        if (live != null) return Enter(live);
         var previous = Current.Value;
-        var archived = RelicMetrics.ReadRemoved(owner.RunState).FirstOrDefault(r =>
-            r.OwnerId == owner.NetId && r.AcquisitionOrdinal == acquisition);
-        Current.Value = archived == null ? null : new(owner, acquisition, archived.ModelId, null);
+        var live = owner.Relics.Where(r => RelicMetrics.Acquisition.Get(r) == acquisition).ToArray();
+        var archived = RelicMetrics.ReadRemoved(owner.RunState).Where(r =>
+            r.OwnerId == owner.NetId && r.AcquisitionOrdinal == acquisition).ToArray();
+        // Legacy duplicate ordinals cannot be repaired by guessing which source
+        // a pending reward meant. Keep existing ledgers, suppress ambiguous credit.
+        if (live.Length + archived.Length != 1) { Current.Value = null; return previous; }
+        if (live.Length == 1) return Enter(live[0]);
+        Current.Value = new(owner, acquisition, archived[0].ModelId, null);
         return previous;
     }
     internal static void Restore(Target? previous) => Current.Value = previous;
@@ -58,7 +63,7 @@ internal static class RelicMetricSource
     }
 
     [HarmonyPatch]
-    [HarmonyPatchCategory("LaRataRelicEffectContexts")]
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     private static class EffectContext
     {
         private static IEnumerable<MethodBase> TargetMethods()
@@ -115,6 +120,7 @@ internal static class RelicMetricSource
 // Changed callbacks. A before/after Task delta would include recursive effects.
 // These seven native fields are intentionally finite and game-version-pinned.
 [HarmonyPatch]
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 internal static class RelicScalarObservation
 {
     private static readonly string[] Fields = ["_block", "_currentHp", "_maxHp", "_gold", "_energy", "_stars", "_amount"];
@@ -210,13 +216,21 @@ internal static class RelicMetricsNewRun
     }
 }
 
-[HarmonyPatch(typeof(RelicModel), nameof(RelicModel.ToSerializable))]
-internal static class RelicMetricsSaveIdentity
+[HarmonyPatch(typeof(Player), nameof(Player.FromSerializable))]
+internal static class RelicMetricsLoadedIdentity
 {
-    private static void Prefix(RelicModel __instance) => RelicMetrics.Identity(__instance);
+    [HarmonyPriority(Priority.Last)]
+    private static void Postfix(SerializablePlayer save, Player __result) => RelicMetrics.RestorePlayer(__result, save);
+}
+
+[HarmonyPatch(typeof(Player), nameof(Player.SyncWithSerializedPlayer))]
+internal static class RelicMetricsSyncedIdentity
+{
+    private static void Postfix(Player __instance, SerializablePlayer player) => RelicMetrics.RestorePlayer(__instance, player);
 }
 
 [HarmonyPatch(typeof(Player), nameof(Player.RemoveRelicInternal))]
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 internal static class RelicMetricsRemoved
 {
     private static void Postfix(RelicModel relic, bool silent)
@@ -230,12 +244,14 @@ internal static class RelicMetricsRemoved
 }
 
 [HarmonyPatch(typeof(CombatHistory), nameof(CombatHistory.CardDrawn))]
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 internal static class RelicMetricsDraw
 {
     private static void Postfix() => RelicMetrics.Record(RelicMetricSource.Relic, "cards_drawn", 1, "Cards");
 }
 
 [HarmonyPatch(typeof(CardPile), nameof(CardPile.AddInternal))]
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 internal static class RelicMetricsDeckAdd
 {
     private static void Postfix(CardPile __instance, CardModel card)
@@ -253,6 +269,7 @@ internal static class RelicMetricsDeckAdd
 }
 
 [HarmonyPatch(typeof(CardPile), nameof(CardPile.RemoveInternal))]
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 internal static class RelicMetricsDeckRemove
 {
     private static void Postfix(CardPile __instance)

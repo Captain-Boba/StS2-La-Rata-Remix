@@ -1,0 +1,10 @@
+{
+  "LARATA-ASHBRAND.title": "Ashbrand",
+  "LARATA-ASHBRAND.description": "[gold]Exhaust[/gold] a non-X card in your [gold]Hand[/gold]. Gain Energy equal to its cost before temporary discounts.",
+  "LARATA-ASHBRAND.selectionScreenPrompt": "Choose a non-X card to [gold]Exhaust[/gold].",
+  "LARATA-RUSTWATER.title": "Rustwater",
+  "LARATA-RUSTWATER.description": "Remove all [gold]Block[/gold] from an enemy.",
+  "LARATA-CROWN_LACQUER.title": "Crown Lacquer",
+  "LARATA-CROWN_LACQUER.description": "Choose a card in your [gold]Hand[/gold]. Remove its [gold]Exhaust[/gold] keyword this combat.",
+  "LARATA-CROWN_LACQUER.selectionScreenPrompt": "Choose a card to remove [gold]Exhaust[/gold] from."
+}

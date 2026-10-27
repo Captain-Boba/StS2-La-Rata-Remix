@@ -1,8 +1,10 @@
 using System.Text.Json;
+using BaseLib.Patches.Saves;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace LaRata;
 
@@ -14,6 +16,10 @@ internal sealed record RelicRunStats(ulong? OwnerId, int? AcquisitionOrdinal, st
 // No profile-wide sidecar, local GUID, UI-owned counter or second network update exists.
 internal static class RelicMetrics
 {
+    // Disabled for every peer: UI-local calculations must not mutate synchronized stats.
+    // Retain saved fields for existing runs and instance IDs used by Relic Remover.
+    internal static bool Enabled => false;
+    internal const string PatchCategory = "LaRataRelicStatistics";
     private sealed record Ledger(int Version, string Coverage, RelicRunMetric[] Metrics, string[]? Deferred = null);
     internal static readonly SavedSpireField<RelicModel, int> Acquisition = new(() => 0, "LaRataRelicAcquisitionV1");
     private static readonly SavedSpireField<RelicModel, string> Values = new(() => "", "LaRataRelicValuesV1");
@@ -24,20 +30,49 @@ internal static class RelicMetrics
 
     internal static int Identity(RelicModel relic)
     {
-        if (relic.IsCanonical || relic.Owner?.RunState is null or NullRunState) return 0;
-        int id = Acquisition.Get(relic);
-        if (id != 0) return id;
-        // Independent players can acquire rewards in different arrival orders.
-        // Owner + owner-local ordinal is stable without imposing a global order.
-        int next = checked(NextAcquisition.Get(relic.Owner) + 1);
-        NextAcquisition.Set(relic.Owner, next);
+        // Observing a preview, tooltip, clone or checksum must not allocate IDs.
+        return relic.IsCanonical ? 0 : Acquisition.Get(relic);
+    }
+
+    private static void AdvanceSequence(Player player)
+    {
+        int high = NextAcquisition.Get(player);
+        foreach (var owned in player.Relics) high = Math.Max(high, Acquisition.Get(owned));
+        if (player.RunState is not NullRunState)
+            foreach (var archived in ReadRemoved(player.RunState).Where(r => r.OwnerId == player.NetId))
+                high = Math.Max(high, archived.AcquisitionOrdinal ?? 0);
+        NextAcquisition.Set(player, high);
+    }
+
+    private static void AssignCommittedIdentity(RelicModel relic)
+    {
+        var player = relic.Owner;
+        AdvanceSequence(player);
+        if (Identity(relic) > 0) return; // Imported reward IDs also advance the owner sequence.
+        int next = checked(NextAcquisition.Get(player) + 1);
+        NextAcquisition.Set(player, next);
         Acquisition.Set(relic, next);
-        return next;
+    }
+
+    // Native combat sync replaces an existing Player's inventory without calling
+    // Player.FromSerializable, the only player-load entry patched by BaseLib.
+    // Reuse this field's existing BaseLib payload; do not add a second save format.
+    internal static void RestorePlayer(Player player, SerializablePlayer save)
+    {
+        var fields = ExtendedSaveHandlers<Player, SerializablePlayer>.ExtendedData[save].DictForType<int>();
+        NextAcquisition.Set(player, fields.GetValueOrDefault("spirefield_" + NextAcquisition.Name));
+        AdvanceSequence(player);
+        // Legacy inventories without IDs are initialized in native inventory order,
+        // at this load boundary. Existing IDs and their ledgers are never renumbered.
+        foreach (var relic in player.Relics) AssignCommittedIdentity(relic);
     }
 
     internal static void Obtained(RelicModel relic)
     {
-        if (Identity(relic) == 0) return;
+        if (relic.IsCanonical || relic.Owner?.RunState is null or NullRunState ||
+            !relic.Owner.Relics.Any(r => ReferenceEquals(r, relic))) return;
+        AssignCommittedIdentity(relic);
+        if (!Enabled) return;
         // Called only for a new native Obtain, never for loading an existing inventory.
         Values.Set(relic, JsonSerializer.Serialize(new Ledger(1, "Complete", [])));
     }
@@ -63,6 +98,7 @@ internal static class RelicMetrics
     private static void RecordValue(RelicModel? relic, string key, decimal value, string unit,
         string attribution, bool allowJustRemoved)
     {
+        if (!Enabled) return;
         if (relic == null && RelicMetricSource.Attribution is { Live: null } archived)
         { RecordTarget(archived, key, value, unit, attribution); return; }
         if (relic == null || value == 0 || relic.IsCanonical || (relic.IsMelted && !allowJustRemoved) ||
@@ -88,7 +124,7 @@ internal static class RelicMetrics
     internal static void RecordTarget(RelicMetricSource.Target? target, string key, decimal value,
         string unit, string attribution = "Exact")
     {
-        if (target == null || value == 0) return;
+        if (!Enabled || target == null || value == 0) return;
         if (target.Live is { } live)
         { RecordValue(live, key, value, unit, attribution, true); return; }
         var entries = DecodeArchive(Removed.Get(target.Owner.RunState));
@@ -110,7 +146,7 @@ internal static class RelicMetrics
     // metric. It shares the existing native ledger/checkpoint and archive.
     internal static void MarkDeferred(RelicMetricSource.Target? target, string key)
     {
-        if (target == null) return;
+        if (!Enabled || target == null) return;
         if (target.Live is { } live)
         {
             var ledger = Decode(Values.Get(live)) ?? new Ledger(1, "SinceTrackingStarted", []);
@@ -137,12 +173,16 @@ internal static class RelicMetrics
 
     internal static void Archive(RelicModel relic)
     {
+        if (!Enabled) return;
         if (relic.IsCanonical || relic.Owner?.RunState is null or NullRunState) return;
         var run = relic.Owner.RunState;
         var entries = DecodeArchive(Removed.Get(run));
         var snapshot = Read(relic) with { Removed = true };
         if (snapshot.AcquisitionOrdinal == null) return;
-        entries.RemoveAll(e => e.OwnerId == snapshot.OwnerId && e.AcquisitionOrdinal == snapshot.AcquisitionOrdinal);
+        // Older affected saves can contain the same ordinal on different models.
+        // Preserve both historical ledgers rather than overwriting one of them.
+        entries.RemoveAll(e => e.OwnerId == snapshot.OwnerId && e.AcquisitionOrdinal == snapshot.AcquisitionOrdinal &&
+            e.ModelId == snapshot.ModelId);
         entries.Add(snapshot);
         Removed.Set(run, JsonSerializer.Serialize(entries.OrderBy(e => e.OwnerId).ThenBy(e => e.AcquisitionOrdinal).ToArray()));
     }

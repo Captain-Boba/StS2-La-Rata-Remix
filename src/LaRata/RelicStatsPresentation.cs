@@ -21,6 +21,7 @@ internal static class RelicStatsPresentation
 
     internal static IEnumerable<string> ResultLines(RelicModel relic)
     {
+        if (!RelicMetrics.Enabled) yield break;
         if (!relic.IsMutable || relic.Owner == null) yield break;
         var safe = new Dictionary<(string Key, string Unit), decimal>();
         foreach (var metric in RelicMetrics.Read(relic).Metrics)
@@ -60,6 +61,7 @@ internal static class RelicStatsPresentation
     }
 
     [HarmonyPatch(typeof(RelicModel), nameof(RelicModel.HoverTip), MethodType.Getter)]
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     private static class NativeRunResults
     {
         [HarmonyPostfix]

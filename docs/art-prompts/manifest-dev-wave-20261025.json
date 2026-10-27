@@ -123,18 +123,48 @@
     },
     {
       "key": "venomous_encore",
-      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e8dca061-8192-4ab1-a536-7fb4ba87eaa9.png",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-c33f6391-5788-4baa-9a56-f5e9f7f09405.png",
       "target": "assets/LaRata/images/cards/venomous_encore.png",
-      "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A sinister rat assassin's two curving daggers strike in two clearly separated arcs before a looming abstract death shadow. Palette royal violet, electric cyan edge light and a little acidic chartreuse on the blade tips. Poison and Doom visually distinct, broad movement, no large green flame cloud.",
+      "prompt": "Use case: precise-object-edit. Keep this entire newly simplified Venomous Encore illustration EXACTLY as it is: rat's new simple balanced stance, both naturally bent arms and hands in front, its TWO real short swords pointing right, face, dark olive/black outfit, green/cyan/purple circular energy, city, reaper and colors. Fix ONLY the accidental leftover FLOATING THIRD SWORD in the UPPER LEFT / UPPER MIDDLE green-cyan arc: there is a physical gray steel blade shape with a tiny orphan gold hilt/guard above the rat's left shoulder, around x530,y215 of the1448x1086image. REMOVE all of that unattached third metal blade and gold fragment, replacing its silhouette with the existing abstract bright green/cyan liquid energy swoosh and blue background. Keep the upper-left sweeping arc's overall curve and brightness, but make it clearly magical slash energy, NOT a third weapon. Only two physical swords remain, both in the rat's hands. Do not change any other region or invent new body/pose/gear. Same4:3painting, no text/frame/UI/watermark.",
       "tool": "built-in image_gen",
-      "human_approved": false,
+      "human_approved": true,
       "dimensions": [
         1448,
         1086
       ],
       "mode": "RGB",
-      "sha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574",
-      "sourceSha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574"
+      "sha256": "6630fbd9f0a632b03dfe202fc46f8ee2192ca30a5429e91ef7c8984afe518d90",
+      "sourceSha256": "6630fbd9f0a632b03dfe202fc46f8ee2192ca30a5429e91ef7c8984afe518d90",
+      "previousVersions": [
+        {
+          "key": "venomous_encore",
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-e8dca061-8192-4ab1-a536-7fb4ba87eaa9.png",
+          "target": "assets/LaRata/images/cards/venomous_encore.png",
+          "prompt": "Use case: stylized-concept. Production individual landscape game card illustration for La Rata Remix. Reference images are mod-owned STYLE references, not edit targets: preserve their chunky painterly fantasy shapes, strong dark ink contours, confident sculpted light and dark planes, intricate but readable ruined-fantasy illustration style. Maintain this existing CARD ART style; do not simplify it into relic-icon art. Full bleed 4:3 landscape, ideally 1448x1086. Strong central 80% subject safe area for rounded native card crop. No text, numbers, card frame, UI, watermark or transparency. Color variety is explicitly requested: do not apply an overall green filter. Subject: A sinister rat assassin's two curving daggers strike in two clearly separated arcs before a looming abstract death shadow. Palette royal violet, electric cyan edge light and a little acidic chartreuse on the blade tips. Poison and Doom visually distinct, broad movement, no large green flame cloud.",
+          "tool": "built-in image_gen",
+          "human_approved": false,
+          "dimensions": [
+            1448,
+            1086
+          ],
+          "mode": "RGB",
+          "sha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574",
+          "sourceSha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574",
+          "archivedTarget": "artifacts/ui-feedback-20261027/k5/before/venomous_encore.png",
+          "reason": "Replaced after direct user approval of the original-look simplified-pose version."
+        }
+      ],
+      "references": [
+        "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4d69ed56-c5c5-43bb-90bc-1d4d1e4d10c2.png"
+      ],
+      "provenance": "docs/art-prompts/ui-feedback-20261027/card-edits.json",
+      "humanApproval": {
+        "date": "2026-10-27",
+        "quote": "Ja, genau diese nehmen",
+        "relayedBy": "K1",
+        "sourceThreadId": "01a170cc-23f9-7c73-8c92-ebeefcbf866f",
+        "scope": "Exact final PNG artwork; native crop/live acceptance remains separate."
+      }
     },
     {
       "key": "graveyard_shift",
@@ -328,7 +358,15 @@
       "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-c1f86d3e-060d-4b20-82b8-8bd98e9546d7.png",
       "geometryMaster": "regent_pack",
       "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
-      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/ironclad_pack.png",
+        "smallSha256": "6cc689f42d48674cef1771bb093bf0a6ce528f2b8c2b3bf0b640c6653c0b7fee",
+        "outline": "assets/LaRata/images/relic_native/ironclad_pack_outline.png",
+        "outlineSha256": "198d98d47f41ee7386217f5afe20ea37358a8d88b49ad206b16c126756929bd1",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "silent_pack",
@@ -359,7 +397,15 @@
       "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-98cca818-2dbc-44bd-8689-d30e355ee939.png",
       "geometryMaster": "regent_pack",
       "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
-      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/silent_pack.png",
+        "smallSha256": "a62b949032e4e5cb50e0dcbbc24d294b0047aa72ee577c3e29ee3f8bbaa7a84d",
+        "outline": "assets/LaRata/images/relic_native/silent_pack_outline.png",
+        "outlineSha256": "caaa0264675c451d9df2a317b161f6290dc52fe8509eaee10db1df5ccca6b8ba",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "defect_pack",
@@ -390,7 +436,15 @@
       "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-2c40047e-06a2-4b0c-b675-243fccd06467.png",
       "geometryMaster": "regent_pack",
       "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
-      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/defect_pack.png",
+        "smallSha256": "36eea1bc456d4cf91431fa1f51979151535249b4e0551115b7a4cc9dc186fb6c",
+        "outline": "assets/LaRata/images/relic_native/defect_pack_outline.png",
+        "outlineSha256": "6524652c24b16d925f57bdd285b15543d0b67d5859dd446e25655ee0d9a2f73b",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "regent_pack",
@@ -419,7 +473,15 @@
       "sha256": "98afa4847f2372d428f554a1c07e0ceafffbbcebc41014f944d0c1f6a632dd8b",
       "sourceSha256": "81f667c4ed6cbded072cb6b74d6bc0018bc5d2c0e181aa05b99dbc86027b79b0",
       "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
-      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/regent_pack.png",
+        "smallSha256": "3fc9d62a70ad6f37f5bbeadc062218ea3a2a2640eafa3146832aa0fb6ea65c90",
+        "outline": "assets/LaRata/images/relic_native/regent_pack_outline.png",
+        "outlineSha256": "7523f635219fa0a9501e6fa9f741ba225547ccd411f2f2631c1c0af3d2403d85",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "necrobinder_pack",
@@ -450,7 +512,15 @@
       "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4fc5cb46-249f-407b-a231-33f1898d2b80.png",
       "geometryMaster": "regent_pack",
       "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
-      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/necrobinder_pack.png",
+        "smallSha256": "afdfd09eb8d0355e396144668e9bb520433712e5946ccc7c30bed43cc31c1555",
+        "outline": "assets/LaRata/images/relic_native/necrobinder_pack_outline.png",
+        "outlineSha256": "2f6e5940aa420ea7b8d84160cc8ca5023fb31cc88a54e187dd5d3fa1806e904e",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "royal_pack",
@@ -481,7 +551,15 @@
       "priorSelectedSource": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-10191354-f706-461a-a8d3-202bc0d35753.png",
       "geometryMaster": "regent_pack",
       "humanApprovalScope": "Visible form, upright orientation and simplified style of current six-pack contact sheet, including disclosed ratio variation; not live UI or packaging.",
-      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31"
+      "humanApprovalMessageId": "01a170fe-2bab-75a3-aed4-3efb3df11b31",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/royal_pack.png",
+        "smallSha256": "0b2b105e63fce462b79fb9634506db8aaa59dce568f4561bdd575cd834e2f84f",
+        "outline": "assets/LaRata/images/relic_native/royal_pack_outline.png",
+        "outlineSha256": "1d9e251c897f6ecfbd7fa962ad4ff47227669dc3ef6ea61b6e5c91bdc1af649b",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "well",
@@ -503,7 +581,15 @@
         1099
       ],
       "sha256": "fae0f68212d1177ca8960033461cbb1d1657b7c04ede0fedda551ab8748c5710",
-      "sourceSha256": "fae0f68212d1177ca8960033461cbb1d1657b7c04ede0fedda551ab8748c5710"
+      "sourceSha256": "fae0f68212d1177ca8960033461cbb1d1657b7c04ede0fedda551ab8748c5710",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/well.png",
+        "smallSha256": "30d6a4e0afd0ec2c766606f42329b8a159e5e8610e8d47e64ce5597877158b5e",
+        "outline": "assets/LaRata/images/relic_native/well_outline.png",
+        "outlineSha256": "e240d731cb6eb185ab7f87722447c55315f91fe0259503cecc2cbab16a471e15",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "a_thousand_cuts",
@@ -525,7 +611,15 @@
         1076
       ],
       "sha256": "5a817e050f75bcbe3b2f9df88daa17a1afdaca873538541002277c79605cee23",
-      "sourceSha256": "5a817e050f75bcbe3b2f9df88daa17a1afdaca873538541002277c79605cee23"
+      "sourceSha256": "5a817e050f75bcbe3b2f9df88daa17a1afdaca873538541002277c79605cee23",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/a_thousand_cuts.png",
+        "smallSha256": "c74e31176dce2255c82b3a813a54d9d2068aec0476d5dfbd63c8f22b00d81d3a",
+        "outline": "assets/LaRata/images/relic_native/a_thousand_cuts_outline.png",
+        "outlineSha256": "8014e681800261b9b26638faf51f313369e824d5e6415657a9a2cf75045d11f3",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "ashen_spool",
@@ -547,7 +641,15 @@
         1149
       ],
       "sha256": "cdd123f97d9772e9f1c960c39d9534691ec103305bd25c77d1ca86b5591706d2",
-      "sourceSha256": "cdd123f97d9772e9f1c960c39d9534691ec103305bd25c77d1ca86b5591706d2"
+      "sourceSha256": "cdd123f97d9772e9f1c960c39d9534691ec103305bd25c77d1ca86b5591706d2",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/ashen_spool.png",
+        "smallSha256": "4fd00fd0eae1fe84131ff1234ce9c05b1c3d51ecb60f96e74e9f4035f96da258",
+        "outline": "assets/LaRata/images/relic_native/ashen_spool_outline.png",
+        "outlineSha256": "70159a5dbdff43f3b8e7b9a24f0a49f44fd5f8fec12f7994499f77cb0783a7a1",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "crown_capacitor",
@@ -569,7 +671,15 @@
         1174
       ],
       "sha256": "e641e8acc4c563dfaf197b713d58cc75b7bc675a398f612339d33807dd0a2868",
-      "sourceSha256": "e641e8acc4c563dfaf197b713d58cc75b7bc675a398f612339d33807dd0a2868"
+      "sourceSha256": "e641e8acc4c563dfaf197b713d58cc75b7bc675a398f612339d33807dd0a2868",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/crown_capacitor.png",
+        "smallSha256": "9b5cda3b3729dcd6f38fab6368efb3a78c4ef1aeac1adfa310ee8d39010985f4",
+        "outline": "assets/LaRata/images/relic_native/crown_capacitor_outline.png",
+        "outlineSha256": "12a90f723f978173870a04f3733260a961737569cd1b420d12365ced99a77e99",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "crossroads_compass",
@@ -591,7 +701,15 @@
         1201
       ],
       "sha256": "4113a895d636ce6408bc69e89b902bd66f2d0ba1913244c317f156817d77cc93",
-      "sourceSha256": "4113a895d636ce6408bc69e89b902bd66f2d0ba1913244c317f156817d77cc93"
+      "sourceSha256": "4113a895d636ce6408bc69e89b902bd66f2d0ba1913244c317f156817d77cc93",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/crossroads_compass.png",
+        "smallSha256": "5eace6640ba99e290086e46f783c0e1587c0cabe3c7dcb7073e677842c8a8ce9",
+        "outline": "assets/LaRata/images/relic_native/crossroads_compass_outline.png",
+        "outlineSha256": "de5b87dfb30d30de60d58a476bb027b5c7dc2baf9b0c19392985323c804f955f",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "bottled_echo",
@@ -613,7 +731,15 @@
         1183
       ],
       "sha256": "c80da9f1ea33b71bdf2da09b6b3bd88a272974c232abdbbf635f623490089b16",
-      "sourceSha256": "c80da9f1ea33b71bdf2da09b6b3bd88a272974c232abdbbf635f623490089b16"
+      "sourceSha256": "c80da9f1ea33b71bdf2da09b6b3bd88a272974c232abdbbf635f623490089b16",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/bottled_echo.png",
+        "smallSha256": "6ea8a1e70d6559d89955f186d620361c59ef388e982688efb803dbcaef1330e0",
+        "outline": "assets/LaRata/images/relic_native/bottled_echo_outline.png",
+        "outlineSha256": "ae3e71f24399805d3f3fbc514701104214cc0282a4027e6b291ba383da924759",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "smugglers_thread",
@@ -635,7 +761,15 @@
         1167
       ],
       "sha256": "8b5dc01a08117ea2436a8ab3a6ab9dbd29293e2ce05f06e352c36614010c2541",
-      "sourceSha256": "8b5dc01a08117ea2436a8ab3a6ab9dbd29293e2ce05f06e352c36614010c2541"
+      "sourceSha256": "8b5dc01a08117ea2436a8ab3a6ab9dbd29293e2ce05f06e352c36614010c2541",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/smugglers_thread.png",
+        "smallSha256": "84a7755a61eb8edea144090a1c7d3e9dca1191c5e3ababf1801c60e739b0dde4",
+        "outline": "assets/LaRata/images/relic_native/smugglers_thread_outline.png",
+        "outlineSha256": "c861e30957ba8835a404a602961e3d1d70a8758dba861565f4855383e60fe25d",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "relic_remover",
@@ -677,7 +811,15 @@
         0,
         255
       ],
-      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/relic_remover.png",
+        "smallSha256": "83beca849f2bd9c132e7ceaddc8f0a4a662395b9a4448b980cdf524f472ec634",
+        "outline": "assets/LaRata/images/relic_native/relic_remover_outline.png",
+        "outlineSha256": "c472ba79e2ac1f6fa3106f6fe5e74bd811f4be33cfe3626d59ad09739a5d9018",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "wrath_of_the_big_o",
@@ -710,9 +852,9 @@
     },
     {
       "key": "the_kikilyst",
-      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-632ba51d-0452-45f1-ac83-e96a3d5de1ee.png",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-83681a33-46a6-415e-950e-a2301688dfde.png",
       "target": "assets/LaRata/images/cards/the_kikilyst.png",
-      "prompt": "Use case: stylized-concept. Asset type: individual full-bleed 4:3 landscape Slay the Spire 2 mod card illustration, ideally 1448x1086 RGB. Image1 is the ACTUAL NATIVE STS2 SILENT character identity reference: her elongated pale bone bird/beast-skull mask with black sockets and luminous yellow-green eyes, short paired bone horns, green hood, layered emerald cloak. Preserve that mask and hood. Image2 is native Poison card color/shape language only. Image3 is ONLY this mod's established painterly card rendering and composition style, NOT its object identity. Subject: the Silent as a cunning poison catalyst alchemist in a dark Spire stone chamber, her hooded skull-masked face prominent; she tilts a small vivid emerald vial over an already luminous central pool of poison, producing two bold interlocking expanding poison spirals. Poison droplets and narrow curling streams spread outward to darker enemy silhouettes at the edges. The primary visual idea is intensified existing Poison and spreading it, not melee damage, healing or a new summoned creature. Her hands and the catalyst vial are readable and anatomically coherent. Strong central focal composition within safe 80% for a native rounded 250x190 card-art crop. Palette: bright readable emerald and chartreuse Poison, bone-ivory mask, cool midnight blue and plum-violet shadows, restrained warm brass highlights. Dark grounding shapes, no all-over green filter. Maintain the repo's detailed chunky hand-painted fantasy-card finish, strong dark contours and sculpted confident light planes while preserving native Silent identity. No text, numerals, card name, border, card frame, UI, logos or watermark. No extra mechanical symbols or rule implications.",
+      "prompt": "Use case: precise-object-edit. Edit the supplied existing La Rata card illustration with ONE requested pose correction. The SILENT character must clearly POINT A FINGER DIRECTLY AT THE VIEWER. Change her currently open/reaching free hand on image RIGHT into a strongly foreshortened pointing gesture toward the camera: index finger extended directly out of the picture toward us, its fingertip prominent, other fingers curled naturally, thumb anatomically connected. Keep the forearm connected naturally to the existing sleeve and wrist. This is an unmistakable 'YOU' gesture, not pointing at the poison pool, sideways, upward, or merely opening the palm. Keep the OTHER hand holding/pouring the poison flask unchanged, same skull mask/green hood/horns/clothing, same framing, scene, ruined architecture, green poison vortex and original bright green/navy/gold palette. Same rich chunky hand-painted StS2 / La Rata style, no photographic anatomy. Preserve the image's overall composition and all content outside this free-hand pose as closely as possible. Full bleed landscape4:3 ideally1448x1086. No text, card frame, UI, watermark or new characters.",
       "tool": "built-in image_gen",
       "human_approved": false,
       "referenceRoles": [
@@ -734,8 +876,23 @@
         1086
       ],
       "mode": "RGB",
-      "sha256": "f8941283f4e1af408846841d4d1ad5ac35b69aa2efc4b771497f0a61752b57c9",
-      "sourceSha256": "f8941283f4e1af408846841d4d1ad5ac35b69aa2efc4b771497f0a61752b57c9"
+      "sha256": "29080ab79d5cd676adc18070031f7fe11a5914f8daefc832706c5b60bd91b903",
+      "sourceSha256": "29080ab79d5cd676adc18070031f7fe11a5914f8daefc832706c5b60bd91b903",
+      "previousVersions": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-632ba51d-0452-45f1-ac83-e96a3d5de1ee.png",
+          "prompt": "Use case: stylized-concept. Asset type: individual full-bleed 4:3 landscape Slay the Spire 2 mod card illustration, ideally 1448x1086 RGB. Image1 is the ACTUAL NATIVE STS2 SILENT character identity reference: her elongated pale bone bird/beast-skull mask with black sockets and luminous yellow-green eyes, short paired bone horns, green hood, layered emerald cloak. Preserve that mask and hood. Image2 is native Poison card color/shape language only. Image3 is ONLY this mod's established painterly card rendering and composition style, NOT its object identity. Subject: the Silent as a cunning poison catalyst alchemist in a dark Spire stone chamber, her hooded skull-masked face prominent; she tilts a small vivid emerald vial over an already luminous central pool of poison, producing two bold interlocking expanding poison spirals. Poison droplets and narrow curling streams spread outward to darker enemy silhouettes at the edges. The primary visual idea is intensified existing Poison and spreading it, not melee damage, healing or a new summoned creature. Her hands and the catalyst vial are readable and anatomically coherent. Strong central focal composition within safe 80% for a native rounded 250x190 card-art crop. Palette: bright readable emerald and chartreuse Poison, bone-ivory mask, cool midnight blue and plum-violet shadows, restrained warm brass highlights. Dark grounding shapes, no all-over green filter. Maintain the repo's detailed chunky hand-painted fantasy-card finish, strong dark contours and sculpted confident light planes while preserving native Silent identity. No text, numerals, card name, border, card frame, UI, logos or watermark. No extra mechanical symbols or rule implications.",
+          "sha256": "f8941283f4e1af408846841d4d1ad5ac35b69aa2efc4b771497f0a61752b57c9",
+          "dimensions": [
+            1448,
+            1086
+          ],
+          "mode": "RGB",
+          "archivedTarget": "artifacts/ui-feedback-20261027/k5/before/the_kikilyst.png",
+          "reason": "Targeted pointing-hand correction requested by user, K1 scoped visual review; no human approval inferred."
+        }
+      ],
+      "feedbackManifest": "docs/art-prompts/ui-feedback-20261027/card-edits.json"
     },
     {
       "key": "sewer_pact",
@@ -830,5 +987,10 @@
     "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
     "mapping": "docs/art-prompts/relic-redesign-20261025/manifest-runtime-approved.json",
     "status": "Six approved runtime PNGs integrated; no PCK/install/live evidence. Other assets unchanged."
+  },
+  "uiFeedback20261027": {
+    "cardEdits": "docs/art-prompts/ui-feedback-20261027/card-edits.json",
+    "relicSmallExport": "docs/art-prompts/ui-feedback-20261027/relic-outline-export.json",
+    "note": "Original relic/Big PNGs preserved. Small/Outline derivatives follow explicitly user-authorized mechanical outer-border export, not a motif regeneration."
   }
 }

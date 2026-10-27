@@ -51,6 +51,7 @@ internal static class RelicPaymentMetrics
         (payment.Phase == "energy" ? payment.Energy : payment.Stars).Add(new(source, before, after));
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(LocalCostModifier), MethodType.Constructor,
         [typeof(int), typeof(LocalCostType), typeof(LocalCostModifierExpiration), typeof(bool)])]
     private static class LocalCreated
@@ -61,6 +62,7 @@ internal static class RelicPaymentMetrics
     // Observe the native list mutation as well as construction: a tiny native
     // constructor can already be inlined in a caller before Harmony patches it.
     // The instances actually appended by AddUntilPlayed still have exact origin.
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class LocalAttached
     {
@@ -82,6 +84,7 @@ internal static class RelicPaymentMetrics
             }
         }
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(LocalCostModifier), nameof(LocalCostModifier.Clone))]
     private static class LocalCloned
     {
@@ -91,6 +94,7 @@ internal static class RelicPaymentMetrics
             if (LocalSources.TryGetValue(__instance, out var source)) LocalSources.Add(__result, source);
         }
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(CardEnergyCost), nameof(CardEnergyCost.Clone))]
     private static class CostCloned
     {
@@ -104,6 +108,7 @@ internal static class RelicPaymentMetrics
             }
         }
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(CardModel), "AddTemporaryStarCost")]
     private static class StarCreated
     {
@@ -113,6 +118,7 @@ internal static class RelicPaymentMetrics
             if (RelicMetricSource.Attribution is { } source) StarSources.Add(cost, source);
         }
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(LocalCostModifier), nameof(LocalCostModifier.Modify))]
     private static class LocalApplied
     {
@@ -123,6 +129,7 @@ internal static class RelicPaymentMetrics
             Append(source, currentCost, __result);
         }
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(CardModel), nameof(CardModel.CurrentStarCost), MethodType.Getter)]
     private static class StarApplied
     {
@@ -135,6 +142,7 @@ internal static class RelicPaymentMetrics
         }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class GlobalApplied
     {
@@ -159,6 +167,7 @@ internal static class RelicPaymentMetrics
         }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(CardEnergyCost), nameof(CardEnergyCost.GetWithModifiers))]
     private static class UnrelatedCalculation
     {
@@ -172,6 +181,7 @@ internal static class RelicPaymentMetrics
         { if (Current.Value is { } payment) payment.Phase = __state; return __exception; }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class Calculation
     {
@@ -201,6 +211,7 @@ internal static class RelicPaymentMetrics
         { if (Current.Value is { } payment) payment.Phase = __state; return __exception; }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class DebitRequested
     {
@@ -218,6 +229,7 @@ internal static class RelicPaymentMetrics
         }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class Boundary
     {
@@ -241,6 +253,7 @@ internal static class RelicPaymentMetrics
         private static Exception? Finalizer(Exception? __exception, Scope __state)
         { Current.Value = __state.Previous; return __exception; }
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(CardModel), nameof(CardModel.SpendResources))]
     private static class Completed
     {

@@ -98,6 +98,8 @@ internal static class StartingBuffsPatch
             // No applier: encounter grants must not amplify one another. Native co-op power scaling remains intact.
             Task Grant<T>(int amount) where T : PowerModel => PowerCmd.Apply<T>(context, target, amount, null, null);
             Task Block(int amount) => CreatureCmd.GainBlock(target, amount, ValueProp.Move, null);
+            if (twist.IsHex)
+                await Marker<HexTwistPower>(target, (int)twist.Kind + 1);
             switch (twist.Kind)
             {
                 case TwistKind.Sturdy:
@@ -199,6 +201,8 @@ internal sealed record ExtraHex(MonsterModel Monster, EnemyTwist Twist);
 internal static class HexTelegraphPatch
 {
     internal static readonly ConditionalWeakTable<MoveState, ExtraHex> Hexes = new();
+    internal static bool HasHexMove(MonsterModel monster) => monster.MoveStateMachine?.States.Values.OfType<MoveState>()
+        .Any(move => Hexes.TryGetValue(move, out var hex) && ReferenceEquals(hex.Monster, monster)) == true;
 
     [HarmonyPostfix]
     private static void Postfix(MonsterModel __instance, Creature? ____creature)
@@ -213,11 +217,15 @@ internal static class HexTelegraphPatch
             .Where(x => x.Intents.Any(i => i is AttackIntent or BuffIntent or DefendIntent or DebuffIntent))
             .OrderBy(x => x.Intents.Any(i => i is AttackIntent))
             .ThenBy(x => x.Id, StringComparer.Ordinal).ToArray();
-        if (moves.Length == 0) return;
+        if (moves.Length == 0)
+        {
+            ModEntry.Log.Warn($"HEX has no compatible move monster={__instance.Id.Entry} twist={twist.Kind}");
+            return;
+        }
         var move = moves[0];
         var intents = move.Intents.ToList();
-        if (twist.Kind is TwistKind.Cinders or TwistKind.Disorienting or TwistKind.Lacerating or TwistKind.Leaden or TwistKind.StaticHex) intents.Add(new StatusIntent(1));
-        else if (!intents.Any(x => x is DebuffIntent)) intents.Add(new DebuffIntent());
+        if (twist.Kind is TwistKind.Cinders or TwistKind.Disorienting or TwistKind.Lacerating or TwistKind.Leaden or TwistKind.StaticHex) intents.Add(new HexStatusIntent(twist));
+        else intents.Add(new HexDebuffIntent(twist));
         AccessTools.PropertySetter(typeof(MoveState), nameof(MoveState.Intents)).Invoke(move, [intents]);
         Hexes.Add(move, new(__instance, twist));
         if (!MegaCrit.Sts2.Core.TestSupport.TestMode.IsOn) ModEntry.Log.Info($"TELEGRAPH monster={__instance.Id.Entry} move={move.Id} twist={twist.Description}");

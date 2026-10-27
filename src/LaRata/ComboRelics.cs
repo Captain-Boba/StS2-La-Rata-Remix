@@ -31,9 +31,9 @@ public abstract class ComboRelic : CustomRelicModel
         "The first time you discard a card during your turn, gain 1 Energy."
     ];
     public override RelicRarity Rarity => Kind is 1 or 3 ? RelicRarity.Rare : RelicRarity.Uncommon;
-    public override string PackedIconPath => $"res://LaRata/images/relics/{Art[Kind]}.png";
-    protected override string PackedIconOutlinePath => PackedIconPath;
-    protected override string BigIconPath => PackedIconPath;
+    public override string PackedIconPath => $"res://LaRata/images/relic_native/{Art[Kind]}.png";
+    protected override string PackedIconOutlinePath => $"res://LaRata/images/relic_native/{Art[Kind]}_outline.png";
+    protected override string BigIconPath => $"res://LaRata/images/relics/{Art[Kind]}.png";
     public override List<(string, string)> Localization => [];
     [SavedProperty] public bool Triggered { get; set; }
     [SavedProperty] public int SeenTypes { get; set; }

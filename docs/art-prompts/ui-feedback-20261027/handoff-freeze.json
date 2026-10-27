@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-27",
+  "owner": "K5",
+  "status": "Source and runtime asset freeze closed; K6 owns build/import/package/install/live QA.",
+  "codeDelta": {
+    "path": "src/LaRata/BoosterOpening.cs",
+    "beforeSha256": "1c344938e135fab3e6ca6ff4b974a1c33ce423a5f12dd4e4ff65ba8735bd3cbe",
+    "afterSha256": "af7ceda6551b2f29f36edd7fa6cadc9db2d30baa50d3100ae10095be8500d7d3",
+    "changes": [
+      "Existing OpeningFocus.Prefix visibility changed from private to internal.",
+      "Additional FocusedControlFromTopBar getter prefix delegates directly to OpeningFocus.Prefix.",
+      "After K6's stale keyword-tip reproduction, added ClearTips and routed MouseExited/FocusExited to unconditional owner-tip removal instead of RefreshTips.",
+      "After code-05 repeated the failure, replaced raw hover/focus events with explicit native Focused/Unfocused Connect handlers; only that native signal state can authorize tips.",
+      "Kept hitbox MouseFilter.Stop stable throughout deal/flip; native Enable/Disable and existing action gates retained.",
+      "Added Debug-level native focus transition diagnostics; no polling or global cleanup."
+    ],
+    "retained": "Existing CWT resolver, native fallback, cleanup, deal gates, selection and card models.",
+    "topbarOnlySha256": "c720e688cc90f3c9e4c0d77f2f813b0463db49b800b7f25c8f36cb95627391af",
+    "exitOnlySha256": "6563c68effa2117036f8ed162d0ff20ae4ec9ae7d8696802b69ac1293e3079ba"
+  },
+  "artDelta": {
+    "path": "assets/LaRata/images/cards/venomous_encore.png",
+    "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-c33f6391-5788-4baa-9a56-f5e9f7f09405.png",
+    "sourceAndRuntimeSha256": "6630fbd9f0a632b03dfe202fc46f8ee2192ca30a5429e91ef7c8984afe518d90",
+    "dimensions": [
+      1448,
+      1086
+    ],
+    "mode": "RGB",
+    "copy": "Exact file copy; no resize, re-encoding or pixel change.",
+    "humanApprovalQuote": "Ja, genau diese nehmen",
+    "approvalRelayedBy": "K1",
+    "priorRuntimeArchive": "artifacts/ui-feedback-20261027/k5/before/venomous_encore.png",
+    "priorRuntimeSha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574",
+    "provenance": "docs/art-prompts/ui-feedback-20261027/card-edits.json"
+  },
+  "otherFrozenAssets": {
+    "relicExport": "docs/art-prompts/ui-feedback-20261027/relic-outline-export.json",
+    "relicExportSha256": "2bd76ca95c2c8a52b00d2671e990f85025235401e9a03dfd19dcbfa510150af6",
+    "finalFileHashRecheck": {
+      "originals": 19,
+      "small": 19,
+      "outlines": 19,
+      "allMatched": true
+    },
+    "kikilystSha256": "29080ab79d5cd676adc18070031f7fe11a5914f8daefc832706c5b60bd91b903",
+    "sturdySvgSha256": "c030b669b83be2819a350c21440ba60c9e90ff5b6735dd5035fbf6542a2f61e7",
+    "sturdyPresentationSourceSha256": "ea0245653a6eef3d7b7a08caf3025e9739532266afe773d1bee2df6cf802e2a7"
+  },
+  "checksPerformedByK5": [
+    "Encore source, approved preview, runtime and active manifest hashes agree; original archive preserved.",
+    "Both provenance JSON files parse; exact-source human approval and rejected lineage recorded.",
+    "19 original relics and 38 derived files match the frozen export manifest.",
+    "Final code delta reviewed as direct resolver delegation.",
+    "Current code has no synthetic geometric hover check or hitbox filter transition; explicit native Focused/Unfocused bindings reviewed against installed game source."
+  ],
+  "limits": [
+    "No K5 build, game start, installation, engine import or Git action.",
+    "Native patch activation, final CTEX/PCK/install hashes and visible crop/lifecycle are K6 responsibilities.",
+    "Physical-controller interaction NOT TESTED."
+  ],
+  "followUp": {
+    "finding": "K6 P1: stale Poison/Retain and Block tips after Snakebite -> Dash -> Speedster -> empty lower-right area in Solo 1024 x 576.",
+    "screenshot": "artifacts/feedback-wave-20261027/FAIL-solo-stale-keyword-tips-outside.png",
+    "log": "artifacts/logs/20261027-033329-Solo.log",
+    "screenExit": "K6 reported native choice and return removed the old opening tips; no phantom full card seen in this scoped run.",
+    "sourceConclusion": "Reveal-end geometry could authorize tips independently of the native NClickableControl focus lifecycle. Exit-only correction failed; missing raw-event delivery or engine ordering is not proven.",
+    "fix": "Native Focused/Unfocused signals are explicitly connected as in NCardHolder. Only native focus authorizes tips. Stable Stop filter; native Enable/Disable gates input. Owner-only Unfocused cleanup.",
+    "status": "code-06 identical Solo core reproduction PASS; screen-exit/second-pack continuation and multiplayer evidence pending.",
+    "artAndPckInputs": "Unchanged.",
+    "exitOnlyResult": {
+      "status": "FAIL",
+      "sourceSha256": "6563c68effa2117036f8ed162d0ff20ae4ec9ae7d8696802b69ac1293e3079ba",
+      "installedDllSha256": "eb8f344b1815871d3a99f7490aaaf93174db621ac71aca807ce2de5bd9f88a5b",
+      "screenshot": "artifacts/feedback-wave-20261027/FAIL-code05-stale-keyword-tips-outside.png",
+      "log": "artifacts/logs/20261027-034211-Solo.log"
+    },
+    "nativeSignalResult": {
+      "owner": "K6",
+      "build": "PASS",
+      "patchTargets": "PASS",
+      "installedDllSha256": "58651b0a50957def30e40a54f0b74b745f7cd27a003b8bf524af4ca773e31a5b",
+      "identicalCoreSequence": "PASS: Snakebite -> Dash -> Speedster removes old tips; empty lower-right area has none.",
+      "screenshot": "artifacts/feedback-wave-20261027/PASS-code06-keyword-tips-outside.png",
+      "log": "artifacts/logs/20261027-034959-Solo.log",
+      "nativeSignalTrace": "Focused true/false observed for each of the first 3 slots, including flip Disable/Enable and subsequent MouseExit.",
+      "k5ReadOnlyReview": "Opened the PASS screenshot and read native focus transitions.",
+      "limits": "Screen-exit/second-pack continuation, multiplayer and physical controller are not implied by this core PASS."
+    }
+  }
+}

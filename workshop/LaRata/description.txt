@@ -3,7 +3,8 @@
 
 [h1]EN – English[/h1]
 [h2]Welcome to La Rata Remix![/h2]
-[b]Current version: 0.9.4 – BETA[/b]
+[b]Current version: 0.9.5 – BETA[/b]
+[b]Compatibility: Public branch only (v0.107.1). The game's beta branch is not currently supported.[/b]
 
 What started as a little extra chaos for our own co-op sessions got slightly out of hand.
 La Rata Remix makes Slay the Spire 2 a little crazier, a lot more unpredictable, and sometimes downright ridiculous. Deckbuilding is faster, powerful combos come online much earlier, and you get to the really fun stuff without spending half the run setting things up.
@@ -21,7 +22,7 @@ We recommend starting without Ascension levels. Trust us, there's already plenty
 [*]An optional endgame featuring The Kingsguard and La Rata himself, complete with his own card deck, 10 combat relics, and 2 loyal knight bodyguards.
 [*]New neutral and class-specific cards, playable royal boss cards, and a dedicated La Rata card compendium.
 [*]6 animated booster packs with 7 cards each. Everyone gets a class booster to kick things off.
-[*]New relics with unusual synergies and handy run statistics to see what your relics actually did.
+[*]New relics with unusual synergies and three new potions.
 [*]Rock, Paper, Scissors to settle treasure disputes, 3 relic choices in solo chests, and combat histories for royal cards and goblin potions.
 [/list]
 [h2]Languages[/h2]
@@ -38,7 +39,8 @@ Have fun, experiment, and try not to get murdered by the rats!
 [hr][/hr]
 [h1]CN – 简体中文[/h1]
 [h2]欢迎来到 La Rata Remix！[/h2]
-[b]当前版本：0.9.4 – BETA[/b]
+[b]当前版本：0.9.5 – BETA[/b]
+[b]兼容性：目前仅支持游戏的正式分支（Public，v0.107.1），暂不支持测试分支（Beta）。[/b]
 
 起初，我们只是想给自己的联机冒险加点混乱。结果一不小心，玩大了。
 La Rata Remix 让《杀戮尖塔2》更疯狂、更难以预测，有时甚至离谱得让人发笑。组建卡组更快，强力连招更早成型，不用花半局做准备，就能直奔最过瘾的部分。
@@ -56,7 +58,7 @@ La Rata Remix 让《杀戮尖塔2》更疯狂、更难以预测，有时甚至�
 [*]可选的终局挑战：御林铁卫与 La Rata 本尊。鼠王拥有自己的卡组、10 件战斗遗物和 2 名忠诚的骑士护卫。
 [*]新的无色卡牌和职业卡牌、玩家可用的皇家首领卡牌，以及专属的 La Rata 卡牌图鉴。
 [*]6 种带动画的补充包，每包 7 张卡牌。每位玩家开局都会获得一个职业补充包。
-[*]拥有独特联动的新遗物，以及能查看遗物实际贡献的便捷本局统计。
+[*]拥有独特联动的新遗物，以及三种新药水。
 [*]用石头剪刀布解决宝藏争夺，单人宝箱提供 3 件遗物供选择，还有皇家卡牌与哥布林药水的战斗记录。
 [/list]
 [h2]支持语言[/h2]
@@ -73,7 +75,8 @@ English · 简体中文 · Deutsch
 [hr][/hr]
 [h1]DE – Deutsch[/h1]
 [h2]Willkommen bei La Rata Remix![/h2]
-[b]Aktuelle Version: 0.9.4 – BETA[/b]
+[b]Aktuelle Version: 0.9.5 – BETA[/b]
+[b]Kompatibilität: Aktuell wird nur der Public-Branch (v0.107.1) unterstützt. Der Beta-Branch des Spiels wird derzeit nicht unterstützt.[/b]
 
 Was als ein bisschen Extra-Chaos für unsere eigenen Koop-Runden angefangen hat, ist etwas ausgeartet.
 La Rata Remix macht Slay the Spire 2 verrückter, unberechenbarer und manchmal einfach herrlich absurd. Dein Deck wächst schneller zusammen, starke Kombos kommen viel früher ins Rollen und du erreichst den richtig spaßigen Teil, ohne den halben Run mit Vorbereitungen zu verbringen.
@@ -91,7 +94,7 @@ Wir empfehlen, ohne Aufstiegsstufen anzufangen. Glaub uns, es ist schon genug lo
 [*]Ein optionales Endgame mit The Kingsguard und La Rata höchstpersönlich – samt eigenem Kartendeck, 10 Kampfrelikten und 2 treuen Ritter-Leibwächtern.
 [*]Neue neutrale und klassenspezifische Karten, spielbare königliche Bosskarten und ein eigenes La-Rata-Kartenkompendium.
 [*]6 animierte Boosterpacks mit jeweils 7 Karten. Zum Start bekommt jeder einen Klassenbooster.
-[*]Neue Relikte mit ungewöhnlichen Synergien und praktische Run-Statistiken, die zeigen, was deine Relikte tatsächlich geleistet haben.
+[*]Neue Relikte mit ungewöhnlichen Synergien und drei neue Tränke.
 [*]Schere, Stein, Papier für Streit um Schätze, 3 Relikte zur Auswahl in Solo-Truhen und Kampfverläufe für königliche Karten und Goblin-Tränke.
 [/list]
 [h2]Sprachen[/h2]

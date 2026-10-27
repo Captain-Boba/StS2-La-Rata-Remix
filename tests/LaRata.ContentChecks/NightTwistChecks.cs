@@ -80,6 +80,7 @@ internal static class NightTwistChecks
                 Require(main.MaxHp==initial[0]&&main.GetPowerAmount<SturdyTwistPower>()==18,"Marker reconstruction reapplies HP");
                 Require(main.Powers.OfType<TwistStatusPower>().All(p=>!p.ShouldScaleInMultiplayer&&!p.OwnerIsSecondaryEnemy),"Passive marker changes party/fatal behavior");
             }
+            HexPresentationChecks.Run(harmony);
             Console.WriteLine("PASS: native CreateCreature HP scaling and PowerCmd marker application at 1/2/4 modeled players, 35/60% reinforcements, 18% Sturdy, 12% Keen, Empowered+Vigor, startup idempotence, passive marker reconstruction, native damage multipliers and Inklet exception. Desktop/combat guard substituted; no disk save, rendering or network evidence.");
         }
         finally{harmony.UnpatchAll(harmony.Id);}

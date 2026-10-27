@@ -1,0 +1,85 @@
+{
+  "date": "2026-10-27",
+  "assets": [
+    {
+      "key": "the_kikilyst",
+      "original": "E:\\Spieleentwicklung\\StS2 - La Rata Mod\\assets\\LaRata\\images\\cards\\the_kikilyst.png",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-83681a33-46a6-415e-950e-a2301688dfde.png",
+      "prompt": "Use case: precise-object-edit. Edit the supplied existing La Rata card illustration with ONE requested pose correction. The SILENT character must clearly POINT A FINGER DIRECTLY AT THE VIEWER. Change her currently open/reaching free hand on image RIGHT into a strongly foreshortened pointing gesture toward the camera: index finger extended directly out of the picture toward us, its fingertip prominent, other fingers curled naturally, thumb anatomically connected. Keep the forearm connected naturally to the existing sleeve and wrist. This is an unmistakable 'YOU' gesture, not pointing at the poison pool, sideways, upward, or merely opening the palm. Keep the OTHER hand holding/pouring the poison flask unchanged, same skull mask/green hood/horns/clothing, same framing, scene, ruined architecture, green poison vortex and original bright green/navy/gold palette. Same rich chunky hand-painted StS2 / La Rata style, no photographic anatomy. Preserve the image's overall composition and all content outside this free-hand pose as closely as possible. Full bleed landscape4:3 ideally1448x1086. No text, card frame, UI, watermark or new characters.",
+      "tool": "built-in image_gen",
+      "target": "assets/LaRata/images/cards/the_kikilyst.png",
+      "human_approved": false,
+      "scope": "Free hand points directly at the viewer.",
+      "preview": "artifacts/ui-feedback-20261027/k5/card-proposals/the_kikilyst.png",
+      "sourceSha256": "29080ab79d5cd676adc18070031f7fe11a5914f8daefc832706c5b60bd91b903",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "runtimeSha256": "29080ab79d5cd676adc18070031f7fe11a5914f8daefc832706c5b60bd91b903",
+      "status": "Integrated after K1 scoped visual review; no human/live acceptance claimed.",
+      "originalArchive": "artifacts/ui-feedback-20261027/k5/before/the_kikilyst.png"
+    },
+    {
+      "key": "venomous_encore",
+      "original": "E:\\Spieleentwicklung\\StS2 - La Rata Mod\\assets\\LaRata\\images\\cards\\venomous_encore.png",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-c33f6391-5788-4baa-9a56-f5e9f7f09405.png",
+      "prompt": "Use case: precise-object-edit. Keep this entire newly simplified Venomous Encore illustration EXACTLY as it is: rat's new simple balanced stance, both naturally bent arms and hands in front, its TWO real short swords pointing right, face, dark olive/black outfit, green/cyan/purple circular energy, city, reaper and colors. Fix ONLY the accidental leftover FLOATING THIRD SWORD in the UPPER LEFT / UPPER MIDDLE green-cyan arc: there is a physical gray steel blade shape with a tiny orphan gold hilt/guard above the rat's left shoulder, around x530,y215 of the1448x1086image. REMOVE all of that unattached third metal blade and gold fragment, replacing its silhouette with the existing abstract bright green/cyan liquid energy swoosh and blue background. Keep the upper-left sweeping arc's overall curve and brightness, but make it clearly magical slash energy, NOT a third weapon. Only two physical swords remain, both in the rat's hands. Do not change any other region or invent new body/pose/gear. Same4:3painting, no text/frame/UI/watermark.",
+      "tool": "built-in image_gen",
+      "target": "assets/LaRata/images/cards/venomous_encore.png",
+      "human_approved": true,
+      "scope": "Original dark rat, outfit, ruined blue city, reaper and green/cyan/purple loops retained; simpler balanced pose with both arms naturally bent in front and two physical swords.",
+      "history": [
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-26c19d10-3a50-4e7c-ba53-5b4ed92861c1.png",
+          "prompt": "Use case: precise-object-edit. The supplied Venomous Encore card illustration is strongly approved for its EXACT LOOK, COMPOSITION and COLORS. Correct ONLY the anatomically misoriented HANDS / WRIST ROTATIONS where the gray rat grips its two swords. Preserve the rat's pose, face, cloak, both sword positions and blade angles, green poison, cyan highlights, purple Doom arcs/creature, towers, lighting, crop and original painterly brushwork. Do not redesign or recompose any other area. The near arm extending diagonally from the rat's shoulder toward the lower-right sword must have a naturally aligned wrist and solid grip: four curled fingers wrap around the existing hilt on one side, one connected thumb opposes them from the other side, thumb base on the correct anatomical side of the palm, no hand twisted backwards. The far arm sweeping overhead toward the upper-left sword must likewise have an anatomically coherent wrist/hand rotation and opposing thumb/finger grip appropriate to that arm. Keep left and right hands distinct, do not mirror the same hand twice. Preserve gloves/paw fur and existing cuffs; no detached digits, extra fingers or bent-back wrist. Only local hand/finger orientation and minimal wrist connection may change, with both existing weapon geometries locked. Same landscape4:3 ideally1448x1086, no text, frame, UI, watermark or extra objects.",
+          "reason": "User explicitly rejected finger-only correction: arms still backwards. Not approved or integrated."
+        },
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-916afaf1-ed15-4a26-b8a4-ef5f9fa62f68.png",
+          "prompt": "Use case: precise-object-edit. Correct the supplied ORIGINAL Venomous Encore card painting. A previous finger-only correction was REJECTED because BOTH ARMS STILL LOOKED BACKWARDS. This time reconstruct the entire TWO ARM ANATOMICAL CHAINS, not merely the fingers: each must clearly follow its own shoulder -> upper arm -> correctly bent elbow -> forearm -> wrist -> correct left/right hand gripping its sword. Preserve the original overall leaping rat silhouette, face, cloak, scene, bright green/cyan poison slashes, purple Doom arcs/enemy, cool-blue ruined city, framing and painterly style.\n\nPOSE / LEFT-RIGHT:\nThe rat faces toward image RIGHT. The nearer arm in the LOWER-RIGHT foreground is its anatomically RIGHT arm, attached to the front/right shoulder beside the chest. Let its upper arm angle naturally down-and-forward to a visible bent elbow, then the forearm extend forward to the lower-right sword. Rebuild this sleeve and cuff as needed so the elbow and forearm are not twisted backwards. The right wrist should remain close to neutral in line with the forearm; its palm and thumb oppose curled fingers on the hilt. A right hand, not a mirrored left hand; thumb base is on its true anatomical side. The upper arm must originate from the rat's shoulder, not the neck/back or wrist.\nThe farther arm toward the UPPER-LEFT sword is its anatomically LEFT arm attached behind the other shoulder. Give it a clear natural raised/bent elbow and forearm in a backswing; the left hand must grip its hilt with the correct opposite thumb side and a neutral believable wrist. Allow the elbow position and local sleeve shape to shift just enough to untwist the arm. Do not reuse or mirror the right-hand shape for both grips. Two shoulders, two elbows, two wrists and two hands, coherent bone lengths. No dislocated shoulder, reverse elbow, bent-back wrist or arms emerging from the wrong side of the torso.\n\nKeep both existing sword blade regions/angles and their green/cyan motion arcs as close as anatomy permits. A small adjustment of grip/hilt/forearm is allowed when necessary for a physically possible pose. The top-left sword remains raised behind the rat; the lower-right sword remains attacking forward. Maintain the diagonal dual-wield action and original body/leg pose. The needed edit may extend across both sleeve/arm/hand areas; do NOT merely close the old fists again.\n\nThe rest of the painting should remain unchanged in composition and colors, matching its exact richly painted La Rata / StS2 style. Landscape4:3 ideally1448x1086. No words, card frame, UI, labels, new characters, armor redesign or watermark.",
+          "reason": "User rejected this full-arm repair and explicitly requested a completely fresh illustration; not approved or integrated."
+        },
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-7f59d004-a517-4be5-95bd-cd964da633de.png",
+          "prompt": "Use case: stylized-concept. COMPLETELY NEW original illustration from scratch for the fantasy game card Venomous Encore, La Rata Remix. Do NOT recreate any earlier composition or backwards dual-sword pose. Landscape4:3 ideally1448x1086, full bleed, no writing, numbers, card frame, UI or watermark.\n\nA recognizable gray anthropomorphic RAT rogue with round pink ears, pale whiskered muzzle and dark moss-green/burgundy cloak launches a swift forward dagger attack at a towering hooded violet-shadow enemy. This card strikes TWICE and inflicts Doom on an already Poisoned enemy. Make two distinct luminous green/cyan slash cuts on the enemy's silhouette, with deep purple fractured Doom energy awakening around the cuts. These are motion/cut marks, NOT extra weapons or extra arms.\n\nENTIRELY NEW CAMERA AND STAGING:\nA clean SIDE-ON three-quarter action view, the rat occupying the LEFT half, advancing RIGHT across a broken stone stair/bridge. Its feet are convincingly planted in a forward lunge rather than spinning or flying. The hooded shadow target is to the RIGHT/back, clear from the rat, green poison droplets on its shoulder and violet fissures down its body. Dark ruined Spire arches and distant towers, restrained background detail.\n\nCLEAR SIMPLE ANATOMY:\nUse ONE actual short curved DAGGER held in the rat's NEAR RIGHT HAND, pointing forward/right. The right shoulder is visible at the upper chest, its upper arm angles slightly down toward a clearly defined elbow, then forearm extends forward nearly horizontally into the grip. Ordinary neutral wrist, fingers wrap the hilt and the opposing thumb lies on the correct right-hand side. A natural straight thrust/fencing lunge, no reverse elbow, no arm spun behind the torso, no backwards wrist. The LEFT arm is folded close beside the waist in a relaxed balancing pose, its empty hand visible near the belt with natural palm/thumb orientation. It does NOT swing overhead or hold a second sword. Both shoulder/elbow/forearm/wrist chains must be immediately readable, uncomplicated and physically possible. Exactly two arms and hands. Keep glove shapes simple.\n\nSTYLE AND COLOR:\nThe striking established La Rata / Slay the Spire2 hand-painted fantasy card look: chunky sculpted planes, expressive rat face, confident dark contours, rich cloth/stone brushwork. Cool deep blue/navy city, vivid poisonous lime GREEN and electric CYAN action accents, ominous saturated DOOM PURPLE on the enemy and restrained burgundy leather/cape. Dramatic directional lighting and a strong readable silhouette. The green/cyan DOUBLE CUT is the lively centerpiece, the rat remains tangible and grounded. No full-image green wash. Main face, clear arm chain, dagger grip and double hit safe inside central85% card crop. No anatomy-obscuring giant foreground swirls.",
+          "sourceSha256": "7a423a685e42619260027f090526f9b6140e7120cd9d0248fbdfdf2228f8c627",
+          "reason": "Rejected by the user: keep the original look, but simplify the rat's pose; this different side-on scene was never integrated."
+        },
+        {
+          "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4d69ed56-c5c5-43bb-90bc-1d4d1e4d10c2.png",
+          "prompt": "Use case: precise-object-edit / character reposing. The user wants the ORIGINAL ICONIC LOOK of this supplied Venomous Encore illustration, but the RAT'S BODY POSE must be substantially SIMPLIFIED. Redraw the entire rat into an anatomically simple natural pose WITHIN THIS ORIGINAL PAINTING. Do not merely patch fingers. Do not replace the scene with a new duel.\n\nLOCK THE ORIGINAL LOOK:\nSame BLACK/DARK-GRAY rat, sharp white eyes, pink round ears and long pale whiskers. Same dark olive/black ragged cloak, dark leather gear and restrained brass buckles. Keep the original COOL BLUE ruined Spire city, foreground diagonal stone rooftop/bridge, large PURPLE DOOM REAPER behind, and especially the original dramatic looping lime GREEN / CYAN and saturated PURPLE slash/energy arcs. Keep their sweeping circular composition, the original painterly texture, sharp contrast and mood. No brown/red new costume, no large new foreground opponent, no new environment, no washed-out palette.\n\nREPLACE THE COMPLICATED TWISTED SPIN WITH A SIMPLE POSE:\nThe rat remains centered in the scene facing image RIGHT, in a balanced slightly crouched stand / shallow forward lunge on the existing stone foreground. Both bare rat feet plausibly brace against the stone, knees lightly bent. Torso mostly upright and aligned with the pelvis, LITTLE TORSO TWIST. Readable shoulder width. Head still alert/aggressive toward the right.\nBOTH arms are IN FRONT OF THE BODY, comfortably bent, elbows near the ribcage. The NEAR RIGHT ARM descends from the visible right shoulder to a normal bent elbow beside the waist; its forearm extends forward to hold a short sword at about waist height. The FAR LEFT ARM is also bent in front of the chest with its hand a little HIGHER, holding the second short sword forward. Both blades point generally toward image RIGHT at relaxed, broadly similar angles, slightly separated vertically. Neither arm swings backwards over the head, behind the back, or out along an extreme opposing axis. Do not cross or tangle the arms. Two clearly connected shoulder-upper-arm-elbow-forearm-wrist-hand chains, normal joint direction and length, neutral wrists, distinct correct right and left grips, thumb opposing fingers on its true anatomical side. Slightly shorten/reposition swords if needed for natural comfortable grips.\n\nThe iconic green/cyan and purple ARC TRAILS can sweep around/behind the simplified rat as energy echoes of TWO consecutive strikes; do not force the hands back into the old impossible positions to match the old trails. Keep the overall circular action and existing purple Reaper silhouette/position. The rat's simpler stance may shift nearby composition just enough for clear anatomy, but it must still feel like THIS EXACT OLD CARD LOOK.\nLandscape4:3 ideally1448x1086. No text, card frame, UI, watermark or additional limbs/characters.",
+          "sourceSha256": "cbb18ffddd211075afdf32b133d7791cae5eef8a9107c3f73b31aafe1701372b",
+          "input": "artifacts/ui-feedback-20261027/k5/before/venomous_encore.png",
+          "reason": "Intermediate simplified pose retained the original scene; a floating third weapon fragment was removed by the final precise ImageGen edit. This intermediate was never integrated."
+        }
+      ],
+      "status": "Human-approved exact final source copied unchanged to the existing runtime artkey; K6 owns import/package/install/live verification.",
+      "preview": "artifacts/ui-feedback-20261027/k5/card-proposals/venomous_encore-approved.png",
+      "sourceSha256": "6630fbd9f0a632b03dfe202fc46f8ee2192ca30a5429e91ef7c8984afe518d90",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "originalArchive": "artifacts/ui-feedback-20261027/k5/before/venomous_encore.png",
+      "runtimeSha256": "6630fbd9f0a632b03dfe202fc46f8ee2192ca30a5429e91ef7c8984afe518d90",
+      "originalSha256": "7b0c9c8bb24ef799be580595db974f1e7f8416a85474a1162628fb73d9dcf574",
+      "references": [
+        "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-4d69ed56-c5c5-43bb-90bc-1d4d1e4d10c2.png"
+      ],
+      "approval": {
+        "date": "2026-10-27",
+        "quote": "Ja, genau diese nehmen",
+        "relayedBy": "K1",
+        "sourceThreadId": "01a170cc-23f9-7c73-8c92-ebeefcbf866f",
+        "scope": "Exact exec-c33f6391-5788-4baa-9a56-f5e9f7f09405.png artwork only; native UI acceptance remains separate."
+      }
+    }
+  ],
+  "limits": [
+    "Exact-source human approval is recorded only where explicitly received; native cropping and live UI acceptance remain separate.",
+    "No card mechanics, localization or IDs changed."
+  ]
+}

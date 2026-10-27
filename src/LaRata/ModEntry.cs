@@ -15,6 +15,14 @@ public static class ModEntry
     public static readonly Logger Log = new(Id, LogType.Generic);
     internal static bool AuditChecksums { get; private set; }
 
+    internal static void ApplyPatches(Harmony harmony)
+    {
+        harmony.PatchAllUncategorized(Assembly.GetExecutingAssembly());
+        harmony.PatchCategory(Assembly.GetExecutingAssembly(), ResetEnergyLedger.PatchCategory);
+        // RelicMetrics.PatchCategory deliberately remains inactive, including UI
+        // and deferred/payment observers. Gameplay identities are uncategorized.
+    }
+
     public static void Initialize()
     {
         // Early Access changes private hooks frequently. Never silently run an unvalidated ruleset.
@@ -37,10 +45,8 @@ public static class ModEntry
             CustomContentDictionary.RegisterType(typeof(KeenTwistPower));
             CustomContentDictionary.RegisterType(typeof(EmpoweredTwistPower));
             CustomContentDictionary.RegisterType(typeof(ReinforcementTwistPower));
-            // Install mutation observers before recompiling the enclosing relic hooks.
-            harmony.PatchAllUncategorized(Assembly.GetExecutingAssembly());
-            harmony.PatchCategory(Assembly.GetExecutingAssembly(), ResetEnergyLedger.PatchCategory);
-            harmony.PatchCategory(Assembly.GetExecutingAssembly(), "LaRataRelicEffectContexts");
+            CustomContentDictionary.RegisterType(typeof(HexTwistPower));
+            ApplyPatches(harmony);
         }
         catch
         {

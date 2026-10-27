@@ -21,9 +21,9 @@ public sealed class RelicRemover : CustomRelicModel
     public override RelicRarity Rarity => RelicRarity.Rare;
     public override bool HasUponPickupEffect => true;
     public override bool IsUsedUp => Used;
-    public override string PackedIconPath => "res://LaRata/images/relics/relic_remover.png";
-    protected override string PackedIconOutlinePath => PackedIconPath;
-    protected override string BigIconPath => PackedIconPath;
+    public override string PackedIconPath => "res://LaRata/images/relic_native/relic_remover.png";
+    protected override string PackedIconOutlinePath => "res://LaRata/images/relic_native/relic_remover_outline.png";
+    protected override string BigIconPath => "res://LaRata/images/relics/relic_remover.png";
     public override List<(string, string)> Localization => [];
     [SavedProperty] public bool Used { get; set; }
     [SavedProperty] public int SelectionSequence { get; set; }

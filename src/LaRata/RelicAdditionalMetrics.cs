@@ -22,6 +22,7 @@ internal static class RelicGeneratedCardMetrics
         Pending.Remove(card);
         RelicMetrics.Record(source, "cards_generated", 1, "Cards");
     }
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch(typeof(CombatHistory), nameof(CombatHistory.CardGenerated))]
     private static class Generated
     {
@@ -35,12 +36,14 @@ internal static class RelicGeneratedCardMetrics
     }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(CombatHistory), nameof(CombatHistory.OrbChanneled))]
 internal static class RelicOrbChannelMetrics
 {
     private static void Postfix() => RelicMetrics.Record(RelicMetricSource.Relic, "orbs_channeled", 1, "Orbs");
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(OrbQueue), nameof(OrbQueue.AddCapacity))]
 internal static class RelicOrbCapacityMetrics
 {
@@ -52,12 +55,14 @@ internal static class RelicOrbCapacityMetrics
     }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(CombatHistory), nameof(CombatHistory.Summoned))]
 internal static class RelicSummonMetrics
 {
     private static void Postfix(int amount) => RelicMetrics.Record(RelicMetricSource.Relic, "osty_hp_summoned", amount, "HP");
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(CardModel), nameof(CardModel.CurrentUpgradeLevel), MethodType.Setter)]
 internal static class RelicUpgradeMetrics
 {
@@ -71,6 +76,7 @@ internal static class RelicUpgradeMetrics
     }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(CardCmd), nameof(CardCmd.Enchant), [typeof(EnchantmentModel), typeof(CardModel), typeof(decimal)])]
 internal static class RelicEnchantmentMetrics
 {
@@ -86,6 +92,7 @@ internal static class RelicEnchantmentMetrics
     }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(Player), nameof(Player.AddPotionInternal))]
 internal static class RelicPotionMetrics
 {
@@ -93,6 +100,7 @@ internal static class RelicPotionMetrics
     { if (__result.success) RelicMetrics.Record(RelicMetricSource.Relic, "potions_added", 1, "Potions"); }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(Player), "SetMaxPotionCountInternal")]
 internal static class RelicPotionCapacityMetrics
 {
@@ -129,6 +137,7 @@ internal static class RelicPotionCapacityMetrics
 
 // Preserve the unchanged native purchase/counter path. This only establishes
 // source attribution on every peer, including the native remote completion path.
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(OneOffSynchronizer), "DoMerchantCardRemoval", MethodType.Async)]
 internal static class ThousandCutsMetricContext
 {
@@ -143,6 +152,7 @@ internal static class ThousandCutsMetricContext
     { RelicMetricSource.Restore(__state); return __exception; }
 }
 
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch(typeof(ExtraPlayerFields), nameof(ExtraPlayerFields.CardShopRemovalsUsed), MethodType.Setter)]
 internal static class ThousandCutsCompletedMetrics
 {

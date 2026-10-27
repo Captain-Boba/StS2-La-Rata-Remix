@@ -22,7 +22,7 @@ if (args.Length == 2 && args[0] == "--export-localization")
     LocalizationExport.Run(args[1]);
     return;
 }
-if (args.Length == 1 && args[0] is "--booster-policy" or "--rarity-pools" or "--atc" or "--followup-cards" or "--night-relics" or "--night-twists" or "--wave-cards" or "--wave-testers" or "--wave-payment" or "--wave-relics" or "--wave-deferred" or "--wave-regalia" or "--patches-only" or "--asset-paths")
+if ((args.Length == 1 || args.Length == 2 && args[0] == "--asset-paths") && args[0] is "--royal-potions-ramp" or "--metrics-disabled" or "--shop-booster-regression" or "--disconnect-regression" or "--booster-policy" or "--rarity-pools" or "--atc" or "--followup-cards" or "--night-relics" or "--night-twists" or "--wave-cards" or "--wave-testers" or "--wave-payment" or "--wave-relics" or "--wave-deferred" or "--wave-regalia" or "--patches-only" or "--asset-paths")
 {
     TestMode.IsOn = true;
     var ids = new HarmonyLib.Harmony("LaRata.ContentChecks.WaveIds");
@@ -42,13 +42,24 @@ if (args.Length == 1 && args[0] is "--booster-policy" or "--rarity-pools" or "--
         try
         {
             RelicMetrics.Register();
-            smoke.PatchAllUncategorized(typeof(ModEntry).Assembly);
-            smoke.PatchCategory(typeof(ModEntry).Assembly, ResetEnergyLedger.PatchCategory);
-            smoke.PatchCategory(typeof(ModEntry).Assembly, "LaRataRelicEffectContexts");
+            ModEntry.ApplyPatches(smoke);
+            foreach (var property in new[] { "DefaultFocusedControl", "FocusedControlFromTopBar" })
+            {
+                var getter = HarmonyLib.AccessTools.PropertyGetter(typeof(MegaCrit.Sts2.Core.Nodes.Screens.CardSelection.NCardGridSelectionScreen), property);
+                Require(HarmonyLib.Harmony.GetPatchInfo(getter)?.Prefixes.Any(p => p.owner == smoke.Id && p.PatchMethod.DeclaringType?.DeclaringType?.Name == "BoosterOpening") == true,
+                    $"Booster opening focus prefix missing on {property}");
+            }
+            Console.WriteLine("PASS: both native booster focus entry points have the opening prefix. Activation only; no controller interaction claim.");
+            RelicMetricsDisabledChecks.CheckPatchSet(smoke);
+            EnetLifecycleChecks.Run(smoke);
             Console.WriteLine($"PASS: complete mod Harmony patch set activated; {smoke.GetPatchedMethods().Count()} methods patched by this fixture, including desktop substitutions. Patch activation only; no game/engine initialization, UI execution or live compatibility claim.");
         }
         finally { smoke.UnpatchAll(smoke.Id); }
     }
+    else if (args[0] == "--royal-potions-ramp") RoyalPotionRampChecks.Run();
+    else if (args[0] == "--metrics-disabled") RelicMetricsDisabledChecks.Run();
+    else if (args[0] == "--disconnect-regression") DisconnectRegressionChecks.Run();
+    else if (args[0] == "--shop-booster-regression") DisconnectRegressionChecks.Run(shopOnly: true);
     else if (args[0] == "--atc") { ShopRemovalChecks.Run(); ShopPurchasePathChecks.Run(); }
     else if (args[0] == "--rarity-pools") RarityPoolChecks.Run();
     else if (args[0] == "--booster-policy") BoosterWaveChecks.Run();
@@ -59,7 +70,7 @@ if (args.Length == 1 && args[0] is "--booster-policy" or "--rarity-pools" or "--
     else if (args[0] == "--wave-deferred") RelicWaveChecks.Run(deferredOnly: true);
     else if (args[0] == "--wave-testers") TesterCardChecks.Run();
     else if (args[0] == "--wave-payment") RelicWaveChecks.Run(paymentOnly: true);
-    else if (args[0] == "--asset-paths") AssetPathChecks.Run();
+    else if (args[0] == "--asset-paths") AssetPathChecks.Run(args.Length > 1 ? args[1] : null);
     else if (args[0] == "--wave-regalia") RegaliaWaveChecks.Run();
     else { BoosterWaveChecks.Run(); CardWaveChecks.Run(); RoyalIntentWaveChecks.Run(); }
     }

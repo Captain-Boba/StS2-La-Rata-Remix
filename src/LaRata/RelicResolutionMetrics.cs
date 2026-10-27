@@ -26,6 +26,7 @@ internal static class RelicResolution
         return false;
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class CalculationBoundary
     {
@@ -58,6 +59,7 @@ internal static class RelicResolution
         { Current.Value = (Frame?)__state; return __exception; }
     }
 
+    [HarmonyPatchCategory(RelicMetrics.PatchCategory)]
     [HarmonyPatch]
     private static class CommandBoundary
     {
@@ -107,6 +109,7 @@ internal static class RelicResolution
 
 // Quantities here are adjustments to an actual calculation, not a counterfactual
 // claim about final HP, draw count or gold. Later modifiers/clamping remain native.
+[HarmonyPatchCategory(RelicMetrics.PatchCategory)]
 [HarmonyPatch]
 internal static class RelicNumericContribution
 {

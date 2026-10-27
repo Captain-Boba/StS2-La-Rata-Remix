@@ -23,9 +23,9 @@ namespace LaRata;
 public abstract class DecisionRelic : CustomRelicModel
 {
     protected abstract string ArtKey { get; }
-    public override string PackedIconPath => $"res://LaRata/images/relics/{ArtKey}.png";
-    protected override string PackedIconOutlinePath => PackedIconPath;
-    protected override string BigIconPath => PackedIconPath;
+    public override string PackedIconPath => $"res://LaRata/images/relic_native/{ArtKey}.png";
+    protected override string PackedIconOutlinePath => $"res://LaRata/images/relic_native/{ArtKey}_outline.png";
+    protected override string BigIconPath => $"res://LaRata/images/relics/{ArtKey}.png";
     public override List<(string, string)> Localization => [];
 
     protected bool InCombat => !IsCanonical && !HasBeenRemovedFromState && !IsMelted &&

@@ -93,7 +93,8 @@ internal static class LocalizationWaveChecks
             RelicMetrics.Record(measured, "cards_recovered", 2, "Cards");
             RelicMetrics.Record(measured, "block_gained", 999, "WrongUnit");
             RelicMetrics.Record(measured, "unknown_test_metric", 999, "Block");
-            harmony.CreateClassProcessor(typeof(RelicStatsPresentation).GetNestedType("NativeRunResults", System.Reflection.BindingFlags.NonPublic)!).Patch();
+            if (RelicMetrics.Enabled)
+                harmony.CreateClassProcessor(typeof(RelicStatsPresentation).GetNestedType("NativeRunResults", System.Reflection.BindingFlags.NonPublic)!).Patch();
             int formatted = 0;
             foreach (var (language, culture) in new[] { ("eng", "en-US"), ("deu", "de-DE"), ("zhs", "zh-CN") })
             {
@@ -169,6 +170,8 @@ internal static class LocalizationWaveChecks
                 tables["powers"].MergeWith(JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(Path.GetFullPath(nativePowerPath)))!);
                 string[] resultLines = RelicStatsPresentation.ResultLines(measured).ToArray();
                 string measuredTip = string.Join('\n', resultLines);
+                if (RelicMetrics.Enabled)
+                {
                 Require(resultLines.Length == 12 && resultLines.All(line => !line.Contains('{') && !line.Contains("999")), "Minimal results include unsupported/incorrect metrics or unresolved variables");
                 Require(resultLines.Contains(UiText.Format("stats.result.block_gained", "2", 2m)) &&
                     !measuredTip.Contains(UiText.Get("stats.gap.complex_payments_deferred")) &&
@@ -176,12 +179,25 @@ internal static class LocalizationWaveChecks
                     RelicMetrics.Read(measured).Gaps.Contains("complex_payments_deferred"), "Minimal tooltip lost exact result or exposed internal diagnostic"); formatted++;
                 Require(!RelicStatsPresentation.ResultLines(deferredShop).Any() && RelicMetrics.Read(deferredShop).Metrics.Count == 0 &&
                     RelicMetrics.Read(deferredShop).Gaps.Contains("shop_savings_deferred"), "Deferred shop displayed fabricated zero/diagnostic"); formatted++;
+                }
+                else Require(resultLines.Length == 0 && !RelicStatsPresentation.ResultLines(deferredShop).Any(), "Disabled statistics still displayed");
                 var nativeRelicsPath = Path.Combine(root, "../../../.research/native-reference-0.107.1-20261025/localization", language, "relics.json");
                 tables["relics"].MergeWith(Read(Path.GetFullPath(nativeRelicsPath)));
                 var integrated = measured.HoverTip;
-                Require(integrated.Description == measured.DynamicDescription.GetFormattedText() + "\n\n" + measuredTip &&
+                Require(integrated.Description == measured.DynamicDescription.GetFormattedText() + (RelicMetrics.Enabled ? "\n\n" + measuredTip : "") &&
                     integrated.CanonicalModel == measured.CanonicalInstance, "Native relic description or tooltip metadata replaced/duplicated");
                 Require(!RelicStatsPresentation.ResultLines(ModelDb.Relic<OldCoin>()).Any(), "Canonical relic shows run values");
+                foreach (var potion in modModels.OfType<RoyalPotion>())
+                {
+                    foreach (string suffix in potion is Rustwater ? new[] { "title", "description" } : new[] { "title", "description", "selectionScreenPrompt" })
+                    {
+                        string rendered = new LocString("potions", potion.Id.Entry + "." + suffix).GetFormattedText();
+                        Require(!rendered.Contains('{') && !rendered.Contains('}'), "Unresolved potion text: " + potion.Id);
+                        formatted++;
+                    }
+                }
+                string ramp = RoyalBossText.Text("damage_ramp", "MISSING", ("Percent", 40));
+                Require(ramp != "MISSING" && ramp.Contains("40") && !ramp.Contains('{'), "Missing/unresolved damage ramp");
                 foreach (var relic in modModels.OfType<DecisionRelic>())
                 {
                     string description = relic.DynamicDescription.GetFormattedText();
@@ -206,6 +222,7 @@ internal static class LocalizationWaveChecks
                     int attack = inklet ? 100 : hp == 35 ? 50 : 65;
                     Require(rendered.Contains(hp.ToString()) && rendered.Contains(attack.ToString()), "Bound reinforcement HP/attack description differs: " + rendered); formatted++;
                 }
+                formatted += HexLocalizationChecks.Run(language);
                 foreach (int amount in new[] { 1, 2, 12 })
                 {
                     string line = UiText.Format("stats.result.cards_recovered", amount.ToString(CultureInfo.GetCultureInfo(culture)), (decimal)amount);

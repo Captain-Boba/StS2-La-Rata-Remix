@@ -34,6 +34,9 @@ public abstract class KingsguardKnight : CustomMonsterModel, ILocalizationProvid
     public override float HpBarSizeReduction => 30;
     public override int MaxInitialHp => MinInitialHp;
     public List<(string, string)> Localization => [];
+
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal damage, ValueProp props,
+        Creature? dealer, CardModel? cardSource) => RoyalDamageRamp.For(Creature, dealer, props);
     private RatKing? sovereign;
     // Bestiary builds and evaluates moves before a Creature exists. Bind the
     // commander only through the native live-room lifecycle.

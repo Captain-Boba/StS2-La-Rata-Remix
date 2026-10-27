@@ -58,6 +58,16 @@ Cold Circuit draws one card before upgrading and two afterward. German uses the 
 
 ## Inventory and handoff
 
+### 2026-10-27 tooltip feedback delta
+
+K2 froze two English card descriptions, `LARATA-CINDER_RECEIPT.description` and `LARATA-SCRAP_CORONATION.description`, without the "If you do" lead-in. German and Simplified Chinese now mirror that short form; the actual Exhaust success condition remains in the mechanics. No selection-related "up to" remains in these card tables. Blood Contract's nonlethal HP limit and unrelated numerical caps remain intact.
+
+K4 froze `LARATA-STURDY_TWIST_POWER.description` as a direct `+{Amount}%` Max HP statement and removed the complete rounding/minimum-heal parenthesis from `LARATA-RAT_KING.royal_adapter.10`, `.16` and `.23`. Both locales mirror these edits. Rounding and minimum healing are unchanged in code.
+
+Both `powers.json` tables add 34 keys under `LARATA-HEX_TWIST_POWER`: base title/description, `unbound.description`, `echoing_unbound.description`, and title/description pairs for `echoing`, `hexed`, `venomous`, `ominous`, `cinders`, `disorienting`, `lacerating`, `shackling`, `sapping`, `constricting`, `eroding`, `doomweaver`, `leaden`, `statichex` and `crossfire`. `{Dose}` and `{Debuff}` are preserved; `{Debuff}` is already the native localized power title. "Marked move" is translated as "markierte Aktion" / "标记行动", with explicit repetition and no hit requirement. These are displays of existing encounter rules, not dispellable switches. Unbound text means no compatible move exists. Doomweaver remains a legacy fallback outside the active selection pool.
+
+Native reference terms include Umwickelt / 紧缠, Zerfall / 瓦解, Leichentuch / 厄运之衣, Wunde / 伤口, Verschleimt / 黏液 and Leere / 虚空. Existing Vigor and Envenom use their native displays: Vigor lasts for the next complete attack, including multiple hits and fully blocked attacks; Envenom persists and triggers on unblocked attack damage. No new next-attack OnHit mechanic or potion, trade or damage-ramp text was introduced by localization. K6 owns targeted technical verification; this entry records source editing and handoff only.
+
 ### Corrected A Thousand Cuts price contract
 
 The subsequent user correction supersedes the former increasing-price contract: the owner may remove any number of cards at the Merchant, and every removal uses the native first removal's base price with current discounts and price modifiers. This is neither a fixed Gold amount nor the possibly elevated price at acquisition. Successful native removal history remains intact; losing the relic restores native pricing from that history. K3 owns the implementation; K5 owns the English description. K7 synchronized only `LARATA-A_THOUSAND_CUTS.description` in German and Simplified Chinese; titles and flavor text remain unchanged.

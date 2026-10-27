@@ -43,7 +43,15 @@
         0,
         255
       ],
-      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/sootbound_ticket.png",
+        "smallSha256": "5d1860e92af9dadffc826835626ab634c21d80be1ba0428143b9deec0cc542b6",
+        "outline": "assets/LaRata/images/relic_native/sootbound_ticket_outline.png",
+        "outlineSha256": "01633e2f7393b6b985ef0f7c24a165651fda9a981efa8976d81b16bfcec87dbe",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "stairwell_key",
@@ -85,7 +93,15 @@
         0,
         255
       ],
-      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/stairwell_key.png",
+        "smallSha256": "910fb82e2612aa1f1ad506dab5b24ce7ca7ea66ad407a7d65a54960db4cc2164",
+        "outline": "assets/LaRata/images/relic_native/stairwell_key_outline.png",
+        "outlineSha256": "ad60d0c54abeebc9ea79acbf3b22bb39f83cd6cf0409fd0856d73d1b0c3978c2",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "mocking_bell",
@@ -127,7 +143,15 @@
         0,
         255
       ],
-      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/mocking_bell.png",
+        "smallSha256": "35b7fbdfc3cf727fbe406ba44597a459d49389da7219df74c89c6f7f63d4c8c0",
+        "outline": "assets/LaRata/images/relic_native/mocking_bell_outline.png",
+        "outlineSha256": "aa239d5d9fb57def5299a5260954ce803cb64dff19197f9ced1246a3a037b0d1",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "brass_scavenger",
@@ -169,7 +193,15 @@
         0,
         255
       ],
-      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/brass_scavenger.png",
+        "smallSha256": "2b06ab72253f5f741e2d3039a0b0ea28db09865881e6c17db17e0cc6c21a3537",
+        "outline": "assets/LaRata/images/relic_native/brass_scavenger_outline.png",
+        "outlineSha256": "3db679d0f7c38dead1f4e948937f4af04105b11beaf0559b518d2b2adb6efc8c",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "moonlit_stopper",
@@ -211,7 +243,15 @@
         0,
         255
       ],
-      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json"
+      "redesignManifest": "docs/art-prompts/relic-redesign-20261025/manifest-drafts.json",
+      "nativeSmallVariants": {
+        "small": "assets/LaRata/images/relic_native/moonlit_stopper.png",
+        "smallSha256": "069bb3f7d1d219c8644da006d35c84ccc1f7cd376df4675675e9f70999d27318",
+        "outline": "assets/LaRata/images/relic_native/moonlit_stopper_outline.png",
+        "outlineSha256": "9db48f7bbb09c38c5667a68be59412089ffad5ea4e45582ace9d3a065f55f8fd",
+        "interiorRgbaExact": true,
+        "originalUnchanged": true
+      }
     },
     {
       "key": "idle",
@@ -493,5 +533,10 @@
     "approvalRecord": "docs/art-prompts/relic-redesign-20261025/approval-all-six-designs.json",
     "mapping": "docs/art-prompts/relic-redesign-20261025/manifest-runtime-approved.json",
     "status": "Six approved runtime PNGs integrated; no PCK/install/live evidence. Other assets unchanged."
+  },
+  "uiFeedback20261027": {
+    "cardEdits": "docs/art-prompts/ui-feedback-20261027/card-edits.json",
+    "relicSmallExport": "docs/art-prompts/ui-feedback-20261027/relic-outline-export.json",
+    "note": "Original relic/Big PNGs preserved. Small/Outline derivatives follow explicitly user-authorized mechanical outer-border export, not a motif regeneration."
   }
 }

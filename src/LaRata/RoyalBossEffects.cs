@@ -44,13 +44,13 @@ internal static class RoyalBossEffects
             6 => "Gain 12 base Block. If you have no Buffer, gain 1 Buffer.",
             7 => "Lose up to 12 HP without dying. Give ALL living allies 2 Strength.",
             8 => "Gain 8 base Block and 2 Vulnerable.",
-            10 => "Deal 18 damage to ALL players. Heal 1% of your Max HP (round down, minimum 1).",
+            10 => "Deal 18 damage to ALL players. Heal 1% of your Max HP.",
             13 => "Gain 15 base Block and 2 Buffer if no Buffer remains.",
             15 => "Shuffle 2 Dazed into each player's draw pile. Gain 6 base Block.",
-            16 => "Heal ALL court members for 1.25% of their Max HP (round down, minimum 1). Give them 2 base Plating (cap 14).",
+            16 => "Heal ALL court members for 1.25% of their Max HP. Give them 2 base Plating (cap 14).",
             19 => "Remove Weak and Frail from every living court member. Gain 5 base Block.",
             22 => "Give ALL court members 15 base Block and 3 Strength.",
-            23 => "Deal 26 damage to ALL players. Heal ALL court members for 2% of their Max HP (round down, minimum 1).",
+            23 => "Deal 26 damage to ALL players. Heal ALL court members for 2% of their Max HP.",
             24 => "Give ALL court members 2 Ritual (cap 6).",
             _ => RoyalCard.Descriptions[index]
         };

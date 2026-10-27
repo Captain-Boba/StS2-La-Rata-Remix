@@ -39,9 +39,9 @@ internal static class SoloTreasureChoicesPatch
 public sealed class AThousandCuts : CustomRelicModel
 {
     public override RelicRarity Rarity => RelicRarity.Rare;
-    public override string PackedIconPath => "res://LaRata/images/a_thousand_cuts.png";
-    protected override string PackedIconOutlinePath => PackedIconPath;
-    protected override string BigIconPath => PackedIconPath;
+    public override string PackedIconPath => "res://LaRata/images/relic_native/a_thousand_cuts.png";
+    protected override string PackedIconOutlinePath => "res://LaRata/images/relic_native/a_thousand_cuts_outline.png";
+    protected override string BigIconPath => "res://LaRata/images/a_thousand_cuts.png";
     public override List<(string, string)> Localization => [];
 
     internal static bool IsActiveFor(Player player) =>

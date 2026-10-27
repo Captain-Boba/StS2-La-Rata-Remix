@@ -18,6 +18,7 @@ internal static class RoyalIntentWaveChecks
             var player = NativeConsoleFixture.Player(71);
             var run = RunState.CreateForTest(players: [player], seed: "INTENTWAVE");
             var combat = new CombatState(ModelDb.Encounter<RatKingEncounter>().ToMutable(), run);
+            combat.RoundNumber = 7; // This suite isolates the fully-ramped forecast/Artifact rules.
             var body = new Creature(player, 50, 50) { CombatState = combat };
             NativeConsoleFixture.Set(player, nameof(player.Creature), body);
             player.ResetCombatState(); combat.AddCreature(body);

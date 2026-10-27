@@ -32,11 +32,14 @@ public abstract class BoosterRelic : CustomRelicModel
     [SavedProperty] public bool StarterPending { get; set; }
     [SavedProperty] public List<SerializableCard> Contents { get; set; } = [];
     private bool opening;
-    public override string PackedIconPath => $"res://LaRata/images/relics/{Art[Pack]}.png";
-    protected override string PackedIconOutlinePath => PackedIconPath;
-    protected override string BigIconPath => PackedIconPath;
+    // Transient and instance-local: the shop must transmit the unopened relic
+    // before either peer resolves its native player choice.
+    internal bool ShopOpeningDeferred { get; set; }
+    public override string PackedIconPath => $"res://LaRata/images/relic_native/{Art[Pack]}.png";
+    protected override string PackedIconOutlinePath => $"res://LaRata/images/relic_native/{Art[Pack]}_outline.png";
+    protected override string BigIconPath => $"res://LaRata/images/relics/{Art[Pack]}.png";
     public override List<(string, string)> Localization => [];
-    public override Task AfterObtained() => StarterPending ? Task.CompletedTask : OpenOnce();
+    public override Task AfterObtained() => StarterPending || ShopOpeningDeferred ? Task.CompletedTask : OpenOnce();
     internal async Task OpenStarter()
     {
         await OpenOnce();

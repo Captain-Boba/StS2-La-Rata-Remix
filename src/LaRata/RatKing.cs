@@ -13,6 +13,7 @@ using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace LaRata;
 
@@ -58,6 +59,9 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
         targetIds = new(targetIds);
     }
     public List<(string, string)> Localization => [];
+
+    public override decimal ModifyDamageMultiplicative(Creature? target, decimal damage, ValueProp props,
+        Creature? dealer, CardModel? cardSource) => RoyalDamageRamp.For(Creature, dealer, props);
 
     protected override MonsterMoveStateMachine GenerateMoveStateMachine()
     {
@@ -249,6 +253,8 @@ internal sealed class RoyalHandIntent : BuffIntent
         string plan = deck == null ? RoyalBossText.Text("hand_unprepared", "Draws 5 hidden cards. 6 Energy, increasing to 8 at half HP. Skills and Powers precede attacks.") :
             RoyalBossText.Text("hand_summary", "Drew {Drawn} hidden cards from {Total} families. Skills and Powers precede attacks. Energy {Energy}/{Capacity}. Draw {Draw}; discard {Discard}; Exhaust {Exhaust}; active Powers {Powers}. NEXT hand bonuses: {NextDraw} cards, {NextEnergy} Energy. Hand limit 10; play limit 8.",
                 ("Drawn", deck.DrawnThisTurn), ("Total", RoyalDeck.ActiveCards.Length), ("Energy", deck.Energy), ("Capacity", deck.Capacity), ("Draw", deck.DrawCount), ("Discard", deck.DiscardCount), ("Exhaust", deck.ExhaustCount), ("Powers", deck.PersistentCount), ("NextDraw", deck.NextDraw), ("NextEnergy", deck.NextEnergy));
+        plan += "\n" + RoyalBossText.Text("damage_ramp", "Royal attacks deal {Percent}% damage. Increases by 10 percentage points each round, up to 100%.",
+            ("Percent", RoyalDamageRamp.Factor(owner.CombatState?.RoundNumber ?? 1) * 100));
         if (!string.IsNullOrEmpty(king?.TargetSummary)) plan += "\n" + RoyalBossText.Text("targets", "Announced single-target effects: {Targets}.", ("Targets", king.TargetSummary));
         if (!string.IsNullOrEmpty(king?.LastResolutionNote)) plan += "\n" + RoyalBossText.Text("last_result", "Last resolution: {Result}", ("Result", king.LastResolutionNote));
         description.Add("Plan", plan);
