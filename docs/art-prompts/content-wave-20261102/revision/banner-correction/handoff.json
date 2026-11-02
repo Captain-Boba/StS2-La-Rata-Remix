@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "status": "Final clarified banner scope implemented and source-frozen for K6.",
+  "sourceFiles": [
+    {
+      "path": "src/LaRata/RoyalCardPool.cs",
+      "sha256": "23583d2aa2844639be772a3cb2113b3eb9fe06fd8b383aed6902e9142564d493"
+    },
+    {
+      "path": "src/LaRata/RemixCards.cs",
+      "sha256": "628555de9d463a01550b090430b9614cc05e1341965ddd96d438be620aa765cf"
+    }
+  ],
+  "product": {
+    "path": "artifacts/content-wave-20261102/revision/k5/banner-correction/code-check/bin/LaRata.dll",
+    "sha256": "ed050298f8808544e83e71726db006bda6ba57621a4663233a8396e38a7d3887"
+  },
+  "changes": [
+    "Normal existing La-Rata frame restored for every card.",
+    "10 playable Royal-Prize aliases override only CreateCustomBannerMaterial to return the actual ScepterStorm RoyalCard boss-reference BannerMaterial.",
+    "Native title/portrait/type-plaque sharing follows the clarified user request; actual card rarity stays Rare.",
+    "Unused special-frame shader and UID removed/archived.",
+    "Intermediate portrait-only Harmony patch removed/archived; no custom UI patch remains."
+  ],
+  "artworkFilesUnchanged": 296,
+  "actualRarityPoolEffectsVersion": "Unchanged; version0.9.6.",
+  "normalCardFallback": "Unchanged RoyalCardStyle.Banner(Rarity).",
+  "reference": "Actual ModelDb.Card<ScepterStorm>().BannerMaterial; no invented hue, shader or material.",
+  "checks": "docs/art-prompts/content-wave-20261102/revision/banner-correction/checks.json",
+  "build": {
+    "status": "PASS",
+    "warnings": 0,
+    "errors": 0,
+    "log": "artifacts/content-wave-20261102/revision/k5/banner-correction/code-check/build.log"
+  },
+  "historical": "Portrait-only handoff explicitly superseded; intermediate code/metadata archived. Prior special-frame/artwork reports/approvals preserved.",
+  "next": "K6 integrate in existing local cycle: actual boss banner match on all10 prizes; normal frames/cards, actual Rare filters/upgrades and hand/preview/Compendium views.",
+  "notPerformed": [
+    "Artwork generation/edit",
+    "Game start",
+    "Installation",
+    "Godot import/export",
+    "Git/Release"
+  ],
+  "nativeAcceptance": "Pending K6; no new human or live visual acceptance claimed."
+}

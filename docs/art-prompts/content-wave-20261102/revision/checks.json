@@ -1,0 +1,32 @@
+{
+  "artworks": 5,
+  "sourceRuntimeIdentity": true,
+  "archivesMatchPriorRuntime": true,
+  "modifiedExistingImageFiles": [
+    "assets/LaRata/images/cards/pawn_promotion.png",
+    "assets/LaRata/images/cards/scrap_coronation.png",
+    "assets/LaRata/images/cards/smugglers_dividend.png",
+    "assets/LaRata/images/cleanse.png",
+    "assets/LaRata/images/relic_native/relic_remover.png",
+    "assets/LaRata/images/relic_native/relic_remover_outline.png",
+    "assets/LaRata/images/relics/relic_remover.png"
+  ],
+  "unrelatedExistingImagesUnchanged": 141,
+  "historicalCatalogAndNormalFrameProtected": 5,
+  "relicInteriorExact": true,
+  "prizeStyleModels": [
+    "RoyalScepterPrize",
+    "RoyalAlchemyPrize",
+    "RoyalAegisPrize",
+    "RoyalContractPrize",
+    "RoyalTempestPrize",
+    "RoyalTithePrize",
+    "RoyalPlaguePrize",
+    "RoyalKneelPrize",
+    "RoyalForeclosurePrize",
+    "RoyalNightfallPrize"
+  ],
+  "prizeStyleCount": 10,
+  "nativeRarityGetterRetained": true,
+  "scope": "Source/offline checks only; shader GPU compile, native visual appearance and human artwork approval pending."
+}

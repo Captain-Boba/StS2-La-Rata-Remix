@@ -18,7 +18,7 @@ internal static class RarityPoolChecks
             // Reuse existing identity/base/upgrade assertions without invoking combat or RNG fixtures.
             CardWaveChecks.Run();
             var neutrals = LaRataCardCatalog.Neutrals;
-            Require(neutrals.Length == 23 && neutrals.All(c => c.Pool is ColorlessCardPool), "Neutral count or pool changed");
+            Require(neutrals.Length == 34 && neutrals.All(c => c.Pool is ColorlessCardPool), "Neutral count or pool changed");
             Type[] moved = [typeof(UmbralStitch), typeof(CrownExchange), typeof(MidnightRehearsal),
                 typeof(GutterFeint), typeof(RagpickersGuard), typeof(CinderReceipt), typeof(VenomousEncore), typeof(GraveyardShift)];
             foreach (var type in moved)
@@ -49,13 +49,13 @@ internal static class RarityPoolChecks
                 Require(pool.All(c => c.Rarity is CardRarity.Uncommon or CardRarity.Rare), "Common remains in current combined neutral pool");
                 Console.WriteLine($"POOL modeledPlayers={count} owner={owner.NetId} remainingU={pool.Count(c => c.Rarity == CardRarity.Uncommon)} remainingR={pool.Count(c => c.Rarity == CardRarity.Rare)}");
             }
-            foreach (Type type in new[] { typeof(RelicRemover), typeof(SootboundTicket), typeof(StairwellKey), typeof(MockingBell), typeof(BrassScavenger), typeof(MoonlitStopper) })
+            foreach (Type type in new[] { typeof(RelicRemover), typeof(SootboundTicket), typeof(StairwellKey), typeof(MockingBell), typeof(BrassScavenger), typeof(MoonlitStopper), typeof(CounterfeitSeal), typeof(PlagueTestament), typeof(UsurpersTooth) })
             {
                 var relic = ModelDb.GetById<RelicModel>(ModelDb.GetId(type));
-                Require(relic.PackedIconPath.StartsWith("res://LaRata/images/relics/"), "Unexpected relic asset binding: " + relic.Id);
+                Require(relic.PackedIconPath.StartsWith("res://LaRata/images/relic_native/"), "Unexpected native small-icon binding: " + relic.Id);
                 Console.WriteLine($"RELIC_ASSET {relic.Id} {relic.PackedIconPath}");
             }
-            Console.WriteLine("PASS: 60 catalog IDs, 23 regular neutrals at 0/16/7, eight Common->Uncommon base/upgrade mappings, 10 separate Rare prizes, two separate class cards, native U/R banners and 1-4-player modeled pool membership/deduplication. No booster draws/statistics, gameplay, UI, save/load, network or final weight approval.");
+            Console.WriteLine("PASS: 71 catalog IDs, 34 regular neutrals at 0/21/13, eight Common->Uncommon base/upgrade mappings, 10 separate Rare prizes, two separate class cards, native U/R banners and 1-4-player modeled pool membership/deduplication. No gameplay, UI, disk save/load or live networking claim.");
         }
         finally { harmony.UnpatchAll(harmony.Id); }
     }

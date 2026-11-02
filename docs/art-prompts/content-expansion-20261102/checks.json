@@ -1,0 +1,14 @@
+{
+  "newCardArtworks": 5,
+  "newPotionArtworks": 3,
+  "sourceRuntimeIdentity": true,
+  "existingImagesAndImportsUnchanged": 296,
+  "acceptedCardStyleFilesUnchanged": 2,
+  "rustwaterUnchanged": true,
+  "allPotionAlphaAndVisibleMarginsValid": true,
+  "potionMarginScope": "Exact alpha extrema/corners plus silhouette bounds at alpha >=8; sub-8 generated edge specks are recorded without modifying originals.",
+  "bindingsFound": 8,
+  "bindingScope": "Source art-key/path occurrence only; K2/K3 own native model bindings, K6 owns actual resource loading.",
+  "humanApproved": false,
+  "engineImportAndNativeUi": "NOT TESTED"
+}

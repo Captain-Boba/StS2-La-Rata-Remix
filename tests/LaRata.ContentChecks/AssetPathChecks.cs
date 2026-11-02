@@ -36,11 +36,18 @@ internal static class AssetPathChecks
                 outline != "res://LaRata/images/relic_native/" + stem + "_outline.png" || big != expectedBig)
                 throw new Exception("Small/outline/original-big contract differs: " + relic.Id);
         }
+        foreach (var type in typeof(ModEntry).Assembly.GetTypes().Where(t => !t.IsAbstract && typeof(RoyalPotion).IsAssignableFrom(t)))
+        {
+            var potion = (RoyalPotion)ModelDb.GetById<PotionModel>(ModelDb.GetId(type));
+            Check(potion.Id.ToString(), "potion-small", potion.CustomPackedImagePath);
+            Check(potion.Id.ToString(), "potion-outline", potion.CustomPackedOutlinePath);
+            Check(potion.Id.ToString(), "potion-large", potion.CustomLargeImagePath);
+        }
         string map = ModelDb.Encounter<RatKingEncounter>().BossNodePath;
         Check("RatKing", "map", map + ".png"); Check("RatKing", "map-outline", map + "_outline.png");
         string output = Path.Combine(root, "artifacts/feedback-wave-20261027/asset-model-bindings.json");
         Directory.CreateDirectory(Path.GetDirectoryName(output)!);
         File.WriteAllText(output, JsonSerializer.Serialize(rows, new JsonSerializerOptions { WriteIndented = true }));
-        Console.WriteLine($"PASS: {rows.Count} actual model portrait/relic/map bindings resolve to files inside assets/LaRata. Filesystem only; no Godot import, native resource loading or live UI.");
+        Console.WriteLine($"PASS: {rows.Count} actual model portrait/relic/potion/map bindings resolve to files inside assets/LaRata. Filesystem only; no Godot import, native resource loading or live UI.");
     }
 }

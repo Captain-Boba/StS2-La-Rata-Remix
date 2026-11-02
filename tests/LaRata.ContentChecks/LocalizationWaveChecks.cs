@@ -137,7 +137,9 @@ internal static class LocalizationWaveChecks
                         Require(Regex.Matches(rendered, Regex.Escape(nativeExhaust)).Count == 1 && rendered.EndsWith(nativeExhaust), $"Missing/duplicated native Exhaust: {language}/{key}: {rendered}");
                     if (card.Id.Entry == "LARATA-LORD_TIBOS_RESET")
                     {
-                        Require(card.Keywords.Contains(CardKeyword.Exhaust) != upgraded && (upgraded ? !rendered.EndsWith(nativeExhaust) : rendered.EndsWith(nativeExhaust)), $"Reset upgrade Exhaust mismatch: {language}: {rendered}");
+                        Require(card.Keywords.Contains(CardKeyword.Exhaust) && rendered.EndsWith(nativeExhaust), $"Reset base/upgrade must retain Exhaust: {language}: {rendered}");
+                        Require(card.EnergyCost.GetWithModifiers(CostModifiers.None) == (upgraded ? 1 : 2), $"Reset cost mismatch: {language}");
+                        Require(!rendered.Contains("Excludes") && !rendered.Contains("ausgenommen") && !rendered.Contains("不计"), $"Obsolete Reset cost exclusion: {language}");
                         Console.WriteLine($"RESET {language}/{(upgraded ? "upgraded" : "base")}: {rendered.Replace('\n', '|')}");
                     }
                     if (card is EmeraldWard or GraveSpark)
@@ -151,8 +153,8 @@ internal static class LocalizationWaveChecks
                         if (card is TheKikilyst) Require(Regex.IsMatch(plain, (upgraded ? "50" : "25") + @"\s*%"), $"Wrong percentage in full native description: {language}: {full}");
                         if (card is SerKevsThornBuster)
                         {
-                            Require(plain.Contains('3'), $"Thorn Vulnerable amount missing: {language}: {full}");
-                            Require(upgraded ? plain.Contains('2') : !Regex.IsMatch(plain, "Draw|Ziehe|抽", RegexOptions.IgnoreCase),
+                            Require(plain.Contains(upgraded ? '3' : '2'), $"Thorn Vulnerable amount missing: {language}: {full}");
+                            Require(plain.Contains(upgraded ? '2' : '1') && Regex.IsMatch(plain, "Draw|Ziehe|抽", RegexOptions.IgnoreCase),
                                 $"Thorn base/upgrade draw clause differs: {language}: {full}");
                         }
                         Console.WriteLine($"TEXT {language}/{card.Id.Entry}/{(upgraded ? "upgraded" : "base")}: {full.Replace('\n', '|')}");
@@ -189,7 +191,7 @@ internal static class LocalizationWaveChecks
                 Require(!RelicStatsPresentation.ResultLines(ModelDb.Relic<OldCoin>()).Any(), "Canonical relic shows run values");
                 foreach (var potion in modModels.OfType<RoyalPotion>())
                 {
-                    foreach (string suffix in potion is Rustwater ? new[] { "title", "description" } : new[] { "title", "description", "selectionScreenPrompt" })
+                    foreach (string suffix in potion is Ashbrand or CrownLacquer ? new[] { "title", "description", "selectionScreenPrompt" } : new[] { "title", "description" })
                     {
                         string rendered = new LocString("potions", potion.Id.Entry + "." + suffix).GetFormattedText();
                         Require(!rendered.Contains('{') && !rendered.Contains('}'), "Unresolved potion text: " + potion.Id);

@@ -50,24 +50,12 @@ public abstract class DecisionRelic : CustomRelicModel
 public sealed class SootboundTicket : DecisionRelic
 {
     protected override string ArtKey => "sootbound_ticket";
-    public override RelicRarity Rarity => RelicRarity.Uncommon;
+    public override RelicRarity Rarity => RelicRarity.Rare;
+    // Old saves may contain this former exhaust-trigger field. It is inert.
     [SavedProperty] public bool TriggeredThisTurn { get; set; }
-    protected override void ResetTurn() => TriggeredThisTurn = false;
-
-    public override async Task AfterCardExhausted(PlayerChoiceContext context, CardModel card, bool causedByEthereal)
-    {
-        if (!OwnTurn || card.Owner != Owner || TriggeredThisTurn || causedByEthereal ||
-            card.EnergyCost.CostsX || card.EnergyCost.GetWithModifiers(CostModifiers.None) < 2 ||
-            PileType.Hand.GetPile(Owner).Cards.Count >= CardPile.MaxCardsInHand) return;
-        var candidates = PileType.Discard.GetPile(Owner).Cards.Where(c => c.Owner == Owner).ToList();
-        if (candidates.Count == 0) return;
-        var recovered = Owner.RunState.Rng.CombatCardSelection.NextItem(candidates);
-        if (recovered == null) return;
-        TriggeredThisTurn = true; // Reserve before pile hooks can re-enter.
-        Flash();
-        var result = await CardPileCmd.Add(recovered, PileType.Hand);
-        if (result.success) RelicMetrics.Record(this, "cards_recovered", 1, "Cards");
-    }
+    [SavedProperty] public string SpentMerchant { get; set; } = "";
+    public override decimal ModifyMerchantPrice(Player player, MegaCrit.Sts2.Core.Entities.Merchant.MerchantEntry entry,
+        decimal cost) => player == Owner && SootboundMerchantPurchase.IsFree(this, entry) ? 0 : cost;
 }
 
 [Pool(typeof(SharedRelicPool))]
@@ -75,23 +63,50 @@ public sealed class StairwellKey : DecisionRelic
 {
     protected override string ArtKey => "stairwell_key";
     public override RelicRarity Rarity => RelicRarity.Rare;
-    [SavedProperty] public int LastEnergySpent { get; set; } = -1;
-    [SavedProperty] public int DescendingCount { get; set; }
-    [SavedProperty] public bool TriggeredThisTurn { get; set; }
-    protected override void ResetTurn()
-    { LastEnergySpent = -1; DescendingCount = 0; TriggeredThisTurn = false; }
-
-    public override async Task AfterCardPlayed(PlayerChoiceContext context, CardPlay play)
+    private bool triggeredThisTurn;
+    [SavedProperty]
+    public bool TriggeredThisTurn
     {
-        if (!OwnTurn || play.Card.Owner != Owner || play.IsAutoPlay || !play.IsFirstInSeries || TriggeredThisTurn) return;
-        int spent = play.Resources.EnergySpent;
-        DescendingCount = DescendingCount > 0 && spent < LastEnergySpent ? DescendingCount + 1 : 1;
-        LastEnergySpent = spent;
-        if (DescendingCount < 3) return;
+        get => triggeredThisTurn;
+        set
+        {
+            if (triggeredThisTurn == value) return;
+            triggeredThisTurn = value;
+            NotifyHandCosts();
+        }
+    }
+    private void NotifyHandCosts()
+    {
+        if (IsCanonical || Owner?.PlayerCombatState is not { } state) return;
+        foreach (var card in state.Hand.Cards.ToArray())
+            if (card.Owner == Owner && !card.EnergyCost.CostsX) card.InvokeEnergyCostChanged();
+    }
+    protected override void ResetTurn() => TriggeredThisTurn = false;
+    public override Task BeforeSideTurnStart(PlayerChoiceContext context, CombatSide side,
+        IReadOnlyList<Creature> participants, ICombatState combatState)
+    { ResetTurn(); return Task.CompletedTask; }
+    public override bool TryModifyEnergyCostInCombatLate(CardModel card, decimal originalCost, out decimal modifiedCost)
+    {
+        // Native X cards bypass this cost hook and still spend all Energy.
+        modifiedCost = InCombat && !TriggeredThisTurn && card.Owner == Owner &&
+            !card.EnergyCost.CostsX && card.Pile?.Type is PileType.Hand or PileType.Play
+            ? Math.Max(0, originalCost - 1) : originalCost;
+        return modifiedCost != originalCost;
+    }
+    public override Task BeforeCardPlayed(CardPlay play)
+    {
+        if (!InCombat || TriggeredThisTurn || play.Card.Owner != Owner || !play.IsFirstInSeries)
+            return Task.CompletedTask;
+        // Native payment has already completed. Consume BEFORE resolving the
+        // effect, even for zero-cost/X/auto-play, so nested plays cannot claim it.
         TriggeredThisTurn = true;
         Flash();
-        await PlayerCmd.GainEnergy(1, Owner);
-        if (OwnTurn) await CardPileCmd.Draw(context, 2, Owner);
+        return Task.CompletedTask;
+    }
+    public override Task AfterRemoved()
+    {
+        NotifyHandCosts();
+        return base.AfterRemoved();
     }
 }
 
@@ -136,7 +151,7 @@ public sealed class BrassScavenger : DecisionRelic
             (dealer != Owner.Creature && dealer?.PetOwner != Owner)) return;
         UsedThisCombat = true;
         Flash();
-        await PlayerCmd.GainGold(Math.Min(12, result.BlockedDamage), Owner);
+        await PlayerCmd.GainGold(result.BlockedDamage, Owner);
     }
 }
 

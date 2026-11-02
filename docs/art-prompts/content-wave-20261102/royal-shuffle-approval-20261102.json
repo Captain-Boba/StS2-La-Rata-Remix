@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "displayName": "Royal Shuffle",
+  "stableArtkey": "royal_replication",
+  "runtime": "assets/LaRata/images/cards/royal_replication.png",
+  "sha256": "54d59a985a376bbb72774411ce45b0933f64a37f21034b8b875ec3e3d3dd030c",
+  "humanApproved": true,
+  "userStatement": "das wurde schon redesigned und ist fine!",
+  "scope": "Current dark black/green redesign only; no new generation or pixel changes. Does not establish native import/crop/UI acceptance.",
+  "supersedes": "Earlier pending-human-review flag for this exact Royal Shuffle image only."
+}

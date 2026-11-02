@@ -33,13 +33,11 @@ internal static class RelicPaymentMetrics
 
     internal static void Assigned(object target, string field, int before, int after)
     {
-        ResetEnergyLedger.ObserveEnergyChange(target, field, before, after);
         var payment = Current.Value;
         if (payment == null || target is not PlayerCombatState state || CombatPlayer.GetValue(state) != payment.Card.Owner) return;
         if (field == "_energy" && payment.RequestedEnergy > 0 && payment.EnergyPaid == null)
         {
             payment.EnergyPaid = Math.Max(0, before - after);
-            if (payment.EnergyPaid > 0) ResetEnergyLedger.RecordPayment(payment.Card, payment.EnergyPaid.Value);
         }
         if (field == "_stars" && payment.RequestedStars > 0 && payment.StarsPaid == null)
             payment.StarsPaid = Math.Max(0, before - after);

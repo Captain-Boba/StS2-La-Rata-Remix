@@ -123,7 +123,8 @@ public abstract class RoyalCard : CustomCardModel
                 await PowerCmd.Apply<StrengthPower>(context, king.CombatState.Enemies.Where(c => c.IsAlive), 2, owner, null);
                 break;
             case 8:
-                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, 16), ValueProp.Move, null);
+                // Boss basis 50 becomes 25 before native modifiers; interventions retain 16.
+                await CreatureCmd.GainBlock(owner, RoyalBossEffects.CardBlock(king, king is RatKing ? 50 : 16), ValueProp.Move, null);
                 await PowerCmd.Apply<VulnerablePower>(context, owner, 2, owner, null);
                 break;
             case 9:

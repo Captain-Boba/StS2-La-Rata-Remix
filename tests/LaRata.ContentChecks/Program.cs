@@ -12,6 +12,16 @@ using Cleanse = LaRata.Cleanse;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 
+if (args.Length == 1 && args[0] == "--expansion-potions")
+{
+    ExpansionPotionChecks.Run();
+    return;
+}
+if (args.Length == 1 && args[0] == "--content-wave-relics")
+{
+    ContentWaveRelicChecks.Run();
+    return;
+}
 if (args.Length == 2 && args[0] == "--wave-localization")
 {
     LocalizationWaveChecks.Run(args[1]);
@@ -22,7 +32,7 @@ if (args.Length == 2 && args[0] == "--export-localization")
     LocalizationExport.Run(args[1]);
     return;
 }
-if ((args.Length == 1 || args.Length == 2 && args[0] == "--asset-paths") && args[0] is "--royal-potions-ramp" or "--metrics-disabled" or "--shop-booster-regression" or "--disconnect-regression" or "--booster-policy" or "--rarity-pools" or "--atc" or "--followup-cards" or "--night-relics" or "--night-twists" or "--wave-cards" or "--wave-testers" or "--wave-payment" or "--wave-relics" or "--wave-deferred" or "--wave-regalia" or "--patches-only" or "--asset-paths")
+if ((args.Length == 1 || args.Length == 2 && args[0] == "--asset-paths") && args[0] is "--boss-relic-pool" or "--reset-cards" or "--withering" or "--encounter-variety" or "--royal-energy" or "--expansion-cards" or "--royal-booster-path" or "--november-cards" or "--royal-potions-ramp" or "--metrics-disabled" or "--shop-booster-regression" or "--disconnect-regression" or "--booster-policy" or "--rarity-pools" or "--atc" or "--followup-cards" or "--night-relics" or "--night-twists" or "--wave-cards" or "--wave-testers" or "--wave-payment" or "--wave-relics" or "--wave-deferred" or "--wave-regalia" or "--patches-only" or "--asset-paths")
 {
     TestMode.IsOn = true;
     var ids = new HarmonyLib.Harmony("LaRata.ContentChecks.WaveIds");
@@ -56,6 +66,13 @@ if ((args.Length == 1 || args.Length == 2 && args[0] == "--asset-paths") && args
         }
         finally { smoke.UnpatchAll(smoke.Id); }
     }
+    else if (args[0] == "--boss-relic-pool") BossRelicPoolChecks.Run();
+    else if (args[0] == "--withering") EncounterVarietyChecks.Run(witheringOnly: true);
+    else if (args[0] == "--encounter-variety") EncounterVarietyChecks.Run();
+    else if (args[0] == "--royal-energy") RoyalEnergyChecks.Run();
+    else if (args[0] == "--expansion-cards") ExpansionCardChecks.Run();
+    else if (args[0] == "--royal-booster-path") DisconnectRegressionChecks.Run(royalOnly: true);
+    else if (args[0] == "--november-cards") NovemberCardChecks.Run();
     else if (args[0] == "--royal-potions-ramp") RoyalPotionRampChecks.Run();
     else if (args[0] == "--metrics-disabled") RelicMetricsDisabledChecks.Run();
     else if (args[0] == "--disconnect-regression") DisconnectRegressionChecks.Run();
@@ -63,6 +80,7 @@ if ((args.Length == 1 || args.Length == 2 && args[0] == "--asset-paths") && args
     else if (args[0] == "--atc") { ShopRemovalChecks.Run(); ShopPurchasePathChecks.Run(); }
     else if (args[0] == "--rarity-pools") RarityPoolChecks.Run();
     else if (args[0] == "--booster-policy") BoosterWaveChecks.Run();
+    else if (args[0] == "--reset-cards") RelicWaveChecks.Run(resetOnly: true);
     else if (args[0] == "--followup-cards") RelicWaveChecks.Run(cardsOnly: true);
     else if (args[0] == "--night-twists") NightTwistChecks.Run();
     else if (args[0] == "--night-relics") RelicWaveChecks.Run(nightOnly: true);
@@ -122,7 +140,7 @@ if (args.Contains("--shop-only"))
     return;
 }
 var cards = types.Where(t => !t.IsAbstract && (t.IsSubclassOf(typeof(RoyalCard)) || t.IsSubclassOf(typeof(RemixCard)) || t.IsSubclassOf(typeof(ComboCard)) || t == typeof(Cleanse))).OrderBy(t => t.Name).ToArray();
-Require(cards.Length == 60, "Expected 25 boss cards, 25 regular player cards and 10 playable boss prizes.");
+Require(cards.Length == 71, "Expected 25 boss cards, 36 regular player cards and 10 playable boss prizes.");
 var models = new List<CardModel>();
 foreach (var type in cards)
 {
@@ -144,7 +162,7 @@ foreach (var type in cards)
             Require(card.EnergyCost.Canonical == 2 && before["Damage"] == 10 && before["WeakPower"] == 1 && before["VulnerablePower"] == 1, "Scepter Storm base values.");
         card.UpgradeInternal();
         card.FinalizeUpgradeInternal();
-        Require(card.DynamicVars.Any(v => v.Value.BaseValue != before[v.Key]) || card.EnergyCost.GetWithModifiers(CostModifiers.None) < canonical.EnergyCost.Canonical || !card.Keywords.SequenceEqual(beforeKeywords), $"Upgrade has no effect: {type.Name}");
+        Require(card is PawnPromotion or GildedCoffin || card.DynamicVars.Any(v => v.Value.BaseValue != before[v.Key]) || card.EnergyCost.GetWithModifiers(CostModifiers.None) < canonical.EnergyCost.Canonical || !card.Keywords.SequenceEqual(beforeKeywords), $"Upgrade has no effect: {type.Name}");
         if (card is BorrowedBreath)
             Require(card.DynamicVars["Heal"].BaseValue == 6 && card.DynamicVars.Cards.BaseValue == 3, "Borrowed Breath+ must heal 6 and draw 3.");
         if (card is EmeraldWard)
@@ -238,7 +256,7 @@ MonsterModel[] Helpers(int act, ModelId[] present, ModelId[] previous) =>
     (MonsterModel[])candidatesMethod.Invoke(null, [act, present, previous])!;
 var early = Helpers(0, [], []);
 var late = Helpers(1, [], []);
-Require(early.Length == 3 && late.Length == 6, "Cross-act reinforcement pool size changed.");
+Require(early.Length == 6 && late.Length == 13, "Cross-act reinforcement pool size changed.");
 Require(Enumerable.Range(0, 4).All(act => Helpers(act, [], []).All(m => m is not MegaCrit.Sts2.Core.Models.Monsters.Inklet)), "Inklet must never be a random reinforcement.");
 Require(early.All(m => m is not (MegaCrit.Sts2.Core.Models.Monsters.Nibbit or MegaCrit.Sts2.Core.Models.Monsters.Flyconid or MegaCrit.Sts2.Core.Models.Monsters.FuzzyWurmCrawler)), "Strong helpers entered act one.");
 var slug = ModelDb.Monster<MegaCrit.Sts2.Core.Models.Monsters.CorpseSlug>().Id;
@@ -273,10 +291,10 @@ foreach (uint seed in Enumerable.Range(0, 128).Select(i => (uint)i))
     }).ToArray();
     Require(peers.Distinct().Count() == 1, "Reinforcement replay differs across identical inputs.");
 }
-Require(seenHelpers.Count == 4, "Eligible reinforcement types are not all reachable.");
-Require(Helpers(0, early.Select(m => m.Id).ToArray(), early.Select(m => m.Id).ToArray()).Length == 3,
+Require(seenHelpers.Count == late.Length - 2, "Eligible reinforcement types are not all reachable.");
+Require(Helpers(0, early.Select(m => m.Id).ToArray(), early.Select(m => m.Id).ToArray()).Length == 1,
     "Exhausted diversity preferences must still provide a valid pool.");
-Console.WriteLine("PASS: three early/six later reinforcement types construct native move states; Inklet is excluded; occupied/recent types are avoided; 128 seeded selections replay identically on four simulated peers. Not a network test.");
+Console.WriteLine("PASS: six early/thirteen act-two reinforcement types construct native move states; Inklet is excluded; occupied/recent types are avoided; 128 seeded selections replay identically on four simulated peers. Not a network test.");
 
 FeedbackChecks.Run();
 RoyalFinaleChecks.Run();

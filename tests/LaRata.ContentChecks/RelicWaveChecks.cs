@@ -43,7 +43,7 @@ internal static class RelicWaveChecks
         owner.AddRelicInternal(relic);
         return relic;
     }
-    internal static void Run(bool deferredOnly = false, bool paymentOnly = false, bool nightOnly = false, bool cardsOnly = false)
+    internal static void Run(bool deferredOnly = false, bool paymentOnly = false, bool nightOnly = false, bool cardsOnly = false, bool resetOnly = false)
     {
         var harmony = new Harmony("LaRata.ContentChecks.RelicWave");
         NativeConsoleFixture.PatchDesktop(harmony);
@@ -58,7 +58,7 @@ internal static class RelicWaveChecks
         AccessTools.Method(savedFieldsPatch, "AddFieldsSorted").Invoke(null, null);
         try
         {
-            if (cardsOnly) { FollowupCardChecks.Run(harmony); return; }
+            if (cardsOnly || resetOnly) { FollowupCardChecks.Run(harmony, resetOnly); return; }
             if (nightOnly) { NightRelicChecks.Run(harmony); return; }
             if (paymentOnly) { PaymentMetricChecks.Run(harmony); return; }
             if (deferredOnly) { DeferredMetricChecks.Run(harmony); return; }

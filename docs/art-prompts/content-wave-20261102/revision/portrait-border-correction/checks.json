@@ -1,0 +1,23 @@
+{
+  "unchangedImageAndImportFiles": 296,
+  "remixEdit": "Only Frame(IsBossPrize) -> Frame() binding line.",
+  "normalFrameRestored": true,
+  "rarityBannerMethodUnchanged": true,
+  "prizeModels": [
+    "RoyalScepterPrize",
+    "RoyalAlchemyPrize",
+    "RoyalAegisPrize",
+    "RoyalContractPrize",
+    "RoyalTempestPrize",
+    "RoyalTithePrize",
+    "RoyalPlaguePrize",
+    "RoyalKneelPrize",
+    "RoyalForeclosurePrize",
+    "RoyalNightfallPrize"
+  ],
+  "reference": "Actual ScepterStorm RoyalCard.BannerMaterial; no new color/material.",
+  "portraitOnly": true,
+  "specialShaderAndUidRemovedAndArchived": true,
+  "version": "0.9.6",
+  "humanOrLiveUiAcceptance": false
+}

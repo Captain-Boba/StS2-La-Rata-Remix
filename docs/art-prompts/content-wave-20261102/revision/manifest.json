@@ -1,0 +1,189 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "tool": "built-in image_gen",
+  "humanApproved": false,
+  "assets": [
+    {
+      "key": "cleanse",
+      "title": "Royal Cleansing",
+      "type": "card",
+      "target": "assets/LaRata/images/cleanse.png",
+      "prompt": "Use case: stylized-concept. Completely NEW original standalone illustration for La Rata Remix / Slay the Spire2 card artwork, not a recolor of an old image. Landscape4:3 ideally1448x1086, full bleed, central80% crop safe area. Confident dark contours, broad sculpted hand-painted planes, textured ruined fantasy world, expressive gray rats with pink ears and pale whiskers, clear simple connected arms/hands. Varied controlled colors. No writing, title, text, letters, numbers, logos, card frame, UI, watermarks or montage. ROYAL CLEANSING: a crowned gray rat sovereign in charcoal royal robes with emerald lining holds a broad shallow silver ceremonial basin forward in both naturally bent paws. A sweeping wave of clear green-and-ivory cleansing light spills from the basin around two modest rat allies standing beside him, breaking black curse chains and peeling violet thorn-like afflictions off them into harmless pale sparks. The royal rat is visibly the source of the purification; emphatically a court ritual, not an empty fountain or abstract green droplet. One small tarnished gold crown and dark royal mantle, clear kind-but-commanding face. Deep blue-black vaulted sewer chapel, luminous ivory/emerald cleansing water, restrained burgundy cloth and gold. Strong readable sovereign/basin/cleansing-wave triangle; serene power rather than a poison explosion. Exactly two natural connected hands on the basin; no weapon, extra limbs or generic medical symbol.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-18cd0bd8-64ea-44fd-bc9e-7799a59d80c6.png",
+      "humanApproved": false,
+      "before": "artifacts/content-wave-20261102/revision/k5/before/cleanse.png",
+      "mode": "RGB",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "54c528acd483916efc07e619a2cf928d16eb6fff7ce3b5327594d978ca0fd6a3",
+      "runtimeSha256": "54c528acd483916efc07e619a2cf928d16eb6fff7ce3b5327594d978ca0fd6a3",
+      "beforeSha256": "89fc43b31119ffb6f19df43984dfdf359abfebbe4ba09117e3006ba03126fc6a",
+      "review": "K5 visual author review only; human/native UI approval pending."
+    },
+    {
+      "key": "scrap_coronation",
+      "title": "Scrap Coronation",
+      "type": "card",
+      "target": "assets/LaRata/images/cards/scrap_coronation.png",
+      "prompt": "Use case: stylized-concept. Completely NEW original standalone illustration for La Rata Remix / Slay the Spire2 card artwork, not a recolor of an old image. Landscape4:3 ideally1448x1086, full bleed, central80% crop safe area. Confident dark contours, broad sculpted hand-painted planes, textured ruined fantasy world, expressive gray rats with pink ears and pale whiskers, clear simple connected arms/hands. Varied controlled colors. No writing, title, text, letters, numbers, logos, card frame, UI, watermarks or montage. SCRAP CORONATION: a scrappy gray rat artificer wearing a simple patched crimson apron proudly forges a makeshift CROWN from discarded metal on a waist-high anvil. One paw holds long iron tongs securing the crown; the other raises a small smith's hammer with a natural bent elbow, the face and both arm chains clearly visible. A spent ivory card curls into warm ash as fuel beneath the scrap crown, while the metal glows amber and a few clear green sparks indicate magical forging. This is a full character scene with playful rat pride and improvised coronation, not a giant armored fist hammering an enormous sword. Three chunky crown points assembled from broad mismatched silver/brass scrap pieces. Cool steel-blue workshop stone, warm copper/amber forge light, crimson apron, restrained emerald sparks. Intimate three-quarter view, no piles of intricate tools or lettering.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-033562a6-d61c-408e-870f-b0bb5942bc7a.png",
+      "humanApproved": false,
+      "before": "artifacts/content-wave-20261102/revision/k5/before/scrap_coronation.png",
+      "mode": "RGB",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "b450ed8db1feae632630262121e2ab76791d189a8ad626bc18f6a6ab42b5c0a0",
+      "runtimeSha256": "b450ed8db1feae632630262121e2ab76791d189a8ad626bc18f6a6ab42b5c0a0",
+      "beforeSha256": "2899729593faacfa6a25e8bdbaa0eadec002ed2a0ee7c0d5a7ab79249eb25588",
+      "review": "K5 visual author review only; human/native UI approval pending."
+    },
+    {
+      "key": "smugglers_dividend",
+      "title": "Smuggler's Dividend",
+      "type": "card",
+      "target": "assets/LaRata/images/cards/smugglers_dividend.png",
+      "prompt": "Use case: stylized-concept. Completely NEW original standalone illustration for La Rata Remix / Slay the Spire2 card artwork, not a recolor of an old image. Landscape4:3 ideally1448x1086, full bleed, central80% crop safe area. Confident dark contours, broad sculpted hand-painted planes, textured ruined fantasy world, expressive gray rats with pink ears and pale whiskers, clear simple connected arms/hands. Varied controlled colors. No writing, title, text, letters, numbers, logos, card frame, UI, watermarks or montage. SMUGGLER'S DIVIDEND: a cunning gray rat smuggler in a dark teal coat sits at a hidden dockside counting table and discards one plain ivory playing card into a shallow open wooden contraband box. With the other naturally bent arm it catches a burst of COPPER-GOLD energy from the box, the glow wrapping its forearm into a vigorous clenched fist. A few broad gold coins by the box suggest a dividend, but the focus is the deliberate discard paying out renewed strength. Face sly and readable, three-quarter seated pose with both hands in front, no card thrown into water. Strong warm burnt-orange lantern light and ochre coins, teal coat, violet-blue dock shadows, tiny jade reflections. Uncluttered scene, one box/one discarded card/energized fist, no modern banknotes or written documents.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-7969e50f-90ea-493c-aef1-71a479771aed.png",
+      "humanApproved": false,
+      "before": "artifacts/content-wave-20261102/revision/k5/before/smugglers_dividend.png",
+      "mode": "RGB",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "f495208e811caf8c9e85a1357f2a0d657d870aa073f1981286eabc3b56017cf8",
+      "runtimeSha256": "f495208e811caf8c9e85a1357f2a0d657d870aa073f1981286eabc3b56017cf8",
+      "beforeSha256": "d6cb5012a623cc053be6ff7cacdf5077c40bda39b4550d56620952f512b650c9",
+      "review": "K5 visual author review only; human/native UI approval pending."
+    },
+    {
+      "key": "pawn_promotion",
+      "title": "Pawn Promotion",
+      "type": "card",
+      "target": "assets/LaRata/images/cards/pawn_promotion.png",
+      "prompt": "Use case: stylized-concept. Completely NEW original standalone illustration for La Rata Remix / Slay the Spire2 card artwork, not a recolor of an old image. Landscape4:3 ideally1448x1086, full bleed, central80% crop safe area. Confident dark contours, broad sculpted hand-painted planes, textured ruined fantasy world, expressive gray rats with pink ears and pale whiskers, clear simple connected arms/hands. Varied controlled colors. No writing, title, text, letters, numbers, logos, card frame, UI, watermarks or montage. PAWN PROMOTION WITHOUT ANY CHESS IMAGERY: a humble gray rat farmhand in a plain ochre work tunic is being promoted to the royal court. It kneels on one knee, face proud and astonished, as a court official in deep plum robes fastens a rich emerald-and-gold mantle around its shoulders and presents a small ceremonial crown. One modest spent card dissolves into ivory motes near the farmhand's boot; a radiant violet-and-gold ornate card rises behind the mantle as the reward. Natural simple connected hands, clear two-character ceremony. Warm ivory stone hall, rich plum, ochre, emerald cloth and restrained gold light. Absolutely NO chess pawn, chess pieces, chessboard, toy pieces, rook, king chess silhouette, chess ornament or chess metaphor anywhere. The subject is a low-ranking PERSON gaining rank, never a board-game piece.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-eba33cba-ff3a-43a1-bbb7-bb66964ec96d.png",
+      "humanApproved": false,
+      "before": "artifacts/content-wave-20261102/revision/k5/before/pawn_promotion.png",
+      "mode": "RGB",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "e5aeb0fef6fdeafaae41cc0370d613be5e558e53fe9df6f2f25f970ee956f5e7",
+      "runtimeSha256": "e5aeb0fef6fdeafaae41cc0370d613be5e558e53fe9df6f2f25f970ee956f5e7",
+      "beforeSha256": "71f0de56aa07fb0bf8bc8997c27ca644c3a68e58aafa0bfb040ef2cc10480175",
+      "review": "K5 visual author review only; human/native UI approval pending."
+    },
+    {
+      "key": "relic_remover",
+      "title": "The Relic Remover",
+      "type": "relic",
+      "target": "assets/LaRata/images/relics/relic_remover.png",
+      "prompt": "Use case: stylized-concept. Completely NEW SINGLE isolated fantasy inventory RELIC ICON for The Relic Remover in La Rata Remix, simplified Slay the Spire2 hand-painted icon style. Square ideally1254x1254, genuine transparent alpha background and clear margins. No writing, text, numbers, letters, frame, UI, logo, scene, ground plane, outside cast shadow or sheet. Strong individual silhouette readable at32px, broad angular painted planes, restrained THIN dark outer contour, no micro-details.\n\nA peculiar hand-held RELIC EXTRACTION TOOL shaped like an OPEN BRASS RAT MUZZLE: two compact jointed brass jaws with TWO chunky curved ivory rat incisors hold and pull ONE faceted violet relic stone free. A short pair of burgundy-red lever handles projects diagonally from the back. The whole object reads as one quirky rat-jawed pair of extraction pliers, not a living animal, skull ornament or generic tool symbol. A single large round hinge suggests a rat ear; blunt nose points toward the held gem. Three clear material groups: warm tarnished brass jaw, two bright ivory teeth, burgundy handles; violet only on the one captured relic. Broad shapes, very few joints, no tiny screws, crown, pile of relics, bag, trapdoor, open chest, medical cross, minus sign or generic circular badge. This REPLACES the previous red trapdoor-and-purple-stone motif entirely.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-287ac611-ba62-4d4b-a313-2cb0edddb2b9.png",
+      "humanApproved": false,
+      "before": "artifacts/content-wave-20261102/revision/k5/before/relic_remover.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        40,
+        62,
+        1242,
+        1254
+      ],
+      "sourceSha256": "a8ec6cd27253605de453b68a55599ae5cb9c079b1aefdd67d2000ceefd6eb9bb",
+      "runtimeSha256": "a8ec6cd27253605de453b68a55599ae5cb9c079b1aefdd67d2000ceefd6eb9bb",
+      "beforeSha256": "3fed7b935a36b2d31adea2c0354b1176003d9c7a7d191decdd351c960a99cc04",
+      "review": "K5 visual author review only; human/native UI approval pending."
+    }
+  ],
+  "limits": [
+    "Replaces exactly the five requested motifs; other selected art preserved.",
+    "Historical approvals and K1 content catalog remain unchanged.",
+    "Native shader/style acceptance and human artwork review remain pending."
+  ],
+  "previews": [
+    "artifacts/content-wave-20261102/revision/k5/cards.png",
+    "artifacts/content-wave-20261102/revision/k5/relic-remover.png"
+  ],
+  "relicVariants": [
+    {
+      "key": "relic_remover",
+      "original": "assets/LaRata/images/relics/relic_remover.png",
+      "originalSha256": "a8ec6cd27253605de453b68a55599ae5cb9c079b1aefdd67d2000ceefd6eb9bb",
+      "originalArchive": "artifacts/content-wave-20261102/revision/k5/before/relic-originals/relic_remover-a8ec6cd27253.png",
+      "small": "assets/LaRata/images/relic_native/relic_remover.png",
+      "smallSha256": "eff285b364cbb1de81a08111de81b97a7d6f1610e3b8a26c029be5a7d388c7e7",
+      "outline": "assets/LaRata/images/relic_native/relic_remover_outline.png",
+      "outlineSha256": "ce5af2fbde6d9ed0224e65604dbec62951ea9a93ff568ac4169e62be869ec0af",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "maximumOuterBandPixels": 26,
+      "changedAlphaPixels": 17395,
+      "changesOutsideBand": 0,
+      "changedRgbPixels": 0,
+      "protectedInteriorPixels": 447497,
+      "interiorRgbaExact": true,
+      "protectedDisconnectedDarkPixels": 8255,
+      "changesToDisconnectedDarkPixels": 0,
+      "mask": "artifacts/content-wave-20261102/revision/k5/relic-border-masks/relic_remover.png",
+      "originalUnchanged": true
+    }
+  ]
+}

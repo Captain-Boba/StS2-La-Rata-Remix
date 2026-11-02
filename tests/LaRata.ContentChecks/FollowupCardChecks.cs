@@ -22,7 +22,9 @@ using System.Text.Json;
 internal static class FollowupCardChecks
 {
     private static readonly PlayerChoiceContext Context = new BlockingPlayerChoiceContext();
-    private static void Require(bool ok,string why){if(!ok)throw new Exception(why);}
+    private static int checks;
+    private static void Require(bool ok,string why){checks++;if(!ok)throw new Exception(why);}
+    private static bool NoTicks(ref ulong __result){__result=0;return false;}
     private static bool Active(ref bool __result){__result=false;return false;}
     private static bool InProgress(ref bool __result){__result=true;return false;}
     private static TaskCompletionSource? refundGate;
@@ -31,15 +33,16 @@ internal static class FollowupCardChecks
         if(refundGate==null)return true;
         __result=refundGate.Task;refundGate=null;return false;
     }
-    private static (RunState run,Player a,Player b,Creature[] enemies) Setup()
+    private static (RunState run,Player a,Player b,Creature[] enemies) Setup(int party=2)
     {
-        var a=NativeConsoleFixture.Player(801);var b=NativeConsoleFixture.Player(802);
-        var run=RunState.CreateForTest(players:[a,b],seed:"CARDDELTA");
+        var players=Enumerable.Range(0,party).Select(i=>NativeConsoleFixture.Player((ulong)(801+i))).ToArray();
+        var a=players[0];var b=players.Length>1?players[1]:a;
+        var run=RunState.CreateForTest(players:players,seed:"CARDDELTA");
         NativeConsoleFixture.Set(RunManager.Instance,"State",run);
         NativeConsoleFixture.Set(RunManager.Instance,nameof(RunManager.AscensionManager),new MegaCrit.Sts2.Core.Entities.Ascension.AscensionManager(0));
         var combat=new CombatState(ModelDb.Encounter<TwoTailedRatsNormal>().ToMutable(),run);
         AccessTools.Field(typeof(CombatManager),"_state").SetValue(CombatManager.Instance,combat);
-        foreach(var p in new[]{a,b})
+        foreach(var p in players)
         {
             var body=new Creature(p,100,100){CombatState=combat};NativeConsoleFixture.Set(p,nameof(p.Creature),body);
             p.ResetCombatState();combat.AddCreature(body);p.PlayerCombatState!.Energy=10;
@@ -61,20 +64,22 @@ internal static class FollowupCardChecks
         ((Task)AccessTools.Method(card.GetType(),"OnPlay").Invoke(card,[Context,Play(card,target)])!).GetAwaiter().GetResult();
     }
     private static void Power<T>(Creature c,int n) where T:PowerModel,new()=>ModelDb.Power<T>().ToMutable().ApplyInternal(c,n,true);
-    internal static void Run(Harmony harmony)
+    internal static void Run(Harmony harmony,bool resetOnly=false)
     {
+        checks=0;
         var oldRun=RunManager.Instance.DebugOnlyGetState();var oldAscension=RunManager.Instance.AscensionManager;
         var field=AccessTools.Field(typeof(CombatManager),"_state");var oldCombat=field.GetValue(CombatManager.Instance);
         harmony.Patch(AccessTools.PropertyGetter(typeof(CombatManager),nameof(CombatManager.IsInProgress)),prefix:new(typeof(FollowupCardChecks),nameof(InProgress)));
         harmony.Patch(AccessTools.PropertyGetter(typeof(CombatManager),nameof(CombatManager.IsOverOrEnding)),prefix:new(typeof(FollowupCardChecks),nameof(Active)));
+        harmony.Patch(AccessTools.Method(typeof(Godot.Time),nameof(Godot.Time.GetTicksMsec)),prefix:new(typeof(FollowupCardChecks),nameof(NoTicks)));
         try
         {
             var errors=new List<Exception>();
-            foreach(var test in new Action[]{CardWaveChecks.Run,Thorn,Graveyard,Court,Shadow,Alchemy,Reset,CardIdentityRoundtrip,RoyalFollowupChecks.Run})
+            foreach(var test in resetOnly ? new Action[]{Reset,ResetPayments,CardIdentityRoundtrip} : new Action[]{CardWaveChecks.Run,Thorn,Graveyard,Court,Shadow,Alchemy,Reset,ResetPayments,CardIdentityRoundtrip,RoyalFollowupChecks.Run})
                 try{test();Console.WriteLine("PASS follow-up "+test.Method.Name);}catch(Exception e){Console.WriteLine("FAIL follow-up "+test.Method.Name+": "+e);errors.Add(e);}
             try{ResetAwaitBoundaries(harmony);Console.WriteLine("PASS follow-up ResetAwaitBoundaries");}catch(Exception e){Console.WriteLine("FAIL follow-up ResetAwaitBoundaries: "+e);errors.Add(e);}
             if(errors.Count>0)throw new AggregateException(errors);
-            Console.WriteLine("PASS: changed card effects use native status removal/application, pile draws and block commands. OnPlay/card-hook boundaries and active-combat guards are supplied; not full native card-play, disk save, UI or live networking.");
+            Console.WriteLine($"PASS: {checks} assertions{(resetOnly ? " in focused Reset regression" : " in follow-up cards")}. Native payments, refunds and Reset AutoPlay/Exhaust wrapper; supplied combat/OnPlay entry and timing. No UI, live networking or disk-save session acceptance.");
         }
         finally{NativeConsoleFixture.Set(RunManager.Instance,"State",oldRun);NativeConsoleFixture.Set(RunManager.Instance,nameof(RunManager.AscensionManager),oldAscension);field.SetValue(CombatManager.Instance,oldCombat);}
     }
@@ -89,10 +94,10 @@ internal static class FollowupCardChecks
             Require(c.EnergyCost.GetWithModifiers(CostModifiers.None)==1 && c.Keywords.Contains(CardKeyword.Exhaust),"Thorn cost/Exhaust");
             Resolve(c);
             Require(es.All(e=>e.GetPowerAmount<ThornsPower>()==0),"Thorn removal incomplete");
-            Require(es.Select(e=>e.GetPowerAmount<VulnerablePower>()).SequenceEqual(new[]{0,3,0,0}),"Vulnerable target selection or Artifact differs");
+            Require(es.Select(e=>e.GetPowerAmount<VulnerablePower>()).SequenceEqual(new[]{0,upgraded?3:2,0,0}),"Vulnerable target selection or Artifact differs");
             Require(es[2].GetPowerAmount<ArtifactPower>()==0&&es[3].GetPowerAmount<ArtifactPower>()==1,"Artifact consumed without removed Thorns");
             Require(a.Creature.GetPowerAmount<ThornsPower>()==7&&b.Creature.GetPowerAmount<ThornsPower>()==9,"Player Thorns modified");
-            Require(a.PlayerCombatState!.Hand.Cards.Count==(upgraded?2:0)&&b.PlayerCombatState!.Hand.Cards.Count==0,"Thorn draw count or owner");
+            Require(a.PlayerCombatState!.Hand.Cards.Count==(upgraded?2:1)&&b.PlayerCombatState!.Hand.Cards.Count==0,"Thorn draw count or owner");
         }
     }
     private static void Graveyard()
@@ -157,7 +162,7 @@ internal static class FollowupCardChecks
     {
         foreach(var (canonical,cost) in new (CardModel,int)[]{
             (ModelDb.Card<SerKevsThornBuster>(),1),(ModelDb.Card<GraveyardShift>(),1),
-            (ModelDb.Card<CourtOfCinders>(),1),(ModelDb.Card<SecondShadow>(),2),(ModelDb.Card<RoyalAlchemyPrize>(),1),(ModelDb.Card<LordTibosReset>(),2)})
+            (ModelDb.Card<CourtOfCinders>(),1),(ModelDb.Card<SecondShadow>(),2),(ModelDb.Card<RoyalAlchemyPrize>(),1),(ModelDb.Card<LordTibosReset>(),1)})
         {
             var card=canonical.ToMutable();card.UpgradeInternal();card.FinalizeUpgradeInternal();
             var restored=CardModel.FromSerializable(JsonSerializer.Deserialize(
@@ -182,14 +187,14 @@ internal static class FollowupCardChecks
             // Reset is created only after all earlier payments, deliberately.
             var caster=otherCasts?b:a;var first=Card<LordTibosReset>(caster,upgraded);
             first.SpendResources().GetAwaiter().GetResult();Resolve(first);
-            Require(a.PlayerCombatState.Energy==(otherCasts?20:18)&&b.PlayerCombatState.Energy==(otherCasts?18:20),"Reset recipient/payment/self-cost boundary");
+            Require(a.PlayerCombatState.Energy==20&&b.PlayerCombatState.Energy==20,"Reset must refund each owner's payments including its own current cost");
             Require(ResetEnergyLedger.Pending(combat).Values.All(v=>v==0),"Reset actual credit was not consumed");
             int beforeA=a.PlayerCombatState.Energy,beforeB=b.PlayerCombatState.Energy;
             Resolve(Card<LordTibosReset>(caster,!upgraded));
             Require(a.PlayerCombatState.Energy==beforeA&&b.PlayerCombatState.Energy==beforeB,"Reset resolution replay/copy duplicates a payment");
             Card<Bash>(a).SpendResources().GetAwaiter().GetResult();
             var next=Card<LordTibosReset>(b,true);next.SpendResources().GetAwaiter().GetResult();Resolve(next);
-            Require(a.PlayerCombatState.Energy==beforeA&&b.PlayerCombatState.Energy==beforeB-2,"Reset new eligible payment or other copy's cost");
+            Require(a.PlayerCombatState.Energy==beforeA&&b.PlayerCombatState.Energy==beforeB,"Reset new eligible payment or other copy's cost");
             Card<DefendIronclad>(a).SpendResources().GetAwaiter().GetResult();
             Hook.BeforeSideTurnStart(combat,CombatSide.Enemy,combat.Enemies).GetAwaiter().GetResult();
             Require(ResetEnergyLedger.Pending(combat).Count==0,"Reset payment survives native turn boundary");
@@ -245,6 +250,44 @@ internal static class FollowupCardChecks
             a.Creature.GetPower<NoEnergyGainPower>()!.RemoveInternal();ResetEnergyLedger.Refund(combat).GetAwaiter().GetResult();
             Require(a.PlayerCombatState.Energy==10&&ResetEnergyLedger.Pending(combat).GetValueOrDefault(a.NetId)==0,"Unblocked native gain did not consume refund");
         }
+    }
+
+    private static void ResetPayments()
+    {
+        foreach(int party in new[]{1,2,3,4})foreach(bool upgraded in new[]{false,true})foreach(int? discount in new int?[]{null,1,0})
+        {
+            var(run,a,_,_)=Setup(party);var combat=a.Creature.CombatState!;
+            foreach(var player in run.Players)Card<DefendIronclad>(player).SpendResources().GetAwaiter().GetResult();
+            // A preceding Reset payment must also remain eligible if its effect
+            // has not resolved. Native debit and refund boundaries are separate.
+            var previous=Card<LordTibosReset>(run.Players.Last(),!upgraded);
+            previous.SpendResources().GetAwaiter().GetResult();
+            var card=Card<LordTibosReset>(a,upgraded);
+            Require(card.EnergyCost.GetWithModifiers(CostModifiers.None)==(upgraded?1:2)&&card.Keywords.Contains(CardKeyword.Exhaust),"Reset base/upgrade cost and Exhaust");
+            if(discount.HasValue)card.EnergyCost.SetUntilPlayed(discount.Value);
+            int before=a.PlayerCombatState!.Energy;long pending=ResetEnergyLedger.Pending(combat).GetValueOrDefault(a.NetId);
+            card.SpendResources().GetAwaiter().GetResult();int debit=before-a.PlayerCombatState.Energy;
+            Require(debit==(discount??(upgraded?1:2)),"Native discounted Reset debit differs");
+            Require(ResetEnergyLedger.Pending(combat).GetValueOrDefault(a.NetId)==pending+debit,"Reset payment receipt excluded itself or used nominal cost");
+            // Real native wrapper moves the same instance to Exhaust once.
+            CardCmd.AutoPlay(Context,card,null).GetAwaiter().GetResult();
+            Require(run.Players.All(p=>p.PlayerCombatState!.Energy==10),"Solo/coop refund lost current or prior Reset payment");
+            Require(card.Pile?.Type==PileType.Exhaust&&ResetEnergyLedger.Pending(combat).Values.All(v=>v==0),"Reset native Exhaust or pending consumption");
+            Resolve(previous);Require(run.Players.All(p=>p.PlayerCombatState!.Energy==10),"Earlier Reset resolution refunded costs twice");
+            var next=Card<LordTibosReset>(run.Players.Last(),true);next.SpendResources().GetAwaiter().GetResult();
+            CardCmd.AutoPlay(Context,next,null).GetAwaiter().GetResult();
+            Require(run.Players.All(p=>p.PlayerCombatState!.Energy==10)&&next.Pile?.Type==PileType.Exhaust,"Repeated paid Reset must refund only its new payment");
+            ResetEnergyLedger.Refund(combat).GetAwaiter().GetResult();
+            Require(run.Players.All(p=>p.PlayerCombatState!.Energy==10)&&ResetEnergyLedger.Pending(combat).Values.All(v=>v==0),"Empty subsequent refund duplicated credit");
+        }
+        foreach(bool upgraded in new[]{false,true})
+        {
+            var(_,a,_,_)=Setup(1);var combat=a.Creature.CombatState!;
+            var free=Card<LordTibosReset>(a,upgraded);free.EnergyCost.SetUntilPlayed(0);
+            free.SpendResources().GetAwaiter().GetResult();CardCmd.AutoPlay(Context,free,null).GetAwaiter().GetResult();
+            Require(a.PlayerCombatState!.Energy==10&&ResetEnergyLedger.Pending(combat).Count==0&&free.Pile?.Type==PileType.Exhaust,"Zero-cost Reset manufactured refundable energy");
+        }
+        Console.WriteLine("24 Reset payment cases: 1-4 players x base/upgrade x native/1/0 cost; plus two empty-ledger free cases. Native SpendResources and AutoPlay wrapper; no input queue/transport.");
     }
 
     private static void ResetAwaitBoundaries(Harmony harmony)

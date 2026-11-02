@@ -114,7 +114,7 @@ Require(new EnemyTwist(TwistKind.Fortified, 0, 4, 0).Defense(4) == 4 && new Enem
 Console.WriteLine($"PASS: {cases} native-Rng policies across four acts; replay, party-linear/stage-growing budgets, costs, target indices, formations, exclusions, {observedKinds.Count}-family reachability and co-op diversity.");
 Console.WriteLine(JsonSerializer.Serialize(new { distribution, reinforcementCounts, normalCounts, largestCoopPlan }));
 var playedCards = new HashSet<int>();
-Require(RoyalDeck.ActiveCards.Length == 46 && !RoyalDeck.ActiveCards.Contains(3) && !RoyalDeck.ActiveCards.Contains(21), "retired poison cards remain active");
+Require(RoyalDeck.ActiveCards.Length == 41 && RoyalDeck.ActiveCards.SequenceEqual(Enumerable.Range(0, 48).Except(new[] { 3, 20, 21, 25, 26, 28, 47 })), "retired boss cards remain active");
 Require(CameoSchedule.RoyalPool.All(RoyalDeck.ActiveCards.Contains), "retired card remains in cameo pool");
 for (uint seed = 0; seed < 1000; seed++)
 {
@@ -165,14 +165,14 @@ for (uint seed = 0; seed < 1000; seed++)
     }
     var relicRng = new Rng(seed, "royal-relics");
     var relicReplay = new Rng(seed, "royal-relics");
-    var relics = ChaosSelections.Distinct(10, 18, n => relicRng.NextInt(n));
-    Require(relics.Distinct().Count() == 10 && relics.All(i => i >= 0 && i < 18), "invalid regalia selection");
-    Require(relics.SequenceEqual(ChaosSelections.Distinct(10, 18, n => relicReplay.NextInt(n))), "regalia replay differs");
+    var relics = ChaosSelections.Distinct(10, 25, n => relicRng.NextInt(n));
+    Require(relics.Distinct().Count() == 10 && relics.All(i => i >= 0 && i < 25), "invalid regalia selection");
+    Require(relics.SequenceEqual(ChaosSelections.Distinct(10, 25, n => relicReplay.NextInt(n))), "regalia replay differs");
     int mask = relics.Aggregate(0, (bits, i) => bits | (1 << i));
     Require(System.Numerics.BitOperations.PopCount((uint)mask) == 10, "regalia checksum mask loses a relic");
     relicsSeen.UnionWith(relics);
 }
-Require(potionsSeen.Count == 12 && relicsSeen.Count == 18, "selection pool has unreachable entries");
+Require(potionsSeen.Count == 12 && relicsSeen.Count == 25, "selection pool has unreachable entries");
 Console.WriteLine("PASS: 40000 goblin blocks, 160000 distinct co-op potion assignments, 1000 ten-relic selections; native-Rng replay and spell-before-attack ordering.");
 int royalVisits = 0;
 Require(CameoSchedule.RoyalPool.SequenceEqual(new[] { 5, 6, 8, 15, 19, 24 }), "royal intervention pool differs from its six approved cards");

@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-02",
+  "authorization": {
+    "source": "Direct user instruction relayed by K1",
+    "verbatim": "New content wave authorized by user through K1; same bounded native Small/Outline workflow; original generated Big PNGs preserved."
+  },
+  "method": "Preserve originals/BigIcons. Small variant changes alpha only for neutral dark pixels (maxRGB<=64, chroma<=20) inside at most2%short-edge band AND connected through dark pixels to external transparency. Colored planes are barriers; disconnected inner dark edges remain unchanged. Separate white outline uses original alpha; native NRelic applies black50%. No resizing/repainting or interior-RGBA changes.",
+  "pilot": false,
+  "assets": [
+    {
+      "key": "counterfeit_seal",
+      "original": "assets/LaRata/images/relics/counterfeit_seal.png",
+      "originalSha256": "603e6636a9b51bdd1a746370b511a299b3a60d21cf13f34e29511b593135cddd",
+      "originalArchive": "artifacts/content-wave-20261102/k5/before/relic-originals/counterfeit_seal-603e6636a9b5.png",
+      "small": "assets/LaRata/images/relic_native/counterfeit_seal.png",
+      "smallSha256": "0324ef777bbb6c0c80be80f314936533e05b96d8fbdc355b8b5a74409105820e",
+      "outline": "assets/LaRata/images/relic_native/counterfeit_seal_outline.png",
+      "outlineSha256": "b597feacf524d848f30a63c8c2483a574065712e1c30368a19a15564ec796f39",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "maximumOuterBandPixels": 26,
+      "changedAlphaPixels": 3412,
+      "changesOutsideBand": 0,
+      "changedRgbPixels": 0,
+      "protectedInteriorPixels": 634921,
+      "interiorRgbaExact": true,
+      "protectedDisconnectedDarkPixels": 5,
+      "changesToDisconnectedDarkPixels": 0,
+      "mask": "artifacts/content-wave-20261102/k5/relic-border-masks/counterfeit_seal.png",
+      "originalUnchanged": true
+    },
+    {
+      "key": "plague_testament",
+      "original": "assets/LaRata/images/relics/plague_testament.png",
+      "originalSha256": "aecc20afb21b3f644b3d37aaae7a66e2ebff17f76121036648fb9f8ff7f4808c",
+      "originalArchive": "artifacts/content-wave-20261102/k5/before/relic-originals/plague_testament-aecc20afb21b.png",
+      "small": "assets/LaRata/images/relic_native/plague_testament.png",
+      "smallSha256": "afef7b6fbe66dbbc07ba735efc391b6b5641ba62e9b3908938a67a4a59d3d18b",
+      "outline": "assets/LaRata/images/relic_native/plague_testament_outline.png",
+      "outlineSha256": "60b81b604fe1f253e35b1b55dfb9b4171bf7f808a76264174f8cbcad60e151de",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "maximumOuterBandPixels": 26,
+      "changedAlphaPixels": 14215,
+      "changesOutsideBand": 0,
+      "changedRgbPixels": 0,
+      "protectedInteriorPixels": 408105,
+      "interiorRgbaExact": true,
+      "protectedDisconnectedDarkPixels": 6802,
+      "changesToDisconnectedDarkPixels": 0,
+      "mask": "artifacts/content-wave-20261102/k5/relic-border-masks/plague_testament.png",
+      "originalUnchanged": true
+    },
+    {
+      "key": "sootbound_ticket",
+      "original": "assets/LaRata/images/relics/sootbound_ticket.png",
+      "originalSha256": "0b853a49b9d92c51f3592ccf87ab854343128c720f9ad48c5a5565993b6043dd",
+      "originalArchive": "artifacts/content-wave-20261102/k5/before/relic-originals/sootbound_ticket-0b853a49b9d9.png",
+      "small": "assets/LaRata/images/relic_native/sootbound_ticket.png",
+      "smallSha256": "e866a932cf0a6e2b0c1aee5d02dd491a9e7c65491c61b80964cde5616c929920",
+      "outline": "assets/LaRata/images/relic_native/sootbound_ticket_outline.png",
+      "outlineSha256": "48583a5f019aa9d2dc87a37a4ff923879129ad79ff35ecc2c76d5d90be03b0c2",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "maximumOuterBandPixels": 26,
+      "changedAlphaPixels": 4335,
+      "changesOutsideBand": 0,
+      "changedRgbPixels": 0,
+      "protectedInteriorPixels": 539161,
+      "interiorRgbaExact": true,
+      "protectedDisconnectedDarkPixels": 781,
+      "changesToDisconnectedDarkPixels": 0,
+      "mask": "artifacts/content-wave-20261102/k5/relic-border-masks/sootbound_ticket.png",
+      "originalUnchanged": true
+    },
+    {
+      "key": "usurpers_tooth",
+      "original": "assets/LaRata/images/relics/usurpers_tooth.png",
+      "originalSha256": "097962d6335b24f42d4d7dc177c9af6eaf374ceaf49b884a04e69f1b25ce2a79",
+      "originalArchive": "artifacts/content-wave-20261102/k5/before/relic-originals/usurpers_tooth-097962d6335b.png",
+      "small": "assets/LaRata/images/relic_native/usurpers_tooth.png",
+      "smallSha256": "6c72d356cf067b823f24add1c8ed13562a1faff61bb7389ebfa0d746c108841b",
+      "outline": "assets/LaRata/images/relic_native/usurpers_tooth_outline.png",
+      "outlineSha256": "85e0a38d778d5ff84be1ea6f441a841bd572b21eb4e14fd3a065059d1fc702e5",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "maximumOuterBandPixels": 26,
+      "changedAlphaPixels": 32036,
+      "changesOutsideBand": 0,
+      "changedRgbPixels": 0,
+      "protectedInteriorPixels": 268539,
+      "interiorRgbaExact": true,
+      "protectedDisconnectedDarkPixels": 2876,
+      "changesToDisconnectedDarkPixels": 0,
+      "mask": "artifacts/content-wave-20261102/k5/relic-border-masks/usurpers_tooth.png",
+      "originalUnchanged": true
+    }
+  ],
+  "preview": "artifacts/content-wave-20261102/k5/relic-border-all.png",
+  "limits": [
+    "Original PNGs remain unchanged.",
+    "Import processing is separate; no raw PNG-to-CTEX identity claim.",
+    "Static preview is not native live UI acceptance."
+  ]
+}

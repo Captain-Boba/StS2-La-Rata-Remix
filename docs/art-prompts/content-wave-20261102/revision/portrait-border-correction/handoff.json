@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "status": "Superseded intermediate portrait-only interpretation; not final acceptance.",
+  "sourceFiles": [
+    {
+      "path": "src/LaRata/RoyalCardPool.cs",
+      "sha256": "23583d2aa2844639be772a3cb2113b3eb9fe06fd8b383aed6902e9142564d493"
+    },
+    {
+      "path": "src/LaRata/RemixCards.cs",
+      "sha256": "bc2f686d64dbdae5d3c77d205b81ace14913fb6656ab84d4e6a6177516e531ac",
+      "scope": "Authorized one-line frame binding only; verified against before archive."
+    },
+    {
+      "path": "src/LaRata/RoyalPrizePortraitBorder.cs",
+      "sha256": "5b3622fa06e7f7c0622917699ba169b24f309b135b740e468ca453845c9761e1"
+    }
+  ],
+  "removed": [
+    "assets/LaRata/shaders/royal_prize_frame.gdshader",
+    "assets/LaRata/shaders/royal_prize_frame.gdshader.uid"
+  ],
+  "archive": "artifacts/content-wave-20261102/revision/k5/portrait-border-correction/before",
+  "reference": "Actual ModelDb.Card<ScepterStorm>().BannerMaterial from the existing RoyalCard/Token/BaseLib material path.",
+  "scope": "NCard.Reload postfix, existing PortraitBorder material only, RemixCard.IsBossPrize: exactly 10 playable aliases. Normal frame, title/type rarity materials and gameplay unchanged.",
+  "checks": "docs/art-prompts/content-wave-20261102/revision/portrait-border-correction/checks.json",
+  "artworkAndImportFilesUnchanged": 296,
+  "version": "0.9.6",
+  "build": {
+    "result": "PASS",
+    "warnings": 0,
+    "errors": 0,
+    "dllSha256": "eee49354d33a2a48dfc7c90f7bb855131ce40df62cb40e965223a91167285fcf",
+    "log": "artifacts/content-wave-20261102/revision/k5/portrait-border-correction/code-check/build.log"
+  },
+  "patchActivation": {
+    "result": "PASS",
+    "patchedMethodsIncludingFixtureSubstitutions": 91,
+    "log": "artifacts/content-wave-20261102/revision/k5/portrait-border-correction/code-check/patches.log",
+    "limits": "Technical activation only; no engine/game/UI execution."
+  },
+  "nativeAcceptance": "Pending K6 existing local test cycle; actual rendered color, ordinary-card controls, reused views and hand/preview/Compendium/upgrade views.",
+  "historicalReportsAndApprovals": "Preserved. Prior special-frame report is superseded, not rewritten.",
+  "notPerformed": [
+    "Artwork generation/edit",
+    "Game start",
+    "Installation",
+    "Godot import/export",
+    "Git/Release"
+  ],
+  "supersededBy": "docs/art-prompts/content-wave-20261102/revision/banner-correction/handoff.json"
+}

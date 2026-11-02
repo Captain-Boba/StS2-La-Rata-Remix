@@ -36,12 +36,30 @@ internal static class ResetEnergyLedger
     private static readonly AsyncLocal<Credit?> CurrentCredit = new();
     private static readonly AsyncLocal<Credit?> CurrentWrite = new();
     private static readonly AsyncLocal<object?> CurrentCommand = new();
+    private sealed class Debit(PlayerCombatState state, CardModel card)
+    {
+        internal readonly PlayerCombatState State = state;
+        internal readonly CardModel Card = card;
+        internal bool AwaitingWrite = true;
+    }
+    private static readonly AsyncLocal<Debit?> CurrentDebit = new();
 
-    // Called once by the existing payment observer, immediately after the real
+    // Only the real native card-payment call arms this receipt. Ordinary energy
+    // losses, previews, resource gains and nested Changed callbacks are excluded.
+    private static void PayWithReceipt(PlayerCombatState state, decimal amount, CardModel card)
+    {
+        var previous = CurrentDebit.Value;
+        CurrentDebit.Value = new(state, card);
+        try { state.LoseEnergy(amount); }
+        finally { CurrentDebit.Value = previous; }
+    }
+
+    // Called once by our independent energy assignment observer after the real
     // debit and before EnergyChanged/AfterEnergySpent can suspend or reenter.
     internal static void RecordPayment(CardModel card, int amount)
     {
-        if (amount <= 0 || card.IsCanonical || card.Id == ModelDb.GetId<LordTibosReset>() ||
+        // Reset's own native debit is included before its OnPlay refund begins.
+        if (amount <= 0 || card.IsCanonical ||
             card.CombatState is not { } combat || card.Owner.PlayerCombatState == null ||
             CombatManager.Instance.IsOverOrEnding) return;
         var turn = Turns.GetValue(combat, _ => new());
@@ -106,9 +124,15 @@ internal static class ResetEnergyLedger
         ReferenceEquals(credit.State, credit.Player.PlayerCombatState) &&
         !CombatManager.Instance.IsOverOrEnding && credit.Generation == credit.Turn.Generation;
 
-    // Called by the already-installed scalar observer before Changed callbacks.
+    // Gameplay-only assignment receipt, independent of disabled relic statistics.
     internal static void ObserveEnergyChange(object target, string field, int before, int after)
     {
+        if (field == "_energy" && CurrentDebit.Value is { AwaitingWrite: true } debit &&
+            ReferenceEquals(target, debit.State))
+        {
+            debit.AwaitingWrite = false;
+            RecordPayment(debit.Card, Math.Max(0, before - after));
+        }
         if (field != "_energy" || CurrentWrite.Value is not { AwaitingWrite: true } credit ||
             !ReferenceEquals(target, credit.State)) return;
         credit.AwaitingWrite = false;
@@ -171,6 +195,38 @@ internal static class ResetEnergyLedger
                 yield return instruction;
             }
             if (replaced != 1) throw new InvalidOperationException("Reset requires exactly one native energy-gain callsite.");
+        }
+    }
+
+    [HarmonyPatch]
+    [HarmonyPatchCategory(PatchCategory)]
+    private static class PaymentCallsite
+    {
+        private static Type Machine => AccessTools.Method(typeof(CardModel), "SpendEnergy")
+            .GetCustomAttribute<AsyncStateMachineAttribute>()!.StateMachineType;
+        private static MethodBase TargetMethod() => AccessTools.Method(Machine, "MoveNext");
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            var code = instructions.ToList();
+            var native = AccessTools.Method(typeof(PlayerCombatState), nameof(PlayerCombatState.LoseEnergy));
+            if (code.Count(i => i.Calls(native)) != 1)
+                throw new InvalidOperationException("Reset requires exactly one native card energy-debit callsite.");
+            var card = Machine.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                .Single(f => f.FieldType == typeof(CardModel));
+            foreach (var instruction in code)
+            {
+                if (instruction.Calls(native))
+                {
+                    var load = new CodeInstruction(OpCodes.Ldarg_0);
+                    load.labels.AddRange(instruction.labels); instruction.labels.Clear();
+                    load.blocks.AddRange(instruction.blocks); instruction.blocks.Clear();
+                    yield return load;
+                    yield return new(OpCodes.Ldfld, card);
+                    instruction.opcode = OpCodes.Call;
+                    instruction.operand = AccessTools.Method(typeof(ResetEnergyLedger), nameof(PayWithReceipt));
+                }
+                yield return instruction;
+            }
         }
     }
 

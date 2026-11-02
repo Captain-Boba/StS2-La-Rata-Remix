@@ -1,0 +1,96 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "status": "Revised art freeze: 4 new originals supersede initial selection; all 8 active originals verified. K6 owns renewed import/export.",
+  "manifest": "docs/art-prompts/content-expansion-20261102/manifest.json",
+  "prompts": "docs/art-prompts/content-expansion-20261102/prompts.json",
+  "checks": "docs/art-prompts/content-expansion-20261102/checks.json",
+  "previews": [
+    "artifacts/content-expansion-20261102/k5/cards.png",
+    "artifacts/content-expansion-20261102/k5/potions.png"
+  ],
+  "assets": [
+    {
+      "key": "static_tribute",
+      "title": "Static Tribute",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/static_tribute.png"
+    },
+    {
+      "key": "gilded_coffin",
+      "title": "Gilded Coffin",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/gilded_coffin.png"
+    },
+    {
+      "key": "bonfire_sale",
+      "title": "Bonfire Sale",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/bonfire_sale.png"
+    },
+    {
+      "key": "bloodsmith",
+      "title": "Bloodsmith",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/bloodsmith.png"
+    },
+    {
+      "key": "under_the_table",
+      "title": "Under the Table",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/under_the_table.png"
+    },
+    {
+      "key": "brass_polish",
+      "title": "Brass Polish",
+      "kind": "potion",
+      "target": "assets/LaRata/images/potions/brass_polish.png"
+    },
+    {
+      "key": "grave_distillate",
+      "title": "Grave Distillate",
+      "kind": "potion",
+      "target": "assets/LaRata/images/potions/grave_distillate.png"
+    },
+    {
+      "key": "amber_hourglass",
+      "title": "Amber Hourglass",
+      "kind": "potion",
+      "target": "assets/LaRata/images/potions/amber_hourglass.png"
+    }
+  ],
+  "verified": {
+    "sourceRuntimeIdentity": true,
+    "opaqueFourThirdsCards": 5,
+    "transparentSquarePotions": 3,
+    "preexistingImagesAndImportsUnchanged": 296,
+    "acceptedStyleFilesUnchanged": 2,
+    "rustwaterUnchanged": true,
+    "sourceBindingsFound": 8
+  },
+  "alphaNotes": "See current manifest for exact alpha bounds/edge flags. Brass Polish retains its initial generated sub-8 edge specks; Amber Hourglass has a new source and must be re-imported.",
+  "ownership": {
+    "cards": "K2",
+    "potions": "K3",
+    "engineImportsExport": "K6",
+    "artwork": "K5"
+  },
+  "acceptance": {
+    "humanApproved": false,
+    "nativeResourceLoading": "NOT TESTED",
+    "nativeCropAndInventoryRendering": "NOT TESTED"
+  },
+  "noCodeLocalizationBuildGameInstallationGitOrReleaseAction": true,
+  "royalShuffle": "Existing dark image remains unchanged and is now explicitly visually accepted by the user; see separate approval record.",
+  "latestRevision": {
+    "manifest": "docs/art-prompts/content-expansion-20261102/redesign/manifest.json",
+    "checks": "docs/art-prompts/content-expansion-20261102/redesign/checks.json",
+    "preview": "artifacts/content-expansion-20261102/k5/redesign/preview.png",
+    "sourceRuntimeHashes": {
+      "static_tribute": "a7da13c79cfe0d0a2ab1b2c41702802a48b0c763e581530ed035ca22b0a2aaad",
+      "gilded_coffin": "9d3a8c4a10583088945d16f64b883c780c665139ba9ecbb3b2f565681b7d7cf4",
+      "bloodsmith": "f370b0b76df8e0924d1d230bdc4a1ed5074b7318c87522f3137dd11445de5611",
+      "amber_hourglass": "3fc4dfe41d87c98552737ee1d339fcdbce7e526393b0b8106634b8bfa687d879"
+    }
+  }
+}

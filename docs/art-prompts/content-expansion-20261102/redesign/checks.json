@@ -1,0 +1,16 @@
+{
+  "changedRuntimePngs": [
+    "assets/LaRata/images/cards/bloodsmith.png",
+    "assets/LaRata/images/cards/gilded_coffin.png",
+    "assets/LaRata/images/cards/static_tribute.png",
+    "assets/LaRata/images/potions/amber_hourglass.png"
+  ],
+  "changedRuntimePngCount": 4,
+  "otherImagesAndImportsUnchanged": 308,
+  "sourceRuntimeIdentity": true,
+  "archivedPreviousRuntimeIdentity": true,
+  "allEightActiveSelectionChecks": "PASS",
+  "humanApproved": false,
+  "nativeImportAndRendering": "NOT TESTED",
+  "preview": "artifacts/content-expansion-20261102/k5/redesign/preview.png"
+}

@@ -29,6 +29,13 @@ internal static class RelicContest
     private static readonly System.Reflection.MethodInfo End = AccessTools.Method(typeof(TreasureRoomRelicSynchronizer), "EndRelicVoting");
     private static string PlayerLabel(IRunState run, Player player) => UiText.Format("contest.player", run.Players.ToList().IndexOf(player) + 1, player.Character.Title.GetFormattedText());
 
+    internal static void CancelPresentation()
+    {
+        if (RunManager.Instance.DebugOnlyGetState() != null &&
+            Sessions.TryGetValue(RunManager.Instance.TreasureRoomRelicSynchronizer, out var session) && session.Resolving)
+            session.Cancellation.Cancel();
+    }
+
     internal static async Task Execute(TreasureRoomRelicSynchronizer sync, Player player, int? index)
     {
         var session = State(sync);
@@ -68,9 +75,10 @@ internal static class RelicContest
         {
             var rng = new Rng(run.Rng.Seed, $"LaRata/Well/v1/{run.CurrentActIndex}/{run.TotalFloor}/{slot}/{relic.Id.Entry}");
             var winner = wells[rng.NextInt(wells.Count)];
-            ChoicePanel.Show(UiText.Get("contest.well_title"), UiText.Format("contest.winner", relic.Title.GetFormattedText(), PlayerLabel(run, winner),
-                wells.Count == 1 ? UiText.Get("contest.well_single") : UiText.Format("contest.well_multiple", wells.Count)));
-            await Task.Delay(1800, cancellation);
+            // The result is fixed before presentation. Animation uses no game RNG.
+            using (var wellPresentation = new RelicContestPresentation(contenders))
+                await wellPresentation.AnimateWell(contenders, wells, winner,
+                    PlayerLabel(run, winner), relic.Title.GetFormattedText(), cancellation);
             foreach (var player in wells)
             {
                 var well = player.Relics.OfType<Well>().First(r => !r.IsMelted);

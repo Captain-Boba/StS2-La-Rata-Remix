@@ -18,7 +18,7 @@ namespace LaRata;
 [Pool(typeof(SharedRelicPool))]
 public sealed class RelicRemover : CustomRelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Rare;
+    public override RelicRarity Rarity => RelicRarity.Uncommon;
     public override bool HasUponPickupEffect => true;
     public override bool IsUsedUp => Used;
     public override string PackedIconPath => "res://LaRata/images/relic_native/relic_remover.png";

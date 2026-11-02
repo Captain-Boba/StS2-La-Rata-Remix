@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "status": "Revision source/art freeze ready for renewed K6 acceptance.",
+  "manifest": "docs/art-prompts/content-wave-20261102/revision/manifest.json",
+  "prompts": "docs/art-prompts/content-wave-20261102/revision/prompts.json",
+  "checks": "docs/art-prompts/content-wave-20261102/revision/checks.json",
+  "nativeExport": "docs/art-prompts/content-wave-20261102/revision/relic-outline-export.json",
+  "artwork": {
+    "replacements": [
+      "cleanse",
+      "scrap_coronation",
+      "smugglers_dividend",
+      "pawn_promotion",
+      "relic_remover"
+    ],
+    "generatedIndividually": true,
+    "sourceRuntimeIdentity": true,
+    "oldRuntimeArchives": "artifacts/content-wave-20261102/revision/k5/before",
+    "pawnChessImage": "None observed in K5 visual review.",
+    "humanApproved": false,
+    "otherExistingImagesPreserved": 141,
+    "existingPngFilesChanged": 7,
+    "protectedRelicInteriorExact": true,
+    "historicalCatalogEditedByK5": false
+  },
+  "style": {
+    "ownedFiles": [
+      {
+        "path": "src/LaRata/RoyalCardPool.cs",
+        "sha256": "68af2f9048e6ce0d272857b2a1e986fe683e8fb277c7cfa645be6efdba3745c5"
+      },
+      {
+        "path": "assets/LaRata/shaders/royal_prize_frame.gdshader",
+        "sha256": "0591ef79de6e0867779832d273bb6f317cd91670b099a220896e12663c1e5dc3"
+      }
+    ],
+    "bindingOwner": "K2",
+    "binding": "RemixCard.CreateCustomFrameMaterial => RoyalCardStyle.Frame(IsBossPrize)",
+    "selectedModelCount": 10,
+    "selectedIndices": "10 through19 only; exact concrete aliases listed in checks.json.",
+    "defaultFrameShader": "Unchanged byte-for-byte.",
+    "rarity": "Uncommon/Rare keep native null override fallback for blue/gold banners, portrait border and type plaque.",
+    "otherCardMechanics": "Not edited by K5.",
+    "referencePreview": ".research/royal-prize-style-20261102/preview.png",
+    "referenceLimits": "CPU palette approximation; not GPU/native rendering. Native reference pixels remain ignored/local only."
+  },
+  "ownerChangesReadBack": {
+    "royalCleansingEnglishTitle": true,
+    "relicRemoverRarity": "Uncommon (K3)",
+    "stableCleanseIdAndArtkey": true
+  },
+  "technical": {
+    "isolatedProductBuild": "PASS, 0 warnings/errors.",
+    "productDllSha256": "572bb81dcb21269b72734c9e5e06ac1f09c58fc131484181368bc52c9eba2626",
+    "buildLog": "artifacts/content-wave-20261102/revision/k5/code-check/build.log",
+    "offlineArtAndScopeChecks": "PASS",
+    "shaderGpuCompile": "NOT TESTED",
+    "nativeUi": "NOT TESTED"
+  },
+  "previews": [
+    "artifacts/content-wave-20261102/revision/k5/cards.png",
+    "artifacts/content-wave-20261102/revision/k5/relic-remover.png"
+  ],
+  "remainingAcceptance": [
+    "K1 final import/export; K6 shader compilation/load and native rendering.",
+    "Hand, enlarged preview and Compendium appearance of all10 prizes beside regular cards.",
+    "Native blue/gold rarity readability and upgrade variants.",
+    "Imported Relic Remover Big/Small/Outline and Uncommon display.",
+    "Human artwork review; no acceptance inferred from author inspection."
+  ],
+  "notPerformed": [
+    "Game start",
+    "Godot import/export",
+    "Installation",
+    "Catalog editing",
+    "Commit",
+    "Push",
+    "Release"
+  ]
+}

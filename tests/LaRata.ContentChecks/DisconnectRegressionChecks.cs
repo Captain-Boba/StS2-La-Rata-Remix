@@ -47,7 +47,7 @@ internal static class DisconnectRegressionChecks
         if (!value) { Failures.Add(reason); Console.WriteLine("FAIL: " + reason); }
     }
 
-    internal static RunState NewRun(int count)
+    internal static RunState NewRun(int count, string seed = "DISCONNECT20261026")
     {
         var players = Enumerable.Range(0, count).Select(i =>
         {
@@ -60,7 +60,7 @@ internal static class DisconnectRegressionChecks
             p.DiscoveredPotions = []; p.DiscoveredEpochs = [];
             return p;
         }).ToArray();
-        return RunState.CreateForTest(players: players, seed: "DISCONNECT20261026");
+        return RunState.CreateForTest(players: players, seed: seed);
     }
 
     private static T Add<T>(Player owner) where T : RelicModel, new()
@@ -250,12 +250,12 @@ internal static class DisconnectRegressionChecks
         finally { LocalContext.NetId = local; }
     }
 
-    internal static void Run(bool shopOnly = false)
+    internal static void Run(bool shopOnly = false, bool royalOnly = false)
     {
         Failures.Clear(); assertions = 0;
         var harmony = new Harmony("LaRata.ContentChecks.DisconnectRegression");
         NativeConsoleFixture.PatchDesktop(harmony);
-        if (shopOnly) ShopBoosterDisconnectChecks.Prepare(harmony);
+        if (shopOnly || royalOnly) ShopBoosterDisconnectChecks.Prepare(harmony);
         RelicMetrics.Register();
         ModEntry.ApplyPatches(harmony);
         var saved = typeof(SavedSpireField<,>).Assembly.GetType("BaseLib.Patches.Utils.SavedSpireFieldPatch")!;
@@ -279,6 +279,7 @@ internal static class DisconnectRegressionChecks
         ModelIdSerializationCache.Init();
         try
         {
+            if (royalOnly) { RoyalBoosterPathChecks.Run(harmony); return; }
             if (shopOnly) { ShopBoosterDisconnectChecks.Run(harmony); return; }
             SyncCase();
             PickupReplay();

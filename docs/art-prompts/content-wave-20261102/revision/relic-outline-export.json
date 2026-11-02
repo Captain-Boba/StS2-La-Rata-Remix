@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-02",
+  "authorization": {
+    "source": "Direct user instruction relayed by K1",
+    "verbatim": "User-authorized Relic Remover motif replacement; same bounded mechanical native Small/Outline export."
+  },
+  "method": "Preserve originals/BigIcons. Small variant changes alpha only for neutral dark pixels (maxRGB<=64, chroma<=20) inside at most2%short-edge band AND connected through dark pixels to external transparency. Colored planes are barriers; disconnected inner dark edges remain unchanged. Separate white outline uses original alpha; native NRelic applies black50%. No resizing/repainting or interior-RGBA changes.",
+  "pilot": false,
+  "assets": [
+    {
+      "key": "relic_remover",
+      "original": "assets/LaRata/images/relics/relic_remover.png",
+      "originalSha256": "a8ec6cd27253605de453b68a55599ae5cb9c079b1aefdd67d2000ceefd6eb9bb",
+      "originalArchive": "artifacts/content-wave-20261102/revision/k5/before/relic-originals/relic_remover-a8ec6cd27253.png",
+      "small": "assets/LaRata/images/relic_native/relic_remover.png",
+      "smallSha256": "eff285b364cbb1de81a08111de81b97a7d6f1610e3b8a26c029be5a7d388c7e7",
+      "outline": "assets/LaRata/images/relic_native/relic_remover_outline.png",
+      "outlineSha256": "ce5af2fbde6d9ed0224e65604dbec62951ea9a93ff568ac4169e62be869ec0af",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "maximumOuterBandPixels": 26,
+      "changedAlphaPixels": 17395,
+      "changesOutsideBand": 0,
+      "changedRgbPixels": 0,
+      "protectedInteriorPixels": 447497,
+      "interiorRgbaExact": true,
+      "protectedDisconnectedDarkPixels": 8255,
+      "changesToDisconnectedDarkPixels": 0,
+      "mask": "artifacts/content-wave-20261102/revision/k5/relic-border-masks/relic_remover.png",
+      "originalUnchanged": true
+    }
+  ],
+  "preview": "artifacts/content-wave-20261102/revision/k5/relic-border-all.png",
+  "limits": [
+    "Original PNGs remain unchanged.",
+    "Import processing is separate; no raw PNG-to-CTEX identity claim.",
+    "Static preview is not native live UI acceptance."
+  ]
+}

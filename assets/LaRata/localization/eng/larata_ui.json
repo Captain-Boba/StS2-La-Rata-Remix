@@ -1,4 +1,6 @@
 {
+  "contest.well_swallow": "The Well swallows the opposing hands.",
+  "contest.well_awarded": "{0}\nReceives {1}.",
   "common.cancel": "Cancel",
   "common.close": "Close",
   "removal.title": "The Relic Remover",

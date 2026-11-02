@@ -1,0 +1,126 @@
+[h1]La Rata Remix – Version 0.9.6[/h1]
+
+[h2]EN – English[/h2]
+[b]1. New Content[/b]
+[list]
+[*]11 new La Rata cards.
+[*]10 new encounter twists and 8 additional reinforcement types.
+[/list]
+
+[b]New relics[/b]
+[list]
+[*][b]Counterfeit Seal[/b]: The first card you create each turn is upgraded, if possible.
+[*][b]Plague Testament[/b]: When an enemy dies, transfer its Poison to a random enemy.
+[*][b]Usurper's Tooth[/b]: Whenever an enemy gains Strength, gain 2 Vigor.
+[/list]
+
+[b]New potions[/b]
+[list]
+[*][b]Brass Polish[/b]: Gain Vigor equal to your Block.
+[*][b]Grave Distillate[/b]: Swap an enemy’s Poison and Doom.
+[*][b]Amber Hourglass[/b]: Block is not removed at the start of your next 2 turns.
+[/list]
+
+[b]2. Balancing[/b]
+[list]
+[*]La Rata now has 5/7 base Energy and draws 10 combat relics from 25 options. Lantern and Happy Flower are replaced.
+[*]Withering affects only the next starting hand and does not stack. Reinforcements repeat less often.
+[*]Reworked Sootbound Ticket and Stairwell Key; removed Brass Scavenger’s Gold cap. Relic Remover is now Uncommon.
+[*]Adjusted several cards and the boss deck. Reset costs 2/1 Energy, always Exhausts and refunds its own paid cost. Rustwater also removes Plating.
+[/list]
+
+[b]3. Bug Fixes[/b]
+[list]
+[*]Fixed Reset’s co-op energy accounting. Added royal damage-ramp indicators and a Well contest animation.
+[*]Updated artwork and concise tooltips. Playable boss cards use a red rarity banner; their La Rata booster pool was verified.
+[/list]
+
+[b]4. Compatibility / Known Issues[/b]
+[list]
+[*]Requires Public v0.107.1 and BaseLib 3.4.7; the game Beta branch is unsupported. Start a new run with matching versions in co-op.
+[*]Relic statistics remain disabled. Broader multiplayer and balance validation is ongoing.
+[/list]
+
+
+[h2]CN – 简体中文[/h2]
+[b]1. 新内容[/b]
+[list]
+[*]新增11张 La Rata 卡牌。
+[*]新增10种遭遇变数和8种援军怪物。
+[/list]
+
+[b]新遗物[/b]
+[list]
+[*][b]伪造印玺[/b]: 每回合你创建的第一张牌会被升级（若能升级）。
+[*][b]瘟疫遗嘱[/b]: 当一名敌人死亡时，将其中毒转移至一名随机敌人。
+[*][b]篡位者之牙[/b]: 每当敌人获得力量时，你获得2层振奋。
+[/list]
+
+[b]新药水[/b]
+[list]
+[*][b]黄铜抛光剂[/b]: 获得等同于你格挡值的活力。
+[*][b]墓地馏液[/b]: 交换一名敌人的中毒与灾厄层数。
+[*][b]琥珀沙漏[/b]: 你的接下来2个回合开始时，格挡不会被移除。
+[/list]
+
+[b]2. 平衡调整[/b]
+[list]
+[*]La Rata 的基础能量调整为5/7，每场战斗从25种遗物中选择10件。灯笼与开心小花已被替换。
+[*]枯萎仅减少下一回合的起始抽牌数，且不叠加。援军怪物更少重复出现。
+[*]重做焦灰车票与楼梯间钥匙；移除黄铜拾荒者的金币上限。遗物移除器调整为罕见。
+[*]调整多张卡牌与首领牌组。重置的费用为2/1点能量，两个版本均消耗，并返还自身实际支付的能量。锈水现在也移除覆甲。
+[/list]
+
+[b]3. 错误修复[/b]
+[list]
+[*]修复重置在联机中的能量返还记录。新增皇家敌人的伤害递增标识与井的争夺动画。
+[*]更新插画并精简描述。玩家可用的首领卡牌采用红色稀有度横幅，并已验证其在 La Rata 补充包中的卡池。
+[/list]
+
+[b]4. 兼容性 / 已知问题[/b]
+[list]
+[*]需要游戏正式分支（Public）v0.107.1 和 BaseLib 3.4.7，不支持游戏测试分支（Beta）。请开始新的一局，联机玩家须使用相同版本。
+[*]遗物统计仍停用。更广泛的多人测试与平衡验证仍在进行。
+[/list]
+
+
+[h2]DE – Deutsch[/h2]
+[b]1. Neue Inhalte[/b]
+[list]
+[*]11 neue La-Rata-Karten.
+[*]10 neue Twists und 8 zusätzliche Verstärkungsmonster.
+[/list]
+
+[b]Neue Relikte[/b]
+[list]
+[*][b]Gefälschtes Siegel[/b]: Die erste Karte, die du pro Zug erzeugst, wird verbessert, falls möglich.
+[*][b]Seuchentestament[/b]: Wenn ein Gegner stirbt, übertrage sein Gift auf einen zufälligen Gegner.
+[*][b]Zahn des Usurpators[/b]: Immer wenn ein Gegner Stärke erhält, erhalte 2 Elan.
+[/list]
+
+[b]Neue Tränke[/b]
+[list]
+[*][b]Messingpolitur[/b]: Erhalte Elan in Höhe deines Blocks.
+[*][b]Grabdestillat[/b]: Vertausche Gift und Verderben eines Gegners.
+[*][b]Bernsteinsanduhr[/b]: Zu Beginn deiner nächsten 2 Züge wird Block nicht entfernt.
+[/list]
+
+[b]2. Balancing[/b]
+[list]
+[*]La Rata hat jetzt 5/7 Basisenergie und erhält 10 Kampfrelikte aus 25 Möglichkeiten. Lantern und Happy Flower wurden ersetzt.
+[*]Withering betrifft nur die nächste Starthand und stapelt sich nicht. Verstärkungsmonster wiederholen sich seltener.
+[*]Sootbound Ticket und Stairwell Key überarbeitet; Goldgrenze von Brass Scavenger entfernt. Relic Remover ist jetzt Uncommon.
+[*]Mehrere Karten und das Bossdeck angepasst. Reset kostet 2/1 Energie, erschöpft immer und erstattet die eigenen bezahlten Kosten. Rostwasser entfernt auch Plating.
+[/list]
+
+[b]3. Fehlerbehebungen[/b]
+[list]
+[*]Koop-Energieerfassung von Reset korrigiert. Schadensrampen-Anzeigen und eine Brunnen-Animation beim Reliktwettstreit ergänzt.
+[*]Artworks überarbeitet und Tooltips gekürzt. Spielbare Bosskarten erhalten einen roten Seltenheitsbanner; ihr La-Rata-Boosterpool wurde überprüft.
+[/list]
+
+[b]4. Kompatibilität / Bekannte Probleme[/b]
+[list]
+[*]Benötigt Public v0.107.1 und BaseLib 3.4.7; der Beta-Branch wird nicht unterstützt. Neuen Run starten und im Koop gleiche Versionen verwenden.
+[*]Reliktstatistiken bleiben deaktiviert. Breitere Multiplayer- und Balanceprüfungen stehen weiterhin aus.
+[/list]

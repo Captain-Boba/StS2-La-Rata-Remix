@@ -54,7 +54,7 @@ internal static class HexPresentationChecks
         try
         {
             var kinds = EncounterPlan.ActiveKinds.Where(EncounterPlan.IsHex).ToArray();
-            Require(kinds.Length == 14 && !kinds.Contains(TwistKind.Doomweaver), "Active hex roster changed");
+            Require(kinds.Length == 20 && !kinds.Contains(TwistKind.Doomweaver), "Active hex roster changed");
             foreach (var kind in kinds)
             {
                 var state = Setup(new(kind, 0, 1), 1);
@@ -63,8 +63,8 @@ internal static class HexPresentationChecks
                 var marked = moves.Where(m => HexTelegraphPatch.Hexes.TryGetValue(m, out _)).ToArray();
                 Require(marked.Length == 1 && HexTelegraphPatch.HasHexMove(state.Enemy.Monster), "Missing/multiple decorated moves: " + kind);
                 bool status = kind is TwistKind.Cinders or TwistKind.Disorienting or TwistKind.Lacerating or TwistKind.Leaden or TwistKind.StaticHex;
-                Require(marked[0].Intents.Count(i => status ? i is HexStatusIntent : i is HexDebuffIntent) == 1, "Missing concrete native intent: " + kind);
-                Require(moves.Where(m => m != marked[0]).All(m => !m.Intents.Any(i => i is HexStatusIntent or HexDebuffIntent)), "Hex description attached to unrelated move: " + kind);
+                Require(marked[0].Intents.Count(i => status ? i is HexStatusIntent : EncounterPlan.IsSelfHex(kind) ? i is HexBuffIntent : i is HexDebuffIntent) == 1, "Missing concrete native intent: " + kind);
+                Require(moves.Where(m => m != marked[0]).All(m => !m.Intents.Any(i => i is HexStatusIntent or HexDebuffIntent or HexBuffIntent)), "Hex description attached to unrelated move: " + kind);
                 int hp = state.Enemy.MaxHp;
                 Start(state.Combat); Start(state.Combat);
                 Require(state.Enemy.Powers.OfType<HexTwistPower>().Count() == 1 && state.Enemy.GetPowerAmount<HexTwistPower>() == (int)kind + 1 && state.Enemy.MaxHp == hp, "Startup duplicated marker or changed HP: " + kind);
@@ -99,7 +99,7 @@ internal static class HexPresentationChecks
                 }
             }
             CheckCompletionAndArtifact();
-            Console.WriteLine("PASS: 14 native hex decorations/startup markers; native MoveState + HexExecution/PowerCmd with present/removed/reconstructed markers, Hexed/Echoing variants/Lesser at 1/2/4 modeled players, repeated nonattack moves, target isolation, Artifact and completion guards. Controlled base move/no damage; no attack, renderer, disk or network acceptance.");
+            Console.WriteLine("PASS: 20 native hex decorations/startup markers; native MoveState + HexExecution/PowerCmd with present/removed/reconstructed markers, Hexed/Echoing variants/Lesser at 1/2/4 modeled players, repeated nonattack moves, target isolation, Artifact and completion guards. Controlled base move/no damage; no attack, renderer, disk or network acceptance.");
         }
         finally { ending = false; }
     }

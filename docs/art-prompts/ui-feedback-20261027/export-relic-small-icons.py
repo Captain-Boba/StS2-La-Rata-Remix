@@ -16,10 +16,19 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 root=Path(__file__).resolve().parents[3]
 parser=argparse.ArgumentParser()
 parser.add_argument('--pilot',action='store_true')
+parser.add_argument('--keys',nargs='+',help='Export only these relic keys; preserve all other runtime files.')
+parser.add_argument('--out',type=Path,help='Workspace-relative artifact output directory.')
+parser.add_argument('--record',type=Path,help='Workspace-relative export manifest.')
+parser.add_argument('--date',default='2026-10-27')
+parser.add_argument('--authorization',default='Ja, Ränder mechanisch bearbeiten; Motive bewahren (empfohlen)')
 args=parser.parse_args()
-out=root/'artifacts/ui-feedback-20261027/k5'
+out=root/args.out if args.out else root/'artifacts/ui-feedback-20261027/k5'
 out.mkdir(parents=True,exist_ok=True)
 sources=sorted((root/'assets/LaRata/images/relics').glob('*.png'))+[root/'assets/LaRata/images/a_thousand_cuts.png',root/'assets/LaRata/images/well.png']
+if args.keys:
+    sources=[p for p in sources if p.stem in set(args.keys)]
+    missing=set(args.keys)-{p.stem for p in sources}
+    if missing: raise RuntimeError('Missing requested relics: '+','.join(sorted(missing)))
 pilots={'relic_remover','royal_pack','a_thousand_cuts','sootbound_ticket'}
 if args.pilot: sources=[p for p in sources if p.stem in pilots]
 target=out/'relic-small-pilot' if args.pilot else root/'assets/LaRata/images/relic_native'
@@ -105,6 +114,9 @@ for i,row in enumerate(rows):
 sheet_path=out/('relic-border-pilot.png' if args.pilot else 'relic-border-all.png')
 sheet.save(sheet_path)
 record={'date':'2026-10-27','authorization':{'source':'Direct user instruction relayed by K1','verbatim':'Ja, Ränder mechanisch bearbeiten; Motive bewahren (empfohlen)'},'method':'Preserve originals/BigIcons. Small variant changes alpha only for neutral dark pixels (maxRGB<=64, chroma<=20) inside at most2%short-edge band AND connected through dark pixels to external transparency. Colored planes are barriers; disconnected inner dark edges remain unchanged. Separate white outline uses original alpha; native NRelic applies black50%. No resizing/repainting or interior-RGBA changes.','pilot':args.pilot,'assets':rows,'preview':str(sheet_path.relative_to(root)).replace('\\','/'),'limits':['Original PNGs remain unchanged.','Import processing is separate; no raw PNG-to-CTEX identity claim.','Static preview is not native live UI acceptance.']}
-record_path=out/'relic-border-pilot.json' if args.pilot else Path(__file__).with_name('relic-outline-export.json')
+record['date']=args.date
+record['authorization']['verbatim']=args.authorization
+record_path=root/args.record if args.record else out/'relic-border-pilot.json' if args.pilot else Path(__file__).with_name('relic-outline-export.json')
+record_path.parent.mkdir(parents=True,exist_ok=True)
 record_path.write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps({'count':len(rows),'record':str(record_path),'preview':str(sheet_path),'allInteriorExact':all(a['interiorRgbaExact'] for a in rows),'allOriginalsUnchanged':all(a['originalUnchanged'] for a in rows)}))

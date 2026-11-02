@@ -27,7 +27,7 @@ public static class ModEntry
     {
         // Early Access changes private hooks frequently. Never silently run an unvalidated ruleset.
         if (ReleaseInfoManager.Instance.ReleaseInfo?.Version != "v0.107.1")
-            throw new NotSupportedException("La Rata Remix 0.9.4 requires Slay the Spire 2 v0.107.1.");
+            throw new NotSupportedException("La Rata Remix 0.9.6 requires Slay the Spire 2 v0.107.1.");
 
         var harmony = new Harmony(Id);
         AuditChecksums = CommandLineHelper.HasArg("larata-audit");
@@ -46,6 +46,7 @@ public static class ModEntry
             CustomContentDictionary.RegisterType(typeof(EmpoweredTwistPower));
             CustomContentDictionary.RegisterType(typeof(ReinforcementTwistPower));
             CustomContentDictionary.RegisterType(typeof(HexTwistPower));
+            CustomContentDictionary.RegisterType(typeof(WitheringPower));
             ApplyPatches(harmony);
         }
         catch
@@ -53,6 +54,6 @@ public static class ModEntry
             harmony.UnpatchAll(Id);
             throw;
         }
-        Log.Info("Loaded La Rata Remix 0.9.4.");
+        Log.Info("Loaded La Rata Remix 0.9.6.");
     }
 }

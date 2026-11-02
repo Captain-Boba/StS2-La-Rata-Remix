@@ -169,6 +169,17 @@ internal static class StartingBuffsPatch
                     await Grant<DemonFormPower>(1); await Grant<WeakPower>(1); break;
                 case TwistKind.FadingMight:
                     await Grant<FlexPotionPower>(5); await Grant<WeakPower>(1); break;
+                case TwistKind.Sheltered:
+                    // Amount is a per-hit ceiling, not extra defense stacks.
+                    if (!target.HasPower<HardToKillPower>()) await Grant<HardToKillPower>(18);
+                    break;
+                case TwistKind.Reactive:
+                    if (target.GetPowerAmount<SneakyPower>() < 2) await Grant<SneakyPower>(2 - target.GetPowerAmount<SneakyPower>());
+                    break;
+                case TwistKind.Drifting:
+                    await Grant<SoarPower>(1); await Grant<SlowPower>(1); break;
+                case TwistKind.Overcommitted:
+                    await Grant<VigorPower>(4); await Grant<ImbalancedPower>(1); break;
             }
         }
         async Task Marker<T>(Creature target, int amount) where T : PowerModel
@@ -225,6 +236,7 @@ internal static class HexTelegraphPatch
         var move = moves[0];
         var intents = move.Intents.ToList();
         if (twist.Kind is TwistKind.Cinders or TwistKind.Disorienting or TwistKind.Lacerating or TwistKind.Leaden or TwistKind.StaticHex) intents.Add(new HexStatusIntent(twist));
+        else if (EncounterPlan.IsSelfHex(twist.Kind)) intents.Add(new HexBuffIntent(twist));
         else intents.Add(new HexDebuffIntent(twist));
         AccessTools.PropertySetter(typeof(MoveState), nameof(MoveState.Intents)).Invoke(move, [intents]);
         Hexes.Add(move, new(__instance, twist));
@@ -296,6 +308,23 @@ internal static class HexExecutionPatch
                 break;
             case TwistKind.Constricting: await Capped<ConstrictPower>(hex.Twist.Magnitude(2), 4); break;
             case TwistKind.Eroding: await Capped<DisintegrationPower>(1, 2); break;
+            case TwistKind.Sundering:
+                foreach (var target in living) await CreatureCmd.LoseBlock(target, Math.Min(6, target.Block));
+                break;
+            case TwistKind.Purifying:
+                var debuff = source.Powers.Where(p => p.TypeForCurrentAmount == MegaCrit.Sts2.Core.Entities.Powers.PowerType.Debuff)
+                    .OrderBy(p => p.Id.Entry, StringComparer.Ordinal).FirstOrDefault();
+                // Native temporary-stat removal must also restore its stat delta.
+                if (debuff is TemporaryStrengthPower or TemporaryDexterityPower)
+                    await PowerCmd.ModifyAmount(context, debuff, -debuff.Amount, null, null);
+                else if (debuff != null) await PowerCmd.Remove(debuff);
+                break;
+            case TwistKind.Mending:
+                await CreatureCmd.Heal(source, Math.Min(3, Math.Max(1, source.MaxHp / 20)));
+                break;
+            case TwistKind.Entangling: await Capped<TangledPower>(1, 1); break;
+            case TwistKind.Withering: await Capped<WitheringPower>(1, 1); break;
+            case TwistKind.Shriveling: await Capped<ShrinkPower>(1, 1); break;
         }
         ModEntry.Log.Info($"HEX resolved monster={hex.Monster.Id.Entry} twist={hex.Twist.Kind} targets={living.Length}");
     }

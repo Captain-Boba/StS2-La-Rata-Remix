@@ -27,7 +27,7 @@ public abstract class ComboRelic : CustomRelicModel
         "Whenever you Exhaust a card, gain 1 Block. The first time each turn, also draw 1 card.",
         "The first time you play a Power each turn, gain 1 Energy and 4 Vigor.",
         "The first time you play two different card types in a turn, draw 1 card and gain 4 Block.",
-        "Whenever you use a Potion in combat, gain 1 Strength and immediately draw 2 cards.",
+        "Whenever you use a Potion in combat, gain 1 Strength and draw 2 cards.",
         "The first time you discard a card during your turn, gain 1 Energy."
     ];
     public override RelicRarity Rarity => Kind is 1 or 3 ? RelicRarity.Rare : RelicRarity.Uncommon;

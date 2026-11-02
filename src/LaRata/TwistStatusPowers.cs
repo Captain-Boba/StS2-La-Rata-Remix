@@ -1,4 +1,5 @@
 using BaseLib.Abstracts;
+using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization;
@@ -88,7 +89,7 @@ public sealed class HexTwistPower : TwistStatusPower
     {
         var text = new LocString("powers", Key(twist) + ".description");
         text.Add("Dose", twist.Magnitude(twist.Kind == TwistKind.Ominous ? 4 : 2));
-        text.Add("Debuff", (twist.Amount switch
+        if (twist.Kind is TwistKind.Hexed or TwistKind.Echoing) text.Add("Debuff", (twist.Amount switch
         {
             2 => ModelDb.Power<FrailPower>().Title,
             3 => ModelDb.Power<VulnerablePower>().Title,
@@ -105,7 +106,39 @@ internal sealed class HexDebuffIntent(EnemyTwist twist) : DebuffIntent
     protected override LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner) => HexTwistPower.Describe(twist);
 }
 
+internal sealed class HexBuffIntent(EnemyTwist twist) : BuffIntent
+{
+    protected override LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner) => HexTwistPower.Describe(twist);
+}
+
 internal sealed class HexStatusIntent(EnemyTwist twist) : StatusIntent(1)
 {
     protected override LocString GetIntentDescription(IEnumerable<Creature> targets, Creature owner) => HexTwistPower.Describe(twist);
+}
+
+// Native effects keep their lifecycle and icon. Their original descriptions
+// mention an Exoskeleton, another player, or landing; those do not fit a twist.
+[HarmonyPatch]
+internal static class VarietyPowerDescriptionPatch
+{
+    [HarmonyTargetMethods]
+    private static IEnumerable<System.Reflection.MethodBase> Targets() =>
+        new[] { nameof(PowerModel.Description), nameof(PowerModel.SmartDescription), nameof(PowerModel.RemoteDescription) }
+            .Select(name => AccessTools.PropertyGetter(typeof(PowerModel), name));
+
+    [HarmonyPostfix]
+    private static void Postfix(PowerModel __instance, ref LocString __result)
+    {
+        if (!__instance.IsMutable || __instance.Owner?.CombatState is not { } combat || __instance.Owner.Monster is not { } monster) return;
+        TwistKind? kind = __instance switch
+        {
+            HardToKillPower => TwistKind.Sheltered,
+            SneakyPower => TwistKind.Reactive,
+            SoarPower => TwistKind.Drifting,
+            _ => null
+        };
+        if (kind == null || EncounterDirector.Get(combat.Encounter)?.For(monster).Any(t => t.Kind == kind) != true) return;
+        __result = new LocString("powers", "LARATA-TWIST_VARIETY." + kind.ToString()!.ToLowerInvariant() + ".description");
+        __result.Add("Amount", __instance.Amount);
+    }
 }

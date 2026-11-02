@@ -1,0 +1,150 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "generator": "built-in image_gen",
+  "assets": [
+    {
+      "key": "static_tribute",
+      "title": "Static Tribute",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/static_tribute.png",
+      "prompt": "Use case: stylized-concept. Brand-new standalone production card illustration for La Rata Remix in the hand-painted Slay the Spire 2 visual language: bold sculpted brush planes, angular expressive fantasy shapes, rich matte blacks, controlled detail, readable large silhouettes and dramatic localized light. This is a fresh composition from scratch, not an edit or recolor of any prior image. Landscape 4:3, ideally 1448x1086. Full bleed scene, essential subject/action inside central 80 percent for a native card crop. One scene only. No lettering, numbers, text, UI, logos, watermark, card border or complete card. Classic ominous La Rata BLACK AND EMERALD GREEN palette with restrained material accents, substantial dark quiet areas. A sacrificed royal CROWN is the lightning conductor on a cracked black stone offering altar in a drowned gothic vault. The crown is a large heavy black-iron circlet with three broad tarnished copper points, tilted diagonally toward the viewer. A brilliant EMERALD electrical strike hits its highest point, and a controlled branching arc leaps outward into three separate hovering round energy ORBS, visibly waking them. Dynamic low viewpoint; crown and first orb dominate the foreground, the others recede in a curved diagonal into deep dark space. Beautiful broad green-white lightning surrounded by dark jade haze, copper edge glints, wet black stone reflections. The motion reads as a tribute releasing stored electric power. No rat, person, hands, bell, scepter, skull, mechanical wires, floating playing cards or coins. Keep the orbs spherical, the crown physically grounded and the lightning clean rather than a tangled net.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-59ff73c5-79d0-4906-8655-2d7e708122bd.png",
+      "humanApproved": false,
+      "priorRuntimeArchive": "artifacts/content-expansion-20261102/k5/redesign/before/static_tribute.png",
+      "previousRuntimeSha256": "413f0c083ffad92461e365614c00ba8095e50606d92aae8cf48311ee0dde3b0b",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "a7da13c79cfe0d0a2ab1b2c41702802a48b0c763e581530ed035ca22b0a2aaad",
+      "runtimeSha256": "a7da13c79cfe0d0a2ab1b2c41702802a48b0c763e581530ed035ca22b0a2aaad",
+      "bindingSourceFiles": [
+        "src/LaRata/ExpansionCards.cs",
+        "src/LaRata/LaRataCardCatalog.cs"
+      ],
+      "bindingSourceFound": true,
+      "review": "K5 inspected original and small-size/contact-sheet preview; no human or native UI acceptance claimed."
+    },
+    {
+      "key": "gilded_coffin",
+      "title": "Gilded Coffin",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/gilded_coffin.png",
+      "prompt": "Use case: stylized-concept. Brand-new standalone production card illustration for La Rata Remix in the hand-painted Slay the Spire 2 visual language: bold sculpted brush planes, angular expressive fantasy shapes, rich matte blacks, controlled detail, readable large silhouettes and dramatic localized light. This is a fresh composition from scratch, not an edit or recolor of any prior image. Landscape 4:3, ideally 1448x1086. Full bleed scene, essential subject/action inside central 80 percent for a native card crop. One scene only. No lettering, numbers, text, UI, logos, watermark, card border or complete card. Classic ominous La Rata BLACK AND EMERALD GREEN palette with restrained material accents, substantial dark quiet areas. A massive closed GOLDEN COFFIN lies horizontally in strong three-quarter perspective on an obsidian bier, its broad shoulder end near the viewer and its narrow foot receding toward a ruined crypt doorway. The lid is formed from one recognizable battered black-and-gold tower SHIELD: a single bold gold central ridge and broad angular shield plates, with clean shoulder notches that make the coffin unmistakable. Emerald doom-light leaks in a razor-thin continuous seam around the heavy lid; a few thin ghostly green wisps curl out and dissipate. Gold defensive metal becomes a sealed ominous tomb. Large simple readable shapes, rich antique gold and black enamel, localized eerie green reflected on the floor. No standing vertical crystal, violet beam, chest, treasure, humanoid, rat, corpse, skeleton, floating lid, rune text or excessive ornament. The coffin fills the central composition and remains visually solid, heavy and closed.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-7e38bb4a-063d-4358-ae1d-569ee8dfcec9.png",
+      "humanApproved": false,
+      "priorRuntimeArchive": "artifacts/content-expansion-20261102/k5/redesign/before/gilded_coffin.png",
+      "previousRuntimeSha256": "47b683b8355de13e780484fd388a9a5a6322553d9853968181d878a92e56d56f",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "9d3a8c4a10583088945d16f64b883c780c665139ba9ecbb3b2f565681b7d7cf4",
+      "runtimeSha256": "9d3a8c4a10583088945d16f64b883c780c665139ba9ecbb3b2f565681b7d7cf4",
+      "bindingSourceFiles": [
+        "src/LaRata/ExpansionCards.cs",
+        "src/LaRata/LaRataCardCatalog.cs"
+      ],
+      "bindingSourceFound": true,
+      "review": "K5 inspected original and small-size/contact-sheet preview; no human or native UI acceptance claimed."
+    },
+    {
+      "key": "bloodsmith",
+      "title": "Bloodsmith",
+      "kind": "card",
+      "target": "assets/LaRata/images/cards/bloodsmith.png",
+      "prompt": "Use case: stylized-concept. Brand-new standalone production card illustration for La Rata Remix in the hand-painted Slay the Spire 2 visual language: bold sculpted brush planes, angular expressive fantasy shapes, rich matte blacks, controlled detail, readable large silhouettes and dramatic localized light. This is a fresh composition from scratch, not an edit or recolor of any prior image. Landscape 4:3, ideally 1448x1086. Full bleed scene, essential subject/action inside central 80 percent for a native card crop. One scene only. No lettering, numbers, text, UI, logos, watermark, card border or complete card. Classic ominous La Rata BLACK AND EMERALD GREEN palette with restrained material accents, substantial dark quiet areas. A lean crowned gray RAT BLACKSMITH in SIDE PROFILE at the left of the scene, small battered crown, soot-black apron, long pink ear and pointed muzzle, works at a huge black anvil. The entire composition is a bold lateral silhouette: rat on the left, the broad unfinished sword projects horizontally across the center to the right. One coherent natural bent arm holds a short forge hammer raised above the blade; the other simple paw holds long tongs gripping the blade near the anvil. Exactly two arms, connected shoulders/elbows/wrists, separated readable tools. A few LARGE CRIMSON molten iron drops descend from a dark red magical gem hanging over the anvil and fuse into glowing RED channels in the unfinished blade; metallic drops, no wound, no gore. An intense EMERALD furnace opening behind and slightly below lights the rat's dark silhouette, the anvil edge and green smoke. Matte charcoal, obsidian, jade-green forge light, restrained red-hot steel as a clear secondary color. Broad stylized brush strokes, a spare dark workshop background, no frontal portrait, busy tool rack, floating loose hands, enormous muscle anatomy or modern machinery.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-d31f7e8a-0022-4561-814c-52034b2925e2.png",
+      "humanApproved": false,
+      "priorRuntimeArchive": "artifacts/content-expansion-20261102/k5/redesign/before/bloodsmith.png",
+      "previousRuntimeSha256": "dcb45d111e9f76af13fce429a67653a052c72671076009bd231d176873c9a5d8",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1448,
+        1086
+      ],
+      "sourceSha256": "f370b0b76df8e0924d1d230bdc4a1ed5074b7318c87522f3137dd11445de5611",
+      "runtimeSha256": "f370b0b76df8e0924d1d230bdc4a1ed5074b7318c87522f3137dd11445de5611",
+      "bindingSourceFiles": [
+        "src/LaRata/ExpansionCards.cs",
+        "src/LaRata/LaRataCardCatalog.cs"
+      ],
+      "bindingSourceFound": true,
+      "review": "K5 inspected original and small-size/contact-sheet preview; no human or native UI acceptance claimed."
+    },
+    {
+      "key": "amber_hourglass",
+      "title": "Amber Hourglass",
+      "kind": "potion",
+      "target": "assets/LaRata/images/potions/amber_hourglass.png",
+      "prompt": "Use case: stylized-concept. Completely NEW single potion inventory ICON for La Rata Remix in simplified native Slay the Spire 2 painted style. Square ideally 1254x1254, genuine transparent alpha, centered object with ample clean transparent margins. Redesign from scratch, not an edit or recolor. Do NOT use a black/green color scheme. A compact squat HOURGLASS-SHAPED GLASS BOTTLE with wide flattened rounded upper and lower chambers, a strongly pinched waist and a very short corked neck. Slight asymmetric handblown tilt, jewel-like chunky silhouette. Glass is frosted pale LAVENDER and soft cool BLUE with plum shadow planes, not turquoise. Inside, rich warm HONEY-AMBER liquid is magically frozen into a single large suspended teardrop above the waist and a shallow golden crescent pool below, with clear airy negative space between. Thin simple COPPER collar at neck and muted violet cork, no elaborate frame or pedestal; the base is rounded glass, not a metal stand. Bold broad painted color planes, economical dark outline, 2 or 3 clean broad glints only, strong 32px readability. No green, black body, white lacquer, milky coating, sand grains, clock hands, text, labels, numerals, UI, frame, surrounding scenery, floor, external cast shadow, collage or extra objects.",
+      "source": "C:\\Users\\lukas\\.codex\\generated_images\\01a170b8-71fe-7e00-85b7-0e668c562572\\exec-3fd15d02-71e3-4a74-8228-9efe2202884d.png",
+      "humanApproved": false,
+      "priorRuntimeArchive": "artifacts/content-expansion-20261102/k5/redesign/before/amber_hourglass.png",
+      "previousRuntimeSha256": "cd13faf4d75eb1eb16de72c0c63440e0c069bb4c2923f602acdacd41849ae0bd",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBounds": [
+        0,
+        23,
+        1226,
+        1254
+      ],
+      "visibleAlphaBoundsThreshold8": [
+        224,
+        93,
+        1051,
+        1174
+      ],
+      "sub8AlphaAtCanvasEdge": true,
+      "sourceSha256": "3fc4dfe41d87c98552737ee1d339fcdbce7e526393b0b8106634b8bfa687d879",
+      "runtimeSha256": "3fc4dfe41d87c98552737ee1d339fcdbce7e526393b0b8106634b8bfa687d879",
+      "bindingSourceFiles": [
+        "src/LaRata/ExpansionPotions.cs"
+      ],
+      "bindingSourceFound": true,
+      "review": "K5 inspected original and small-size/contact-sheet preview; no human or native UI acceptance claimed."
+    }
+  ],
+  "humanApproved": false
+}

@@ -1,4 +1,6 @@
 {
+  "contest.well_swallow": "水井吞没其他玩家的出拳。",
+  "contest.well_awarded": "{0}\n获得{1}。",
   "pool.royal": "王庭",
   "common.cancel": "取消",
   "common.close": "关闭",

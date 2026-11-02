@@ -45,15 +45,15 @@ internal static class LaRataCardCatalog
         Boss<GreenGuillotine>(17, "green_guillotine"),
         Boss<RattlingArsenal>(18, "rattling_arsenal"),
         Boss<RoyalPardon>(19, "royal_pardon", gambit: true),
-        Boss<BlackTithe>(20, "black_tithe"),
+        Boss<BlackTithe>(20, "black_tithe", active: false),
         Boss<PlagueOfCrowns>(21, "plague_of_crowns", active: false),
         Boss<KneelBeforeTheCrown>(22, "kneel_before_the_crown"),
         Boss<SoulForeclosure>(23, "soul_foreclosure"),
         Boss<NightfallDecree>(24, "nightfall_decree", gambit: true),
-        Player<Cleanse>(25, "cleanse"),
-        Player<GraveSpark>(26, "grave_spark"),
+        Player<Cleanse>(25, "cleanse", active: false),
+        Player<GraveSpark>(26, "grave_spark", active: false),
         Player<UmbralStitch>(27, "umbral_stitch"),
-        Player<SewerPact>(28, "sewer_pact"),
+        Player<SewerPact>(28, "sewer_pact", active: false),
         Player<PhantomParade>(29, "phantom_parade"),
         Player<BorrowedBreath>(30, "borrowed_breath"),
         Player<CrownExchange>(31, "crown_exchange"),
@@ -72,7 +72,7 @@ internal static class LaRataCardCatalog
         Player<BorrowedBackbone>(44, "borrowed_backbone"),
         Player<SmugglersDividend>(45, "smugglers_dividend"),
         Player<CourtOfCinders>(46, "court_of_cinders"),
-        Player<LordTibosReset>(47, "lord_tibos_reset"),
+        Player<LordTibosReset>(47, "lord_tibos_reset", active: false),
         Prize<RoyalScepterPrize>("scepter_storm"),
         Prize<RoyalAlchemyPrize>("sewer_alchemy"),
         Prize<RoyalAegisPrize>("stolen_aegis"),
@@ -84,7 +84,18 @@ internal static class LaRataCardCatalog
         Prize<RoyalForeclosurePrize>("soul_foreclosure"),
         Prize<RoyalNightfallPrize>("nightfall_decree"),
         ClassPlayer<WrathOfTheBigO>("wrath_of_the_big_o"),
-        ClassPlayer<TheKikilyst>("the_kikilyst")
+        ClassPlayer<TheKikilyst>("the_kikilyst"),
+        NeutralPlayer<RoyalReplication>("royal_replication"),
+        NeutralPlayer<DeadLetter>("dead_letter"),
+        NeutralPlayer<PlagueParade>("plague_parade"),
+        NeutralPlayer<AshenOverture>("ashen_overture"),
+        NeutralPlayer<PawnPromotion>("pawn_promotion"),
+        NeutralPlayer<LastLaugh>("last_laugh"),
+        NeutralPlayer<StaticTribute>("static_tribute"),
+        NeutralPlayer<GildedCoffin>("gilded_coffin"),
+        NeutralPlayer<BonfireSale>("bonfire_sale"),
+        NeutralPlayer<Bloodsmith>("bloodsmith"),
+        NeutralPlayer<UnderTheTable>("under_the_table")
     ]);
 
     internal static CardModel[] Neutrals => Entries.Where(e => e.BoosterEligibility == LaRataBoosterEligibility.Neutral).Select(e => e.Model).ToArray();
@@ -99,12 +110,16 @@ internal static class LaRataCardCatalog
 
     private static LaRataCardEntry Boss<T>(int id, string key, bool active = true, bool gambit = false) where T : CardModel =>
         new(() => ModelDb.Card<T>(), key, LaRataCardRole.BossExclusive, key, id, active, gambit);
-    private static LaRataCardEntry Player<T>(int id, string key) where T : CardModel =>
-        new(() => ModelDb.Card<T>(), key, LaRataCardRole.Player, key, id, true,
+    private static LaRataCardEntry Player<T>(int id, string key, bool active = true) where T : CardModel =>
+        new(() => ModelDb.Card<T>(), key, LaRataCardRole.Player, key, id, active,
             BoosterEligibility: LaRataBoosterEligibility.Neutral);
     private static LaRataCardEntry Prize<T>(string key) where T : CardModel =>
         new(() => ModelDb.Card<T>(), key, LaRataCardRole.PlayableBossVariant, key, null, false,
             BoosterEligibility: LaRataBoosterEligibility.RoyalPrize);
+    // New player cards require a separate, explicit boss design before admission.
+    private static LaRataCardEntry NeutralPlayer<T>(string key) where T : CardModel =>
+        new(() => ModelDb.Card<T>(), key, LaRataCardRole.Player, key, null, false,
+            BoosterEligibility: LaRataBoosterEligibility.Neutral);
     // Native Pool registration controls class rewards and the matching class booster.
     // A player role alone must never opt a card into neutral bonuses or boss execution.
     private static LaRataCardEntry ClassPlayer<T>(string key) where T : CardModel =>

@@ -73,16 +73,23 @@ internal static class EncounterDirector
         // These native helpers need no encounter-specific scene. Larger helpers
         // join from act two; early fights retain small bodies.
         MonsterModel[] pool = actIndex <= 0
-            ? [ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>()]
+            ? [ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>(),
+                ModelDb.Monster<SneakyGremlin>(), ModelDb.Monster<SnappingJaxfruit>(), ModelDb.Monster<TwigSlimeM>()]
             : [ModelDb.Monster<LeafSlimeS>(), ModelDb.Monster<TwigSlimeS>(), ModelDb.Monster<CorpseSlug>(),
-                ModelDb.Monster<Nibbit>(), ModelDb.Monster<Flyconid>(), ModelDb.Monster<FuzzyWurmCrawler>()];
+                ModelDb.Monster<Nibbit>(), ModelDb.Monster<Flyconid>(), ModelDb.Monster<FuzzyWurmCrawler>(),
+                ModelDb.Monster<SneakyGremlin>(), ModelDb.Monster<SnappingJaxfruit>(), ModelDb.Monster<TwigSlimeM>(),
+                ModelDb.Monster<SlitheringStrangler>(), ModelDb.Monster<Chomper>(), ModelDb.Monster<SewerClam>(), ModelDb.Monster<SludgeSpinner>()];
+        if (actIndex >= 2) pool = [.. pool, ModelDb.Monster<SpinyToad>()];
         pool = pool.OrderBy(x => x.Id.Entry, StringComparer.Ordinal).ToArray();
         var occupied = present.ToHashSet();
         var distinct = pool.Where(x => !occupied.Contains(x.Id)).ToArray();
         if (distinct.Length == 0) distinct = pool;
-        var recent = previous.ToHashSet();
-        var fresh = distinct.Where(x => !recent.Contains(x.Id)).ToArray();
-        return fresh.Length > 0 ? fresh : distinct;
+        var history = previous.ToArray(); // oldest to newest, from native saved rooms
+        var fresh = distinct.Where(x => !history.Contains(x.Id)).ToArray();
+        if (fresh.Length > 0) return fresh;
+        // When the window covers the pool, prefer the least recently seen type.
+        int oldest = distinct.Min(x => Array.LastIndexOf(history, x.Id));
+        return distinct.Where(x => Array.LastIndexOf(history, x.Id) == oldest).ToArray();
     }
 }
 
@@ -128,9 +135,9 @@ internal static class GenerateEncounterPatch
         var previous = runState.MapPointHistory.SelectMany(x => x)
             .Where(x => !ReferenceEquals(x, runState.CurrentMapPointHistoryEntry))
             .SelectMany(x => x.Rooms)
-            .LastOrDefault(x => x.RoomType is RoomType.Monster or RoomType.Elite or RoomType.Boss)
-            ?.MonsterIds.ToArray() ?? [];
-        var reinforcementRng = EncounterDirector.Random(runState, __instance, "reinforcements/v2");
+            .Where(x => x.RoomType is RoomType.Monster or RoomType.Elite or RoomType.Boss)
+            .TakeLast(3).SelectMany(x => x.MonsterIds).ToArray();
+        var reinforcementRng = EncounterDirector.Random(runState, __instance, "reinforcements/v3");
         for (int i = 0; i < plan.ReinforcementCount; i++)
         {
             MonsterModel extra;

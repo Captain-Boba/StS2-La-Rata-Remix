@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "status": "Art-frozen; awaiting K6 import/export and human review",
+  "manifest": "docs/art-prompts/content-expansion-20261102/redesign/manifest.json",
+  "checks": {
+    "changedRuntimePngs": [
+      "assets/LaRata/images/cards/bloodsmith.png",
+      "assets/LaRata/images/cards/gilded_coffin.png",
+      "assets/LaRata/images/cards/static_tribute.png",
+      "assets/LaRata/images/potions/amber_hourglass.png"
+    ],
+    "changedRuntimePngCount": 4,
+    "otherImagesAndImportsUnchanged": 308,
+    "sourceRuntimeIdentity": true,
+    "archivedPreviousRuntimeIdentity": true,
+    "allEightActiveSelectionChecks": "PASS",
+    "humanApproved": false,
+    "nativeImportAndRendering": "NOT TESTED",
+    "preview": "artifacts/content-expansion-20261102/k5/redesign/preview.png"
+  },
+  "sourceRuntimeHashes": {
+    "static_tribute": "a7da13c79cfe0d0a2ab1b2c41702802a48b0c763e581530ed035ca22b0a2aaad",
+    "gilded_coffin": "9d3a8c4a10583088945d16f64b883c780c665139ba9ecbb3b2f565681b7d7cf4",
+    "bloodsmith": "f370b0b76df8e0924d1d230bdc4a1ed5074b7318c87522f3137dd11445de5611",
+    "amber_hourglass": "3fc4dfe41d87c98552737ee1d339fcdbce7e526393b0b8106634b8bfa687d879"
+  },
+  "ownership": "Only 4 runtime PNGs and provenance/previews changed. No code/localization/style/import/build/install/game/Git action."
+}

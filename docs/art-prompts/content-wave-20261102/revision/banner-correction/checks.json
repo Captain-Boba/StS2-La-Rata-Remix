@@ -1,0 +1,26 @@
+{
+  "unchangedImageAndImportFiles": 296,
+  "styleBindingChangesOnly": true,
+  "normalFrameRestored": true,
+  "prizeModels": [
+    "RoyalScepterPrize",
+    "RoyalAlchemyPrize",
+    "RoyalAegisPrize",
+    "RoyalContractPrize",
+    "RoyalTempestPrize",
+    "RoyalTithePrize",
+    "RoyalPlaguePrize",
+    "RoyalKneelPrize",
+    "RoyalForeclosurePrize",
+    "RoyalNightfallPrize"
+  ],
+  "prizeCount": 10,
+  "bossReference": "ModelDb.Card<ScepterStorm>().BannerMaterial",
+  "integration": "Existing BaseLib CreateCustomBannerMaterial; native shared title/portrait/type-plaque contract.",
+  "portraitOnlyPatchRemoved": true,
+  "specialShaderAndUidRemoved": true,
+  "actualCardRarityAndGameplayUnchanged": true,
+  "normalCardBannerFallbackUnchanged": true,
+  "version": "0.9.6",
+  "nativeVisualAcceptance": "PENDING K6"
+}

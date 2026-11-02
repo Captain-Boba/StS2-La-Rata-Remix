@@ -19,6 +19,7 @@ internal static class RoyalFinaleChecks
         ModelDb.Inject(typeof(RoyalRegaliaPower));
         var canonical = ModelDb.Encounter<RatKingEncounter>();
         var seenPairs = new HashSet<string>();
+        Require(RoyalRegaliaPower.Relics.Length == 25 && RoyalRegaliaPower.EnglishEffects.Length == 25 && RoyalRegaliaPower.RelicCount == 10, "Regalia pool/selection size differs");
         for (uint seed = 0; seed < 128; seed++)
         {
             var snapshots = new List<string>();
@@ -56,24 +57,7 @@ internal static class RoyalFinaleChecks
         var king = (RatKing)ModelDb.Monster<RatKing>().ToMutable();
         var kingBody = new Creature(king, CombatSide.Enemy, "king") { CombatState = combat };
         combat.AddCreature(kingBody);
-        foreach (var source in RatKingEncounter.Guards)
-        {
-            var guard = (KingsguardKnight)source.ToMutable();
-            guard.SetUpForCombat();
-            // Native Bestiary calls with no Creature remain safe.
-            var moves = guard.MoveStateMachine!.States.Values.OfType<MoveState>();
-            var attacks = moves.SelectMany(m => m.Intents).OfType<AttackIntent>().ToArray();
-            var before = attacks.Select(a => a.DamageCalc!()).ToArray();
-            var guardBody = new Creature(guard, CombatSide.Enemy, "court_left") { CombatState = combat };
-            combat.AddCreature(guardBody);
-            guard.AfterAddedToRoom().GetAwaiter().GetResult();
-            king.PendingStrength = 5; // Blood Contract + Kneel in the announced hand.
-            Require(attacks.Select(a => a.DamageCalc!()).SequenceEqual(before.Select(d => d + 5)), "Guard intent misses pending royal Strength");
-            var court = (Creature[])AccessTools.PropertyGetter(typeof(KingsguardKnight), "Court").Invoke(guard, null)!;
-            Require(court.Contains(kingBody), "Guard support excludes La Rata");
-            king.PendingStrength = 0;
-            Require(attacks.Select(a => a.DamageCalc!()).SequenceEqual(before), "Guard intent double counts already-applied Strength");
-        }
+        CheckGuardIntents(combat, king, kingBody);
         for (uint seed = 0; seed < 128; seed++)
         {
             int mask = RoyalRegaliaPower.Choose(new Rng(seed));
@@ -92,7 +76,7 @@ internal static class RoyalFinaleChecks
         Console.WriteLine("PASS: guard support includes king; six attack intents track 5 pending Strength without Bestiary Creature access; ten-relic replay/display and owner-scoped Tungsten Rod hook.");
 
         Require(RoyalCard.All.Length == 25 && RemixCard.BossPrizes.Length == 10, "Royal pools have incorrect size");
-        Require(RoyalDeck.ActiveCards.Length == 46 && !RoyalDeck.ActiveCards.Contains(3) && !RoyalDeck.ActiveCards.Contains(21), "Retired poison cards remain in the active boss deck");
+        Require(RoyalDeck.ActiveCards.Length == 41 && RoyalDeck.ActiveCards.SequenceEqual(Enumerable.Range(0, 48).Except(new[] { 3, 20, 21, 25, 26, 28, 47 })), "Excluded cards remain in the active boss deck");
         Require(CameoSchedule.RoyalPool.All(i => RoyalDeck.ActiveCards.Contains(i)), "Royal cameo uses a retired boss card");
         Require(CameoSchedule.RoyalPool.Select(i => RoyalCard.All[i].GetType()).SequenceEqual(new[]
         {
@@ -129,5 +113,30 @@ internal static class RoyalFinaleChecks
         Require(tithe.GetIntents(king).Single() is RoyalEdictIntent, "Block-removal warning is missing");
         Require(ModelDb.Card<PlagueOfCrowns>().GetIntents(king).Any(i => i is RoyalEdictIntent), "Plague warning is missing");
         Console.WriteLine("PASS: five new rare boss prizes have explicit base/upgrade values, targets and shared artwork; dangerous boss debuffs use dedicated intent descriptions. No gameplay or network test.");
+    }
+    // DamageCalc is the raw basis. The overridden GetTotalDamage is the native UI forecast.
+    internal static void CheckGuardIntents(CombatState combat, RatKing king, Creature kingBody)
+    {
+        foreach (var source in RatKingEncounter.Guards)
+        {
+            var guard = (KingsguardKnight)source.ToMutable();
+            guard.SetUpForCombat();
+            // Native Bestiary calls with no Creature remain safe.
+            var moves = guard.MoveStateMachine!.States.Values.OfType<MoveState>();
+            var attacks = moves.SelectMany(m => m.Intents).OfType<AttackIntent>().ToArray();
+            var before = attacks.Select(a => a.DamageCalc!()).ToArray();
+            var guardBody = new Creature(guard, CombatSide.Enemy, "court_left") { CombatState = combat };
+            combat.AddCreature(guardBody);
+            guard.AfterAddedToRoom().GetAwaiter().GetResult();
+            king.PendingStrength = 5; // Blood Contract + Kneel in the announced hand.
+            Require(attacks.Select(a => a.GetTotalDamage([], guardBody)).SequenceEqual(attacks.Select((a, i) => (int)((before[i] + 5) * RoyalDamageRamp.Factor(combat.RoundNumber)) * a.Repeats)), "Guard forecast misses pending royal Strength or native ramp");
+            var court = (Creature[])AccessTools.PropertyGetter(typeof(KingsguardKnight), "Court").Invoke(guard, null)!;
+            Require(court.Contains(kingBody), "Guard support excludes La Rata");
+            var strength = ModelDb.Power<MegaCrit.Sts2.Core.Models.Powers.StrengthPower>().ToMutable();
+            strength.ApplyInternal(guardBody, 5, true);
+            king.PendingStrength = 0;
+            Require(attacks.Select(a => a.GetTotalDamage([], guardBody)).SequenceEqual(attacks.Select((a, i) => (int)((before[i] + 5) * RoyalDamageRamp.Factor(combat.RoundNumber)) * a.Repeats)), "Guard forecast double counts already-applied Strength");
+            strength.RemoveInternal();
+        }
     }
 }

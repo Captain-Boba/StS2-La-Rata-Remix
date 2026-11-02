@@ -40,10 +40,29 @@ internal static class RoyalFollowupChecks
     internal static void Run()
     {
         using var localization=new NativeFixtureLocalization();
+        RoyalBossEffects.ValidateCatalog();
+        Require(RoyalDeck.ResetCard == 47 && !RoyalDeck.ActiveCards.Contains(47) &&
+            !LaRataCardCatalog.GetBossEntry(47).BossEligible && LaRataCardCatalog.GetBossModel(47) is LordTibosReset &&
+            LaRataCardCatalog.Neutrals.Any(card => card is LordTibosReset),
+            "Reset must retain ID 47 and its player booster model while excluded from the boss deck");
+        Require(!RoyalDeck.ActiveCards.Contains(25) && !LaRataCardCatalog.GetBossEntry(25).BossEligible &&
+            LaRataCardCatalog.Neutrals.Any(card=>card is LaRata.Cleanse),
+            "Royal Cleansing must remain a player booster card while excluded from the boss deck");
+        Require(RoyalBossEffects.Description(8)=="Gain 25 base Block and 2 Vulnerable." &&
+            RoyalBossEffects.EnglishDescription(8)==RoyalBossEffects.Description(8), "Exposed Crown boss preview/fallback differs");
         Require(RoyalDeck.Costs[36]==1&&RoyalDeck.Costs[41]==1&&RoyalDeck.Costs[46]==1,"Royal cost delta missing");
         Require(RoyalDeck.IsExhaust(36)&&RoyalDeck.IsExhaust(41)&&!RoyalDeck.ActiveCards.Contains(3),"Royal Exhaust or retired Alchemy changed");
         foreach(int count in new[]{1,2,3,4})
         {
+            {
+                var(_,_,king,players)=Setup(count);
+                Resolve(king,8,players);
+                int expectedBlock=count switch{1=>25,2=>65,3=>97,4=>130,_=>throw new InvalidOperationException()};
+                Require(king.Creature.Block==expectedBlock && king.Creature.GetPowerAmount<VulnerablePower>()==2,
+                    $"Exposed Crown native boss Block/Vulnerable count={count}: expected {expectedBlock}/2, got {king.Creature.Block}/{king.Creature.GetPowerAmount<VulnerablePower>()}");
+                Require(RoyalBossEffects.Intents(king,8).Any(i=>i is MegaCrit.Sts2.Core.MonsterMoves.Intents.DefendIntent),
+                    "Exposed Crown lost its native defensive intent");
+            }
             foreach(int artifact in new[]{0,1,2,3})
             {
                 var(_,_,king,players)=Setup(count);
@@ -107,9 +126,24 @@ internal static class RoyalFollowupChecks
             Require(amount==expected,"Final Grave Levy percentage/rounding/quartering");
             ModelDb.Card<GraveLevy>().Resolve(king,players.Select(p=>p.Creature).ToArray()).GetAwaiter().GetResult();
             Require(king.Creature.CurrentHp==Math.Min(maxHp,maxHp-20+expected),"Native Grave Levy heal/cap");
-            Require(players[0].Creature.CurrentHp==82,"Grave Levy actual attack path did not deal its base 18 damage");
+            // Existing 0.9.5 boss ramp applies even when Resolve is invoked
+            // directly: the initial round deals floor(18 * 40%) = 7 damage.
+            Require(players[0].Creature.CurrentHp==93,"Grave Levy initial-round attack did not apply the existing 40% boss ramp");
         }
         Require(ModelDb.Card<RoyalForeclosurePrize>().DynamicVars["Heal"].BaseValue==6,"Unrequested playable healing changed");
+        {
+            var(_,combat,king,players)=Setup(1);
+            Power<DexterityPower>(king.Creature,3);
+            Resolve(king,8,players);
+            Require(king.Creature.Block==28,"Exposed Crown must apply native Dexterity after its 25 Block boss basis");
+            var caster=ModelDb.Monster<CrownHeadsman>().ToMutable();
+            combat.AddCreature(new Creature(caster,CombatSide.Enemy,"intervention"){CombatState=combat});
+            ModelDb.Card<ExposedCrown>().Resolve(caster,players.Select(p=>p.Creature).ToArray()).GetAwaiter().GetResult();
+            Require(caster.Creature.Block==16 && caster.Creature.GetPowerAmount<VulnerablePower>()==2,
+                "Exposed Crown changed the normal intervention caster");
+            Require(RoyalCard.Descriptions[8].Contains("16 base Block"),"Normal intervention description changed");
+        }
+        Console.WriteLine("PASS Exposed Crown: native Block/Vulnerable for 1/2/3/4 modeled owners (25/65/97/130 Block), native Dexterity after the boss basis, 16 Block intervention, boss preview/fallback and defensive intent. No rendered UI/live multiplayer claim.");
         Console.WriteLine($"PASS royal delta: native effect commands for 1/2/3/4 modeled owners, {forecasts} supplied-plan forecasts compared to resolved native power hooks, final 1% healing and caps. Target announcements supplied; no live network, rendered intents or full boss-hand lifecycle.");
     }
 }

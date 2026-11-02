@@ -11,6 +11,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.PotionPools;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace LaRata;
 
@@ -24,6 +25,8 @@ public abstract class RoyalPotion : CustomPotionModel
     public override string CustomLargeImagePath => CustomPackedImagePath;
     public override List<(string, string)> Localization => [];
     protected bool CanResolve => Owner.Creature.IsAlive && !CombatManager.Instance.IsOverOrEnding;
+    protected bool CanResolveOnEnemy(Creature target) => CanResolve && target.IsEnemy && target.IsAlive &&
+        Owner.Creature.CombatState is { } combat && ReferenceEquals(target.CombatState, combat) && combat.ContainsCreature(target);
     protected bool OwnHandCard(CardModel card) => card.Owner == Owner && card.Pile?.Type == PileType.Hand;
 }
 
@@ -57,10 +60,15 @@ public sealed class Rustwater : RoyalPotion
     internal override string ArtKey => "rustwater";
     public override PotionRarity Rarity => PotionRarity.Uncommon;
     public override TargetType TargetType => TargetType.AnyEnemy;
+    public override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PlatingPower>()];
     protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
     {
         AssertValidForTargetedPotion(target);
-        if (!CanResolve || target!.Side != CombatSide.Enemy || !target.IsAlive) return;
+        if (!CanResolveOnEnemy(target)) return;
+        await PowerCmd.Remove<PlatingPower>(target);
+        // Strip Plating first, then ALL current Block, including Block it already
+        // granted and Block produced by native removal callbacks.
+        if (!CanResolveOnEnemy(target)) return;
         await CreatureCmd.LoseBlock(target, target.Block);
     }
 }

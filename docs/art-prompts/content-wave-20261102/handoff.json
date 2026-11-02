@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-02",
+  "owner": "K5",
+  "status": "Completed source/art handoff; no human artwork or native UI acceptance claimed.",
+  "art": {
+    "manifest": "docs/art-prompts/content-wave-20261102/manifest.json",
+    "prompts": "docs/art-prompts/content-wave-20261102/prompts.json",
+    "checks": "docs/art-prompts/content-wave-20261102/checks.json",
+    "nativeExport": "docs/art-prompts/content-wave-20261102/relic-outline-export.json",
+    "cards": 6,
+    "relicOriginals": 4,
+    "nativeSmallOutlineFiles": 8,
+    "sourceRuntimeIdentity": true,
+    "otherExistingImageAssetsPreserved": 130,
+    "onlyExistingMotifReplaced": "sootbound_ticket",
+    "royalShuffle": {
+      "stableArtkeyAndId": "royal_replication / LARATA-ROYAL_REPLICATION",
+      "sourceAndRuntimeSha256": "54d59a985a376bbb72774411ce45b0933f64a37f21034b8b875ec3e3d3dd030c",
+      "userInstruction": "New dark classic black/green design; visible name Royal Shuffle.",
+      "titleImplementationOwner": "K2",
+      "titlesVerifiedInCurrentJson": {
+        "eng": "Royal Shuffle",
+        "deu": "Königliches Mischen",
+        "zhs": "王室洗牌"
+      },
+      "previousBrightDraftArchived": true
+    },
+    "humanApproved": false
+  },
+  "code": [
+    {
+      "path": "src/LaRata/RelicContest.cs",
+      "sha256": "dff89548aacd85f8a569977f6c04c6cf5ccc5b1efeec85f5829441fa91eccd08"
+    },
+    {
+      "path": "src/LaRata/RelicContestPresentation.cs",
+      "sha256": "9c7f00ef87a5c1257d2787ef36c282b19e67e37d87791eb58d44593c4966b046"
+    },
+    {
+      "path": "src/LaRata/RoyalDamageRampPresentation.cs",
+      "sha256": "a5de951b1990b065fc27008b57d17767bdcb05c70e12cf23fd962905bb43805b"
+    }
+  ],
+  "sharedLocalizationOwnership": "Only contest.well_swallow and contest.well_awarded in each larata_ui.json, plus 3 LARATA-ROYAL_DAMAGE_RAMP_POWER keys in each powers.json. Other owners may continue editing their own keys.",
+  "nativeContracts": {
+    "well": "Existing seeded winner calculation is unchanged and occurs before animation. Uses unchanged Well/character textures, native room backdrop, responsive stage and Godot tweens. Scene exit cancels the existing session; owned tweens/nodes/signals are cleaned up.",
+    "ramp": "Detached native NPower view only for RatKing/KingsguardKnight inside RatKingEncounter. Source-inspected private owner/Add contracts bind the view without Creature.Powers/ApplyInternal. Percentage uses existing RoyalDamageRamp.Factor and native RoundNumber, invalidated by native combat-state events. No gameplay marker, persistent counter, damage/Cleanse change."
+  },
+  "technical": {
+    "productBuild": {
+      "result": "PASS",
+      "warnings": 0,
+      "errors": 0,
+      "log": "artifacts/content-wave-20261102/k5/code-check/build.log",
+      "dllSha256": "c78ddbd1ed362c8d96d33312e25acafad71017bacf1de8da18371c95b2ec38c7"
+    },
+    "patchActivation": {
+      "result": "PASS",
+      "patchedMethodsIncludingFixtureSubstitutions": 90,
+      "log": "artifacts/content-wave-20261102/k5/code-check/patches.log",
+      "scope": "Existing fixture run using the final isolated product DLL; no engine/UI execution."
+    },
+    "fixtureBuildWarning": "Existing CS8600 nullable warning at DisconnectRegressionChecks.cs:219.",
+    "assetAudit": "PASS: identities, alpha/hole, 4 exact relic interiors, 130 preserved existing image assets, eng/deu/zhs keys/placeholders."
+  },
+  "previews": [
+    "artifacts/content-wave-20261102/k5/cards.png",
+    "artifacts/content-wave-20261102/k5/relics.png",
+    "artifacts/content-wave-20261102/k5/relic-border-all.png"
+  ],
+  "remaining": [
+    "K1 final engine import/export and combined candidate checks.",
+    "Human artwork review and native card/Small/Outline/Big crops.",
+    "Well UI in 2/3/4-player contests with single/multiple/all Well holders, resizing, cancellation/scene exit.",
+    "Native ramp UI for all 3 encounter participants through rounds1-8; no marker in standalone guard encounters.",
+    "Real Save/Load/network/controller UI acceptance."
+  ],
+  "notPerformed": [
+    "Godot import/export",
+    "Game start",
+    "Installation",
+    "Commit",
+    "Push",
+    "Release"
+  ]
+}

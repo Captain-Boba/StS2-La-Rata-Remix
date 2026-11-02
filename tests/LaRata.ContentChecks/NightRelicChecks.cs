@@ -6,6 +6,9 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Merchant;
+using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Cards;
@@ -15,6 +18,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Models.Potions;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -84,37 +88,46 @@ internal static class NightRelicChecks
         ticket.AfterCardExhausted(Context,high,true).GetAwaiter().GetResult();
         Require(!ticket.TriggeredThisTurn&&run.Rng.CombatCardSelection.Counter==rng,"Ticket foreign/Ethereal consumed trigger/RNG");
         CardCmd.Exhaust(Context,high,skipVisuals:true).GetAwaiter().GetResult();
-        Require(ticket.TriggeredThisTurn&&discard.Pile?.Type==PileType.Hand&&Metric(ticket,"cards_recovered")==1,"Ticket did not recover actual discard card once");
+        Require(!ticket.TriggeredThisTurn&&discard.Pile?.Type==PileType.Discard&&
+            run.Rng.CombatCardSelection.Counter==rng&&Metric(ticket,"cards_recovered")==0,
+            "Ticket retained the retired exhaust recovery effect or statistics");
+        // Retained legacy save field must not activate the retired effect or
+        // consume the new first-card-per-merchant allowance.
+        ticket.TriggeredThisTurn=true; ticket=Restore(ticket,a);
         ticket.AfterCardExhausted(Context,high,false).GetAwaiter().GetResult();
-        Require(Metric(ticket,"cards_recovered")==1&&Restore(ticket,a).TriggeredThisTurn,"Ticket cap or native JSON differs");
-        ticket.BeforeSideTurnStart(Context,CombatSide.Player,[a.Creature,b.Creature],a.Creature.CombatState!).GetAwaiter().GetResult();
-        ticket.AfterCardExhausted(Context,high,false).GetAwaiter().GetResult();
-        Require(!ticket.TriggeredThisTurn,"Empty discard consumed Ticket");
-        Card<DefendIronclad>(run,a,PileType.Discard);
-        while(a.PlayerCombatState!.Hand.Cards.Count<CardPile.MaxCardsInHand)Card<StrikeIronclad>(run,a);
-        rng=run.Rng.CombatCardSelection.Counter;
-        ticket.AfterCardExhausted(Context,high,false).GetAwaiter().GetResult();
-        Require(!ticket.TriggeredThisTurn&&run.Rng.CombatCardSelection.Counter==rng,"Full hand consumed Ticket/RNG");
-        a.RemoveRelicInternal(ticket,true);var reacquired=Obtain<SootboundTicket>(a);
-        Require(!reacquired.TriggeredThisTurn&&Metric(reacquired,"cards_recovered")==0,"Ticket reacquisition inherited prior state");
-        Console.WriteLine("PASS Ticket: native discard→hand, exact recovered metric, foreign/Ethereal/empty rejection, turn cap, reacquisition and JSON.");
+        Require(discard.Pile?.Type==PileType.Discard&&ticket.SpentMerchant=="",
+            "Legacy Ticket flag changed the new contract");
+        var entry=new MerchantCardEntry(a,null,[ModelDb.Card<Bash>()],CardType.Attack);
+        Require(ticket.Rarity==RelicRarity.Rare&&ticket.ModifyMerchantPrice(a,entry,120)==120,
+            "Ticket rarity or non-shop behavior differs");
+        run.PushRoom(new MerchantRoom());run.AppendToMapPointHistory(MapPointType.Shop,RoomType.Shop,null);
+        Require(ticket.ModifyMerchantPrice(a,entry,120)==0&&ticket.ModifyMerchantPrice(b,entry,120)==120,
+            "Ticket free price must be owner-scoped and ignore legacy exhaust state");
+        Require(ticket.SpentMerchant=="","Price preview consumed Ticket");
+        ticket.SpentMerchant=SootboundMerchantPurchase.MerchantKey(a);
+        var spent=Restore(ticket,a);
+        Require(spent.ModifyMerchantPrice(a,entry,120)==120,"Spent merchant receipt lost in native JSON");
+        run.CurrentMapPointHistoryEntry!.Rooms.Add(new() { RoomType=RoomType.Shop });
+        Require(spent.ModifyMerchantPrice(a,entry,120)==0,"New merchant did not restore free-card allowance");
+        Console.WriteLine("PASS Ticket: retired exhaust effect inert, legacy JSON retained, Rare, owner-only free-card price, preview does not consume, spent receipt JSON and next merchant. Native purchase/cancel/packet cases are in --content-wave-relics.");
     }
     private static void Key()
     {
         var(run,a,b,_)=Setup();var key=Obtain<StairwellKey>(a);var c=Card<Bash>(run,a);
-        foreach(int cost in new[]{2,2,1})key.AfterCardPlayed(Context,Play(c,cost)).GetAwaiter().GetResult();
-        Require(key.DescendingCount==2&&!key.TriggeredThisTurn,"Equal cost did not reset descending chain");
-        key.AfterCardPlayed(Context,Play(c,0,true)).GetAwaiter().GetResult();
-        key.AfterCardPlayed(Context,Play(c,0,false,1)).GetAwaiter().GetResult();
-        key.AfterCardPlayed(Context,Play(Card<Bash>(run,b),0)).GetAwaiter().GetResult();
-        Require(key.DescendingCount==2&&!key.TriggeredThisTurn,"Auto/replay/foreign counted in key chain");
-        var saved=Restore(key,a);Require(saved.DescendingCount==2&&saved.LastEnergySpent==1,"Key intermediate JSON lost chain");
-        Card<DefendIronclad>(run,a,PileType.Draw);Card<StrikeIronclad>(run,a,PileType.Draw);
-        int hand=a.PlayerCombatState!.Hand.Cards.Count,energy=a.PlayerCombatState.Energy;
-        key.AfterCardPlayed(Context,Play(c,0)).GetAwaiter().GetResult();
-        Require(key.TriggeredThisTurn&&a.PlayerCombatState.Energy==energy+1&&a.PlayerCombatState.Hand.Cards.Count==hand+2,"Key native payout wrong");
-        key.AfterCardPlayed(Context,Play(c,0)).GetAwaiter().GetResult();Require(a.PlayerCombatState.Energy==energy+1,"Key paid twice");
-        Console.WriteLine("PASS Key: strict paid 2→1→0 chain, reset/equality, ignored auto/replay/foreign, native Energy+Draw, cap, intermediate JSON.");
+        Require(c.EnergyCost.GetAmountToSpend()==1&&!key.TriggeredThisTurn,"First-card price/preview");
+        var zero=Card<Bash>(run,a);zero.EnergyCost.SetUntilPlayed(0);
+        zero.SpendResources().GetAwaiter().GetResult();
+        key.BeforeCardPlayed(Play(Card<Bash>(run,b),0)).GetAwaiter().GetResult();
+        Require(!key.TriggeredThisTurn,"Foreign card consumed first play");
+        key.BeforeCardPlayed(Play(zero,0)).GetAwaiter().GetResult();
+        Require(key.TriggeredThisTurn&&c.EnergyCost.GetAmountToSpend()==2&&Restore(key,a).TriggeredThisTurn,
+            "First zero-cost card must consume availability, including native JSON");
+        int energy=a.PlayerCombatState!.Energy,hand=a.PlayerCombatState.Hand.Cards.Count;
+        foreach(int cost in new[]{2,1,0})key.AfterCardPlayed(Context,Play(c,cost)).GetAwaiter().GetResult();
+        Require(a.PlayerCombatState.Energy==energy&&a.PlayerCombatState.Hand.Cards.Count==hand,"Old Energy/Draw effect remains");
+        key.BeforeSideTurnStart(Context,CombatSide.Player,[a.Creature,b.Creature],a.Creature.CombatState!).GetAwaiter().GetResult();
+        Require(!key.TriggeredThisTurn&&c.EnergyCost.GetAmountToSpend()==1,"Next turn failed to reset first-card discount");
+        Console.WriteLine("PASS Key: first-card discount, zero-cost consumption, owner isolation, native JSON and turn reset; old Energy/Draw effect removed. Extended cases in --content-wave-relics.");
     }
     private static void Bell()
     {
@@ -136,7 +149,8 @@ internal static class NightRelicChecks
         bell.AfterPowerAmountChanged(Context,poison,-1,a.Creature,null).GetAwaiter().GetResult();
         Require(!bell.TriggeredThisTurn,"Bell foreign/debuff reduction counted");
         PowerCmd.Apply<PoisonPower>(Context,enemies[0],2,a.Creature,null).GetAwaiter().GetResult();
-        Require(bell.TriggeredThisTurn&&enemies[0].GetPowerAmount<WeakPower>()==0&&enemies.Skip(1).Sum(c=>c.GetPowerAmount<WeakPower>())==1&&Metric(bell,"power_applied:other")==1,"Bell wrong target/recursive payout or metric");
+        Require(bell.TriggeredThisTurn&&enemies[0].GetPowerAmount<WeakPower>()==0&&enemies.Skip(1).Sum(c=>c.GetPowerAmount<WeakPower>())==1,"Bell wrong target/recursive payout");
+        Require(Metric(bell,"power_applied:other")==0,"Disabled Bell statistics recorded an effect");
         bell.AfterPowerAmountChanged(Context,poison,2,a.Creature,null).GetAwaiter().GetResult();
         Require(enemies.Sum(c=>c.GetPowerAmount<WeakPower>())==1&&Restore(bell,a).TriggeredThisTurn,"Bell cap/JSON differs");
         Console.WriteLine("PASS Bell: native Weak on a different enemy, no recursion, foreign/reduction negative cases, cap and JSON.");
@@ -149,8 +163,9 @@ internal static class NightRelicChecks
         Require(!relic.UsedThisCombat&&a.Gold==gold,"Scavenger foreign damage paid");
         relic.AfterDamageGiven(Context,a.Creature,result,ValueProp.Move,enemies[0],card).GetAwaiter().GetResult();
         relic.AfterDamageGiven(Context,a.Creature,result,ValueProp.Move,enemies[0],card).GetAwaiter().GetResult();
-        Require(relic.UsedThisCombat&&a.Gold==gold+12&&Metric(relic,"gold_gained")==12&&Restore(relic,a).UsedThisCombat,"Scavenger cap/actual gold/JSON differs");
-        Console.WriteLine("PASS Scavenger: supplied native DamageResult boundary, foreign owner rejected, 20 blocked damage capped at12 actual Gold once, JSON.");
+        Require(relic.UsedThisCombat&&a.Gold==gold+20&&Restore(relic,a).UsedThisCombat,"Scavenger actual uncapped gold/once-per-combat/JSON differs");
+        Require(Metric(relic,"gold_gained")==0,"Disabled Scavenger statistics recorded gold");
+        Console.WriteLine("PASS Scavenger: supplied native DamageResult boundary, foreign owner rejected, full 20 blocked damage paid once, JSON; statistics remain disabled.");
     }
     private static void StopperCostSignals()
     {
@@ -193,16 +208,16 @@ internal static class NightRelicChecks
         Require(stopper.TryModifyEnergyCostInCombatLate(card,2,out var reduced)&&reduced==0&&!stopper.TryModifyEnergyCostInCombatLate(foreign,2,out _),"Stopper owner discount wrong");
         for(int i=0;i<5;i++)_ = card.EnergyCost.GetAmountToSpend();Require(Metric(stopper,"energy_saved")==0,"Stopper preview counted savings");
         int energy=a.PlayerCombatState!.Energy;card.SpendResources().GetAwaiter().GetResult();
-        Require(a.PlayerCombatState.Energy==energy&&Metric(stopper,"energy_saved")==2,"Stopper actual payment/saving differs");
+        Require(a.PlayerCombatState.Energy==energy&&Metric(stopper,"energy_saved")==0,"Stopper zero payment or disabled statistics differs");
         stopper.AfterCardPlayed(Context,Play(card,0,true)).GetAwaiter().GetResult();Require(stopper.Armed,"Stopper autoplay consumed arming");
         stopper.AfterCardPlayed(Context,Play(card,0)).GetAwaiter().GetResult();Require(!stopper.Armed,"Stopper manual play did not consume");
         stopper.AfterPotionDiscarded(potion).GetAwaiter().GetResult();Require(!stopper.Armed,"Stopper second combat trigger allowed");
         stopper.BeforeCombatStart().GetAwaiter().GetResult();stopper.AfterPotionDiscarded(potion).GetAwaiter().GetResult();
         var starCard=Card<FallingStar>(run,a);int stars=a.PlayerCombatState.Stars;
         starCard.SpendResources().GetAwaiter().GetResult();
-        Require(a.PlayerCombatState.Stars==stars&&Metric(stopper,"stars_saved")==2,"Stopper actual Stars saving differs");
+        Require(a.PlayerCombatState.Stars==stars&&Metric(stopper,"stars_saved")==0,"Stopper zero Stars payment or disabled statistics differs");
         stopper.BeforeSideTurnEnd(Context,CombatSide.Player,[a.Creature,b.Creature]).GetAwaiter().GetResult();
         Require(!stopper.Armed&&stopper.UsedThisCombat,"Stopper end turn did not expire or reset combat cap");
-        Console.WriteLine("PASS Stopper: owner arm/JSON, preview-free metric, actual zero Energy payment/exact saving, auto/manual consumption and combat cap.");
+        Console.WriteLine("PASS Stopper: owner arm/JSON, actual zero Energy/Stars payments, auto/manual consumption and combat cap; statistics remain disabled.");
     }
 }

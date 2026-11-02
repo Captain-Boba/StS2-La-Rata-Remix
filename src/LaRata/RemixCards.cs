@@ -32,7 +32,7 @@ public abstract class RemixCard : CustomCardModel
         "Deal {Damage:diff()} damage to ALL enemies 4 times.",
         "Heal {Heal:diff()} HP. Draw {Cards:diff()} cards.",
         "Lose 3 HP. Draw {Cards:diff()} cards.",
-        "Draw {Cards:diff()} cards. Discard 1 card.",
+        "Discard 1 card. Draw {Cards:diff()} cards. Next turn, draw 1 additional card.",
         "All living players gain {Block:diff()} Block and {Energy:energyIcons()}.",
         "Whenever you play a card, gain {AfterimagePower:diff()} Block.",
         "Apply {VulnerablePower:diff()} Vulnerable and {WeakPower:diff()} Weak to ALL enemies.",
@@ -53,7 +53,9 @@ public abstract class RemixCard : CustomCardModel
     { Index = index; if (index >= 10) CustomContentDictionary.RegisterType(GetType()); }
     public override CardPoolModel Pool => ModelDb.CardPool<ColorlessCardPool>();
     public override Material? CreateCustomFrameMaterial => RoyalCardStyle.Frame();
-    public override Material? CreateCustomBannerMaterial => RoyalCardStyle.Banner(Rarity);
+    public override Material? CreateCustomBannerMaterial => IsBossPrize
+        ? ModelDb.Card<ScepterStorm>().BannerMaterial
+        : RoyalCardStyle.Banner(Rarity);
     public override string? CustomPortraitPath => $"res://LaRata/images/cards/{Art[Index]}.png";
     public override List<(string, string)> Localization => [];
     public override bool GainsBlock => Index is 1 or 7 or 12 or 17;
@@ -74,7 +76,7 @@ public abstract class RemixCard : CustomCardModel
     [
         new DamageVar(Index is 10 or 15 ? 10 : Index == 18 ? 24 : Index == 14 ? 5 : 3, ValueProp.Move),
         new BlockVar(Index == 12 ? 20 : Index == 17 ? 12 : Index == 7 ? 5 : 8, ValueProp.Move),
-        new CardsVar(Index == 0 ? 1 : Index == 6 ? 3 : 2), new EnergyVar(1), new HealVar(Index == 18 ? 6 : 3),
+        new CardsVar(Index == 0 ? 1 : 2), new EnergyVar(1), new HealVar(Index == 18 ? 6 : 3),
         new PowerVar<AfterimagePower>(1), new PowerVar<VigorPower>(4), new PowerVar<PoisonPower>(Index == 14 ? 3 : Index == 16 ? 6 : 5), new PowerVar<DoomPower>(Index == 16 ? 12 : 5),
         new PowerVar<VulnerablePower>(Index == 10 ? 1 : 2), new PowerVar<WeakPower>(Index == 10 ? 1 : 2), new PowerVar<BufferPower>(1), new PowerVar<StrengthPower>(2), new PowerVar<RitualPower>(1)
     ];
@@ -101,8 +103,15 @@ public abstract class RemixCard : CustomCardModel
                 await CreatureCmd.Damage(ctx, self, 3, ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move, this);
                 if (self.IsAlive) await CardPileCmd.Draw(ctx, DynamicVars.Cards.BaseValue, Owner); break;
             case 6:
+                var discarded = (await CardSelectCmd.FromHandForDiscard(ctx, Owner,
+                    new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 1), null, this)).ToArray();
+                if (!self.IsAlive || MegaCrit.Sts2.Core.Combat.CombatManager.Instance.IsOverOrEnding) break;
+                await CardCmd.Discard(ctx, discarded.Where(c => c.Owner == Owner && c.Pile?.Type == PileType.Hand));
+                if (!self.IsAlive || MegaCrit.Sts2.Core.Combat.CombatManager.Instance.IsOverOrEnding) break;
                 await CardPileCmd.Draw(ctx, DynamicVars.Cards.BaseValue, Owner);
-                await CardCmd.Discard(ctx, await CardSelectCmd.FromHandForDiscard(ctx, Owner, new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, 1), null, this)); break;
+                if (self.IsAlive && !MegaCrit.Sts2.Core.Combat.CombatManager.Instance.IsOverOrEnding)
+                    await PowerCmd.Apply<DrawCardsNextTurnPower>(ctx, self, 1, self, this);
+                break;
             case 7:
                 foreach (var player in combat.Players.OrderBy(p => p.NetId).Where(p => p.Creature.IsAlive))
                 {
@@ -157,7 +166,7 @@ public abstract class RemixCard : CustomCardModel
         {
             case 0: DynamicVars.Energy.UpgradeValueBy(1); break;
             case 1: DynamicVars.Block.UpgradeValueBy(3); DynamicVars["VigorPower"].UpgradeValueBy(2); break;
-            case 2: DynamicVars["PoisonPower"].UpgradeValueBy(2); DynamicVars["DoomPower"].UpgradeValueBy(2); break;
+            case 2: DynamicVars["PoisonPower"].UpgradeValueBy(3); DynamicVars["DoomPower"].UpgradeValueBy(3); break;
             case 3 or 14: DynamicVars.Damage.UpgradeValueBy(2); break;
             case 10: DynamicVars.Damage.UpgradeValueBy(10); DynamicVars["WeakPower"].UpgradeValueBy(1); DynamicVars["VulnerablePower"].UpgradeValueBy(1); break;
             case 4: DynamicVars["Heal"].UpgradeValueBy(3); DynamicVars.Cards.UpgradeValueBy(1); break;

@@ -31,6 +31,8 @@ public abstract class ComboTurnPower : CustomPowerModel
     {
         CustomContentDictionary.RegisterType(typeof(SmugglersDividendPower));
         CustomContentDictionary.RegisterType(typeof(CourtOfCindersPower));
+        CustomContentDictionary.RegisterType(typeof(LastLaughPower));
+        CustomContentDictionary.RegisterType(typeof(BloodsmithPower));
     }
 }
 
@@ -42,8 +44,7 @@ public sealed class SmugglersDividendPower : ComboTurnPower
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VigorPower>()];
     public override async Task AfterCardDiscarded(PlayerChoiceContext ctx, CardModel card)
     {
-        if (!Active || Triggered || card.Owner != Owner.Player) return;
-        Triggered = true; // Reserve before native hooks can recursively discard another card.
+        if (!CombatActive || card.Owner != Owner.Player) return;
         int amount = Amount;
         Flash();
         await PowerCmd.Apply<VigorPower>(ctx, Owner, amount, Owner, null);

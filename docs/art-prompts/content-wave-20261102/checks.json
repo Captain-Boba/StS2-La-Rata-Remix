@@ -1,0 +1,21 @@
+{
+  "cards": 6,
+  "relics": 4,
+  "nativeVariants": 8,
+  "sourceRuntimeIdentity": true,
+  "allRelicInteriorsExact": true,
+  "existingArtworkUnchanged": 130,
+  "onlyExistingArtReplacement": [
+    "assets/LaRata/images/relic_native/sootbound_ticket.png",
+    "assets/LaRata/images/relic_native/sootbound_ticket_outline.png",
+    "assets/LaRata/images/relics/sootbound_ticket.png"
+  ],
+  "ticketOriginalArchived": true,
+  "localesChecked": [
+    "eng",
+    "deu",
+    "zhs"
+  ],
+  "humanApproved": false,
+  "nativeUiAcceptance": "NOT TESTED"
+}

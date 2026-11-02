@@ -43,7 +43,7 @@ internal static class RoyalBossEffects
             4 => "Apply 10 Doom and 1 Weak to ALL players.",
             6 => "Gain 12 base Block. If you have no Buffer, gain 1 Buffer.",
             7 => "Lose up to 12 HP without dying. Give ALL living allies 2 Strength.",
-            8 => "Gain 8 base Block and 2 Vulnerable.",
+            8 => "Gain 25 base Block and 2 Vulnerable.",
             10 => "Deal 18 damage to ALL players. Heal 1% of your Max HP.",
             13 => "Gain 15 base Block and 2 Buffer if no Buffer remains.",
             15 => "Shuffle 2 Dazed into each player's draw pile. Gain 6 base Block.",

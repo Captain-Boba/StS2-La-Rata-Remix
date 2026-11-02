@@ -12,5 +12,5 @@ public sealed class LordTibosReset() : ComboCard(2, CardType.Skill, CardRarity.R
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
     protected override Task OnPlay(PlayerChoiceContext ctx, CardPlay play) =>
         CombatState is { } combat && CanContinue ? ResetEnergyLedger.Refund(combat) : Task.CompletedTask;
-    protected override void OnUpgrade() => RemoveKeyword(CardKeyword.Exhaust);
+    protected override void OnUpgrade() => EnergyCost.UpgradeBy(-1);
 }

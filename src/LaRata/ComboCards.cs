@@ -55,7 +55,7 @@ public sealed class SerKevsThornBuster() : ComboCard(1, CardType.Skill, CardRari
 {
     internal override string ArtKey => "ser_kevs_thorn_buster";
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(0), new PowerVar<VulnerablePower>(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1), new PowerVar<VulnerablePower>(2)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<ThornsPower>(), HoverTipFactory.FromPower<VulnerablePower>()];
     protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay play)
     {
@@ -74,7 +74,7 @@ public sealed class SerKevsThornBuster() : ComboCard(1, CardType.Skill, CardRari
         if (CanContinue && DynamicVars.Cards.BaseValue > 0)
             await CardPileCmd.Draw(ctx, DynamicVars.Cards.BaseValue, Owner);
     }
-    protected override void OnUpgrade() => DynamicVars.Cards.UpgradeValueBy(2);
+    protected override void OnUpgrade() { DynamicVars.Cards.UpgradeValueBy(1); DynamicVars["VulnerablePower"].UpgradeValueBy(1); }
 }
 
 [Pool(typeof(ColorlessCardPool))]
@@ -114,14 +114,14 @@ public sealed class CinderReceipt() : ComboCard(1, CardType.Skill, CardRarity.Un
         if (await ExhaustFuel(ctx))
             await PowerCmd.Apply<VigorPower>(ctx, Owner.Creature, DynamicVars["VigorPower"].BaseValue, Owner.Creature, this);
     }
-    protected override void OnUpgrade() => DynamicVars["VigorPower"].UpgradeValueBy(4);
+    protected override void OnUpgrade() => DynamicVars["VigorPower"].UpgradeValueBy(5);
 }
 
 [Pool(typeof(ColorlessCardPool))]
 public sealed class VenomousEncore() : ComboCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
 {
     internal override string ArtKey => "venomous_encore";
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new PowerVar<DoomPower>(4)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5, ValueProp.Move), new PowerVar<DoomPower>(5)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PoisonPower>(), HoverTipFactory.FromPower<DoomPower>()];
     protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay play)
     {
@@ -130,7 +130,7 @@ public sealed class VenomousEncore() : ComboCard(1, CardType.Attack, CardRarity.
         if (CanContinue && target.IsAlive && target.GetPowerAmount<PoisonPower>() > 0)
             await PowerCmd.Apply<DoomPower>(ctx, target, DynamicVars["DoomPower"].BaseValue, Owner.Creature, this);
     }
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(2);
+    protected override void OnUpgrade() { DynamicVars.Damage.UpgradeValueBy(2); DynamicVars["DoomPower"].UpgradeValueBy(5); }
 }
 
 [Pool(typeof(ColorlessCardPool))]
@@ -163,11 +163,12 @@ public sealed class ScrapCoronation() : ComboCard(1, CardType.Skill, CardRarity.
 {
     internal override string ArtKey => "scrap_coronation";
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ForgeVar(8)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new ForgeVar(8), new CardsVar(1)];
     protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipFactory.FromForge();
     protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay play)
     {
         if (await ExhaustFuel(ctx)) await ForgeCmd.Forge(DynamicVars.Forge.BaseValue, Owner, this);
+        if (CanContinue) await CardPileCmd.Draw(ctx, DynamicVars.Cards.BaseValue, Owner);
     }
     protected override void OnUpgrade() => DynamicVars.Forge.UpgradeValueBy(4);
 }

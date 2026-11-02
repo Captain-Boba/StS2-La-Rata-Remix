@@ -1,12 +1,12 @@
 # La Rata Remix
 
-**Version 0.9.5** — seeded encounter chaos, seven-card boosters, an expanded card collection, relic removal and an optional Rat King finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**.
+**Version 0.9.6** — seeded encounter chaos, seven-card boosters, an expanded card collection, relic removal and an optional Rat King finale for **1–4 players**. Requires **Slay the Spire 2 v0.107.1** and **BaseLib 3.4.7**.
 
 **Deutsch und 简体中文: kurze Hinweise stehen [weiter unten auf Deutsch](#deutsch) und [简体中文](#简体中文).** In-game text supports English, German and Simplified Chinese through the game's language setting.
 
-Version 0.9.5 adds Ashbrand, Rustwater and Crown Lacquer, gradual attack damage for La Rata and his two bodyguards, co-op synchronization fixes, clearer twist indicators and updated artwork. All relic run statistics are temporarily disabled. The existing card and relic collection remains available.
+Version 0.9.6 adds 11 cards, three relics, three potions, 10 encounter twists and more reinforcement variety. La Rata has lower base Energy and a 25-option relic pool. All relic run statistics remain disabled.
 
-**We recommend starting without Ascension levels.** Start a new run after updating; co-op players need identical game/mod versions. Only the Public game branch v0.107.1 is supported. See [0.9.5 changes and validation](docs/UPDATE-0.9.5.md) and the [focused local co-op playtest](docs/DESYNC-PLAYTEST-20261027.md). Gameplay checksums matched and orderly disconnect completed without network exceptions in that test. Broader Steam/Internet multiplayer, forced disconnect during active actions and full balance acceptance remain open; engine resource diagnostics still occurred on exit.
+**We recommend starting without Ascension levels.** Start a new run after updating; co-op players need identical game/mod versions. Only the Public game branch v0.107.1 is supported. See [0.9.6 changes and validation](docs/UPDATE-0.9.6.md). Targeted technical checks do not replace live multiplayer, save/load, visual or balance acceptance.
 
 ## Installation
 
@@ -16,13 +16,13 @@ Subscribe to [La Rata Remix](https://steamcommunity.com/sharedfiles/filedetails/
 
 **Moving from a manual install:** close the game and move `mods/LaRata` outside the game's `mods` directory. Do the same for `mods/BaseLib` if switching BaseLib to its Workshop version. A local copy takes priority over Workshop and can silently keep you on an older version. Keep only one installation source per mod.
 
-Version 0.9.5 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
+Version 0.9.6 requires **game v0.107.1 and BaseLib 3.4.7**. Start a new run after changing versions; all co-op players need matching game and mod versions. Steam manages Workshop updates, so compare versions before resuming a shared run. See the [installation guide](docs/INSTALL.md) and [Workshop verification](docs/WORKSHOP-0.8.2.md).
 
 ### Manual installation
 
 **Local development:** double-click `Switch La Rata.cmd` in this checkout to switch between a local test build and the subscribed Workshop build. See [switching instructions](workshop/README.md#switching-the-local-development-installation). This does not publish an update.
 
-Use the compiled **[LaRata-0.9.5.zip](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/download/v0.9.5/LaRata-0.9.5.zip)** from the [0.9.5 release page](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases/tag/v0.9.5). GitHub's **Code → Download ZIP** and automatic **Source code** assets contain development sources and cannot be installed directly. No compilation is needed for the compiled package. A [standalone installation guide](docs/INSTALL.md) is included.
+Version 0.9.6 is distributed through the [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3822192203). Previously published compiled packages remain on [GitHub Releases](https://github.com/Captain-Boba/StS2-La-Rata-Remix/releases); check their version before installing. GitHub’s **Code → Download ZIP** contains development sources and cannot be installed directly. See the [installation guide](docs/INSTALL.md).
 
 1. Close Slay the Spire 2. This version requires **game v0.107.1** and **BaseLib 3.4.7**.
 2. Open the game's installation directory through Steam's **Browse local files** action. On Windows, this is the folder containing `SlayTheSpire2.exe`. It is not your save folder or the cloned GitHub repository.
@@ -48,13 +48,15 @@ To update, close the game and replace those three La Rata files with the matchin
 
 The game uses separate modded profiles. This mod does not erase, reset, migrate or unlock progress. Original game files are never modified. Disable La Rata in the game's mod menu to turn it off; removing a manual folder alone does not disable an installed Workshop copy. Keep La Rata and BaseLib installed while a run contains custom relics, events or the bonus act.
 
+See the [0.9.6 notes](docs/UPDATE-0.9.6.md) for the current changes; older versioned reports are historical.
+
 ## Run effects
 
 - **Starting Bowler Hat for every player**, awarded once during native new-run relic finalization. The original relic supplies its native +25% gold effect, icon, tooltip and interactions. There is no additional La Rata gold multiplier. Existing Bowler Hat owners receive no duplicate; loading a save does not grant another hat.
 - **Starting Potion Belt and White Beast Statue for every player**, through native relic acquisition. Potion Belt supplies +2 slots (normally five total); White Beast Statue guarantees potion rewards after combat. The independent +2-slot patch is removed. Existing owners get no duplicate, and loading a save grants nothing extra. Older runs retain their saved capacity; start a new run for the new relic setup.
 - **Compact map title:** only `La Rata Remix` remains at the bottom right, using the native map-legend font. The development effects panel and expansion control are removed.
 - **Controlled chaos:** seeded encounter changes within a shared difficulty budget, with at least one tactical effect instead of only raising health and damage.
-- **Varied reinforcements:** eligible ordinary fights draw from three small native helper types in act one (Leaf Slime, Twig Slime and Corpse Slug), with Nibbit, Flyconid and Fuzzy Wurm Crawler joining from act two. Inklet is excluded from random reinforcements. The pool is not restricted to enemies from the current act. Existing enemy types and types from the previous combat are avoided when alternatives exist; the special rat formation retains its additional rat. Budget and formation caps are unchanged.
+- **Varied reinforcements:** 14 native helper types, with 6 available in act one, 13 in act two and 14 from act three. Selection avoids existing types and prefers types absent from the last three combat rooms. Inklet remains excluded; native formation constraints and the special rat formation are preserved.
 - **Final boss reinforcement:** the regular final boss gains a compatible boss from an earlier act that has not appeared in this run. The helper retains native mechanics and now starts at **100% of its normal multiplayer-scaled HP** in every party size. The duo receives no additional generator affixes.
 - **Double boss spoils:** the reinforced regular finale gives each player two native boss reward batches before the optional invitation: both gold rewards, two independent three-card boss offers and two potion rolls (both guaranteed with White Beast Statue). A finale without a compatible helper gives one batch. Room-specific extra rewards are included once; La Rata's own ending is unchanged.
 - **Barricade:** the vanilla Ironclad card is Uncommon instead of Rare while La Rata Remix is enabled. Its effects, costs and upgrade are unchanged. It uses normal Uncommon selection and pricing; Bowler Hat retains its original gold effect.
@@ -71,7 +73,7 @@ After enemy block clearing and before any enemy attacks, the hidden card is reve
 
 ## Neutral cards
 
-**Cleanse** is a rare neutral Skill in the native colorless pool: **2 Energy, Exhaust; upgraded cost 1**. It removes active Debuffs from yourself and every other living player, including negative Strength/Dexterity and temporary stat reductions. It also removes Curse cards from every living player's combat piles for this fight only, using the native removal command. Status cards, permanent deck originals and beneficial powers remain; it does not heal HP. It uses La Rata's frame, the native Rare banner and a spectral fountain portrait. Native colorless shops/rewards/events can offer it. The existing base-game card with the same English name is unchanged; the new card has its own BaseLib-prefixed model ID.
+**Royal Cleansing** is a rare neutral Skill in the native colorless pool: **2 Energy, Exhaust; upgraded cost 1**. It removes active Debuffs from yourself and every other living player, including negative Strength/Dexterity and temporary stat reductions. It also removes Curse cards from every living player's combat piles for this fight only, using the native removal command. Status cards, permanent deck originals and beneficial powers remain; it does not heal HP. It uses La Rata's frame, the native Rare banner and its own portrait. Native colorless shops/rewards/events can offer it. The existing base-game card with the same English name is unchanged; the new card has its own BaseLib-prefixed model ID.
 
 ## Card boosters and combo relics
 
@@ -81,19 +83,19 @@ Six common relics offer **Ironclad, Silent, Defect, Regent, Necrobinder or La Ra
 
 Class packs draw five distinct unlocked cards from that class's regular pool. The La Rata pack draws five main cards from all **23 regular La Rata neutrals**, using **75% Uncommon / 25% Rare**. The two mixed neutral bonus slots of every pack use the same 75/25 weights; class main slots retain **60% Common / 30% Uncommon / 10% Rare**. Only eligible nonempty rarity groups participate, and IDs cannot repeat across the seven-card offer. A separate roll makes **20% of La Rata packs** replace one main slot with one uniformly chosen playable boss-card variant; there is no per-slot 20% roll or guaranteed Rare. The ten available prizes are Scepter Storm, Sewer Alchemy, Stolen Aegis, Blood Contract, Emerald Tempest, Black Tithe, Plague of Crowns, Kneel Before the Crown, Soul Foreclosure and Nightfall Decree, adapted to player energy and targets. [New prize costs and upgrades](docs/UPDATE-0.8.7.md#rare-playable-booster-variants). Boss-only models never enter player decks.
 
-The original ten colorless additions support energy/draw, exhaust, discard, Vigor, Poison/Doom, team Block and powers: **Grave Spark, Umbral Stitch, Sewer Pact, Phantom Parade, Borrowed Breath, Crown Exchange, Midnight Rehearsal, Emerald Ward, Second Shadow and Open the Gates**. All have their own art and upgrades. Original costs/effects are in [the 0.8.0 notes](docs/UPDATE-0.8.0.md). Borrowed Breath+ heals 6 HP and draws 3. In [0.8.2](docs/UPDATE-0.8.2.md#player-cards-and-relic), Emerald Ward costs 2 and grants all living players 5/10 Block plus 1/2 Energy; playable Scepter Storm costs 2 and applies 1/2 Weak and Vulnerable before dealing 10/20 damage. Regent Booster artwork is orange/gold. Cleanse and all ten playable boss prizes also have upgrades; the enemy-only royal cards do not.
+The original ten colorless additions support energy/draw, exhaust, discard, Vigor, Poison/Doom, team Block and powers: **Grave Spark, Umbral Stitch, Sewer Pact, Phantom Parade, Borrowed Breath, Crown Exchange, Midnight Rehearsal, Emerald Ward, Second Shadow and Open the Gates**. All have their own art and upgrades. Original costs/effects are in [the 0.8.0 notes](docs/UPDATE-0.8.0.md). Borrowed Breath+ heals 6 HP and draws 3. In [0.8.2](docs/UPDATE-0.8.2.md#player-cards-and-relic), Emerald Ward costs 2 and grants all living players 5/10 Block plus 1/2 Energy; playable Scepter Storm costs 2 and applies 1/2 Weak and Vulnerable before dealing 10/20 damage. Regent Booster artwork is orange/gold. Royal Cleansing and all ten playable boss prizes also have upgrades; the enemy-only royal cards do not.
 
 | Relic | Rarity | Effect |
 | --- | --- | --- |
 | Ashen Spool | Uncommon | Each Exhaust grants 1 Block; the first each turn also draws 1 |
 | Crown Capacitor | Rare | First Power each turn grants 1 Energy and 4 Vigor |
 | Crossroads Compass | Uncommon | First pair of different card types in a turn grants 4 Block and draws 1 |
-| Bottled Echo | Rare | Using a Potion in combat grants 1 Strength and immediately draws 2 cards |
+| Bottled Echo | Rare | Using a Potion in combat grants 1 Strength and draws 2 cards |
 | Smuggler's Thread | Uncommon | First discard during your turn grants 1 Energy |
 
 All five belong to the shared relic pool. They add opportunities without character restrictions or removing existing mechanics.
 
-Version 0.9.4 introduced **The Relic Remover, Sootbound Ticket, Stairwell Key, Mocking Bell, Brass Scavenger and Moonlit Stopper**, with six individually approved redesigned icons. The Relic Remover uses an owner-only selection; relic statistics are disabled in 0.9.5, while legacy saved counters are preserved for compatibility. The complete collection contains 60 model entries: 25 player cards (23 neutral, two class-specific), ten playable boss prizes and 25 boss-exclusive entries. Boss-exclusive presentation does not make those cards eligible player rewards.
+Version 0.9.4 introduced **The Relic Remover, Sootbound Ticket, Stairwell Key, Mocking Bell, Brass Scavenger and Moonlit Stopper**, with six individually approved redesigned icons. The Relic Remover uses an owner-only selection; relic statistics are disabled in 0.9.6, while legacy saved counters are preserved for compatibility. The current collection contains 46 playable cards, 22 relics including boosters, and 6 potions. Boss-exclusive presentation does not make those cards eligible player rewards.
 
 ## Treasure contests and Well
 
@@ -113,13 +115,13 @@ The path contains **an unseen Ancient → YOU (shop) → ARE (?) → NOT (elite)
 
 La Rata starts with **1,500 base HP**, accompanied by two distinct random Kingsguard knights. Native boss HP scaling adjusts this for party size. His scene uses **ten separately authored poses** with native Idle, Attack, Cast, Hit and Death animation tracks, including wind-up, impact and a staged fall; this replaces the earlier twelve-frame atlas presentation.
 
-The seeded combat deck contains **46 active families**: 23 retained boss families and all 23 regular La Rata neutral families with explicit enemy-side execution. The retired Sewer Alchemy and Plague of Crowns boss entries remain excluded; playable prize variants do not duplicate their boss identities. Each hand normally draws five cards and spends **6 Energy, increasing to 8 at half HP or below**, with a ten-card hand limit and eight-play limit. Draw/Energy gains for the next hand, Exhaust, persistent Powers and material-card requirements use explicit boss rules. The hidden hand is shown through played-card animations and relevant intents, not revealed in advance.
+The seeded combat deck contains **41 active families**. Sewer Alchemy, Black Tithe, Plague of Crowns, Royal Cleansing, Grave Spark, Sewer Pact and Lord Tibo’s Reset are excluded from boss execution. Each hand normally draws five cards and spends **5 Energy, increasing to 7 at half HP or below**, with a ten-card hand limit and eight-play limit. Draw/Energy gains for the next hand, Exhaust, persistent Powers and material-card requirements use explicit boss rules. The hidden hand is shown through played-card animations and relevant intents, not revealed in advance.
 
 La Rata's direct card Block bases are halved and most card healing bases are reduced to one quarter (rounded down, minimum 1 for positive healing). Grave Levy heals exactly **1% of current maximum HP**, without applying the quarter rule twice. Kingsguard healing directed at La Rata is also quartered; healing of other guards retains its native rule. Plating, Buffer and unrelated player effects are not silently reduced by this card-Block rule.
 
-Each encounter grants **ten distinct combat relics** from an eighteen-relic native selection pool, with explicit enemy adaptations. Two rows of native icons below the power rows explain those effects. Selection reconstructs from the encounter seed. Skills and powers resolve before attacks; pending Strength is reflected in intents. A hand without an attack ends with an announced 12-base-damage fallback attack. Generic encounter twists and earlier-boss helpers do not stack onto this custom finale.
+Each encounter grants **ten distinct combat relics** from a 25-relic native selection pool, with explicit enemy adaptations. Two rows of native icons below the power rows explain those effects. Selection reconstructs from the encounter seed. Skills and powers resolve before attacks; pending Strength is reflected in intents. A hand without an attack ends with an announced 12-base-damage fallback attack. Generic encounter twists and earlier-boss helpers do not stack onto this custom finale.
 
-The earlier card-by-card tables remain in the [historical update reports](docs/UPDATE-0.8.7.md); they are not current 0.9.5 balance values. See [current release evidence](docs/UPDATE-0.9.5.md) for the expanded deck and bounded live observations. Full animation sequencing, natural difficulty and four-human balance still require playtesting.
+The earlier card-by-card tables remain in the [historical update reports](docs/UPDATE-0.8.7.md); they are not current 0.9.6 balance values. See [current release evidence](docs/UPDATE-0.9.6.md) for the expanded deck and technical verification limits. Full animation sequencing, natural difficulty and four-human balance still require playtesting.
 
 ### The Kingsguard
 
@@ -159,7 +161,7 @@ For budgets below **6 points**, ten families use **Lesser** variants at half pri
 
 Act-one budgets scale linearly with **1/2/3/4 players**. Budgets are 25% below 0.8.3. Normal: **3.75/7.5/11.25/15** points; elite: **2.8125/5.625/8.4375/11.25**; ordinary boss: **1.875/3.75/5.625/7.5**. Multiply by **1.0 / 1.4 / 1.8 / 2.2** for acts 1 / 2 / 3 / 4+. Flat defensive grants use **1 / 1.5 / 2 / 2.5**, rounded upward, before applicable native party scaling. Sturdy gains 4 percentage points per act; Keen gains 2. The table lists act-one values. Select up to three changes per player, plus one per later act, within budget and compatibility limits. Twists spread across the least-loaded eligible enemies. Direct damage is not multiplied by party size. At most one added offensive amplifier and one extra hex source (two with 3–4 players); at most one added shield, block engine and retaliation family per enemy. Immunity durations and debuff caps remain bounded.
 
-Eligible normal formations have a **70/80/90/100% reinforcement chance**, plus 5 percentage points per later act, capped at 100%. Regular extras cost 4 points. In a normal encounter with less than 4 points (solo act one), a **Scout reinforcement** instead costs **2.5 points**, uses **35% HP and 50% base damage**, and leaves room for a small effect. Two regular extras are available with 2+ players (solo from act 3); three with 3+ players from act 2, subject to extra rolls, remaining budget and space. Reinforced formations start with at most four enemies. Fixed scenes/slots remain excluded except **Two-Tailed Rats Normal**, which prioritizes its fourth rat in `second` and preserves `first` for native summons. The early cross-act helper pool is Small Leaf Slime, Small Twig Slime and Corpse Slug; Inklet is excluded. Nibbit, Flyconid and Fuzzy Wurm Crawler join from act two. Present/recent monsters are avoided when alternatives exist. Reinforcement can coexist with other twists.
+Eligible normal formations have a **70/80/90/100% reinforcement chance**, plus 5 percentage points per later act, capped at 100%. Regular extras cost 4 points. In a normal encounter with less than 4 points (solo act one), a **Scout reinforcement** instead costs **2.5 points**, uses **35% HP and 50% base damage**, and leaves room for a small effect. Two regular extras are available with 2+ players (solo from act 3); three with 3+ players from act 2, subject to extra rolls, remaining budget and space. Reinforced formations start with at most four enemies. Fixed scenes/slots remain excluded except **Two-Tailed Rats Normal**, which prioritizes its fourth rat in `second` and preserves `first` for native summons. The native helper pools contain 6/13/14 types in acts 1/2/3+, with recent-combat avoidance. Inklet remains excluded. Reinforcement can coexist with other twists.
 
 The following ten families remain included:
 
@@ -242,15 +244,15 @@ Open the native console using the game's console key (Shift+8 on the tested Germ
 
 `Start-Test.ps1` uses native ENet/`-fastmp`, Steam disabled, and separate profiles: Solo 2000, Host/LoadHost 1, clients 2101/2102/2103. Prepare those test profiles with the mod enabled and complete the initial game prompts. The host must use ID 1 because native fast hosting assigns network ID 1 and native save validation requires it. Logs are written to `artifacts/logs`; checksum auditing is opt-in through `-larata-audit`.
 
-`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.5` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
+`Compare-CoopChecksums.ps1` requires complete logs from one scenario (four by default; use `-ExpectedPlayers 2` or `3` for smaller groups) and compares native checksum IDs, values and contexts. It normalizes only the process-local object hash embedded in native PlayCardAction context text; card IDs, indices, targets and actual checksum values remain strict. Its default expected version remains `0.2.0` for the historical scenarios; pass the tested version with `-ExpectedModVersion` (`0.9.6` for this release) for new logs. Local processes do not replace four human players over Steam/Internet. See `TEST-REPORT.md` for exact evidence and remaining gaps, including the separate gameplay-window and shutdown results.
 
 ## Deutsch
 
-La Rata Remix 0.9.5 unterstützt deutsche Spieltexte über die Spracheinstellung des Spiels. Benötigt werden Spiel v0.107.1 und BaseLib 3.4.7. Installiere das kompilierte Paket oder abonniere den Workshop-Eintrag; beginne nach dem Update einen neuen Run. Im Koop müssen alle dieselben Versionen verwenden. A Thousand Cuts behält den Erstpreis; weitere Entfernungen erhöhen ihn mit aktivem Relikt nicht. Die technische Prüfung ersetzt keine vollständige Spiel- oder Netzwerkabnahme.
+La Rata Remix 0.9.6 unterstützt deutsche Spieltexte über die Spracheinstellung des Spiels. Benötigt werden Spiel v0.107.1 und BaseLib 3.4.7. Installiere das kompilierte Paket oder abonniere den Workshop-Eintrag; beginne nach dem Update einen neuen Run. Im Koop müssen alle dieselben Versionen verwenden. A Thousand Cuts behält den Erstpreis; weitere Entfernungen erhöhen ihn mit aktivem Relikt nicht. Die technische Prüfung ersetzt keine vollständige Spiel- oder Netzwerkabnahme.
 
 ## 简体中文
 
-La Rata Remix 0.9.5 支持简体中文，可在游戏语言设置中选择。需要游戏 v0.107.1 和 BaseLib 3.4.7。请安装编译好的压缩包或订阅创意工坊条目；更新后开始新的一局。联机玩家必须使用相同版本。持有 A Thousand Cuts 时，每次移除卡牌均使用首次移除的基础价格，并应用当前折扣。技术检查不代表已完成全面的游玩或联机验证。
+La Rata Remix 0.9.6 支持简体中文，可在游戏语言设置中选择。需要游戏 v0.107.1 和 BaseLib 3.4.7。请安装编译好的压缩包或订阅创意工坊条目；更新后开始新的一局。联机玩家必须使用相同版本。持有 A Thousand Cuts 时，每次移除卡牌均使用首次移除的基础价格，并应用当前折扣。技术检查不代表已完成全面的游玩或联机验证。
 
 ## References and dependencies
 

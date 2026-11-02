@@ -10,7 +10,8 @@ internal enum TwistKind
     Agile, Fortified, SecondWind, Reservist, Shackling, Sapping, Constricting, Eroding,
     Spiteful, VenomCoated, EmberGuard, GlassCrown, MirrorGuard, BloodFeud,
     Doomweaver, Hotheaded, Afterglow, SkillHunter,
-    Reckless, BrittleWard, ToxicShell, LastStand, FadingMight, Leaden, StaticHex, Crossfire
+    Reckless, BrittleWard, ToxicShell, LastStand, FadingMight, Leaden, StaticHex, Crossfire,
+    Sheltered, Reactive, Drifting, Overcommitted, Sundering, Purifying, Mending, Entangling, Withering, Shriveling
 }
 
 internal sealed record EnemyTwist(TwistKind Kind, int Target, int Amount, int ActIndex = 0, bool Lesser = false)
@@ -70,6 +71,16 @@ internal sealed record EnemyTwist(TwistKind Kind, int Target, int Amount, int Ac
         TwistKind.Leaden => "Leaden: add 1 Slimed to the discard pile",
         TwistKind.StaticHex => "Static Hex: shuffle 1 Void into the draw pile",
         TwistKind.Crossfire => "Crossfire: 1 Weak and 1 Vulnerable, capped at 2 each",
+        TwistKind.Sheltered => "Sheltered: take at most 18 damage per hit",
+        TwistKind.Reactive => "Reactive: gain 2 Block after each player Attack card",
+        TwistKind.Drifting => "Drifting: incoming attack damage starts at 50%; each card played increases the Slow multiplier by 10% this turn",
+        TwistKind.Overcommitted => "Overcommitted: 4 Vigor; fully blocking its damage stuns it",
+        TwistKind.Sundering => "Sundering: remove up to 6 Block from each target after the marked move",
+        TwistKind.Purifying => "Purifying: remove one own Debuff after the marked move",
+        TwistKind.Mending => "Mending: heal up to 3 HP after the marked move, at most 5% Max HP",
+        TwistKind.Entangling => "Entangling: target Attack cards cost 1 more next turn; does not stack",
+        TwistKind.Withering => "Withering: targets draw 1 fewer card next turn, then expires; does not stack",
+        TwistKind.Shriveling => "Shriveling: targets deal 30% less attack damage next turn; does not stack",
         _ => throw new ArgumentOutOfRangeException()
     });
 }
@@ -93,10 +104,17 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
     internal const int ScoutCost = 28;
     internal static int ReinforcementChance(int players, int actIndex) => Math.Min(100, 70 + (Math.Clamp(players, 1, 4) - 1) * 10 + Math.Clamp(actIndex, 0, 3) * 5);
     internal static int ReinforcementLimit(int players, int actIndex) => players >= 3 && actIndex >= 1 ? 3 : players >= 2 || actIndex >= 2 ? 2 : 1;
-    internal static bool IsHex(TwistKind k) => k is TwistKind.Echoing or TwistKind.Hexed or >= TwistKind.Venomous and <= TwistKind.Lacerating or >= TwistKind.Shackling and <= TwistKind.Eroding or TwistKind.Doomweaver or TwistKind.Leaden or TwistKind.StaticHex or TwistKind.Crossfire;
-    internal static bool IsOffense(TwistKind k) => k is TwistKind.Keen or TwistKind.Empowered or TwistKind.Cultist or TwistKind.Demonic or TwistKind.Furious or TwistKind.WoundUp or TwistKind.Spiteful or TwistKind.VenomCoated or TwistKind.BloodFeud or TwistKind.Hotheaded or TwistKind.SkillHunter or TwistKind.Reckless or TwistKind.LastStand or TwistKind.FadingMight;
-    internal static bool IsShield(TwistKind k) => k is TwistKind.Buffered or TwistKind.Phased or TwistKind.Slippery or TwistKind.GlassCrown or TwistKind.MirrorGuard;
-    internal static bool IsBlock(TwistKind k) => k is TwistKind.Armored or TwistKind.Entrenched or TwistKind.Agile or TwistKind.Fortified or TwistKind.SecondWind or TwistKind.Reservist or TwistKind.MirrorGuard or TwistKind.BloodFeud or TwistKind.Doomweaver or TwistKind.Afterglow or TwistKind.BrittleWard;
+    internal static bool IsHex(TwistKind k) => k is TwistKind.Echoing or TwistKind.Hexed or >= TwistKind.Venomous and <= TwistKind.Lacerating or >= TwistKind.Shackling and <= TwistKind.Eroding or TwistKind.Doomweaver or TwistKind.Leaden or TwistKind.StaticHex or TwistKind.Crossfire or >= TwistKind.Sundering and <= TwistKind.Shriveling;
+    internal static bool IsSelfHex(TwistKind k) => k is TwistKind.Purifying or TwistKind.Mending;
+    internal static bool HasTradeoff(TwistKind k) => k is TwistKind.Drifting or TwistKind.Overcommitted or TwistKind.Reckless or TwistKind.BrittleWard or TwistKind.ToxicShell or TwistKind.LastStand or TwistKind.FadingMight;
+    internal static bool ExtraConflict(TwistKind a, TwistKind b) =>
+        ((a is TwistKind.Purifying or TwistKind.Warded) && (b is TwistKind.Drifting or TwistKind.Overcommitted)) ||
+        ((b is TwistKind.Purifying or TwistKind.Warded) && (a is TwistKind.Drifting or TwistKind.Overcommitted)) ||
+        (a == TwistKind.Purifying && HasTradeoff(b)) || (b == TwistKind.Purifying && HasTradeoff(a)) ||
+        (a == TwistKind.Mending && b == TwistKind.Regenerating) || (b == TwistKind.Mending && a == TwistKind.Regenerating);
+    internal static bool IsOffense(TwistKind k) => k is TwistKind.Keen or TwistKind.Empowered or TwistKind.Cultist or TwistKind.Demonic or TwistKind.Furious or TwistKind.WoundUp or TwistKind.Spiteful or TwistKind.VenomCoated or TwistKind.BloodFeud or TwistKind.Hotheaded or TwistKind.SkillHunter or TwistKind.Reckless or TwistKind.LastStand or TwistKind.FadingMight or TwistKind.Overcommitted;
+    internal static bool IsShield(TwistKind k) => k is TwistKind.Buffered or TwistKind.Phased or TwistKind.Slippery or TwistKind.GlassCrown or TwistKind.MirrorGuard or TwistKind.Sheltered or TwistKind.Drifting;
+    internal static bool IsBlock(TwistKind k) => k is TwistKind.Armored or TwistKind.Entrenched or TwistKind.Agile or TwistKind.Fortified or TwistKind.SecondWind or TwistKind.Reservist or TwistKind.MirrorGuard or TwistKind.BloodFeud or TwistKind.Doomweaver or TwistKind.Afterglow or TwistKind.BrittleWard or TwistKind.Reactive;
     internal static bool IsRetaliation(TwistKind k) => k is TwistKind.Bristling or TwistKind.EmberGuard or TwistKind.MirrorGuard or TwistKind.ToxicShell;
     // Both native Thorns grants have one quarter of the normal selection weight.
     // Retaliation effects that do not grant Thorns keep their existing weight.
@@ -111,6 +129,8 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
     internal static int Cost(TwistKind k) => 4 * (k switch
     {
         TwistKind.Sturdy => 4,
+        TwistKind.Sheltered or TwistKind.Drifting or TwistKind.Shriveling => 12,
+        TwistKind.Entangling or TwistKind.Withering => 16,
         TwistKind.SkillHunter => 20,
         TwistKind.StaticHex or TwistKind.Crossfire => 16,
         TwistKind.Reckless or TwistKind.LastStand or TwistKind.FadingMight => 12,
@@ -156,8 +176,9 @@ internal sealed record EncounterPlan(int Budget, int Spent, int ReinforcementCou
         {
             int[] Targets(TwistKind k) => Enumerable.Range(0, totalEnemies).Where(target =>
                 !twists.Any(t => t.Target == target &&
-                    ((IsHex(k) && t.IsHex) || (IsShield(k) && IsShield(t.Kind)) || (IsBlock(k) && IsBlock(t.Kind)) || (IsRetaliation(k) && IsRetaliation(t.Kind))))).ToArray();
+                    ((IsHex(k) && t.IsHex) || (IsShield(k) && IsShield(t.Kind)) || (IsBlock(k) && IsBlock(t.Kind)) || (IsRetaliation(k) && IsRetaliation(t.Kind)) || ExtraConflict(k, t.Kind)))).ToArray();
             candidates.RemoveAll(k => Price(k) > remaining ||
+                (k == TwistKind.Withering && actIndex == 0) ||
                 (k == TwistKind.BloodFeud && totalEnemies < 2) ||
                 (k == TwistKind.SkillHunter && (actIndex == 0 || tier != 0)) ||
                 (IsOffense(k) && twists.Any(t => IsOffense(t.Kind))) ||

@@ -6,7 +6,7 @@ internal sealed class RoyalDeck(Func<int, int> next)
 {
     internal static readonly int[] Costs = [1, 1, 3, 2, 2, 2, 2, 0, 0, 2, 2, 2, 1, 3, 2, 1, 2, 3, 2, 1, 2, 3, 2, 3, 3,
         2, 0, 1, 1, 2, 1, 0, 1, 2, 2, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2];
-    internal static readonly int[] ActiveCards = Enumerable.Range(0, Costs.Length).Where(card => card is not (3 or 21)).ToArray();
+    internal static readonly int[] ActiveCards = Enumerable.Range(0, Costs.Length).Where(card => card is not (3 or 20 or 21 or 25 or 26 or 28 or 47)).ToArray();
     internal const int HandLimit = 10;
     internal const int PlayLimit = 8;
     internal const int ResetCard = 47;

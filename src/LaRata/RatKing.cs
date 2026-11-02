@@ -89,9 +89,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
     {
         var deck = GetOrCreateDeck();
         int turnNumber = ++preparedTurns;
-        int energy = (Creature.CurrentHp * 2 <= Creature.MaxHp ? 8 : 6)
-            + (turnNumber == 1 && (RegaliaMask & (1 << 8)) != 0 ? 1 : 0)
-            + (turnNumber % 3 == 0 && (RegaliaMask & (1 << 10)) != 0 ? 1 : 0);
+        int energy = Creature.CurrentHp * 2 <= Creature.MaxHp ? 7 : 5;
         resolvedCards.Clear(); targetIds.Clear();
         LastResolutionNote = "";
         deck.Prepare(energy, 5 + (turnNumber == 1 && (RegaliaMask & (1 << 9)) != 0 ? 2 : 0), i => RoyalBossEffects.Unavailable(this, i));
@@ -106,6 +104,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
         }
         PendingStrength = (deck.Planned.Contains(7) ? 2 : 0) + (deck.Planned.Contains(22) ? 3 : 0);
         var intents = deck.Planned.SelectMany(i => RoyalBossEffects.Intents(this, i)).ToList();
+        intents.AddRange(RoyalRegaliaPower.HandIntents(this, deck.Planned));
         if (!deck.Planned.Any(RoyalDeck.IsAttack)) intents.Add(new RoyalForecastAttackIntent(this, -1, 12, 1));
         intents.Add(new RoyalHandIntent());
         AccessTools.PropertySetter(typeof(MoveState), nameof(MoveState.Intents)).Invoke(turn, [intents]);
@@ -133,6 +132,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
             CombatJournal.Record(CombatState, "card", cards[index]);
             try
             {
+                if (Creature.GetPower<RoyalRegaliaPower>() is { } beforeCard) await beforeCard.BeforeRoyalCard(index);
                 await RoyalBossEffects.Resolve(this, index, targets);
                 activeDeck.Complete(index);
                 resolvedCards.Add(index);
@@ -198,6 +198,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
             if (Creature.GetPower<RoyalCourtOfCindersPower>() is { } cinders) await cinders.AfterRoyalExhaust(this);
         }
         else if (Creature.GetPower<RoyalSmugglersDividendPower>() is { } dividend) await dividend.AfterRoyalDiscard();
+        if (!isExhaust && Creature.GetPower<RoyalRegaliaPower>() is { } regalia) await regalia.AfterRoyalDiscard();
     }
     internal decimal PreviewAttackDamage(int index, int basis)
     {
@@ -231,6 +232,7 @@ public sealed class RatKing : CustomMonsterModel, ILocalizationProvider
         if ((RegaliaMask & 8) != 0) await PowerCmd.Apply<ThornsPower>(context, Creature, 3, Creature, null);
         if ((RegaliaMask & (1 << 11)) != 0)
             await PowerCmd.Apply<VulnerablePower>(context, CombatState.Players.OrderBy(p => p.NetId).Select(p => p.Creature).Where(c => c.IsAlive), 1, Creature, null);
+        await Creature.GetPower<RoyalRegaliaPower>()!.ApplyOpening();
         ModEntry.Log.Info($"ROYAL RELICS mask={RegaliaMask} {RoyalRegaliaPower.Describe(RegaliaMask)}");
     }
 }
@@ -250,7 +252,7 @@ internal sealed class RoyalHandIntent : BuffIntent
         var description = new LocString("monsters", ModelDb.Monster<RatKing>().Id.Entry + ".deck.description");
         var king = owner.Monster as RatKing;
         var deck = king?.Deck;
-        string plan = deck == null ? RoyalBossText.Text("hand_unprepared", "Draws 5 hidden cards. 6 Energy, increasing to 8 at half HP. Skills and Powers precede attacks.") :
+        string plan = deck == null ? RoyalBossText.Text("hand_unprepared", "Draws 5 hidden cards. 5 Energy, increasing to 7 at half HP. Skills and Powers precede attacks.") :
             RoyalBossText.Text("hand_summary", "Drew {Drawn} hidden cards from {Total} families. Skills and Powers precede attacks. Energy {Energy}/{Capacity}. Draw {Draw}; discard {Discard}; Exhaust {Exhaust}; active Powers {Powers}. NEXT hand bonuses: {NextDraw} cards, {NextEnergy} Energy. Hand limit 10; play limit 8.",
                 ("Drawn", deck.DrawnThisTurn), ("Total", RoyalDeck.ActiveCards.Length), ("Energy", deck.Energy), ("Capacity", deck.Capacity), ("Draw", deck.DrawCount), ("Discard", deck.DiscardCount), ("Exhaust", deck.ExhaustCount), ("Powers", deck.PersistentCount), ("NextDraw", deck.NextDraw), ("NextEnergy", deck.NextEnergy));
         plan += "\n" + RoyalBossText.Text("damage_ramp", "Royal attacks deal {Percent}% damage. Increases by 10 percentage points each round, up to 100%.",
